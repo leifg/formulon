@@ -1,19 +1,17 @@
 "use strict"
 
 let path = require('path');
-let Formulon = require(path.join(__dirname, '..', 'src', 'formulon'));
+let parser = require(path.join(__dirname, '..', 'lib', 'parser'));
 
 var expect = require('chai').expect
 
 describe('Formulon', () => {
   describe('#parse', () => {
-    let formulon = new Formulon();
     context("arithmetics", () => {
 
       it('returns correct result', () => {
-        expect(formulon.parse("1 + 2")).to.eql(3)
+        expect(parser.parse("1 + 2")).to.eql(3)
       })
-
     })
   })
 })
