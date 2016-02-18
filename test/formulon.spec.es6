@@ -7,14 +7,13 @@ var expect = require('chai').expect
 
 describe('Formulon', () => {
   describe('#parse', () => {
-    let formulon
+    let formulon = new Formulon();
+    context("arithmetics", () => {
 
-    beforeEach(() => {
-      formulon = new Formulon();
-    });
+      it('returns correct result', () => {
+        expect(formulon.parse("1 + 2")).to.eql(3)
+      })
 
-    it('returns correct result', () => {
-      expect(formulon.parse()).to.eql([ 'a', 'b', 'b', 'a' ])
     })
   })
 })
