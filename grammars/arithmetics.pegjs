@@ -4,8 +4,8 @@
  * Accepts expressions like "2 * (3 + 4)" and computes their value.
  */
 
-Expression
-  = head:Term tail:(_ ("+" / "-") _ Term)* {
+expression
+  = head:term tail:(_ ("+" / "-") _ term)* {
       var result = head, i;
 
       for (i = 0; i < tail.length; i++) {
@@ -16,8 +16,8 @@ Expression
       return result;
     }
 
-Term
-  = head:Factor tail:(_ ("*" / "/") _ Factor)* {
+term
+  = head:factor tail:(_ ("*" / "/") _ factor)* {
       var result = head, i;
 
       for (i = 0; i < tail.length; i++) {
@@ -28,11 +28,11 @@ Term
       return result;
     }
 
-Factor
-  = "(" _ expr:Expression _ ")" { return expr; }
-  / Integer
+factor
+  = "(" _ expr:expression _ ")" { return expr; }
+  / integer
 
-Integer "integer"
+integer "integer"
   = [0-9]+ { return parseInt(text(), 10); }
 
 _ "whitespace"
