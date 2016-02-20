@@ -1,7 +1,6 @@
 /*
- * Simple Arithmetics Grammar
+ * Arithmetics
  * ==========================
- *
  * Accepts expressions like "2 * (3 + 4)" and computes their value.
  */
 
@@ -38,3 +37,5 @@ Integer "integer"
 
 _ "whitespace"
   = [ \t\n\r]*
+
+
