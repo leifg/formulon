@@ -19,10 +19,10 @@ LeftHandSideExpression
   / Literal
 
 CallExpression
-  = fnName:FunctionIdentifier args:Arguments {
+  = id:FunctionIdentifier args:Arguments {
     return {
       type: "CallExpression",
-      id: fnName,
+      id: id,
       arguments: optionalList(args)
     }
   }
