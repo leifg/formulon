@@ -1,25 +1,18 @@
 "use strict"
 
 var expect = require('chai').expect
-var Formulon = require("../grammars/arithmetics.pegjs");
+var Formulon = require("../grammars/salesforceFormula.pegjs");
 
 describe("Formulon", () => {
   describe("#parse", () => {
-    context("arithmetics", () => {
-      it("correctly adds numbers", () => {
-        expect(Formulon.parse("1 + 2")).to.eql(3)
-      })
-
-      it("correctly subtracts numbers", () => {
-        expect(Formulon.parse("1 - 2")).to.eql(-1)
-      })
-
-      it("correctly multiplies numbers", () => {
-        expect(Formulon.parse("7 * 8")).to.eql(56)
-      })
-
-      it("correctly divides numbers", () => {
-        expect(Formulon.parse("1 / 2")).to.eql(0.5)
+    context("function call", () => {
+      it("returns correct AST for function call with single parameter", () => {
+        var expected = {
+          type: "FunctionExpression",
+          id: "abs",
+          params: [{type: "Literal", value: 1.5}],
+        }
+        expect(Formulon.parse("ABS(1.5)")).to.deep.equal(expected)
       })
     })
   })

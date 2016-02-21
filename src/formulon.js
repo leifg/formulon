@@ -2,7 +2,7 @@
 
 export var Formulon = {
   parse: function(formula) {
-    var parser = require("../grammars/arithmetics.pegjs");
+    var parser = require("../grammars/salesforceFormula.pegjs");
     return parser.parse(formula);
   }
 }
