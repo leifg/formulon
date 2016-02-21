@@ -8,8 +8,13 @@ start
   = PrimaryExpression
 
 PrimaryExpression
+  = ArithmeticExpression
+  / CallExpression
+  / Identifier
+  / Literal
+
+LeftHandSideExpression
   = CallExpression
-  / ArithmeticExpression
   / Identifier
   / Literal
 
@@ -26,7 +31,7 @@ ArithmeticExpression
   = AdditiveExpression
 
 AdditiveExpression
-  = head:NumericLiteral __ "+" __ tail:PrimaryExpression
+  = head:(LeftHandSideExpression) __ "+" __ tail:PrimaryExpression
   {
     return {
       type: "CallExpression",

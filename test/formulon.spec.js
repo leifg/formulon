@@ -85,6 +85,26 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("1 + 2 + 3")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for addition with function", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "max",
+              arguments: [
+                {type: "Literal", value: 1},
+                {type: "Literal", value: 3}
+              ]
+            },
+            {type: "Literal", value: 7},
+          ]
+        }
+
+        expect(Formulon.parse("MAX(1,3) + 7")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {
