@@ -6,6 +6,7 @@
 
 start
   = CallExpression
+  / Identifier
 
 CallExpression
   = fnName:FunctionIdentifier args:Arguments {
@@ -32,6 +33,25 @@ ArgumentList
 
 FunctionIdentifier
   = id:[A-Z]+ { return id.join("").toLowerCase(); }
+
+Identifier
+  = name:IdentifierName { return name; }
+
+IdentifierName
+  = head:IdentifierStart tail:IdentifierPart* {
+      return {
+        type: "Identifier",
+        name: head + tail.join("")
+      };
+    }
+
+IdentifierStart
+  = "_"
+  / [A-Za-z]
+
+IdentifierPart
+  = IdentifierStart
+  / DecimalDigit
 
 Literal
   = StringLiteral

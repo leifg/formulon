@@ -36,5 +36,15 @@ describe("Formulon", () => {
         expect(Formulon.parse("MOD(11, 2)")).to.deep.equal(expected)
       })
     })
+
+    context("Identifiers", () => {
+      it("returns correct AST for identifier", () => {
+        var expected = {
+          type: "Identifier",
+          name: "Name",
+        }
+        expect(Formulon.parse("Name")).to.deep.equal(expected)
+      })
+    })
   })
 })
