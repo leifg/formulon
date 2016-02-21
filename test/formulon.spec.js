@@ -5,7 +5,7 @@ var Formulon = require("../grammars/salesforceFormula.pegjs");
 
 describe("Formulon", () => {
   describe("#parse", () => {
-    context("function call", () => {
+    context("Function Calls", () => {
       it("returns correct AST for function call without arguments", () => {
         var expected = {
           type: "CallExpression",
