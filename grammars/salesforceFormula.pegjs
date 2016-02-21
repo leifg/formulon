@@ -1,13 +1,27 @@
 start
-  = FunctionExpression
+  = CallExpression
 
-FunctionExpression
-  = fnName:FunctionIdentifier "(" params:Literal* ")" {
+CallExpression
+  = fnName:FunctionIdentifier args:Arguments {
     return {
-      type: "FunctionExpression",
+      type: "CallExpression",
       id: fnName,
-      params: params
+      arguments: args[0]
     }
+  }
+
+Arguments
+  = "(" __ args:(ArgumentList __)? ")" {
+      return args;
+    }
+
+ArgumentList
+  = literals:(
+    lit:Literal __ ","? __ {
+      return lit;
+    }
+  )+ {
+    return literals;
   }
 
 FunctionIdentifier
@@ -51,3 +65,14 @@ SourceCharacter
 
 LineTerminator
   = [\n\r\u2028\u2029]
+
+__
+  = (WhiteSpace)*
+
+WhiteSpace "whitespace"
+  = "\t"
+  / "\v"
+  / "\f"
+  / " "
+  / "\u00A0"
+  / "\uFEFF"
