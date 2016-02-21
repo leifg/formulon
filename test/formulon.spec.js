@@ -35,6 +35,26 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("MOD(11, 2)")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for nested function calls", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "if",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "ispickval",
+              arguments: [
+                { type: "Identifier", name: "StageName" },
+                { type: "Literal", value: "Closed Won" }
+              ]
+            },
+            { type: "Identifier", name: "Amount" },
+            { type: "Literal", value: 0 },
+          ],
+        }
+        expect(Formulon.parse("IF(ISPICKVAL(StageName, \"Closed Won\"), Amount, 0)")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {

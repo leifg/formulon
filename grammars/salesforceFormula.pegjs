@@ -5,8 +5,12 @@
 }
 
 start
+  = PrimaryExpression
+
+PrimaryExpression
   = CallExpression
   / Identifier
+  / Literal
 
 CallExpression
   = fnName:FunctionIdentifier args:Arguments {
@@ -23,12 +27,12 @@ Arguments
     }
 
 ArgumentList
-  = literals:(
-    lit:Literal __ ","? __ {
-      return lit;
+  = args:(
+    arg:PrimaryExpression __ ","? __ {
+      return arg;
     }
   )+ {
-    return literals;
+    return args;
   }
 
 FunctionIdentifier
@@ -57,7 +61,7 @@ Literal
   = StringLiteral
   / NumericLiteral
 
-StringLiteral "string"
+StringLiteral
   = '"' chars:DoubleStringCharacter* '"' {
       return { type: "Literal", value: chars.join("") };
     }
