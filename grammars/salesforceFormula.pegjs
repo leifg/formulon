@@ -1,3 +1,9 @@
+{
+  function optionalList(value) {
+    return value !== null ? value[0] : [];
+  }
+}
+
 start
   = CallExpression
 
@@ -6,7 +12,7 @@ CallExpression
     return {
       type: "CallExpression",
       id: fnName,
-      arguments: args[0]
+      arguments: optionalList(args)
     }
   }
 

@@ -6,7 +6,16 @@ var Formulon = require("../grammars/salesforceFormula.pegjs");
 describe("Formulon", () => {
   describe("#parse", () => {
     context("function call", () => {
-      it("returns correct AST for function call with single parameter", () => {
+      it("returns correct AST for function call without arguments", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "now",
+          arguments: [],
+        }
+        expect(Formulon.parse("NOW()")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for function call with single argument", () => {
         var expected = {
           type: "CallExpression",
           id: "abs",
@@ -15,7 +24,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("ABS(1.5)")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for function call with multiple parameters", () => {
+      it("returns correct AST for function call with multiple arguments", () => {
         var expected = {
           type: "CallExpression",
           id: "mod",
