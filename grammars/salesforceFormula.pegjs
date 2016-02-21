@@ -9,6 +9,7 @@ start
 
 PrimaryExpression
   = CallExpression
+  / ArithmeticExpression
   / Identifier
   / Literal
 
@@ -18,6 +19,19 @@ CallExpression
       type: "CallExpression",
       id: fnName,
       arguments: optionalList(args)
+    }
+  }
+
+ArithmeticExpression
+  = AdditiveExpression
+
+AdditiveExpression
+  = head:NumericLiteral __ "+" __ tail:PrimaryExpression
+  {
+    return {
+      type: "CallExpression",
+      id: "add",
+      arguments: [head, tail]
     }
   }
 
@@ -99,7 +113,7 @@ LineTerminator
 __
   = (WhiteSpace)*
 
-WhiteSpace "whitespace"
+WhiteSpace
   = "\t"
   / "\v"
   / "\f"

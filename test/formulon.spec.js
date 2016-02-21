@@ -57,6 +57,36 @@ describe("Formulon", () => {
       })
     })
 
+    context("Arithmetics", () => {
+      it("returns correct AST for simple addition", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}],
+        }
+        expect(Formulon.parse("1.5 + 2")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for addition with more than 2 arguments", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {type: "Literal", value: 1},
+            {
+              type: "CallExpression",
+              id: "add",
+              arguments: [
+                {type: "Literal", value: 2},
+                {type: "Literal", value: 3}
+              ]
+            }
+          ]
+        }
+        expect(Formulon.parse("1 + 2 + 3")).to.deep.equal(expected)
+      })
+    })
+
     context("Identifiers", () => {
       it("returns correct AST for identifier", () => {
         var expected = {
