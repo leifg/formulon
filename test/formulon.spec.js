@@ -66,5 +66,23 @@ describe("Formulon", () => {
         expect(Formulon.parse("Name")).to.deep.equal(expected)
       })
     })
+
+    context("Literals", () => {
+      it("returns correct AST for string literal", () => {
+        var expected = {
+          type: "Literal",
+          value: "a String",
+        }
+        expect(Formulon.parse("\"a String\"")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for integer literal", () => {
+        var expected = {
+          type: "Literal",
+          value: 11,
+        }
+        expect(Formulon.parse("11")).to.deep.equal(expected)
+      })
+    })
   })
 })
