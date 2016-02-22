@@ -105,6 +105,47 @@ describe("Formulon", () => {
 
         expect(Formulon.parse("MAX(1,3) + 7")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for simple multiplication", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "multiply",
+          arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+        }
+        expect(Formulon.parse("7 * 8")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for addition and multiplication (multiplication first)", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "multiply",
+              arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+            },
+            {type: "Literal", value: 5},
+          ]
+        }
+        expect(Formulon.parse("7 * 8 + 5")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for addition and multiplication (multiplication first)", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {type: "Literal", value: 5},
+            {
+              type: "CallExpression",
+              id: "multiply",
+              arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+            },
+          ]
+        }
+        expect(Formulon.parse("5 + 7 * 8")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {

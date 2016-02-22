@@ -31,7 +31,7 @@ ArithmeticExpression
   = AdditiveExpression
 
 AdditiveExpression
-  = head:(LeftHandSideExpression) __ "+" __ tail:PrimaryExpression
+  = head:(MultiplicativeExpression) __ "+" __ tail:AdditiveExpression
   {
     return {
       type: "CallExpression",
@@ -39,6 +39,18 @@ AdditiveExpression
       arguments: [head, tail]
     }
   }
+  / MultiplicativeExpression
+
+MultiplicativeExpression
+  = head:(LeftHandSideExpression) __ "*" __ tail:MultiplicativeExpression
+  {
+    return {
+      type: "CallExpression",
+      id: "multiply",
+      arguments: [head, tail]
+    }
+  }
+  / LeftHandSideExpression
 
 Arguments
   = "(" __ args:(ArgumentList __)? ")" {
