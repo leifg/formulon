@@ -44,11 +44,22 @@ AdditiveExpression
   / MultiplicativeExpression
 
 MultiplicativeExpression
-  = head:(LeftHandSideExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
+  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
   {
     return {
       type: "CallExpression",
       id: op === "*" ? "multiply" : "divide",
+      arguments: [head, tail]
+    }
+  }
+  / ExponentiateExpression
+
+ExponentiateExpression
+  = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression
+  {
+    return {
+      type: "CallExpression",
+      id: "exponentiate",
       arguments: [head, tail]
     }
   }

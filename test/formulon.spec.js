@@ -180,6 +180,18 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("7 * (8 + 5)")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for simple exponentiation", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "exponentiate",
+          arguments: [
+            {type: "Literal", value: 2},
+            {type: "Literal", value: 8},
+          ]
+        }
+        expect(Formulon.parse("2 ^ 8")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {
