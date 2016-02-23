@@ -1,7 +1,7 @@
 "use strict"
 
 var expect = require('chai').expect
-var Formulon = require("../grammars/salesforceFormula.pegjs");
+let Formulon = require("../src/formulon");
 
 describe("Formulon", () => {
   describe("#parse", () => {
