@@ -192,6 +192,77 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("2 ^ 8")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for exponentiation and multiplication", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "multiply",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "exponentiate",
+              arguments: [
+                {type: "Literal", value: 2},
+                {type: "Literal", value: 8},
+              ]
+            },
+            {type: "Literal", value: 7},
+          ]
+        }
+        expect(Formulon.parse("2 ^ 8 * 7")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for exponentiation, multiplication and addition", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "multiply",
+              arguments: [
+                {
+                  type: "CallExpression",
+                  id: "exponentiate",
+                  arguments: [
+                    {type: "Literal", value: 2},
+                    {type: "Literal", value: 8},
+                  ]
+                },
+                {type: "Literal", value: 7},
+              ]
+            },
+            {type: "Literal", value: 5},
+          ]
+        }
+        expect(Formulon.parse("2 ^ 8 * 7 + 5")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for exponentiation, multiplication and addition in parentheses", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "exponentiate",
+          arguments: [
+            {type: "Literal", value: 2},
+            {
+              type: "CallExpression",
+              id: "add",
+              arguments: [
+                {
+                  type: "CallExpression",
+                  id: "multiply",
+                  arguments: [
+                    {type: "Literal", value: 8},
+                    {type: "Literal", value: 7},
+                  ]
+                },
+                {type: "Literal", value: 5},
+              ]
+            },
+          ]
+        }
+        expect(Formulon.parse("2 ^ (8 * 7 + 5)")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {
