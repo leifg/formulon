@@ -6,7 +6,7 @@ var Formulon = require("../grammars/salesforceFormula.pegjs");
 describe("Formulon", () => {
   describe("#parse", () => {
     context("Function Calls", () => {
-      it("returns correct AST for function call without arguments", () => {
+      it("function call without arguments", () => {
         var expected = {
           type: "CallExpression",
           id: "now",
@@ -15,7 +15,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("NOW()")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for function call with single argument", () => {
+      it("function call with single argument", () => {
         var expected = {
           type: "CallExpression",
           id: "abs",
@@ -24,7 +24,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("ABS(1.5)")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for function call with multiple arguments", () => {
+      it("function call with multiple arguments", () => {
         var expected = {
           type: "CallExpression",
           id: "mod",
@@ -36,7 +36,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("MOD(11, 2)")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for nested function calls", () => {
+      it("nested function calls", () => {
         var expected = {
           type: "CallExpression",
           id: "if",
@@ -58,7 +58,7 @@ describe("Formulon", () => {
     })
 
     context("Arithmetics", () => {
-      it("returns correct AST for simple addition", () => {
+      it("simple addition", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -67,7 +67,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("1.5 + 2")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for simple subtraction", () => {
+      it("simple subtraction", () => {
         var expected = {
           type: "CallExpression",
           id: "subtract",
@@ -76,7 +76,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("1 - 10")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition with more than 2 arguments", () => {
+      it("addition with more than 2 arguments", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -95,7 +95,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("1 + 2 + 3")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition with function", () => {
+      it("addition with function", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -115,7 +115,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("MAX(1,3) + 7")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for simple multiplication", () => {
+      it("simple multiplication", () => {
         var expected = {
           type: "CallExpression",
           id: "multiply",
@@ -124,7 +124,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("7 * 8")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for simple division", () => {
+      it("simple division", () => {
         var expected = {
           type: "CallExpression",
           id: "divide",
@@ -133,7 +133,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("100 / 25")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition and multiplication (multiplication first)", () => {
+      it("addition and multiplication (multiplication first)", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -149,7 +149,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("7 * 8 + 5")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition and multiplication (addition first)", () => {
+      it("addition and multiplication (addition first)", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -165,7 +165,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("5 + 7 * 8")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition and multiplication with parentheses", () => {
+      it("addition and multiplication with parentheses", () => {
         var expected = {
           type: "CallExpression",
           id: "multiply",
@@ -181,7 +181,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("7 * (8 + 5)")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for simple exponentiation", () => {
+      it("simple exponentiation", () => {
         var expected = {
           type: "CallExpression",
           id: "exponentiate",
@@ -193,7 +193,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("2 ^ 8")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for exponentiation and multiplication", () => {
+      it("exponentiation and multiplication", () => {
         var expected = {
           type: "CallExpression",
           id: "multiply",
@@ -212,7 +212,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("2 ^ 8 * 7")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for exponentiation, multiplication and addition", () => {
+      it("exponentiation, multiplication and addition", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
@@ -238,7 +238,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("2 ^ 8 * 7 + 5")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for exponentiation, multiplication and addition in parentheses", () => {
+      it("exponentiation, multiplication and addition in parentheses", () => {
         var expected = {
           type: "CallExpression",
           id: "exponentiate",
@@ -266,7 +266,7 @@ describe("Formulon", () => {
     })
 
     context("Identifiers", () => {
-      it("returns correct AST for identifier", () => {
+      it("identifier", () => {
         var expected = {
           type: "Identifier",
           name: "Name",
@@ -276,7 +276,7 @@ describe("Formulon", () => {
     })
 
     context("Literals", () => {
-      it("returns correct AST for string literal", () => {
+      it("string literal", () => {
         var expected = {
           type: "Literal",
           value: "a String",
@@ -284,7 +284,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("\"a String\"")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for integer literal", () => {
+      it("integer literal", () => {
         var expected = {
           type: "Literal",
           value: 11,
@@ -292,7 +292,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("11")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for negative integer literal", () => {
+      it("negative integer literal", () => {
         var expected = {
           type: "Literal",
           value: -11,
@@ -300,7 +300,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("-11")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for explicitely positive integer literal", () => {
+      it("explicitely positive integer literal", () => {
         var expected = {
           type: "Literal",
           value: 11,
@@ -308,7 +308,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("+11")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for float literal", () => {
+      it("float literal", () => {
         var expected = {
           type: "Literal",
           value: 11.2,
@@ -316,7 +316,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("11.2")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for TRUE literal", () => {
+      it("TRUE literal", () => {
         var expected = {
           type: "Literal",
           value: true,
@@ -324,7 +324,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("TRUE")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for FALSE literal", () => {
+      it("FALSE literal", () => {
         var expected = {
           type: "Literal",
           value: false,
@@ -335,7 +335,7 @@ describe("Formulon", () => {
 
     context("Logic", () =>{
       context("unary", () =>{
-        it("returns correct AST for NOT with Identifier", () => {
+        it("NOT with Identifier", () => {
           var expected = {
             type: "CallExpression",
             id: "not",
@@ -344,7 +344,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("!Negative")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for NOT with boolean literal", () => {
+        it("NOT with boolean literal", () => {
           var expected = {
             type: "CallExpression",
             id: "not",
@@ -355,7 +355,7 @@ describe("Formulon", () => {
       })
 
       context("binary", () =>{
-        it("returns correct AST for &&", () => {
+        it("&&", () => {
           var expected = {
             type: "CallExpression",
             id: "and",
@@ -367,7 +367,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First && Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for ||", () => {
+        it("||", () => {
           var expected = {
             type: "CallExpression",
             id: "or",
@@ -379,7 +379,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First || Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for ==", () => {
+        it("==", () => {
           var expected = {
             type: "CallExpression",
             id: "equal",
@@ -391,7 +391,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First == Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for =", () => {
+        it("=", () => {
           var expected = {
             type: "CallExpression",
             id: "equal",
@@ -403,7 +403,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First = Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for !=", () => {
+        it("!=", () => {
           var expected = {
             type: "CallExpression",
             id: "unequal",
@@ -415,7 +415,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First != Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for <>", () => {
+        it("<>", () => {
           var expected = {
             type: "CallExpression",
             id: "unequal",
@@ -427,7 +427,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First <> Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for <", () => {
+        it("<", () => {
           var expected = {
             type: "CallExpression",
             id: "lessThan",
@@ -439,7 +439,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First < Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for <=", () => {
+        it("<=", () => {
           var expected = {
             type: "CallExpression",
             id: "lessThanOrEqual",
@@ -451,7 +451,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First <= Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for >", () => {
+        it(">", () => {
           var expected = {
             type: "CallExpression",
             id: "greaterThan",
@@ -463,7 +463,7 @@ describe("Formulon", () => {
           expect(Formulon.parse("First > Second")).to.deep.equal(expected)
         })
 
-        it("returns correct AST for >=", () => {
+        it(">=", () => {
           var expected = {
             type: "CallExpression",
             id: "greaterThanOrEqual",
