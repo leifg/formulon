@@ -67,6 +67,15 @@ describe("Formulon", () => {
         expect(Formulon.parse("1.5 + 2")).to.deep.equal(expected)
       })
 
+      it("returns correct AST for simple subtraction", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "subtract",
+          arguments: [{type: "Literal", value: 1}, {type: "Literal", value: 10}],
+        }
+        expect(Formulon.parse("1 - 10")).to.deep.equal(expected)
+      })
+
       it("returns correct AST for addition with more than 2 arguments", () => {
         var expected = {
           type: "CallExpression",
@@ -113,6 +122,15 @@ describe("Formulon", () => {
           arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
         }
         expect(Formulon.parse("7 * 8")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for simple division", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "divide",
+          arguments: [{type: "Literal", value: 100}, {type: "Literal", value: 25}],
+        }
+        expect(Formulon.parse("100 / 25")).to.deep.equal(expected)
       })
 
       it("returns correct AST for addition and multiplication (multiplication first)", () => {

@@ -31,22 +31,22 @@ ArithmeticExpression
   = AdditiveExpression
 
 AdditiveExpression
-  = head:(MultiplicativeExpression) __ "+" __ tail:AdditiveExpression
+  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
   {
     return {
       type: "CallExpression",
-      id: "add",
+      id: op === "+" ? "add" : "subtract",
       arguments: [head, tail]
     }
   }
   / MultiplicativeExpression
 
 MultiplicativeExpression
-  = head:(LeftHandSideExpression) __ "*" __ tail:MultiplicativeExpression
+  = head:(LeftHandSideExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
   {
     return {
       type: "CallExpression",
-      id: "multiply",
+      id: op === "*" ? "multiply" : "divide",
       arguments: [head, tail]
     }
   }
