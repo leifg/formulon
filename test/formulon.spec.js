@@ -426,6 +426,54 @@ describe("Formulon", () => {
           }
           expect(Formulon.parse("First <> Second")).to.deep.equal(expected)
         })
+
+        it("returns correct AST for <", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "lessThan",
+            arguments: [
+              {type: "Identifier", name: "First"},
+              {type: "Identifier", name: "Second"},
+            ],
+          }
+          expect(Formulon.parse("First < Second")).to.deep.equal(expected)
+        })
+
+        it("returns correct AST for <=", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "lessThanOrEqual",
+            arguments: [
+              {type: "Identifier", name: "First"},
+              {type: "Identifier", name: "Second"},
+            ],
+          }
+          expect(Formulon.parse("First <= Second")).to.deep.equal(expected)
+        })
+
+        it("returns correct AST for >", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "greaterThan",
+            arguments: [
+              {type: "Identifier", name: "First"},
+              {type: "Identifier", name: "Second"},
+            ],
+          }
+          expect(Formulon.parse("First > Second")).to.deep.equal(expected)
+        })
+
+        it("returns correct AST for >=", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "greaterThanOrEqual",
+            arguments: [
+              {type: "Identifier", name: "First"},
+              {type: "Identifier", name: "Second"},
+            ],
+          }
+          expect(Formulon.parse("First >= Second")).to.deep.equal(expected)
+        })
       })
     })
   })

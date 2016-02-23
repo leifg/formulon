@@ -76,6 +76,18 @@ BinaryExpression
       case "||":
         name = "or"
         break;
+      case "<":
+        name = "lessThan"
+        break;
+      case "<=":
+        name = "lessThanOrEqual"
+        break;
+      case ">":
+        name = "greaterThan"
+        break;
+      case ">=":
+        name = "greaterThanOrEqual"
+        break;
       case "==":
       case "=":
         name = "equal"
@@ -96,12 +108,16 @@ BinaryExpression
   / LeftHandSideExpression
 
 LogicalOperator
-  = "&&"
+  = "<="
+  / ">="
+  / "<>"
+  / "<"
+  / ">"
+  / "&&"
   / "||"
   / "=="
   / "="
   / "!="
-  / "<>"
 
 UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {
