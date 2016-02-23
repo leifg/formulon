@@ -66,15 +66,36 @@ ExponentiateExpression
   / BinaryExpression
 
 BinaryExpression
-  = head:(LeftHandSideExpression) __ "&&" __ tail:BinaryExpression
+  = head:(LeftHandSideExpression) __ op:LogicalOperator __ tail:BinaryExpression
   {
+    var name;
+    switch(op) {
+      case "&&":
+        name = "and";
+        break;
+      case "||":
+        name = "or"
+        break;
+      case "==":
+      case "=":
+        name = "equal"
+        break;
+      default:
+    }
+
     return {
       type: "CallExpression",
-      id: "and",
+      id: name,
       arguments: [head, tail]
     }
   }
   / LeftHandSideExpression
+
+LogicalOperator
+  = "&&"
+  / "||"
+  / "=="
+  / "="
 
 UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {
