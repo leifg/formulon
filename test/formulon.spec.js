@@ -164,6 +164,22 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("5 + 7 * 8")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for addition and multiplication with parentheses", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "multiply",
+          arguments: [
+            {type: "Literal", value: 7},
+            {
+              type: "CallExpression",
+              id: "add",
+              arguments: [{type: "Literal", value: 8}, {type: "Literal", value: 5}],
+            },
+          ]
+        }
+        expect(Formulon.parse("7 * (8 + 5)")).to.deep.equal(expected)
+      })
     })
 
     context("Identifiers", () => {

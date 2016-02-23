@@ -17,6 +17,7 @@ LeftHandSideExpression
   = CallExpression
   / Identifier
   / Literal
+  / "(" __ expression:ArithmeticExpression __ ")" { return expression; }
 
 CallExpression
   = id:FunctionIdentifier args:Arguments {
