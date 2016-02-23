@@ -192,6 +192,14 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("11")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for float literal", () => {
+        var expected = {
+          type: "Literal",
+          value: 11.2,
+        }
+        expect(Formulon.parse("11.2")).to.deep.equal(expected)
+      })
     })
   })
 })
