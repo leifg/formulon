@@ -80,6 +80,10 @@ BinaryExpression
       case "=":
         name = "equal"
         break;
+      case "!=":
+      case "<>":
+        name = "unequal"
+        break;
       default:
     }
 
@@ -96,6 +100,8 @@ LogicalOperator
   / "||"
   / "=="
   / "="
+  / "!="
+  / "<>"
 
 UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {
