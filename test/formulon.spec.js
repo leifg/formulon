@@ -353,6 +353,20 @@ describe("Formulon", () => {
           expect(Formulon.parse("!FALSE")).to.deep.equal(expected)
         })
       })
+
+      context("binary", () =>{
+        it("returns correct AST for &&", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "and",
+            arguments: [
+              {type: "Identifier", name: "First"},
+              {type: "Identifier", name: "Second"},
+            ],
+          }
+          expect(Formulon.parse("First && Second")).to.deep.equal(expected)
+        })
+      })
     })
   })
 })

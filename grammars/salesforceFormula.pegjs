@@ -8,8 +8,8 @@ start
   = PrimaryExpression
 
 PrimaryExpression
-  = LogicalExpression
-  / ArithmeticExpression
+  = ArithmeticExpression
+  / UnaryExpression
   / CallExpression
   / Identifier
   / Literal
@@ -55,7 +55,7 @@ MultiplicativeExpression
   / ExponentiateExpression
 
 ExponentiateExpression
-  = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression
+  = head:(BinaryExpression) __ "^" __ tail:ExponentiateExpression
   {
     return {
       type: "CallExpression",
@@ -63,12 +63,20 @@ ExponentiateExpression
       arguments: [head, tail]
     }
   }
+  / BinaryExpression
+
+BinaryExpression
+  = head:(LeftHandSideExpression) __ "&&" __ tail:BinaryExpression
+  {
+    return {
+      type: "CallExpression",
+      id: "and",
+      arguments: [head, tail]
+    }
+  }
   / LeftHandSideExpression
 
-LogicalExpression
-  = UnaryExprission
-
-UnaryExprission
+UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {
     return {
       type: "CallExpression",
@@ -76,6 +84,10 @@ UnaryExprission
       arguments: [tail]
     }
   }
+
+LogicalExpression
+  = UnaryExpression
+  / BinaryExpression
 
 UnaryOperator
   = "!"
