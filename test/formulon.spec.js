@@ -149,7 +149,7 @@ describe("Formulon", () => {
         expect(Formulon.parse("7 * 8 + 5")).to.deep.equal(expected)
       })
 
-      it("returns correct AST for addition and multiplication (multiplication first)", () => {
+      it("returns correct AST for addition and multiplication (addition first)", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
