@@ -315,17 +315,42 @@ describe("Formulon", () => {
         }
         expect(Formulon.parse("11.2")).to.deep.equal(expected)
       })
+
+      it("returns correct AST for TRUE literal", () => {
+        var expected = {
+          type: "Literal",
+          value: true,
+        }
+        expect(Formulon.parse("TRUE")).to.deep.equal(expected)
+      })
+
+      it("returns correct AST for FALSE literal", () => {
+        var expected = {
+          type: "Literal",
+          value: false,
+        }
+        expect(Formulon.parse("FALSE")).to.deep.equal(expected)
+      })
     })
 
     context("Logic", () =>{
       context("unary", () =>{
-        it("returns correct AST for NOT", () => {
+        it("returns correct AST for NOT with Identifier", () => {
           var expected = {
             type: "CallExpression",
             id: "not",
             arguments: [{type: "Identifier", name: "Negative"}],
           }
           expect(Formulon.parse("!Negative")).to.deep.equal(expected)
+        })
+
+        it("returns correct AST for NOT with boolean literal", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "not",
+            arguments: [{type: "Literal", value: false}],
+          }
+          expect(Formulon.parse("!FALSE")).to.deep.equal(expected)
         })
       })
     })

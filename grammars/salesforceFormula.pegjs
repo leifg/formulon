@@ -98,7 +98,7 @@ FunctionIdentifier
   = id:[A-Z]+ { return id.join("").toLowerCase(); }
 
 Identifier
-  = name:IdentifierName { return name; }
+  = !ReservedKeyword name:IdentifierName { return name; }
 
 IdentifierName
   = head:IdentifierStart tail:IdentifierPart* {
@@ -119,6 +119,7 @@ IdentifierPart
 Literal
   = StringLiteral
   / NumericLiteral
+  / BooleanLiteral
 
 StringLiteral
   = '"' chars:DoubleStringCharacter* '"' {
@@ -146,6 +147,14 @@ DecimalDigit
 NonZeroDigit
   = [1-9]
 
+BooleanLiteral
+  = "TRUE" {
+    return { type: "Literal", value: true }
+  }
+  / "FALSE" {
+    return { type: "Literal", value: false }
+  }
+
 DoubleStringCharacter
   = !('"' / "\\" / LineTerminator) SourceCharacter { return text(); }
 
@@ -154,6 +163,9 @@ SourceCharacter
 
 LineTerminator
   = [\n\r\u2028\u2029]
+
+ReservedKeyword
+  = BooleanLiteral
 
 __
   = (WhiteSpace)*
