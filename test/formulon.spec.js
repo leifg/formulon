@@ -233,5 +233,18 @@ describe("Formulon", () => {
         expect(Formulon.parse("11.2")).to.deep.equal(expected)
       })
     })
+
+    context("Logic", () =>{
+      context("unary", () =>{
+        it("returns correct AST for NOT", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "not",
+            arguments: [{type: "Identifier", name: "Negative"}],
+          }
+          expect(Formulon.parse("!Negative")).to.deep.equal(expected)
+        })
+      })
+    })
   })
 })

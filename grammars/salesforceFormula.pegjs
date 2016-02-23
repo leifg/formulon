@@ -8,7 +8,8 @@ start
   = PrimaryExpression
 
 PrimaryExpression
-  = ArithmeticExpression
+  = LogicalExpression
+  / ArithmeticExpression
   / CallExpression
   / Identifier
   / Literal
@@ -52,6 +53,21 @@ MultiplicativeExpression
     }
   }
   / LeftHandSideExpression
+
+LogicalExpression
+  = UnaryExprission
+
+UnaryExprission
+  = UnaryOperator __ tail:PrimaryExpression {
+    return {
+      type: "CallExpression",
+      id: "not",
+      arguments: [tail]
+    }
+  }
+
+UnaryOperator
+  = "!"
 
 Arguments
   = "(" __ args:(ArgumentList __)? ")" {
