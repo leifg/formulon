@@ -101,10 +101,10 @@ NumericLiteral
   = DecimalLiteral
 
 DecimalLiteral
-  = DecimalIntegerLiteral "." DecimalDigit* {
+  = sign:(__ "+" / "-" __)? DecimalIntegerLiteral "." DecimalDigit* {
       return { type: "Literal", value: parseFloat(text()) };
     }
-  / DecimalIntegerLiteral {
+  / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
       return { type: "Literal", value: parseInt(text()) };
   }
 
