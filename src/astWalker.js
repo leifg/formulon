@@ -5,7 +5,7 @@ function walk(ast) {
     case "Literal":
       return ast.value
     case "CallExpression":
-      return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg) ))
+      return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg)))
   }
   return ast.value;
 }
@@ -13,6 +13,9 @@ function walk(ast) {
 let FunctionLookup = {
   add: function(a, b) {
     return a + b
+  },
+  multiply: function(a, b) {
+    return a * b
   }
 }
 

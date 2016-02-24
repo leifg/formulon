@@ -40,13 +40,20 @@ describe("ASTWalker", () => {
         expect(ASTWalker.walk(input)).to.deep.equal(expected)
       })
 
-      it("2 level", () => {
+      it("2 levels", () => {
         var input = {
           type: "CallExpression",
           id: "add",
-          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}]
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "multiply",
+              arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+            },
+            {type: "Literal", value: 5},
+          ]
         }
-        var expected = 3.5
+        var expected = 61
 
         expect(ASTWalker.walk(input)).to.deep.equal(expected)
       })
