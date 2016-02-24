@@ -1,5 +1,7 @@
 "use strict"
 
+let FunctionLookup = require("./functionLookup")
+
 function walk(ast) {
   switch(ast.type) {
     case "Literal":
@@ -8,15 +10,6 @@ function walk(ast) {
       return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg)))
   }
   return ast.value;
-}
-
-let FunctionLookup = {
-  add: function(a, b) {
-    return a + b
-  },
-  multiply: function(a, b) {
-    return a * b
-  }
 }
 
 let ASTWalker = {
