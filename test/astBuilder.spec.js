@@ -1,6 +1,6 @@
 "use strict"
 
-var expect = require('chai').expect
+var expect = require("chai").expect
 let ASTBuilder = require("../src/astBuilder");
 
 describe("ASTBuilder", () => {

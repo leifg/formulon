@@ -1,4 +1,4 @@
-var expect = require('chai').expect
+var expect = require("chai").expect
 
 let FunctionLookup = require("../src/functionLookup");
 
