@@ -2,8 +2,7 @@
 
 let Formulon = {
   parse: function(formula) {
-    var parser = require("../grammars/salesforceFormula.pegjs");
-    return parser.parse(formula);
+     throw new Error("Not implemented yet");
   }
 }
 
