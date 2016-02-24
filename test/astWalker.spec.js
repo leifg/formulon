@@ -27,5 +27,29 @@ describe("ASTWalker", () => {
         expect(ASTWalker.walk(input)).to.deep.equal(expected)
       })
     })
+
+    context("CallExpression", () => {
+      it("1 level", () => {
+        var input = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}]
+        }
+        var expected = 3.5
+
+        expect(ASTWalker.walk(input)).to.deep.equal(expected)
+      })
+
+      it("2 level", () => {
+        var input = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}]
+        }
+        var expected = 3.5
+
+        expect(ASTWalker.walk(input)).to.deep.equal(expected)
+      })
+    })
   })
 })
