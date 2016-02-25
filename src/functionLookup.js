@@ -16,6 +16,15 @@ let FunctionLookup = {
   exponentiate: function(a, b) {
     return Math.pow(a,b)
   },
+  and: function(a, b) {
+    return a && b
+  },
+  or: function(a, b) {
+    return a || b
+  },
+  not: function(a) {
+    return !a
+  },
 }
 
 module.exports = FunctionLookup;
