@@ -28,6 +28,15 @@ describe("ASTWalker", () => {
       })
     })
 
+    context("Identifier", () => {
+      it("throws ReferenceError", () => {
+        var input = {type: "Identifier", name: "Name"}
+        var fn = function () { ASTWalker.walk(input) }
+
+        expect(fn).to.throw(ReferenceError, `Undefined variable '${input.name}'`)
+      })
+    })
+
     context("CallExpression", () => {
       it("1 level", () => {
         var input = {

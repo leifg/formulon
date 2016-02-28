@@ -8,8 +8,9 @@ function walk(ast) {
       return ast.value
     case "CallExpression":
       return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg)))
+    case "Identifier":
+      throw new ReferenceError(`Undefined variable '${ast.name}'`)
   }
-  return ast.value;
 }
 
 let ASTWalker = {
