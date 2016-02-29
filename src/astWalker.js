@@ -13,8 +13,24 @@ function walk(ast) {
   }
 }
 
+function _extract(ast, state) {
+  switch(ast.type) {
+    case "Literal":
+      return state
+    case "CallExpression":
+      return ast.arguments.map((arg) => _extract(arg, state)).reduce((a,b) => { return a.concat(b) })
+    case "Identifier":
+      return state.concat(ast.name)
+  }
+}
+
+function extract(ast) {
+  return _extract(ast, [])
+}
+
 let ASTWalker = {
-  walk: walk
+  walk: walk,
+  extract: extract,
 }
 
 module.exports = ASTWalker;

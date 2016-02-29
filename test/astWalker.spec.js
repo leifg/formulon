@@ -68,4 +68,32 @@ describe("ASTWalker", () => {
       })
     })
   })
+
+  describe("#extract", () => {
+    context("no identifiers", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}]
+        }
+
+      it("returns empty array", () => {
+        var expected = []
+        expect(ASTWalker.extract(ast)).to.deep.equal(expected)
+      })
+    })
+
+    context("one identifier", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
+        }
+
+      it("returns empty array", () => {
+        var expected = ["Name"]
+        expect(ASTWalker.extract(ast)).to.deep.equal(expected)
+      })
+    })
+  })
 })
