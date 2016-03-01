@@ -28,9 +28,14 @@ function extract(ast) {
   return _extract(ast, [])
 }
 
+function replace(ast, replacement) {
+  return ast
+}
+
 let ASTWalker = {
   walk: walk,
   extract: extract,
+  replace: replace,
 }
 
 module.exports = ASTWalker;

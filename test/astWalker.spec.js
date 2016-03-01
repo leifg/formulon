@@ -96,4 +96,19 @@ describe("ASTWalker", () => {
       })
     })
   })
+
+  describe("#replace", () => {
+    context("no identifiers", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}]
+        }
+
+      it("returns empty array", () => {
+        var expected = ast
+        expect(ASTWalker.replace(ast, {Name: "value"})).to.deep.equal(expected)
+      })
+    })
+  })
 })
