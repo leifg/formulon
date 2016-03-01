@@ -110,5 +110,22 @@ describe("ASTWalker", () => {
         expect(ASTWalker.replace(ast, {Name: "value"})).to.deep.equal(expected)
       })
     })
+
+    context("one identifier", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
+        }
+
+      it("returns empty array", () => {
+        var expected = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: "value"}]
+        }
+        expect(ASTWalker.replace(ast, {Name: "value"})).to.deep.equal(expected)
+      })
+    })
   })
 })

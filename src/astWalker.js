@@ -29,7 +29,21 @@ function extract(ast) {
 }
 
 function replace(ast, replacement) {
-  return ast
+  switch(ast.type) {
+    case "Literal":
+      return ast
+    case "CallExpression":
+      return {
+        type: "CallExpression",
+        id: ast.id,
+        arguments: ast.arguments.map((arg) => replace(arg, replacement))
+      }
+    case "Identifier":
+      return {
+        type: "Literal",
+        value: replacement[ast.name],
+      }
+  }
 }
 
 let ASTWalker = {
