@@ -90,7 +90,7 @@ describe("ASTWalker", () => {
           arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
         }
 
-      it("returns empty array", () => {
+      it("returns array with replaced variables", () => {
         var expected = ["Name"]
         expect(ASTWalker.extract(ast)).to.deep.equal(expected)
       })
@@ -118,7 +118,7 @@ describe("ASTWalker", () => {
           arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
         }
 
-      it("returns empty array", () => {
+      it("returns replaced array", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
