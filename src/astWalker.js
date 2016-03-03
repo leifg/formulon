@@ -2,6 +2,13 @@
 
 let FunctionLookup = require("./functionLookup")
 
+function arrayUnique(a) {
+  return a.reduce(function(p, c) {
+    if (p.indexOf(c) < 0) p.push(c);
+    return p;
+  }, []);
+};
+
 function walk(ast) {
   switch(ast.type) {
     case "Literal":
@@ -25,7 +32,7 @@ function _extract(ast, state) {
 }
 
 function extract(ast) {
-  return _extract(ast, [])
+  return arrayUnique(_extract(ast, []))
 }
 
 function replace(ast, replacement) {

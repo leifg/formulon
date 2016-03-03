@@ -95,6 +95,39 @@ describe("ASTWalker", () => {
         expect(ASTWalker.extract(ast)).to.deep.equal(expected)
       })
     })
+
+    context("multiple identifiers", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "CallExpression",
+              id: "subtract",
+              arguments: [{type: "Identifier", name: "Argument1"}, {type: "Identifier", name: "Argument2"}]
+            },
+            {type: "Identifier", name: "Name"}
+          ]
+        }
+
+      it("returns array with replaced variables", () => {
+        var expected = ["Argument1", "Argument2", "Name"]
+        expect(ASTWalker.extract(ast)).to.deep.equal(expected)
+      })
+    })
+
+    context("redundant identifiers", () => {
+      let ast = {
+          type: "CallExpression",
+          id: "add",
+          arguments: [{type: "Identifier", name: "Name"}, {type: "Identifier", name: "Name"}]
+        }
+
+      it("returns array with replaced variables", () => {
+        var expected = ["Name"]
+        expect(ASTWalker.extract(ast)).to.deep.equal(expected)
+      })
+    })
   })
 
   describe("#replace", () => {
