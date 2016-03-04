@@ -145,19 +145,34 @@ describe("ASTWalker", () => {
     })
 
     context("one identifier", () => {
-      let ast = {
-          type: "CallExpression",
-          id: "add",
-          arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
-        }
+      context("replacement given", () => {
+        let ast = {
+            type: "CallExpression",
+            id: "add",
+            arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
+          }
 
-      it("returns replaced array", () => {
-        var expected = {
-          type: "CallExpression",
-          id: "add",
-          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: "value"}]
-        }
-        expect(ASTWalker.replace(ast, {Name: "value"})).to.deep.equal(expected)
+        it("returns replaced array", () => {
+          var expected = {
+            type: "CallExpression",
+            id: "add",
+            arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: "value"}]
+          }
+          expect(ASTWalker.replace(ast, {Name: "value"})).to.deep.equal(expected)
+        })
+      })
+
+      context("no replacement given", () => {
+        let ast = {
+            type: "CallExpression",
+            id: "add",
+            arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
+          }
+
+        it("returns replaced array", () => {
+          var expected = ast
+          expect(ASTWalker.replace(ast, {})).to.deep.equal(expected)
+        })
       })
     })
   })

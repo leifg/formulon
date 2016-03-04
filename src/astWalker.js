@@ -46,9 +46,13 @@ function replace(ast, replacement) {
         arguments: ast.arguments.map((arg) => replace(arg, replacement))
       }
     case "Identifier":
-      return {
-        type: "Literal",
-        value: replacement[ast.name],
+      if(replacement[ast.name]) {
+        return {
+          type: "Literal",
+          value: replacement[ast.name],
+        }
+      } else {
+        return ast
       }
   }
 }
