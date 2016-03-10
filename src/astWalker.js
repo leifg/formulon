@@ -1,6 +1,6 @@
 "use strict"
 
-let FunctionLookup = require("./functionLookup")
+import FunctionLookup from "./functionLookup"
 
 function arrayUnique(a) {
   return a.reduce(function(p, c) {
@@ -57,10 +57,10 @@ function replace(ast, replacement) {
   }
 }
 
-let ASTWalker = {
+const ASTWalker = {
   walk: walk,
   extract: extract,
   replace: replace,
 }
 
-module.exports = ASTWalker;
+export default ASTWalker

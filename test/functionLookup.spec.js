@@ -2,7 +2,7 @@
 
 var expect = require("chai").expect
 
-let FunctionLookup = require("../src/functionLookup");
+import FunctionLookup from "../src/functionLookup"
 
 describe("FunctionLookup", () => {
   describe("#add", () => {

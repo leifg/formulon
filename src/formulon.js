@@ -1,13 +1,13 @@
 "use strict"
 
-let ASTBuilder = require("./astBuilder");
-let ASTWalker = require("./astWalker");
+import ASTBuilder from "./astBuilder"
+import ASTWalker from "./astWalker"
 
-let Formulon = {
+const Formulon = {
   parse: function(formula, substitutions) {
     var ast = ASTBuilder.build(formula);
     return ASTWalker.walk(ASTWalker.replace(ast, substitutions));
   }
 }
 
-module.exports = Formulon;
+export default Formulon

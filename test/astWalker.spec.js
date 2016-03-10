@@ -1,7 +1,7 @@
 "use strict"
 
-var expect = require("chai").expect
-let ASTWalker = require("../src/astWalker");
+const expect = require("chai").expect
+import ASTWalker from "../src/astWalker"
 
 describe("ASTWalker", () => {
   describe("#walk", () => {

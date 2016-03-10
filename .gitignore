@@ -3,3 +3,4 @@
 /lib
 /tmp
 npm-debug.log
+/grammars/salesforceFormula.js

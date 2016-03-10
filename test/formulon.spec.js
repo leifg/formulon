@@ -1,7 +1,7 @@
 "use strict"
 
-var expect = require("chai").expect
-let Formulon = require("../src/formulon");
+const expect = require("chai").expect
+import Formulon from "../src/formulon"
 
 describe("Formulon", () => {
   context("no identifiers", () => {

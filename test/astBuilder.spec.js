@@ -1,7 +1,7 @@
 "use strict"
 
-var expect = require("chai").expect
-let ASTBuilder = require("../src/astBuilder");
+import ASTBuilder from "../src/astBuilder"
+const expect = require("chai").expect
 
 describe("ASTBuilder", () => {
   describe("#build", () => {

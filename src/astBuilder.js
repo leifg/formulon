@@ -1,10 +1,10 @@
 "use strict"
 
-let ASTBuilder = {
+const ASTBuilder = {
   build: function(formula) {
-    var parser = require("../grammars/salesforceFormula.pegjs");
+    const parser = require("../grammars/salesforceFormula.js");
     return parser.parse(formula);
   }
 }
 
-module.exports = ASTBuilder;
+export default ASTBuilder

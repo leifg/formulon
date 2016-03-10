@@ -1,6 +1,6 @@
 "use strict"
 
-let FunctionLookup = {
+const FunctionLookup = {
   add: function(a, b) {
     return a + b
   },
@@ -27,4 +27,4 @@ let FunctionLookup = {
   },
 }
 
-module.exports = FunctionLookup;
+export default FunctionLookup

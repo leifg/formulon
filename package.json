@@ -2,10 +2,11 @@
   "name": "formulon",
   "version": "0.0.1",
   "description": "Salesforce Formula Parser",
-  "main": "src/formulon.es6",
+  "main": "lib/bundle.js",
   "scripts": {
     "build": "webpack",
-    "test": "webpack --config webpack.config.test.js && mocha lib/bundle.test.js"
+    "compile:parser": "pegjs ./grammars/salesforceFormula.pegjs",
+    "test": "npm run compile:parser && mocha --compilers js:babel-register --recursive"
   },
   "repository": {
     "type": "git",
