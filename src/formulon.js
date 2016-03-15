@@ -3,11 +3,12 @@
 import ASTBuilder from "./astBuilder"
 import ASTWalker from "./astWalker"
 
-const Formulon = {
-  parse: function(formula, substitutions) {
-    var ast = ASTBuilder.build(formula);
-    return ASTWalker.walk(ASTWalker.replace(ast, substitutions));
-  }
+export const parse = function(formula, substitutions) {
+  let ast = ASTBuilder.build(formula);
+  return ASTWalker.walk(ASTWalker.replace(ast, substitutions));
 }
 
-export default Formulon
+export const extract = function(formula) {
+  let ast = ASTBuilder.build(formula);
+  return ASTWalker.extract(ast);
+}

@@ -4,3 +4,4 @@
 /tmp
 npm-debug.log
 /grammars/salesforceFormula.js
+/src/salesforceParser.js

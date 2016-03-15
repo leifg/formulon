@@ -2,7 +2,7 @@
 
 const ASTBuilder = {
   build: function(formula) {
-    const parser = require("../grammars/salesforceFormula.js");
+    const parser = require("./salesforceParser.js");
     return parser.parse(formula);
   }
 }
