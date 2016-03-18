@@ -19,7 +19,17 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "CallExpression",
           id: "abs",
-          arguments: [{type: "Literal", value: 1.5}],
+          arguments: [
+            {
+              type: "Literal",
+              value: 1.5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 1,
+              }
+            }
+          ],
         }
         expect(ASTBuilder.build("ABS(1.5)")).to.deep.equal(expected)
       })
@@ -29,8 +39,24 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "mod",
           arguments: [
-            {type: "Literal", value: 11},
-            {type: "Literal", value: 2}
+            {
+              type: "Literal",
+              value: 11,
+              dataType: "number",
+              meta: {
+                length: 2,
+                scale: 0,
+              }
+            },
+            {
+              type: "Literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
           ],
         }
         expect(ASTBuilder.build("MOD(11, 2)")).to.deep.equal(expected)
@@ -46,11 +72,26 @@ describe("ASTBuilder", () => {
               id: "ispickval",
               arguments: [
                 { type: "Identifier", name: "StageName" },
-                { type: "Literal", value: "Closed Won" }
+                {
+                  type: "Literal",
+                  value: "Closed Won",
+                  dataType: "text",
+                  meta: {
+                    length: 10,
+                  }
+                }
               ]
             },
             { type: "Identifier", name: "Amount" },
-            { type: "Literal", value: 0 },
+            {
+              type: "Literal",
+              value: 0,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ],
         }
         expect(ASTBuilder.build("IF(ISPICKVAL(StageName, \"Closed Won\"), Amount, 0)")).to.deep.equal(expected)
@@ -62,7 +103,26 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "CallExpression",
           id: "add",
-          arguments: [{type: "Literal", value: 1.5}, {type: "Literal", value: 2}],
+          arguments: [
+            {
+              type: "Literal",
+              value: 1.5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 1,
+              }
+            },
+            {
+              type: "Literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
+          ],
         }
         expect(ASTBuilder.build("1.5 + 2")).to.deep.equal(expected)
       })
@@ -71,7 +131,26 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "CallExpression",
           id: "subtract",
-          arguments: [{type: "Literal", value: 1}, {type: "Literal", value: 10}],
+          arguments: [
+            {
+              type: "Literal",
+              value: 1,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
+            {
+              type: "Literal",
+              value: 10,
+              dataType: "number",
+              meta: {
+                length: 2,
+                scale: 0,
+              }
+            }
+          ],
         }
         expect(ASTBuilder.build("1 - 10")).to.deep.equal(expected)
       })
@@ -81,13 +160,37 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "add",
           arguments: [
-            {type: "Literal", value: 1},
+            {
+              type: "Literal",
+              value: 1,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
             {
               type: "CallExpression",
               id: "add",
               arguments: [
-                {type: "Literal", value: 2},
-                {type: "Literal", value: 3}
+                {
+                  type: "Literal",
+                  value: 2,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 3,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }
               ]
             }
           ]
@@ -104,11 +207,35 @@ describe("ASTBuilder", () => {
               type: "CallExpression",
               id: "max",
               arguments: [
-                {type: "Literal", value: 1},
-                {type: "Literal", value: 3}
+                {
+                  type: "Literal",
+                  value: 1,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 3,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }
               ]
             },
-            {type: "Literal", value: 7},
+            {
+              type: "Literal",
+              value: 7,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ]
         }
 
@@ -119,7 +246,26 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "CallExpression",
           id: "multiply",
-          arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+          arguments: [
+            {
+              type: "Literal",
+              value: 7,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
+            {
+              type: "Literal",
+              value: 8,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
+          ],
         }
         expect(ASTBuilder.build("7 * 8")).to.deep.equal(expected)
       })
@@ -128,7 +274,26 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "CallExpression",
           id: "divide",
-          arguments: [{type: "Literal", value: 100}, {type: "Literal", value: 25}],
+          arguments: [
+            {
+              type: "Literal",
+              value: 100,
+              dataType: "number",
+              meta: {
+                length: 3,
+                scale: 0,
+              }
+            },
+            {
+              type: "Literal",
+              value: 25,
+              dataType: "number",
+              meta: {
+                length: 2,
+                scale: 0,
+              }
+            }
+          ],
         }
         expect(ASTBuilder.build("100 / 25")).to.deep.equal(expected)
       })
@@ -141,9 +306,36 @@ describe("ASTBuilder", () => {
             {
               type: "CallExpression",
               id: "multiply",
-              arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+              arguments: [
+                {
+                  type: "Literal",
+                  value: 7,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 8,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }
+              ],
             },
-            {type: "Literal", value: 5},
+            {
+              type: "Literal",
+              value: 5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ]
         }
         expect(ASTBuilder.build("7 * 8 + 5")).to.deep.equal(expected)
@@ -154,11 +346,38 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "add",
           arguments: [
-            {type: "Literal", value: 5},
+            {
+              type: "Literal",
+              value: 5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
             {
               type: "CallExpression",
               id: "multiply",
-              arguments: [{type: "Literal", value: 7}, {type: "Literal", value: 8}],
+              arguments: [
+                {
+                  type: "Literal",
+                  value: 7,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 8,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }
+              ],
             },
           ]
         }
@@ -170,11 +389,37 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "multiply",
           arguments: [
-            {type: "Literal", value: 7},
+            {
+              type: "Literal",
+              value: 7,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
             {
               type: "CallExpression",
               id: "add",
-              arguments: [{type: "Literal", value: 8}, {type: "Literal", value: 5}],
+              arguments: [
+                {
+                  type: "Literal",
+                  value: 8,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 5,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }],
             },
           ]
         }
@@ -186,8 +431,24 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "exponentiate",
           arguments: [
-            {type: "Literal", value: 2},
-            {type: "Literal", value: 8},
+            {
+              type: "Literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
+            {
+              type: "Literal",
+              value: 8,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ]
         }
         expect(ASTBuilder.build("2 ^ 8")).to.deep.equal(expected)
@@ -202,11 +463,35 @@ describe("ASTBuilder", () => {
               type: "CallExpression",
               id: "exponentiate",
               arguments: [
-                {type: "Literal", value: 2},
-                {type: "Literal", value: 8},
+                {
+                  type: "Literal",
+                  value: 2,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "Literal",
+                  value: 8,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
               ]
             },
-            {type: "Literal", value: 7},
+            {
+              type: "Literal",
+              value: 7,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ]
         }
         expect(ASTBuilder.build("2 ^ 8 * 7")).to.deep.equal(expected)
@@ -225,14 +510,46 @@ describe("ASTBuilder", () => {
                   type: "CallExpression",
                   id: "exponentiate",
                   arguments: [
-                    {type: "Literal", value: 2},
-                    {type: "Literal", value: 8},
+                    {
+                      type: "Literal",
+                      value: 2,
+                      dataType: "number",
+                      meta: {
+                        length: 1,
+                        scale: 0,
+                      }
+                    },
+                    {
+                      type: "Literal",
+                      value: 8,
+                      dataType: "number",
+                      meta: {
+                        length: 1,
+                        scale: 0,
+                      }
+                    },
                   ]
                 },
-                {type: "Literal", value: 7},
+                {
+                  type: "Literal",
+                  value: 7,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
               ]
             },
-            {type: "Literal", value: 5},
+            {
+              type: "Literal",
+              value: 5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
           ]
         }
         expect(ASTBuilder.build("2 ^ 8 * 7 + 5")).to.deep.equal(expected)
@@ -243,7 +560,15 @@ describe("ASTBuilder", () => {
           type: "CallExpression",
           id: "exponentiate",
           arguments: [
-            {type: "Literal", value: 2},
+            {
+              type: "Literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
             {
               type: "CallExpression",
               id: "add",
@@ -252,11 +577,35 @@ describe("ASTBuilder", () => {
                   type: "CallExpression",
                   id: "multiply",
                   arguments: [
-                    {type: "Literal", value: 8},
-                    {type: "Literal", value: 7},
+                    {
+                      type: "Literal",
+                      value: 8,
+                      dataType: "number",
+                      meta: {
+                        length: 1,
+                        scale: 0,
+                      }
+                    },
+                    {
+                      type: "Literal",
+                      value: 7,
+                      dataType: "number",
+                      meta: {
+                        length: 1,
+                        scale: 0,
+                      }
+                    },
                   ]
                 },
-                {type: "Literal", value: 5},
+                {
+                  type: "Literal",
+                  value: 5,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
               ]
             },
           ]
@@ -269,7 +618,7 @@ describe("ASTBuilder", () => {
       it("identifier", () => {
         var expected = {
           type: "Identifier",
-          name: "Name",
+          name: "Name"
         }
         expect(ASTBuilder.build("Name")).to.deep.equal(expected)
       })
@@ -280,6 +629,10 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "Literal",
           value: "a String",
+          dataType: "text",
+          meta: {
+            length: 8,
+          }
         }
         expect(ASTBuilder.build("\"a String\"")).to.deep.equal(expected)
       })
@@ -287,31 +640,51 @@ describe("ASTBuilder", () => {
       it("integer literal", () => {
         var expected = {
           type: "Literal",
-          value: 11,
+          value: 12,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 0,
+          }
         }
-        expect(ASTBuilder.build("11")).to.deep.equal(expected)
+        expect(ASTBuilder.build("12")).to.deep.equal(expected)
       })
 
       it("negative integer literal", () => {
         var expected = {
           type: "Literal",
-          value: -11,
+          value: -123,
+          dataType: "number",
+          meta: {
+            length: 3,
+            scale: 0,
+          }
         }
-        expect(ASTBuilder.build("-11")).to.deep.equal(expected)
+        expect(ASTBuilder.build("-123")).to.deep.equal(expected)
       })
 
       it("explicitely positive integer literal", () => {
         var expected = {
           type: "Literal",
-          value: 11,
+          value: 1234,
+          dataType: "number",
+          meta: {
+            length: 4,
+            scale: 0,
+          }
         }
-        expect(ASTBuilder.build("+11")).to.deep.equal(expected)
+        expect(ASTBuilder.build("+1234")).to.deep.equal(expected)
       })
 
       it("float literal", () => {
         var expected = {
           type: "Literal",
           value: 11.2,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 1,
+          }
         }
         expect(ASTBuilder.build("11.2")).to.deep.equal(expected)
       })
@@ -320,6 +693,8 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "Literal",
           value: true,
+          dataType: "checkbox",
+          meta: {}
         }
         expect(ASTBuilder.build("TRUE")).to.deep.equal(expected)
       })
@@ -328,6 +703,8 @@ describe("ASTBuilder", () => {
         var expected = {
           type: "Literal",
           value: false,
+          dataType: "checkbox",
+          meta: {}
         }
         expect(ASTBuilder.build("FALSE")).to.deep.equal(expected)
       })
@@ -348,7 +725,14 @@ describe("ASTBuilder", () => {
           var expected = {
             type: "CallExpression",
             id: "not",
-            arguments: [{type: "Literal", value: false}],
+            arguments: [
+              {
+                type: "Literal",
+                value: false,
+                dataType: "checkbox",
+                meta: {}
+              }
+            ],
           }
           expect(ASTBuilder.build("!FALSE")).to.deep.equal(expected)
         })

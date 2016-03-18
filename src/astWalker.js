@@ -12,7 +12,7 @@ function arrayUnique(a) {
 function walk(ast) {
   switch(ast.type) {
     case "Literal":
-      return ast.value
+      return ast
     case "CallExpression":
       return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg)))
     case "Identifier":
@@ -47,9 +47,12 @@ function replace(ast, replacement) {
       }
     case "Identifier":
       if(replacement[ast.name]) {
+        let replacementObj = replacement[ast.name]
         return {
           type: "Literal",
-          value: replacement[ast.name],
+          value: replacementObj.value,
+          dataType: replacementObj.dataType,
+          meta: replacementObj.meta
         }
       } else {
         return ast

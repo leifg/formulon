@@ -2,6 +2,7 @@
 
 const expect = require("chai").expect
 import { parse } from "../src/formulon"
+import { buildLiteralFromJs } from "../src/functionLookup"
 
 describe("Formulon", () => {
   context("no identifiers", () => {
@@ -23,8 +24,15 @@ describe("Formulon", () => {
     })
 
     context("with substitutions", () => {
+      let substitutions = {
+        Custom_field__c: {
+          value: "2",
+          dataType: "number"
+        }
+      }
+
       it("returns correct result", () => {
-        expect(parse("1 + Custom_field__c", {Custom_field__c: 2})).to.equal(3)
+        expect(parse("1 + Custom_field__c", substitutions)).to.equal(3)
       })
     })
   })

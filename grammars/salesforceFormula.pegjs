@@ -178,7 +178,14 @@ Literal
 
 StringLiteral
   = '"' chars:DoubleStringCharacter* '"' {
-      return { type: "Literal", value: chars.join("") };
+      return {
+        type: "Literal",
+        value: chars.join(""),
+        dataType: "text",
+        meta: {
+          length: chars.length
+        }
+      };
     }
 
 NumericLiteral
@@ -186,10 +193,27 @@ NumericLiteral
 
 DecimalLiteral
   = sign:(__ "+" / "-" __)? DecimalIntegerLiteral "." DecimalDigit* {
-      return { type: "Literal", value: parseFloat(text()) };
+      var splitted = text().replace(/[\+\-]/g, "").split(".")
+      return {
+        type: "Literal",
+        value: parseFloat(text()),
+        dataType: "number",
+        meta: {
+          length: splitted[0].length,
+          scale: splitted[1].length,
+        }
+      };
     }
   / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
-      return { type: "Literal", value: parseInt(text()) };
+      return {
+        type: "Literal",
+        value: parseInt(text()),
+        dataType: "number",
+        meta: {
+          length: text().replace(/[\+\-]/g, "").length,
+          scale: 0,
+        }
+      };
   }
 
 DecimalIntegerLiteral
@@ -204,10 +228,20 @@ NonZeroDigit
 
 BooleanLiteral
   = "TRUE" {
-    return { type: "Literal", value: true }
+    return {
+      type: "Literal",
+      value: true,
+      dataType: "checkbox",
+      meta: {}
+    }
   }
   / "FALSE" {
-    return { type: "Literal", value: false }
+    return {
+      type: "Literal",
+      value: false,
+      dataType: "checkbox",
+      meta: {}
+    }
   }
 
 DoubleStringCharacter
