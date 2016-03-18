@@ -7,13 +7,7 @@ function normalizeIdentifier(input) {
       return Object.assign(
         {},
         input,
-        { value: parseInt(input.value, 10) },
-        {
-          meta: {
-            length: input.value.replace(/[\+\-]/g,"").length,
-            scale: 0,
-          }
-        }
+        { value: parseInt(input.value, 10) }
       )
     default:
       return input
@@ -22,21 +16,19 @@ function normalizeIdentifier(input) {
 
 export const normalizeLiteral = function(input) {
   return Object.keys(input).map((key) => {
-    return {
-      name: key,
-      value: input[key].value,
-      dataType: input[key].dataType,
-    }
+    return Object.assign(
+      {},
+      { name: key },
+      input[key]
+    )
   }).reduce((agg, identifier) => {
+    let name = identifier.name
+    let object = normalizeIdentifier(identifier)
+    delete object.name
     return Object.assign(
       agg,
       {
-        [identifier.name]: normalizeIdentifier(
-          {
-            value: identifier.value,
-            dataType: identifier.dataType
-          }
-        )
+        [name]: object
       }
     )
   }, {})

@@ -11,6 +11,10 @@ describe('normalizeLiteral', () => {
         let input = {
           value: '2',
           dataType: 'number',
+          meta: {
+            length: 1,
+            scale: 0,
+          }
         }
 
         it('returns parsed literal', () => {
@@ -31,7 +35,11 @@ describe('normalizeLiteral', () => {
       context('negative', () => {
         let input = {
           value: '-12',
-          dataType: 'number'
+          dataType: 'number',
+          meta: {
+            length: 2,
+            scale: 0,
+          }
         }
 
         it('returns parsed literal', () => {
@@ -52,7 +60,11 @@ describe('normalizeLiteral', () => {
       context('explicitly positive', () => {
         let input = {
           value: '+123',
-          dataType: 'number'
+          dataType: 'number',
+          meta: {
+            length: 3,
+            scale: 0,
+          }
         }
 
         it('returns parsed literal', () => {
