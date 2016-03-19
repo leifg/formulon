@@ -2,7 +2,7 @@
 
 var expect = require("chai").expect
 
-import FunctionLookup, {normalizeLiteral, buildLiteralFromJs} from "../src/functionLookup"
+import { normalizeLiteral, buildLiteralFromJs } from "../src/utils"
 
 describe('normalizeLiteral', () => {
   context('Number', () => {
@@ -176,84 +176,6 @@ describe('buildLiteralFromJs', () => {
       let fn = () => { buildLiteralFromJs({}) }
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
-    })
-  })
-})
-
-describe("FunctionLookup", () => {
-  describe("#add", () => {
-    it("adds correctly", () => {
-      expect(FunctionLookup.add(buildLiteralFromJs(1),buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(3))
-    })
-  })
-
-  describe("#subtract", () => {
-    it("subtracts correctly", () => {
-      expect(FunctionLookup.subtract(buildLiteralFromJs(10), buildLiteralFromJs(100))).to.deep.eq(buildLiteralFromJs(-90))
-    })
-  })
-
-  describe("#multiply", () => {
-    it("multiplies correctly", () => {
-      expect(FunctionLookup.multiply(buildLiteralFromJs(7),buildLiteralFromJs(8))).to.deep.eq(buildLiteralFromJs(56))
-    })
-  })
-
-  describe("#divide", () => {
-    it("divides correctly", () => {
-      expect(FunctionLookup.divide(buildLiteralFromJs(10),buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(5))
-    })
-  })
-
-  describe("#exponentiate", () => {
-    it("exponentiates correctly", () => {
-      expect(FunctionLookup.exponentiate(buildLiteralFromJs(2),buildLiteralFromJs(5))).to.deep.eq(buildLiteralFromJs(32))
-    })
-  })
-
-  describe("#and", () => {
-    it("both true", () => {
-      expect(FunctionLookup.and(buildLiteralFromJs(true),buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(true))
-    })
-
-    it("false and true", () => {
-      expect(FunctionLookup.and(buildLiteralFromJs(false),buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(false))
-    })
-
-    it("true and false", () => {
-      expect(FunctionLookup.and(buildLiteralFromJs(true),buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(false))
-    })
-
-    it("both false", () => {
-      expect(FunctionLookup.and(buildLiteralFromJs(false),buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(false))
-    })
-  })
-
-  describe("#or", () => {
-    it("both true", () => {
-      expect(FunctionLookup.or(buildLiteralFromJs(true),buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(true))
-    })
-
-    it("false and true", () => {
-      expect(FunctionLookup.or(buildLiteralFromJs(false),buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(true))
-    })
-
-    it("true and false", () => {
-      expect(FunctionLookup.or(buildLiteralFromJs(true),buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
-    })
-
-    it("both false", () => {
-      expect(FunctionLookup.or(buildLiteralFromJs(false),buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(false))
-    })
-  })
-
-  describe("#not", () => {
-    it("true", () => {
-      expect(FunctionLookup.not(buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(false))
-    })
-
-    it("false", () => {
-      expect(FunctionLookup.not(buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
     })
   })
 })

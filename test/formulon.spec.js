@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect
 import { format, parse } from "../src/formulon"
-import { buildLiteralFromJs } from "../src/functionLookup"
+import { buildLiteralFromJs } from "../src/utils"
 
 describe("Formulon", () => {
   describe("parse", () => {

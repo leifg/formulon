@@ -1,10 +1,10 @@
 "use strict"
 
-import ASTBuilder from "../src/astBuilder"
+import { build, extract, replace, traverse } from "../src/ast"
 const expect = require("chai").expect
 
 describe("ASTBuilder", () => {
-  describe("#build", () => {
+  describe("build", () => {
     context("Function Calls", () => {
       it("function call without arguments", () => {
         var expected = {
@@ -12,7 +12,7 @@ describe("ASTBuilder", () => {
           id: "now",
           arguments: [],
         }
-        expect(ASTBuilder.build("NOW()")).to.deep.equal(expected)
+        expect(build("NOW()")).to.deep.equal(expected)
       })
 
       it("function call with single argument", () => {
@@ -31,7 +31,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("ABS(1.5)")).to.deep.equal(expected)
+        expect(build("ABS(1.5)")).to.deep.equal(expected)
       })
 
       it("function call with multiple arguments", () => {
@@ -59,7 +59,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("MOD(11, 2)")).to.deep.equal(expected)
+        expect(build("MOD(11, 2)")).to.deep.equal(expected)
       })
 
       it("nested function calls", () => {
@@ -94,7 +94,7 @@ describe("ASTBuilder", () => {
             },
           ],
         }
-        expect(ASTBuilder.build("IF(ISPICKVAL(StageName, \"Closed Won\"), Amount, 0)")).to.deep.equal(expected)
+        expect(build("IF(ISPICKVAL(StageName, \"Closed Won\"), Amount, 0)")).to.deep.equal(expected)
       })
     })
 
@@ -124,7 +124,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("1.5 + 2")).to.deep.equal(expected)
+        expect(build("1.5 + 2")).to.deep.equal(expected)
       })
 
       it("simple subtraction", () => {
@@ -152,7 +152,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("1 - 10")).to.deep.equal(expected)
+        expect(build("1 - 10")).to.deep.equal(expected)
       })
 
       it("addition with more than 2 arguments", () => {
@@ -195,7 +195,7 @@ describe("ASTBuilder", () => {
             }
           ]
         }
-        expect(ASTBuilder.build("1 + 2 + 3")).to.deep.equal(expected)
+        expect(build("1 + 2 + 3")).to.deep.equal(expected)
       })
 
       it("addition with function", () => {
@@ -239,7 +239,7 @@ describe("ASTBuilder", () => {
           ]
         }
 
-        expect(ASTBuilder.build("MAX(1,3) + 7")).to.deep.equal(expected)
+        expect(build("MAX(1,3) + 7")).to.deep.equal(expected)
       })
 
       it("simple multiplication", () => {
@@ -267,7 +267,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("7 * 8")).to.deep.equal(expected)
+        expect(build("7 * 8")).to.deep.equal(expected)
       })
 
       it("simple division", () => {
@@ -295,7 +295,7 @@ describe("ASTBuilder", () => {
             }
           ],
         }
-        expect(ASTBuilder.build("100 / 25")).to.deep.equal(expected)
+        expect(build("100 / 25")).to.deep.equal(expected)
       })
 
       it("addition and multiplication (multiplication first)", () => {
@@ -338,7 +338,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("7 * 8 + 5")).to.deep.equal(expected)
+        expect(build("7 * 8 + 5")).to.deep.equal(expected)
       })
 
       it("addition and multiplication (addition first)", () => {
@@ -381,7 +381,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("5 + 7 * 8")).to.deep.equal(expected)
+        expect(build("5 + 7 * 8")).to.deep.equal(expected)
       })
 
       it("addition and multiplication with parentheses", () => {
@@ -423,7 +423,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("7 * (8 + 5)")).to.deep.equal(expected)
+        expect(build("7 * (8 + 5)")).to.deep.equal(expected)
       })
 
       it("simple exponentiation", () => {
@@ -451,7 +451,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("2 ^ 8")).to.deep.equal(expected)
+        expect(build("2 ^ 8")).to.deep.equal(expected)
       })
 
       it("exponentiation and multiplication", () => {
@@ -494,7 +494,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("2 ^ 8 * 7")).to.deep.equal(expected)
+        expect(build("2 ^ 8 * 7")).to.deep.equal(expected)
       })
 
       it("exponentiation, multiplication and addition", () => {
@@ -552,7 +552,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("2 ^ 8 * 7 + 5")).to.deep.equal(expected)
+        expect(build("2 ^ 8 * 7 + 5")).to.deep.equal(expected)
       })
 
       it("exponentiation, multiplication and addition in parentheses", () => {
@@ -610,7 +610,7 @@ describe("ASTBuilder", () => {
             },
           ]
         }
-        expect(ASTBuilder.build("2 ^ (8 * 7 + 5)")).to.deep.equal(expected)
+        expect(build("2 ^ (8 * 7 + 5)")).to.deep.equal(expected)
       })
     })
 
@@ -620,7 +620,7 @@ describe("ASTBuilder", () => {
           type: "identifier",
           name: "Name"
         }
-        expect(ASTBuilder.build("Name")).to.deep.equal(expected)
+        expect(build("Name")).to.deep.equal(expected)
       })
     })
 
@@ -634,7 +634,7 @@ describe("ASTBuilder", () => {
             length: 8,
           }
         }
-        expect(ASTBuilder.build("\"a String\"")).to.deep.equal(expected)
+        expect(build("\"a String\"")).to.deep.equal(expected)
       })
 
       it("integer literal", () => {
@@ -647,7 +647,7 @@ describe("ASTBuilder", () => {
             scale: 0,
           }
         }
-        expect(ASTBuilder.build("12")).to.deep.equal(expected)
+        expect(build("12")).to.deep.equal(expected)
       })
 
       it("negative integer literal", () => {
@@ -660,7 +660,7 @@ describe("ASTBuilder", () => {
             scale: 0,
           }
         }
-        expect(ASTBuilder.build("-123")).to.deep.equal(expected)
+        expect(build("-123")).to.deep.equal(expected)
       })
 
       it("explicitely positive integer literal", () => {
@@ -673,7 +673,7 @@ describe("ASTBuilder", () => {
             scale: 0,
           }
         }
-        expect(ASTBuilder.build("+1234")).to.deep.equal(expected)
+        expect(build("+1234")).to.deep.equal(expected)
       })
 
       it("float literal", () => {
@@ -686,7 +686,7 @@ describe("ASTBuilder", () => {
             scale: 1,
           }
         }
-        expect(ASTBuilder.build("11.2")).to.deep.equal(expected)
+        expect(build("11.2")).to.deep.equal(expected)
       })
 
       it("TRUE literal", () => {
@@ -696,7 +696,7 @@ describe("ASTBuilder", () => {
           dataType: "checkbox",
           meta: {}
         }
-        expect(ASTBuilder.build("TRUE")).to.deep.equal(expected)
+        expect(build("TRUE")).to.deep.equal(expected)
       })
 
       it("FALSE literal", () => {
@@ -706,7 +706,7 @@ describe("ASTBuilder", () => {
           dataType: "checkbox",
           meta: {}
         }
-        expect(ASTBuilder.build("FALSE")).to.deep.equal(expected)
+        expect(build("FALSE")).to.deep.equal(expected)
       })
     })
 
@@ -718,7 +718,7 @@ describe("ASTBuilder", () => {
             id: "not",
             arguments: [{type: "identifier", name: "Negative"}],
           }
-          expect(ASTBuilder.build("!Negative")).to.deep.equal(expected)
+          expect(build("!Negative")).to.deep.equal(expected)
         })
 
         it("NOT with boolean literal", () => {
@@ -734,7 +734,7 @@ describe("ASTBuilder", () => {
               }
             ],
           }
-          expect(ASTBuilder.build("!FALSE")).to.deep.equal(expected)
+          expect(build("!FALSE")).to.deep.equal(expected)
         })
       })
 
@@ -748,7 +748,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First && Second")).to.deep.equal(expected)
+          expect(build("First && Second")).to.deep.equal(expected)
         })
 
         it("||", () => {
@@ -760,7 +760,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First || Second")).to.deep.equal(expected)
+          expect(build("First || Second")).to.deep.equal(expected)
         })
 
         it("==", () => {
@@ -772,7 +772,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First == Second")).to.deep.equal(expected)
+          expect(build("First == Second")).to.deep.equal(expected)
         })
 
         it("=", () => {
@@ -784,7 +784,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First = Second")).to.deep.equal(expected)
+          expect(build("First = Second")).to.deep.equal(expected)
         })
 
         it("!=", () => {
@@ -796,7 +796,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First != Second")).to.deep.equal(expected)
+          expect(build("First != Second")).to.deep.equal(expected)
         })
 
         it("<>", () => {
@@ -808,7 +808,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First <> Second")).to.deep.equal(expected)
+          expect(build("First <> Second")).to.deep.equal(expected)
         })
 
         it("<", () => {
@@ -820,7 +820,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First < Second")).to.deep.equal(expected)
+          expect(build("First < Second")).to.deep.equal(expected)
         })
 
         it("<=", () => {
@@ -832,7 +832,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First <= Second")).to.deep.equal(expected)
+          expect(build("First <= Second")).to.deep.equal(expected)
         })
 
         it(">", () => {
@@ -844,7 +844,7 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First > Second")).to.deep.equal(expected)
+          expect(build("First > Second")).to.deep.equal(expected)
         })
 
         it(">=", () => {
@@ -856,7 +856,386 @@ describe("ASTBuilder", () => {
               {type: "identifier", name: "Second"},
             ],
           }
-          expect(ASTBuilder.build("First >= Second")).to.deep.equal(expected)
+          expect(build("First >= Second")).to.deep.equal(expected)
+        })
+      })
+    })
+  })
+
+  describe("traverse", () => {
+    context("literal", () => {
+      it("integer literal", () => {
+        var input = {
+          type: "literal",
+          value: 11,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 0,
+          }
+        }
+        var expected = {
+          type: "literal",
+          value: 11,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 0,
+          }
+        }
+
+        expect(traverse(input)).to.deep.equal(expected)
+      })
+
+      it("float literal", () => {
+        var input = {
+          type: "literal",
+          value: 11.2,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 1,
+          }
+        }
+
+        var expected = {
+          type: "literal",
+          value: 11.2,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 1,
+          }
+        }
+
+        expect(traverse(input)).to.deep.equal(expected)
+      })
+
+      it("string literal", () => {
+        var input = {
+          type: "literal",
+          value: "a String",
+          dataType: "text",
+          meta: {
+            length: 8,
+            scale: 0,
+          }
+        }
+
+        var expected = {
+          type: "literal",
+          value: "a String",
+          dataType: "text",
+          meta: {
+            length: 8,
+            scale: 0,
+          }
+        }
+
+        expect(traverse(input)).to.deep.equal(expected)
+      })
+    })
+
+    context("identifier", () => {
+      it("throws ReferenceError", () => {
+        var input = { type: "identifier", name: "Name" }
+        var fn = function () { traverse(input) }
+
+        expect(fn).to.throw(ReferenceError, `Undefined variable '${input.name}'`)
+      })
+    })
+
+    context("callExpression", () => {
+      it("1 level", () => {
+        var input = {
+          type: "callExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "literal",
+              value: 1.5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 1,
+              }
+            },
+            {
+              type: "literal",
+              value: 9,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
+          ]
+        }
+
+        var expected = {
+          type: "literal",
+          value: 10.5,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 1,
+          }
+        }
+
+        expect(traverse(input)).to.deep.equal(expected)
+      })
+
+      it("2 levels", () => {
+        var input = {
+          type: "callExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "callExpression",
+              id: "multiply",
+              arguments: [
+                {
+                  type: "literal",
+                  value: 7,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                },
+                {
+                  type: "literal",
+                  value: 8,
+                  dataType: "number",
+                  meta: {
+                    length: 1,
+                    scale: 0,
+                  }
+                }
+              ],
+            },
+            {
+              type: "literal",
+              value: 5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            },
+          ]
+        }
+        var expected = {
+          type: "literal",
+          value: 61,
+          dataType: "number",
+          meta: {
+            length: 2,
+            scale: 0,
+          }
+        }
+
+        expect(traverse(input)).to.deep.equal(expected)
+      })
+    })
+  })
+
+  describe("extract", () => {
+    context("no identifiers", () => {
+      let ast = {
+          type: "callExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "literal",
+              value: 1.5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 1,
+              }
+            },
+            {
+              type: "literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
+          ]
+        }
+
+      it("returns empty array", () => {
+        var expected = []
+        expect(extract(ast)).to.deep.equal(expected)
+      })
+    })
+
+    context("one identifier", () => {
+      let ast = {
+          type: "callExpression",
+          id: "add",
+          arguments: [{type: "literal", value: 1.5}, {type: "identifier", name: "Name"}]
+        }
+
+      it("returns array with replaced variables", () => {
+        var expected = ["Name"]
+        expect(extract(ast)).to.deep.equal(expected)
+      })
+    })
+
+    context("multiple identifiers", () => {
+      let ast = {
+          type: "callExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "callExpression",
+              id: "subtract",
+              arguments: [{type: "identifier", name: "Argument1"}, {type: "identifier", name: "Argument2"}]
+            },
+            {type: "identifier", name: "Name"}
+          ]
+        }
+
+      it("returns array with replaced variables", () => {
+        var expected = ["Argument1", "Argument2", "Name"]
+        expect(extract(ast)).to.deep.equal(expected)
+      })
+    })
+
+    context("redundant identifiers", () => {
+      let ast = {
+          type: "callExpression",
+          id: "add",
+          arguments: [{type: "identifier", name: "Name"}, {type: "identifier", name: "Name"}]
+        }
+
+      it("returns array with replaced variables", () => {
+        var expected = ["Name"]
+        expect(extract(ast)).to.deep.equal(expected)
+      })
+    })
+  })
+
+  describe("replace", () => {
+    context("no identifiers", () => {
+      let ast = {
+          type: "callExpression",
+          id: "add",
+          arguments: [
+            {
+              type: "literal",
+              value: 1.5,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 1,
+              }
+            },
+            {
+              type: "literal",
+              value: 2,
+              dataType: "number",
+              meta: {
+                length: 1,
+                scale: 0,
+              }
+            }
+          ]
+        }
+
+      it("returns empty array", () => {
+        var expected = ast
+        expect(replace(ast, {Name: "value"})).to.deep.equal(expected)
+      })
+    })
+
+    context("one identifier", () => {
+      context("replacement given", () => {
+        let ast = {
+            type: "callExpression",
+            id: "add",
+            arguments: [
+              {
+                type: "literal",
+                value: 1.5,
+                dataType: "number",
+                meta: {
+                  length: 1,
+                  scale: 1,
+                }
+              },
+              {
+                type: "identifier",
+                name: "Name"
+              }
+            ]
+          }
+
+        it("returns replaced array", () => {
+          var expected = {
+            type: "callExpression",
+            id: "add",
+            arguments: [
+              {
+                type: "literal",
+                value: 1.5,
+                dataType: "number",
+                meta: {
+                  length: 1,
+                  scale: 1,
+                }
+              },
+              {
+                type: "literal",
+                value: "value",
+                dataType: "text",
+                meta: {
+                  length: 4,
+                }
+              }
+            ]
+          }
+          let substitutions = {
+            Name: {
+              value: "value",
+              dataType: "text",
+              meta: {
+                length: 4,
+              }
+            }
+          }
+          expect(replace(ast, substitutions)).to.deep.equal(expected)
+        })
+      })
+
+      context("no replacement given", () => {
+        let ast = {
+            type: "callExpression",
+            id: "add",
+            arguments: [
+              {
+                type: "literal",
+                value: 1.5,
+                dataType: "number",
+                meta: {
+                  length: 1,
+                  scale: 1,
+                }
+              },
+              {
+                type: "identifier",
+                name: "Name"
+              }
+            ]
+          }
+
+        it("returns replaced array", () => {
+          var expected = ast
+          expect(replace(ast, {})).to.deep.equal(expected)
         })
       })
     })

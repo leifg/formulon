@@ -1,12 +1,11 @@
 "use strict"
 
-import ASTBuilder from "./astBuilder"
-import ASTWalker from "./astWalker"
-import { buildLiteralFromJs, normalizeLiteral } from './functionLookup'
+import {build, extract as astExtract, replace, traverse} from "./ast"
+import { buildLiteralFromJs, normalizeLiteral } from './utils'
 
 export const parseAndThrowError = function(formula, substitutions) {
-  let ast = ASTBuilder.build(formula)
-  return ASTWalker.walk(ASTWalker.replace(ast, normalizeLiteral(substitutions)))
+  let ast = build(formula)
+  return traverse(replace(ast, normalizeLiteral(substitutions)))
 }
 
 export const parse = function(formula, substitutions) {
@@ -27,6 +26,6 @@ export const parse = function(formula, substitutions) {
 }
 
 export const extract = function(formula) {
-  let ast = ASTBuilder.build(formula);
-  return ASTWalker.extract(ast);
+  let ast = build(formula);
+  return astExtract(ast);
 }
