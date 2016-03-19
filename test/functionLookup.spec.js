@@ -90,7 +90,7 @@ describe('buildLiteralFromJs', () => {
     context('Integer', () => {
       it("returns expected Literal for positive number", () => {
         let expected = {
-          type: "Literal",
+          type: "literal",
           value: 1,
           dataType: 'number',
           meta: {
@@ -103,7 +103,7 @@ describe('buildLiteralFromJs', () => {
 
       it("returns expected Literal for positive number", () => {
         let expected = {
-          type: "Literal",
+          type: "literal",
           value: -12,
           dataType: 'number',
           meta: {
@@ -118,7 +118,7 @@ describe('buildLiteralFromJs', () => {
     context('Float', () => {
       it("returns expected Literal for positive number", () => {
         let expected = {
-          type: "Literal",
+          type: "literal",
           value: 1.5,
           dataType: 'number',
           meta: {
@@ -131,7 +131,7 @@ describe('buildLiteralFromJs', () => {
 
       it("returns expected Literal for positive number", () => {
         let expected = {
-          type: "Literal",
+          type: "literal",
           value: -125.75,
           dataType: 'number',
           meta: {
@@ -147,7 +147,7 @@ describe('buildLiteralFromJs', () => {
   context('Text', () => {
     it("returns expected Literal for text number", () => {
       let expected = {
-        type: "Literal",
+        type: "literal",
         value: "four",
         dataType: 'text',
         meta: {
@@ -161,7 +161,7 @@ describe('buildLiteralFromJs', () => {
   context('Checkbox', () => {
     it("returns expected Literal for true", () => {
       let expected = {
-        type: "Literal",
+        type: "literal",
         value: true,
         dataType: 'checkbox',
         meta: {}

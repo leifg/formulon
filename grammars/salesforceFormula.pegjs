@@ -23,7 +23,7 @@ LeftHandSideExpression
 CallExpression
   = id:FunctionIdentifier args:Arguments {
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: id,
       arguments: optionalList(args)
     }
@@ -36,7 +36,7 @@ AdditiveExpression
   = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
   {
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: op === "+" ? "add" : "subtract",
       arguments: [head, tail]
     }
@@ -47,7 +47,7 @@ MultiplicativeExpression
   = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
   {
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: op === "*" ? "multiply" : "divide",
       arguments: [head, tail]
     }
@@ -58,7 +58,7 @@ ExponentiateExpression
   = head:(BinaryExpression) __ "^" __ tail:ExponentiateExpression
   {
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: "exponentiate",
       arguments: [head, tail]
     }
@@ -100,7 +100,7 @@ BinaryExpression
     }
 
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: name,
       arguments: [head, tail]
     }
@@ -122,7 +122,7 @@ LogicalOperator
 UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {
     return {
-      type: "CallExpression",
+      type: "callExpression",
       id: "not",
       arguments: [tail]
     }
@@ -158,7 +158,7 @@ Identifier
 IdentifierName
   = head:IdentifierStart tail:IdentifierPart* {
       return {
-        type: "Identifier",
+        type: "identifier",
         name: head + tail.join("")
       };
     }
@@ -179,7 +179,7 @@ Literal
 StringLiteral
   = '"' chars:DoubleStringCharacter* '"' {
       return {
-        type: "Literal",
+        type: "literal",
         value: chars.join(""),
         dataType: "text",
         meta: {
@@ -195,7 +195,7 @@ DecimalLiteral
   = sign:(__ "+" / "-" __)? DecimalIntegerLiteral "." DecimalDigit* {
       var splitted = text().replace(/[\+\-]/g, "").split(".")
       return {
-        type: "Literal",
+        type: "literal",
         value: parseFloat(text()),
         dataType: "number",
         meta: {
@@ -206,7 +206,7 @@ DecimalLiteral
     }
   / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
       return {
-        type: "Literal",
+        type: "literal",
         value: parseInt(text()),
         dataType: "number",
         meta: {
@@ -229,7 +229,7 @@ NonZeroDigit
 BooleanLiteral
   = "TRUE" {
     return {
-      type: "Literal",
+      type: "literal",
       value: true,
       dataType: "checkbox",
       meta: {}
@@ -237,7 +237,7 @@ BooleanLiteral
   }
   / "FALSE" {
     return {
-      type: "Literal",
+      type: "literal",
       value: false,
       dataType: "checkbox",
       meta: {}

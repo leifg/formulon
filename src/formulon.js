@@ -19,7 +19,7 @@ export const parse = function(formula, substitutions) {
   }
   catch(err) {
     return {
-      type: "Error",
+      type: "error",
       errorType: err.constructor.name,
       message: err.message
     }

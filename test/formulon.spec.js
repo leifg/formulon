@@ -67,7 +67,7 @@ describe("Formulon", () => {
       context("no substitutions for existing identifier", () => {
         it("returns error object with ReferenceError", () => {
           let expected = {
-            type: "Error",
+            type: "error",
             errorType: "ReferenceError",
             message: "Undefined variable 'Custom_field__c'"
           }
@@ -78,7 +78,7 @@ describe("Formulon", () => {
       context("parse error", () => {
         it("returns error object with ReferenceError", () => {
           let expected = {
-            type: "Error",
+            type: "error",
             errorType: "EvalError",
             message: "Parsing Error"
           }

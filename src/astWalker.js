@@ -11,22 +11,22 @@ function arrayUnique(a) {
 
 function walk(ast) {
   switch(ast.type) {
-    case "Literal":
+    case "literal":
       return ast
-    case "CallExpression":
+    case "callExpression":
       return FunctionLookup[ast.id](...ast.arguments.map((arg) => walk(arg)))
-    case "Identifier":
+    case "identifier":
       throw new ReferenceError(`Undefined variable '${ast.name}'`)
   }
 }
 
 function _extract(ast, state) {
   switch(ast.type) {
-    case "Literal":
+    case "literal":
       return state
-    case "CallExpression":
+    case "callExpression":
       return ast.arguments.map((arg) => _extract(arg, state)).reduce((a,b) => { return a.concat(b) })
-    case "Identifier":
+    case "identifier":
       return state.concat(ast.name)
   }
 }
@@ -37,19 +37,19 @@ function extract(ast) {
 
 function replace(ast, replacement) {
   switch(ast.type) {
-    case "Literal":
+    case "literal":
       return ast
-    case "CallExpression":
+    case "callExpression":
       return {
-        type: "CallExpression",
+        type: "callExpression",
         id: ast.id,
         arguments: ast.arguments.map((arg) => replace(arg, replacement))
       }
-    case "Identifier":
+    case "identifier":
       if(replacement[ast.name]) {
         let replacementObj = replacement[ast.name]
         return {
-          type: "Literal",
+          type: "literal",
           value: replacementObj.value,
           dataType: replacementObj.dataType,
           meta: replacementObj.meta

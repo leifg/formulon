@@ -52,7 +52,7 @@ function calculateNumberMeta(number) {
 
 export const buildLiteralFromJs = function(input) {
   let type = typeof(input)
-  let base = { type: "Literal", value: input }
+  let base = { type: "literal", value: input }
   switch(typeof(input)) {
     case 'number':
       return Object.assign(

@@ -5,10 +5,10 @@ import ASTWalker from "../src/astWalker"
 
 describe("ASTWalker", () => {
   describe("#walk", () => {
-    context("Literal", () => {
+    context("literal", () => {
       it("integer literal", () => {
         var input = {
-          type: "Literal",
+          type: "literal",
           value: 11,
           dataType: "number",
           meta: {
@@ -17,7 +17,7 @@ describe("ASTWalker", () => {
           }
         }
         var expected = {
-          type: "Literal",
+          type: "literal",
           value: 11,
           dataType: "number",
           meta: {
@@ -31,7 +31,7 @@ describe("ASTWalker", () => {
 
       it("float literal", () => {
         var input = {
-          type: "Literal",
+          type: "literal",
           value: 11.2,
           dataType: "number",
           meta: {
@@ -41,7 +41,7 @@ describe("ASTWalker", () => {
         }
 
         var expected = {
-          type: "Literal",
+          type: "literal",
           value: 11.2,
           dataType: "number",
           meta: {
@@ -55,7 +55,7 @@ describe("ASTWalker", () => {
 
       it("string literal", () => {
         var input = {
-          type: "Literal",
+          type: "literal",
           value: "a String",
           dataType: "text",
           meta: {
@@ -65,7 +65,7 @@ describe("ASTWalker", () => {
         }
 
         var expected = {
-          type: "Literal",
+          type: "literal",
           value: "a String",
           dataType: "text",
           meta: {
@@ -78,23 +78,23 @@ describe("ASTWalker", () => {
       })
     })
 
-    context("Identifier", () => {
+    context("identifier", () => {
       it("throws ReferenceError", () => {
-        var input = { type: "Identifier", name: "Name" }
+        var input = { type: "identifier", name: "Name" }
         var fn = function () { ASTWalker.walk(input) }
 
         expect(fn).to.throw(ReferenceError, `Undefined variable '${input.name}'`)
       })
     })
 
-    context("CallExpression", () => {
+    context("callExpression", () => {
       it("1 level", () => {
         var input = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
           arguments: [
             {
-              type: "Literal",
+              type: "literal",
               value: 1.5,
               dataType: "number",
               meta: {
@@ -103,7 +103,7 @@ describe("ASTWalker", () => {
               }
             },
             {
-              type: "Literal",
+              type: "literal",
               value: 9,
               dataType: "number",
               meta: {
@@ -115,7 +115,7 @@ describe("ASTWalker", () => {
         }
 
         var expected = {
-          type: "Literal",
+          type: "literal",
           value: 10.5,
           dataType: "number",
           meta: {
@@ -129,15 +129,15 @@ describe("ASTWalker", () => {
 
       it("2 levels", () => {
         var input = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
           arguments: [
             {
-              type: "CallExpression",
+              type: "callExpression",
               id: "multiply",
               arguments: [
                 {
-                  type: "Literal",
+                  type: "literal",
                   value: 7,
                   dataType: "number",
                   meta: {
@@ -146,7 +146,7 @@ describe("ASTWalker", () => {
                   }
                 },
                 {
-                  type: "Literal",
+                  type: "literal",
                   value: 8,
                   dataType: "number",
                   meta: {
@@ -157,7 +157,7 @@ describe("ASTWalker", () => {
               ],
             },
             {
-              type: "Literal",
+              type: "literal",
               value: 5,
               dataType: "number",
               meta: {
@@ -168,7 +168,7 @@ describe("ASTWalker", () => {
           ]
         }
         var expected = {
-          type: "Literal",
+          type: "literal",
           value: 61,
           dataType: "number",
           meta: {
@@ -185,11 +185,11 @@ describe("ASTWalker", () => {
   describe("#extract", () => {
     context("no identifiers", () => {
       let ast = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
           arguments: [
             {
-              type: "Literal",
+              type: "literal",
               value: 1.5,
               dataType: "number",
               meta: {
@@ -198,7 +198,7 @@ describe("ASTWalker", () => {
               }
             },
             {
-              type: "Literal",
+              type: "literal",
               value: 2,
               dataType: "number",
               meta: {
@@ -217,9 +217,9 @@ describe("ASTWalker", () => {
 
     context("one identifier", () => {
       let ast = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
-          arguments: [{type: "Literal", value: 1.5}, {type: "Identifier", name: "Name"}]
+          arguments: [{type: "literal", value: 1.5}, {type: "identifier", name: "Name"}]
         }
 
       it("returns array with replaced variables", () => {
@@ -230,15 +230,15 @@ describe("ASTWalker", () => {
 
     context("multiple identifiers", () => {
       let ast = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
           arguments: [
             {
-              type: "CallExpression",
+              type: "callExpression",
               id: "subtract",
-              arguments: [{type: "Identifier", name: "Argument1"}, {type: "Identifier", name: "Argument2"}]
+              arguments: [{type: "identifier", name: "Argument1"}, {type: "identifier", name: "Argument2"}]
             },
-            {type: "Identifier", name: "Name"}
+            {type: "identifier", name: "Name"}
           ]
         }
 
@@ -250,9 +250,9 @@ describe("ASTWalker", () => {
 
     context("redundant identifiers", () => {
       let ast = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
-          arguments: [{type: "Identifier", name: "Name"}, {type: "Identifier", name: "Name"}]
+          arguments: [{type: "identifier", name: "Name"}, {type: "identifier", name: "Name"}]
         }
 
       it("returns array with replaced variables", () => {
@@ -265,11 +265,11 @@ describe("ASTWalker", () => {
   describe("#replace", () => {
     context("no identifiers", () => {
       let ast = {
-          type: "CallExpression",
+          type: "callExpression",
           id: "add",
           arguments: [
             {
-              type: "Literal",
+              type: "literal",
               value: 1.5,
               dataType: "number",
               meta: {
@@ -278,7 +278,7 @@ describe("ASTWalker", () => {
               }
             },
             {
-              type: "Literal",
+              type: "literal",
               value: 2,
               dataType: "number",
               meta: {
@@ -298,11 +298,11 @@ describe("ASTWalker", () => {
     context("one identifier", () => {
       context("replacement given", () => {
         let ast = {
-            type: "CallExpression",
+            type: "callExpression",
             id: "add",
             arguments: [
               {
-                type: "Literal",
+                type: "literal",
                 value: 1.5,
                 dataType: "number",
                 meta: {
@@ -311,7 +311,7 @@ describe("ASTWalker", () => {
                 }
               },
               {
-                type: "Identifier",
+                type: "identifier",
                 name: "Name"
               }
             ]
@@ -319,11 +319,11 @@ describe("ASTWalker", () => {
 
         it("returns replaced array", () => {
           var expected = {
-            type: "CallExpression",
+            type: "callExpression",
             id: "add",
             arguments: [
               {
-                type: "Literal",
+                type: "literal",
                 value: 1.5,
                 dataType: "number",
                 meta: {
@@ -332,7 +332,7 @@ describe("ASTWalker", () => {
                 }
               },
               {
-                type: "Literal",
+                type: "literal",
                 value: "value",
                 dataType: "text",
                 meta: {
@@ -356,11 +356,11 @@ describe("ASTWalker", () => {
 
       context("no replacement given", () => {
         let ast = {
-            type: "CallExpression",
+            type: "callExpression",
             id: "add",
             arguments: [
               {
-                type: "Literal",
+                type: "literal",
                 value: 1.5,
                 dataType: "number",
                 meta: {
@@ -369,7 +369,7 @@ describe("ASTWalker", () => {
                 }
               },
               {
-                type: "Identifier",
+                type: "identifier",
                 name: "Name"
               }
             ]
