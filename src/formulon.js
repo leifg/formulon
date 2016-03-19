@@ -2,18 +2,18 @@
 
 import ASTBuilder from "./astBuilder"
 import ASTWalker from "./astWalker"
-import { normalizeLiteral } from './functionLookup'
+import { buildLiteralFromJs, normalizeLiteral } from './functionLookup'
 
-function format(ast) {
-  return ast.value
-}
-
-function parseAndThrowError(formula, substitutions) {
-  let ast = ASTBuilder.build(formula);
+export const parseAndThrowError = function(formula, substitutions) {
+  let ast = ASTBuilder.build(formula)
   return ASTWalker.walk(ASTWalker.replace(ast, normalizeLiteral(substitutions)))
 }
 
 export const parse = function(formula, substitutions) {
+  if(formula === undefined || formula === null || formula.trim() == '') {
+    return buildLiteralFromJs("")
+  }
+
   try {
     return parseAndThrowError(formula, substitutions)
   }
