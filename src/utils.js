@@ -44,6 +44,13 @@ export const buildLiteralFromJs = function(input) {
   }
 }
 
+export const arrayUnique = (array) => {
+  return array.reduce(function(p, c) {
+    if (p.indexOf(c) < 0) p.push(c);
+    return p;
+  }, []);
+}
+
 // private
 
 // TODO implement for other types

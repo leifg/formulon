@@ -2,7 +2,7 @@
 
 var expect = require("chai").expect
 
-import { normalizeLiteral, buildLiteralFromJs } from "../src/utils"
+import { arrayUnique, normalizeLiteral, buildLiteralFromJs } from "../src/utils"
 
 describe('normalizeLiteral', () => {
   context('Number', () => {
@@ -176,6 +176,31 @@ describe('buildLiteralFromJs', () => {
       let fn = () => { buildLiteralFromJs({}) }
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
+    })
+  })
+})
+
+describe('arrayUnique', () => {
+  // TODO add deepFreeze
+  context("non redundant elements", () => {
+    it("returns same input as output for empty array", () => {
+      let input = []
+      let expected = []
+      expect(arrayUnique(input)).to.deep.eq(expected)
+    })
+
+    it("returns same input as output", () => {
+      let input = ["a", "b", "c"]
+      let expected = ["a", "b", "c"]
+      expect(arrayUnique(input)).to.deep.eq(expected)
+    })
+  })
+
+  context("redundant elements", () => {
+    it("leaves out redundant elements", () => {
+      let input = ["a", "b", "c", "a"]
+      let expected = ["a", "b", "c"]
+      expect(arrayUnique(input)).to.deep.eq(expected)
     })
   })
 })

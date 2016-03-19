@@ -1,7 +1,7 @@
 "use strict"
 
 const expect = require("chai").expect
-import { format, parse } from "../src/formulon"
+import { extract, parse } from "../src/formulon"
 import { buildLiteralFromJs } from "../src/utils"
 
 describe("Formulon", () => {
@@ -84,6 +84,44 @@ describe("Formulon", () => {
           }
           expect(parse("Custom_field__c +", {})).to.deep.eq(expected)
         })
+      })
+    })
+  })
+
+  describe("extract", () => {
+    context("no identifiers", () => {
+      let formula = "1.5 + 2"
+
+      it("returns empty array", () => {
+        var expected = []
+        expect(extract(formula)).to.deep.equal(expected)
+      })
+    })
+
+    context("one identifier", () => {
+      let formula = "1.5 + Name"
+
+      it("returns array with identifiers", () => {
+        var expected = ["Name"]
+        expect(extract(formula)).to.deep.equal(expected)
+      })
+    })
+
+    context("multiple identifiers", () => {
+      let formula = "Argument1 - Argument2 + Name"
+
+      it("returns array with identifiers", () => {
+        var expected = ["Argument1", "Argument2", "Name"]
+        expect(extract(formula)).to.deep.equal(expected)
+      })
+    })
+
+    context("redundant identifiers", () => {
+      let formula = "Name * Name"
+
+      it("returns array unique identifiers", () => {
+        var expected = ["Name"]
+        expect(extract(formula)).to.deep.equal(expected)
       })
     })
   })

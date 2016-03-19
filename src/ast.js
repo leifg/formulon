@@ -25,8 +25,15 @@ export const traverse = (ast) => {
   }
 }
 
-export const extract = (ast) => {
-  return arrayUnique(_extract(ast, []))
+export const extract = (ast, state = []) => {
+  switch(ast.type) {
+    case "literal":
+      return state
+    case "callExpression":
+      return ast.arguments.map((arg) => extract(arg, state)).reduce((a,b) => { return a.concat(b) })
+    case "identifier":
+      return state.concat(ast.name)
+  }
 }
 
 export const replace = (ast, replacement) => {
@@ -50,24 +57,4 @@ export const replace = (ast, replacement) => {
         return ast
       }
   }
-}
-
-// private
-
-const _extract = (ast, state) => {
-  switch(ast.type) {
-    case "literal":
-      return state
-    case "callExpression":
-      return ast.arguments.map((arg) => _extract(arg, state)).reduce((a,b) => { return a.concat(b) })
-    case "identifier":
-      return state.concat(ast.name)
-  }
-}
-
-const arrayUnique = (array) => {
-  return array.reduce(function(p, c) {
-    if (p.indexOf(c) < 0) p.push(c);
-    return p;
-  }, []);
 }

@@ -1080,7 +1080,7 @@ describe("ast", () => {
           arguments: [{type: "literal", value: 1.5}, {type: "identifier", name: "Name"}]
         }
 
-      it("returns array with replaced variables", () => {
+      it("returns array with identifiers", () => {
         var expected = ["Name"]
         expect(extract(ast)).to.deep.equal(expected)
       })
@@ -1100,7 +1100,7 @@ describe("ast", () => {
           ]
         }
 
-      it("returns array with replaced variables", () => {
+      it("returns array with identifiers", () => {
         var expected = ["Argument1", "Argument2", "Name"]
         expect(extract(ast)).to.deep.equal(expected)
       })
@@ -1114,7 +1114,7 @@ describe("ast", () => {
         }
 
       it("returns array with replaced variables", () => {
-        var expected = ["Name"]
+        var expected = ["Name", "Name"]
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
