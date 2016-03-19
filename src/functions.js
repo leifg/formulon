@@ -2,34 +2,34 @@
 
 import { buildLiteralFromJs } from "./utils"
 
-export const add = (a, b) => {
+export const sf$add = (a, b) => {
   return buildLiteralFromJs(a.value + b.value)
 }
 
-export const subtract = (a, b) => {
+export const sf$subtract = (a, b) => {
   return buildLiteralFromJs(a.value - b.value)
 }
 
-export const multiply = (a, b) => {
+export const sf$multiply = (a, b) => {
   return buildLiteralFromJs(a.value * b.value)
 }
 
-export const divide = (a, b) => {
+export const sf$divide = (a, b) => {
   return buildLiteralFromJs(a.value / b.value)
 }
 
-export const exponentiate = (a, b) => {
+export const sf$exponentiate = (a, b) => {
   return buildLiteralFromJs(Math.pow(a.value,b.value))
 }
 
-export const and = (a, b) => {
+export const sf$and = (a, b) => {
   return buildLiteralFromJs(a.value && b.value)
 }
 
-export const or = (a, b) => {
+export const sf$or = (a, b) => {
   return buildLiteralFromJs(a.value || b.value)
 }
 
-export const not = (a) => {
+export const sf$not = (a) => {
   return buildLiteralFromJs(!a.value)
 }

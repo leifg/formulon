@@ -19,7 +19,7 @@ export const traverse = (ast) => {
     case "literal":
       return ast
     case "callExpression":
-      return functions[ast.id](...ast.arguments.map((arg) => traverse(arg)))
+      return functions[`sf$${ast.id}`](...ast.arguments.map((arg) => traverse(arg)))
     case "identifier":
       throw new ReferenceError(`Undefined variable '${ast.name}'`)
   }
