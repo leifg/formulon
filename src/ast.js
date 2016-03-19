@@ -41,13 +41,11 @@ export const replace = (ast, replacement) => {
       }
     case "identifier":
       if(replacement[ast.name]) {
-        let replacementObj = replacement[ast.name]
-        return {
-          type: "literal",
-          value: replacementObj.value,
-          dataType: replacementObj.dataType,
-          meta: replacementObj.meta
-        }
+        return Object.assign(
+          {},
+          replacement[ast.name],
+          { type: "literal" }
+        )
       } else {
         return ast
       }
