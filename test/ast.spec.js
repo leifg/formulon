@@ -3,7 +3,7 @@
 import { build, extract, replace, traverse } from "../src/ast"
 const expect = require("chai").expect
 
-describe("ASTBuilder", () => {
+describe("ast", () => {
   describe("build", () => {
     context("Function Calls", () => {
       it("function call without arguments", () => {
