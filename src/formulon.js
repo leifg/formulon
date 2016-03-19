@@ -8,9 +8,22 @@ function format(ast) {
   return ast.value
 }
 
-export const parse = function(formula, substitutions) {
+function parseAndThrowError(formula, substitutions) {
   let ast = ASTBuilder.build(formula);
-  return format(ASTWalker.walk(ASTWalker.replace(ast, normalizeLiteral(substitutions))));
+  return ASTWalker.walk(ASTWalker.replace(ast, normalizeLiteral(substitutions)))
+}
+
+export const parse = function(formula, substitutions) {
+  try {
+    return parseAndThrowError(formula, substitutions)
+  }
+  catch(err) {
+    return {
+      type: "Error",
+      errorType: err.constructor.name,
+      message: err.message
+    }
+  }
 }
 
 export const extract = function(formula) {

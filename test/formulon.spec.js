@@ -5,25 +5,18 @@ import { parse } from "../src/formulon"
 import { buildLiteralFromJs } from "../src/functionLookup"
 
 describe("Formulon", () => {
-  context("no identifiers", () => {
-    it("returns correct result for addition", () => {
-      expect(parse("1 + 2", {})).to.equal(3)
-    })
+  context("success", () => {
+    context("no identifiers", () => {
+      it("returns correct result for addition", () => {
+        expect(parse("1 + 2", {})).to.deep.eq(buildLiteralFromJs(3))
+      })
 
-    it("returns correct result for subtraction", () => {
-      expect(parse("1 - 2", {})).to.equal(-1)
-    })
-  })
-
-  context("identifiers", () => {
-    context("no substitutions", () => {
-      it("throws ReferenceError", () => {
-        var fn = function () { parse("1 + Custom_field__c", {}) }
-        expect(fn).to.throw(ReferenceError, "Undefined variable 'Custom_field__c'")
+      it("returns correct result for subtraction", () => {
+        expect(parse("1 - 2", {})).to.deep.eq(buildLiteralFromJs(-1))
       })
     })
 
-    context("with substitutions", () => {
+    context("with identifiers", () => {
       let substitutions = {
         Custom_field__c: {
           value: "2",
@@ -36,7 +29,20 @@ describe("Formulon", () => {
       }
 
       it("returns correct result", () => {
-        expect(parse("1 + Custom_field__c", substitutions)).to.equal(3)
+        expect(parse("1 + Custom_field__c", substitutions)).to.deep.eq(buildLiteralFromJs(3))
+      })
+    })
+  })
+
+  context("error", () => {
+    context("no substitutions", () => {
+      it("throws ReferenceError", () => {
+        let expected = {
+          type: "Error",
+          errorType: "ReferenceError",
+          message: "Undefined variable 'Custom_field__c'"
+        }
+        expect(parse("1 + Custom_field__c", {})).to.deep.eq(expected)
       })
     })
   })
