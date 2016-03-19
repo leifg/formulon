@@ -81,4 +81,22 @@ describe("FunctionLookup", () => {
       expect(functions.sf$not(buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
     })
   })
+
+  describe("trim", () => {
+    it("no trailing spaces", () => {
+      expect(functions.sf$trim(buildLiteralFromJs("a string"))).to.deep.eq(buildLiteralFromJs("a string"))
+    })
+
+    it("trailing spaces", () => {
+      expect(functions.sf$trim(buildLiteralFromJs("a string "))).to.deep.eq(buildLiteralFromJs("a string"))
+    })
+
+    it("leading spaces", () => {
+      expect(functions.sf$trim(buildLiteralFromJs("  a string"))).to.deep.eq(buildLiteralFromJs("a string"))
+    })
+
+    it("trailing and leading spaces", () => {
+      expect(functions.sf$trim(buildLiteralFromJs("  a string  "))).to.deep.eq(buildLiteralFromJs("a string"))
+    })
+  })
 })
