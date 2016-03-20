@@ -173,7 +173,22 @@ describe('log', () => {
   })
 })
 
-describe('max', () => {})
+describe('max', () => {
+  it('2 elements', () => {
+    expect(functions.sf$max(buildLiteralFromJs(1), buildLiteralFromJs(1000))).to.deep.eq(buildLiteralFromJs(1000))
+  })
+
+  it('5 elements', () => {
+    expect(
+      functions.sf$max(
+        buildLiteralFromJs(-7),
+        buildLiteralFromJs(2),
+        buildLiteralFromJs(-8),
+        buildLiteralFromJs(-100),
+        buildLiteralFromJs(10)
+      )).to.deep.eq(buildLiteralFromJs(10))
+  })
+})
 
 describe('min', () => {})
 

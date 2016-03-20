@@ -64,6 +64,11 @@ export const sf$log = (number) => {
   return buildLiteralFromJs(Math.log10(number.value))
 }
 
+export const sf$max = (...numbers) => {
+  let values = numbers.map((v) => v.value)
+  return buildLiteralFromJs(Math.max(...values))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {

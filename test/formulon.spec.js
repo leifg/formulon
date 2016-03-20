@@ -17,6 +17,10 @@ describe('Formulon', () => {
         it('returns correct result for subtraction', () => {
           expect(parse('1 - 2', {})).to.deep.eq(buildLiteralFromJs(-1))
         })
+
+        it('returns correct result for function with variable argument list', () => {
+          expect(parse('MAX(1, 2, 10, 7)', {})).to.deep.eq(buildLiteralFromJs(10))
+        })
       })
 
       context('with identifiers', () => {
