@@ -163,7 +163,15 @@ describe('ln', () => {
   })
 })
 
-describe('log', () => {})
+describe('log', () => {
+  it('Integer Literal', () => {
+    expect(functions.sf$log(buildLiteralFromJs(7))).to.deep.eq(buildLiteralFromJs(0.8450980400142568))
+  })
+
+  it('10', () => {
+    expect(functions.sf$log(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(1))
+  })
+})
 
 describe('max', () => {})
 

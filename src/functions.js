@@ -60,6 +60,10 @@ export const sf$ln = (number) => {
   return buildLiteralFromJs(Math.log(number.value))
 }
 
+export const sf$log = (number) => {
+  return buildLiteralFromJs(Math.log10(number.value))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {
