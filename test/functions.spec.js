@@ -153,7 +153,15 @@ describe('floor', () => {
 
 describe('geolocation', () => {})
 
-describe('ln', () => {})
+describe('ln', () => {
+  it('Integer Literal', () => {
+    expect(functions.sf$ln(buildLiteralFromJs(5))).to.deep.eq(buildLiteralFromJs(1.6094379124341003))
+  })
+
+  it('e', () => {
+    expect(functions.sf$ln(buildLiteralFromJs(Math.E))).to.deep.eq(buildLiteralFromJs(1))
+  })
+})
 
 describe('log', () => {})
 

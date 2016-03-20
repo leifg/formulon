@@ -56,6 +56,10 @@ export const sf$floor = (number) => {
   return buildLiteralFromJs(Math.floor(number.value))
 }
 
+export const sf$ln = (number) => {
+  return buildLiteralFromJs(Math.log(number.value))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {
