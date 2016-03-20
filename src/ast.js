@@ -1,5 +1,5 @@
 "use strict"
-import * as functions from "./functions"
+import { dispatch } from "./functionDispatcher"
 
 export const build = (formula) => {
   const parser = require("./salesforceParser.js")
@@ -19,7 +19,7 @@ export const traverse = (ast) => {
     case "literal":
       return ast
     case "callExpression":
-      return functions[`sf$${ast.id}`](...ast.arguments.map((arg) => traverse(arg)))
+      return dispatch(ast.id, ast.arguments.map((arg) => traverse(arg)))
     case "identifier":
       throw new ReferenceError(`Undefined variable '${ast.name}'`)
   }
