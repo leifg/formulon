@@ -1,15 +1,17 @@
-"use strict"
+/* global describe it context */
 
-import { dispatch } from "../src/functionDispatcher"
-import { buildLiteralFromJs } from "../src/utils"
+'use strict'
 
-const expect = require("chai").expect
+import { dispatch } from '../src/functionDispatcher'
+import { buildLiteralFromJs } from '../src/utils'
 
-describe("dispatch", () => {
-  context("valid input", () => {
-    it("correctly returns result", () => {
-      let args = [1,2].map((v) => buildLiteralFromJs(v))
-      expect(dispatch("add", args)).to.deep.eq(buildLiteralFromJs(3))
+const expect = require('chai').expect
+
+describe('dispatch', () => {
+  context('valid input', () => {
+    it('correctly returns result', () => {
+      let args = [1, 2].map((v) => buildLiteralFromJs(v))
+      expect(dispatch('add', args)).to.deep.eq(buildLiteralFromJs(3))
     })
   })
 })

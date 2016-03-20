@@ -1,6 +1,6 @@
-"use strict"
+'use strict'
 
-export const normalizeLiteral = function(input) {
+export const normalizeLiteral = (input) => {
   return Object.keys(input).map((key) => {
     return Object.assign(
       {},
@@ -20,10 +20,10 @@ export const normalizeLiteral = function(input) {
   }, {})
 }
 
-export const buildLiteralFromJs = function(input) {
-  let type = typeof(input)
-  let base = { type: "literal", value: input }
-  switch(typeof(input)) {
+export const buildLiteralFromJs = (input) => {
+  let type = typeof (input)
+  let base = { type: 'literal', value: input }
+  switch (typeof (input)) {
     case 'number':
       return Object.assign(
         base,
@@ -45,10 +45,10 @@ export const buildLiteralFromJs = function(input) {
 }
 
 export const arrayUnique = (array) => {
-  return array.reduce(function(p, c) {
-    if (p.indexOf(c) < 0) p.push(c);
-    return p;
-  }, []);
+  return array.reduce((p, c) => {
+    if (p.indexOf(c) < 0) p.push(c)
+    return p
+  }, [])
 }
 
 // private
@@ -68,17 +68,17 @@ const normalizeIdentifier = (input) => {
 }
 
 const calculateNumberMeta = (number) => {
-  let numberString = (number).toString().replace("-", "")
-  if(numberString.indexOf(".") != -1) {
-    let splitted = numberString.split(".")
+  let numberString = (number).toString().replace('-', '')
+  if (numberString.indexOf('.') !== -1) {
+    let splitted = numberString.split('.')
     return {
       length: splitted[0].length,
-      scale: splitted[1].length,
+      scale: splitted[1].length
     }
   }
 
   return {
     length: numberString.length,
-    scale: 0,
+    scale: 0
   }
 }

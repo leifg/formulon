@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./src/formulon.js",
+  entry: './src/formulon.js',
   output: {
-      path: "./lib",
-      filename: "bundle.js"
+    path: './lib',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -17,4 +17,4 @@ module.exports = {
       }
     ]
   }
-};
+}

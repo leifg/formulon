@@ -1,6 +1,6 @@
-"use strict"
+'use strict'
 
-import { buildLiteralFromJs } from "./utils"
+import { buildLiteralFromJs } from './utils'
 
 // Math Operators
 
@@ -21,7 +21,7 @@ export const sf$divide = (value1, value2) => {
 }
 
 export const sf$exponentiate = (value1, value2) => {
-  return buildLiteralFromJs(Math.pow(value1.value,value2.value))
+  return buildLiteralFromJs(Math.pow(value1.value, value2.value))
 }
 
 // Logical Operators and Logical Functions
@@ -39,8 +39,6 @@ export const sf$not = (logical) => {
 }
 
 // Math Functions
-
-
 
 // Text Functions
 

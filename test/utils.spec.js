@@ -1,8 +1,10 @@
-"use strict"
+/* global describe it context */
 
-var expect = require("chai").expect
+'use strict'
 
-import { arrayUnique, normalizeLiteral, buildLiteralFromJs } from "../src/utils"
+var expect = require('chai').expect
+
+import { arrayUnique, normalizeLiteral, buildLiteralFromJs } from '../src/utils'
 
 describe('normalizeLiteral', () => {
   context('Number', () => {
@@ -13,7 +15,7 @@ describe('normalizeLiteral', () => {
           dataType: 'number',
           meta: {
             length: 1,
-            scale: 0,
+            scale: 0
           }
         }
 
@@ -24,7 +26,7 @@ describe('normalizeLiteral', () => {
               dataType: 'number',
               meta: {
                 length: 1,
-                scale: 0,
+                scale: 0
               }
             }
           }
@@ -38,7 +40,7 @@ describe('normalizeLiteral', () => {
           dataType: 'number',
           meta: {
             length: 2,
-            scale: 0,
+            scale: 0
           }
         }
 
@@ -49,7 +51,7 @@ describe('normalizeLiteral', () => {
               dataType: 'number',
               meta: {
                 length: 2,
-                scale: 0,
+                scale: 0
               }
             }
           }
@@ -63,7 +65,7 @@ describe('normalizeLiteral', () => {
           dataType: 'number',
           meta: {
             length: 3,
-            scale: 0,
+            scale: 0
           }
         }
 
@@ -74,7 +76,7 @@ describe('normalizeLiteral', () => {
               dataType: 'number',
               meta: {
                 length: 3,
-                scale: 0,
+                scale: 0
               }
             }
           }
@@ -88,27 +90,27 @@ describe('normalizeLiteral', () => {
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
     context('Integer', () => {
-      it("returns expected Literal for positive number", () => {
+      it('returns expected Literal for positive number', () => {
         let expected = {
-          type: "literal",
+          type: 'literal',
           value: 1,
           dataType: 'number',
           meta: {
             length: 1,
-            scale: 0,
+            scale: 0
           }
         }
         expect(buildLiteralFromJs(1)).to.deep.eq(expected)
       })
 
-      it("returns expected Literal for positive number", () => {
+      it('returns expected Literal for positive number', () => {
         let expected = {
-          type: "literal",
+          type: 'literal',
           value: -12,
           dataType: 'number',
           meta: {
             length: 2,
-            scale: 0,
+            scale: 0
           }
         }
         expect(buildLiteralFromJs(-12)).to.deep.eq(expected)
@@ -116,27 +118,27 @@ describe('buildLiteralFromJs', () => {
     })
 
     context('Float', () => {
-      it("returns expected Literal for positive number", () => {
+      it('returns expected Literal for positive number', () => {
         let expected = {
-          type: "literal",
+          type: 'literal',
           value: 1.5,
           dataType: 'number',
           meta: {
             length: 1,
-            scale: 1,
+            scale: 1
           }
         }
         expect(buildLiteralFromJs(1.5)).to.deep.eq(expected)
       })
 
-      it("returns expected Literal for positive number", () => {
+      it('returns expected Literal for positive number', () => {
         let expected = {
-          type: "literal",
+          type: 'literal',
           value: -125.75,
           dataType: 'number',
           meta: {
             length: 3,
-            scale: 2,
+            scale: 2
           }
         }
         expect(buildLiteralFromJs(-125.75)).to.deep.eq(expected)
@@ -145,23 +147,23 @@ describe('buildLiteralFromJs', () => {
   })
 
   context('Text', () => {
-    it("returns expected Literal for text number", () => {
+    it('returns expected Literal for text number', () => {
       let expected = {
-        type: "literal",
-        value: "four",
+        type: 'literal',
+        value: 'four',
         dataType: 'text',
         meta: {
-          length: 4,
+          length: 4
         }
       }
-      expect(buildLiteralFromJs("four")).to.deep.eq(expected)
+      expect(buildLiteralFromJs('four')).to.deep.eq(expected)
     })
   })
 
   context('Checkbox', () => {
-    it("returns expected Literal for true", () => {
+    it('returns expected Literal for true', () => {
       let expected = {
-        type: "literal",
+        type: 'literal',
         value: true,
         dataType: 'checkbox',
         meta: {}
@@ -170,9 +172,8 @@ describe('buildLiteralFromJs', () => {
     })
   })
 
-
   context('unsupported type', () => {
-    it("throws TypeError", () => {
+    it('throws TypeError', () => {
       let fn = () => { buildLiteralFromJs({}) }
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
@@ -182,24 +183,24 @@ describe('buildLiteralFromJs', () => {
 
 describe('arrayUnique', () => {
   // TODO add deepFreeze
-  context("non redundant elements", () => {
-    it("returns same input as output for empty array", () => {
+  context('non redundant elements', () => {
+    it('returns same input as output for empty array', () => {
       let input = []
       let expected = []
       expect(arrayUnique(input)).to.deep.eq(expected)
     })
 
-    it("returns same input as output", () => {
-      let input = ["a", "b", "c"]
-      let expected = ["a", "b", "c"]
+    it('returns same input as output', () => {
+      let input = ['a', 'b', 'c']
+      let expected = ['a', 'b', 'c']
       expect(arrayUnique(input)).to.deep.eq(expected)
     })
   })
 
-  context("redundant elements", () => {
-    it("leaves out redundant elements", () => {
-      let input = ["a", "b", "c", "a"]
-      let expected = ["a", "b", "c"]
+  context('redundant elements', () => {
+    it('leaves out redundant elements', () => {
+      let input = ['a', 'b', 'c', 'a']
+      let expected = ['a', 'b', 'c']
       expect(arrayUnique(input)).to.deep.eq(expected)
     })
   })
