@@ -247,7 +247,15 @@ describe('round', () => {
   })
 })
 
-describe('sqrt', () => {})
+describe('sqrt', () => {
+  it('square number', () => {
+    expect(functions.sf$sqrt(buildLiteralFromJs(121))).to.deep.eq(buildLiteralFromJs(11))
+  })
+
+  it('non square number', () => {
+    expect(functions.sf$sqrt(buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(1.4142135623730951))
+  })
+})
 
 // Text Functions
 

@@ -82,6 +82,10 @@ export const sf$round = (number, numDigits) => {
   return buildLiteralFromJs(sfRound(number.value, numDigits.value))
 }
 
+export const sf$sqrt = (number) => {
+  return buildLiteralFromJs(Math.sqrt(number.value))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {
