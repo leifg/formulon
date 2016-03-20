@@ -7,6 +7,8 @@ const expect = require('chai').expect
 import * as functions from '../src/functions'
 import { buildLiteralFromJs } from '../src/utils'
 
+// Math Operators and  Functions
+
 describe('add', () => {
   it('adds correctly', () => {
     expect(functions.sf$add(buildLiteralFromJs(1), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(3))
@@ -36,6 +38,8 @@ describe('exponentiate', () => {
     expect(functions.sf$exponentiate(buildLiteralFromJs(2), buildLiteralFromJs(5))).to.deep.eq(buildLiteralFromJs(32))
   })
 })
+
+// Logical Operators and Functions
 
 describe('and', () => {
   it('both true', () => {
@@ -82,6 +86,42 @@ describe('not', () => {
     expect(functions.sf$not(buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
   })
 })
+
+// Math Functions
+
+describe('abs', () => {
+  it('positive value', () => {
+    expect(functions.sf$abs(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(10))
+  })
+
+  it('negative value', () => {
+    expect(functions.sf$abs(buildLiteralFromJs(-10))).to.deep.eq(buildLiteralFromJs(10))
+  })
+})
+
+describe('ceiling', () => {})
+
+describe('exp', () => {})
+
+describe('floor', () => {})
+
+describe('geolocation', () => {})
+
+describe('ln', () => {})
+
+describe('log', () => {})
+
+describe('max', () => {})
+
+describe('min', () => {})
+
+describe('mod', () => {})
+
+describe('round', () => {})
+
+describe('sqrt', () => {})
+
+// Text Functions
 
 describe('trim', () => {
   it('no trailing spaces', () => {

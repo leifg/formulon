@@ -24,7 +24,7 @@ export const sf$exponentiate = (value1, value2) => {
   return buildLiteralFromJs(Math.pow(value1.value, value2.value))
 }
 
-// Logical Operators and Logical Functions
+// Logical Operators and Functions
 
 export const sf$and = (logical1, logical2) => {
   return buildLiteralFromJs(logical1.value && logical2.value)
@@ -39,6 +39,10 @@ export const sf$not = (logical) => {
 }
 
 // Math Functions
+
+export const sf$abs = (number) => {
+  return buildLiteralFromJs(Math.abs(number.value))
+}
 
 // Text Functions
 
