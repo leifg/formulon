@@ -51,6 +51,19 @@ export const arrayUnique = (array) => {
   }, [])
 }
 
+// Salesforce rounding works slightly different than JS rounding
+// JS:
+// Math.round(-1.5) => -1
+// SF:
+// ROUND(-1.5) => -2
+export const sfRound = (number, numDigits) => {
+  if (number < 0) {
+    return -1 * sfRound(number * -1, numDigits)
+  }
+  let multiplier = Math.pow(10, numDigits)
+  return Math.round(number * multiplier) / multiplier
+}
+
 // private
 
 // TODO implement for other types

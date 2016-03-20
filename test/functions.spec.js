@@ -225,7 +225,27 @@ describe('mod', () => {
   })
 })
 
-describe('round', () => {})
+describe('round', () => {
+  it('positive number round up to full number', () => {
+    expect(functions.sf$round(buildLiteralFromJs(1.5), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(2))
+  })
+
+  it('positive number round down to full number', () => {
+    expect(functions.sf$round(buildLiteralFromJs(1.2345), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(1))
+  })
+
+  it('negative number round up to full number', () => {
+    expect(functions.sf$round(buildLiteralFromJs(-1.5), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(-2))
+  })
+
+  it('positive number round up to 2 digits', () => {
+    expect(functions.sf$round(buildLiteralFromJs(225.49823), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(225.50))
+  })
+
+  it('positive number down to 2 digits', () => {
+    expect(functions.sf$round(buildLiteralFromJs(-225.495), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(-225.50))
+  })
+})
 
 describe('sqrt', () => {})
 

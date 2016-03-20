@@ -1,6 +1,6 @@
 'use strict'
 
-import { buildLiteralFromJs } from './utils'
+import { buildLiteralFromJs, sfRound } from './utils'
 
 // Math Operators
 
@@ -76,6 +76,10 @@ export const sf$min = (...numbers) => {
 
 export const sf$mod = (number, divisor) => {
   return buildLiteralFromJs(number.value % divisor.value)
+}
+
+export const sf$round = (number, numDigits) => {
+  return buildLiteralFromJs(sfRound(number.value, numDigits.value))
 }
 
 // Text Functions

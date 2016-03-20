@@ -4,7 +4,7 @@
 
 var expect = require('chai').expect
 
-import { arrayUnique, normalizeLiteral, buildLiteralFromJs } from '../src/utils'
+import { arrayUnique, normalizeLiteral, buildLiteralFromJs, sfRound } from '../src/utils'
 
 describe('normalizeLiteral', () => {
   context('Number', () => {
@@ -203,5 +203,27 @@ describe('arrayUnique', () => {
       let expected = ['a', 'b', 'c']
       expect(arrayUnique(input)).to.deep.eq(expected)
     })
+  })
+})
+
+describe('sfRound', () => {
+  it('positive number round up to full number', () => {
+    expect(sfRound(1.5, 0)).to.deep.eq(2)
+  })
+
+  it('positive number round down to full number', () => {
+    expect(sfRound(1.2345, 0)).to.deep.eq(1)
+  })
+
+  it('negative number round up to full number', () => {
+    expect(sfRound(-1.5, 0)).to.deep.eq(-2)
+  })
+
+  it('positive number round up to 2 digits', () => {
+    expect(sfRound(225.49823, 2)).to.deep.eq(225.50)
+  })
+
+  it('positive number down to 2 digits', () => {
+    expect(sfRound(-225.495, 2)).to.deep.eq(-225.50)
   })
 })
