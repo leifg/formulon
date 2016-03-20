@@ -190,7 +190,22 @@ describe('max', () => {
   })
 })
 
-describe('min', () => {})
+describe('min', () => {
+  it('2 elements', () => {
+    expect(functions.sf$min(buildLiteralFromJs(1), buildLiteralFromJs(1000))).to.deep.eq(buildLiteralFromJs(1))
+  })
+
+  it('5 elements', () => {
+    expect(
+      functions.sf$min(
+        buildLiteralFromJs(-7),
+        buildLiteralFromJs(2),
+        buildLiteralFromJs(-8),
+        buildLiteralFromJs(-100),
+        buildLiteralFromJs(10)
+      )).to.deep.eq(buildLiteralFromJs(-100))
+  })
+})
 
 describe('mod', () => {})
 

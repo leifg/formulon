@@ -69,6 +69,11 @@ export const sf$max = (...numbers) => {
   return buildLiteralFromJs(Math.max(...values))
 }
 
+export const sf$min = (...numbers) => {
+  let values = numbers.map((v) => v.value)
+  return buildLiteralFromJs(Math.min(...values))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {
