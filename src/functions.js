@@ -48,6 +48,10 @@ export const sf$ceiling = (number) => {
   return buildLiteralFromJs(Math.ceil(number.value))
 }
 
+export const sf$exp = (number) => {
+  return buildLiteralFromJs(Math.exp(number.value))
+}
+
 export const sf$floor = (number) => {
   return buildLiteralFromJs(Math.floor(number.value))
 }

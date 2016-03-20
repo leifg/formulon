@@ -121,7 +121,11 @@ describe('ceiling', () => {
   })
 })
 
-describe('exp', () => {})
+describe('exp', () => {
+  it('Integer Literal', () => {
+    expect(functions.sf$exp(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(22026.46579480671))
+  })
+})
 
 describe('distance', () => {})
 
