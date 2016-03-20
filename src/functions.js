@@ -44,6 +44,10 @@ export const sf$abs = (number) => {
   return buildLiteralFromJs(Math.abs(number.value))
 }
 
+export const sf$ceiling = (number) => {
+  return buildLiteralFromJs(Math.ceil(number.value))
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {

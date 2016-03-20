@@ -95,11 +95,31 @@ describe('abs', () => {
   })
 
   it('negative value', () => {
-    expect(functions.sf$abs(buildLiteralFromJs(-10))).to.deep.eq(buildLiteralFromJs(10))
+    expect(functions.sf$abs(buildLiteralFromJs(-20))).to.deep.eq(buildLiteralFromJs(20))
   })
 })
 
-describe('ceiling', () => {})
+describe('ceiling', () => {
+  it('fix value', () => {
+    expect(functions.sf$ceiling(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(10))
+  })
+
+  it('positive low value', () => {
+    expect(functions.sf$ceiling(buildLiteralFromJs(0.1))).to.deep.eq(buildLiteralFromJs(1))
+  })
+
+  it('positive high value', () => {
+    expect(functions.sf$ceiling(buildLiteralFromJs(999.9))).to.deep.eq(buildLiteralFromJs(1000))
+  })
+
+  it('negative low value', () => {
+    expect(functions.sf$ceiling(buildLiteralFromJs(-0.1))).to.deep.eq(buildLiteralFromJs(-0))
+  })
+
+  it('negative high value', () => {
+    expect(functions.sf$ceiling(buildLiteralFromJs(-999.9))).to.deep.eq(buildLiteralFromJs(-999))
+  })
+})
 
 describe('exp', () => {})
 
