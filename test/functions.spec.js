@@ -207,7 +207,23 @@ describe('min', () => {
   })
 })
 
-describe('mod', () => {})
+describe('mod', () => {
+  it('positive number without remainder', () => {
+    expect(functions.sf$mod(buildLiteralFromJs(10), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('positive number with remainder', () => {
+    expect(functions.sf$mod(buildLiteralFromJs(10), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs(1))
+  })
+
+  it('negative number without remainder', () => {
+    expect(functions.sf$mod(buildLiteralFromJs(-15), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs(-0))
+  })
+
+  it('negative number with remainder', () => {
+    expect(functions.sf$mod(buildLiteralFromJs(-15), buildLiteralFromJs(6))).to.deep.eq(buildLiteralFromJs(-3))
+  })
+})
 
 describe('round', () => {})
 

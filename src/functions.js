@@ -74,6 +74,10 @@ export const sf$min = (...numbers) => {
   return buildLiteralFromJs(Math.min(...values))
 }
 
+export const sf$mod = (number, divisor) => {
+  return buildLiteralFromJs(number.value % divisor.value)
+}
+
 // Text Functions
 
 export const sf$trim = (text) => {
