@@ -123,6 +123,8 @@ describe('ceiling', () => {
 
 describe('exp', () => {})
 
+describe('distance', () => {})
+
 describe('floor', () => {})
 
 describe('geolocation', () => {})
