@@ -125,7 +125,27 @@ describe('exp', () => {})
 
 describe('distance', () => {})
 
-describe('floor', () => {})
+describe('floor', () => {
+  it('fix value', () => {
+    expect(functions.sf$floor(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(10))
+  })
+
+  it('positive low value', () => {
+    expect(functions.sf$floor(buildLiteralFromJs(0.1))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('positive high value', () => {
+    expect(functions.sf$floor(buildLiteralFromJs(999.9))).to.deep.eq(buildLiteralFromJs(999))
+  })
+
+  it('negative low value', () => {
+    expect(functions.sf$floor(buildLiteralFromJs(-0.1))).to.deep.eq(buildLiteralFromJs(-1))
+  })
+
+  it('negative high value', () => {
+    expect(functions.sf$floor(buildLiteralFromJs(-999.9))).to.deep.eq(buildLiteralFromJs(-1000))
+  })
+})
 
 describe('geolocation', () => {})
 
