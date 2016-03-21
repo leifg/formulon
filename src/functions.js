@@ -92,6 +92,10 @@ export const sf$begins = (text, compareText) => {
   return buildLiteralFromJs(text.value.startsWith(compareText.value))
 }
 
+export const sf$br = () => {
+  return buildLiteralFromJs('\n')
+}
+
 export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
 }

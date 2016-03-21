@@ -269,6 +269,12 @@ describe('begins', () => {
   })
 })
 
+describe('br', () => {
+  it('returns newline', () => {
+    expect(functions.sf$br()).to.deep.eq(buildLiteralFromJs('\n'))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))
