@@ -104,6 +104,10 @@ export const sf$left = (text, numChars) => {
   return buildLiteralFromJs(text.value.substr(0, numChars.value))
 }
 
+export const sf$len = (text) => {
+  return buildLiteralFromJs(text.value.length)
+}
+
 export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
 }

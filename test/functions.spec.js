@@ -286,8 +286,14 @@ describe('contains', () => {
 })
 
 describe('left', () => {
-  it('returns correct number', () => {
+  it('returns correct string', () => {
     expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('123'))
+  })
+})
+
+describe('len', () => {
+  it('returns correct length', () => {
+    expect(functions.sf$len(buildLiteralFromJs('12345'))).to.deep.eq(buildLiteralFromJs(5))
   })
 })
 
