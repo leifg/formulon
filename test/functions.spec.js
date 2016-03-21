@@ -87,6 +87,15 @@ describe('not', () => {
   })
 })
 
+describe('if', () => {
+  it('true', () => {
+    expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))
+  })
+  it('false', () => {
+    expect(functions.sf$if(buildLiteralFromJs(false), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('second'))
+  })
+})
+
 // Math Functions
 
 describe('abs', () => {

@@ -38,6 +38,10 @@ export const sf$not = (logical) => {
   return buildLiteralFromJs(!logical.value)
 }
 
+export const sf$if = (logicalTest, valueIfTrue, valueIfFalse) => {
+  return logicalTest.value ? valueIfTrue : valueIfFalse
+}
+
 // Math Functions
 
 export const sf$abs = (number) => {
