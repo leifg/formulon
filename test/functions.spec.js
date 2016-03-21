@@ -275,6 +275,16 @@ describe('br', () => {
   })
 })
 
+describe('contains', () => {
+  it('contains', () => {
+    expect(functions.sf$contains(buildLiteralFromJs('a string'), buildLiteralFromJs('string'))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('does not contain', () => {
+    expect(functions.sf$contains(buildLiteralFromJs('a string'), buildLiteralFromJs('integer'))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))
