@@ -259,6 +259,16 @@ describe('sqrt', () => {
 
 // Text Functions
 
+describe('begins', () => {
+  it('begins with', () => {
+    expect(functions.sf$begins(buildLiteralFromJs('a string'), buildLiteralFromJs('a'))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('does not begin with', () => {
+    expect(functions.sf$begins(buildLiteralFromJs('a string'), buildLiteralFromJs('b'))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))
