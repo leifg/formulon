@@ -100,6 +100,10 @@ export const sf$contains = (text, compareText) => {
   return buildLiteralFromJs(text.value.includes(compareText.value))
 }
 
+export const sf$left = (text, numChars) => {
+  return buildLiteralFromJs(text.value.substr(0, numChars.value))
+}
+
 export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
 }

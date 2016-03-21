@@ -285,6 +285,12 @@ describe('contains', () => {
   })
 })
 
+describe('left', () => {
+  it('returns correct number', () => {
+    expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('123'))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))
