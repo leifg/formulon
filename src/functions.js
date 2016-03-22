@@ -147,3 +147,7 @@ export const sf$right = (text, numChars) => {
 export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
 }
+
+export const sf$upper = (text, locale) => {
+  return buildLiteralFromJs(text.value.toUpperCase())
+}

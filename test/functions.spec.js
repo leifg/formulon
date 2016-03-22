@@ -377,3 +377,9 @@ describe('right', () => {
     expect(functions.sf$right(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('345'))
   })
 })
+
+describe('upper', () => {
+  it('returns correct string', () => {
+    expect(functions.sf$upper(buildLiteralFromJs('mycompany.com'))).to.deep.eq(buildLiteralFromJs('MYCOMPANY.COM'))
+  })
+})
