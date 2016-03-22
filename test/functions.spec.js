@@ -298,6 +298,10 @@ describe('left', () => {
   it('returns correct string', () => {
     expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('123'))
   })
+
+  it('returns correct string for negative input', () => {
+    expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(-1))).to.deep.eq(buildLiteralFromJs(''))
+  })
 })
 
 describe('len', () => {
@@ -375,6 +379,10 @@ describe('trim', () => {
 describe('right', () => {
   it('returns correct string', () => {
     expect(functions.sf$right(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('345'))
+  })
+
+  it('returns correct string for negative input', () => {
+    expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(-1))).to.deep.eq(buildLiteralFromJs(''))
   })
 })
 
