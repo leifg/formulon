@@ -306,6 +306,12 @@ describe('len', () => {
   })
 })
 
+describe('mid', () => {
+  it('returns correct string', () => {
+    expect(functions.sf$mid(buildLiteralFromJs('12345'), buildLiteralFromJs(2), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('234'))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))

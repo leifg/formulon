@@ -105,11 +105,15 @@ export const sf$contains = (text, compareText) => {
 }
 
 export const sf$left = (text, numChars) => {
-  return buildLiteralFromJs(text.value.substr(0, numChars.value))
+  return sf$mid(text, buildLiteralFromJs(1), numChars)
 }
 
 export const sf$len = (text) => {
   return buildLiteralFromJs(text.value.length)
+}
+
+export const sf$mid = (text, start_num, numChars) => {
+  return buildLiteralFromJs(text.value.substr(start_num.value - 1, numChars.value))
 }
 
 export const sf$right = (text, numChars) => {
