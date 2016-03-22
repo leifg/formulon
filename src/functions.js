@@ -112,8 +112,8 @@ export const sf$len = (text) => {
   return buildLiteralFromJs(text.value.length)
 }
 
-export const sf$mid = (text, start_num, numChars) => {
-  return buildLiteralFromJs(text.value.substr(start_num.value - 1, numChars.value))
+export const sf$mid = (text, startNum, numChars) => {
+  return buildLiteralFromJs(text.value.substr(startNum.value - 1, numChars.value))
 }
 
 export const sf$right = (text, numChars) => {
