@@ -330,6 +330,24 @@ describe('mid', () => {
   })
 })
 
+describe('rpad', () => {
+  it('no pad string given', () => {
+    expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(20))).to.deep.eq(buildLiteralFromJs('my_company.com'))
+  })
+
+  it('string longer than padded length', () => {
+    expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(14), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my_company.com'))
+  })
+
+  it('padded length longer than string', () => {
+    expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(15), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my_company.comz'))
+  })
+
+  it('padded length shorter than string', () => {
+    expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(2), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my'))
+  })
+})
+
 describe('trim', () => {
   it('no trailing spaces', () => {
     expect(functions.sf$trim(buildLiteralFromJs('a string'))).to.deep.eq(buildLiteralFromJs('a string'))

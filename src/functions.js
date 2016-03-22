@@ -122,6 +122,16 @@ export const sf$lpad = (text, paddedLength, padString) => {
   return buildLiteralFromJs((maxPadding + text.value).slice(-paddedLength.value))
 }
 
+export const sf$rpad = (text, paddedLength, padString) => {
+  if (padString == null) {
+    return text
+  } else if (paddedLength.value < text.value.length) {
+    return sf$left(text, paddedLength)
+  }
+  let maxPadding = padString.value.repeat(paddedLength.value)
+  return buildLiteralFromJs((text.value + maxPadding).substr(0, paddedLength.value))
+}
+
 export const sf$mid = (text, startNum, numChars) => {
   return buildLiteralFromJs(text.value.substr(startNum.value - 1, numChars.value))
 }
