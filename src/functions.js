@@ -112,6 +112,10 @@ export const sf$len = (text) => {
   return buildLiteralFromJs(text.value.length)
 }
 
+export const sf$lower = (text, locale) => {
+  return buildLiteralFromJs(text.value.toLowerCase())
+}
+
 export const sf$lpad = (text, paddedLength, padString) => {
   if (padString == null) {
     return text

@@ -306,6 +306,12 @@ describe('len', () => {
   })
 })
 
+describe('lower', () => {
+  it('returns correct string', () => {
+    expect(functions.sf$lower(buildLiteralFromJs('MYCOMPANY.COM'))).to.deep.eq(buildLiteralFromJs('mycompany.com'))
+  })
+})
+
 describe('lpad', () => {
   it('no pad string given', () => {
     expect(functions.sf$lpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(20))).to.deep.eq(buildLiteralFromJs('my_company.com'))
