@@ -323,3 +323,9 @@ describe('trim', () => {
     expect(functions.sf$trim(buildLiteralFromJs('  a string  '))).to.deep.eq(buildLiteralFromJs('a string'))
   })
 })
+
+describe('right', () => {
+  it('returns correct string', () => {
+    expect(functions.sf$right(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('345'))
+  })
+})
