@@ -306,6 +306,24 @@ describe('len', () => {
   })
 })
 
+describe('lpad', () => {
+  it('no pad string given', () => {
+    expect(functions.sf$lpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(20))).to.deep.eq(buildLiteralFromJs('my_company.com'))
+  })
+
+  it('string longer than padded length', () => {
+    expect(functions.sf$lpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(14), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my_company.com'))
+  })
+
+  it('padded length longer than string', () => {
+    expect(functions.sf$lpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(15), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('zmy_company.com'))
+  })
+
+  it('padded length shorter than string', () => {
+    expect(functions.sf$lpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(2), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my'))
+  })
+})
+
 describe('mid', () => {
   it('returns correct string', () => {
     expect(functions.sf$mid(buildLiteralFromJs('12345'), buildLiteralFromJs(2), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('234'))
