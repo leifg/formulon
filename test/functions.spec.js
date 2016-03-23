@@ -115,6 +115,34 @@ describe('greaterThanOrEqual', () => {
   })
 })
 
+describe('lessThan', () => {
+  it('greater than', () => {
+    expect(functions.sf$lessThan(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('smaller than', () => {
+    expect(functions.sf$lessThan(buildLiteralFromJs(0), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('equal', () => {
+    expect(functions.sf$lessThan(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
+describe('lessThanOrEqual', () => {
+  it('greater than', () => {
+    expect(functions.sf$lessThanOrEqual(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('smaller than', () => {
+    expect(functions.sf$lessThanOrEqual(buildLiteralFromJs(0), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('equal', () => {
+    expect(functions.sf$lessThanOrEqual(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(true))
+  })
+})
+
 describe('if', () => {
   it('true', () => {
     expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))

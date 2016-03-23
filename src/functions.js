@@ -50,6 +50,14 @@ export const sf$greaterThanOrEqual = (value1, value2) => {
   return buildLiteralFromJs(value1.value >= value2.value)
 }
 
+export const sf$lessThan = (value1, value2) => {
+  return buildLiteralFromJs(value1.value < value2.value)
+}
+
+export const sf$lessThanOrEqual = (value1, value2) => {
+  return buildLiteralFromJs(value1.value <= value2.value)
+}
+
 // Math Functions
 
 export const sf$abs = (number) => {
