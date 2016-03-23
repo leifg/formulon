@@ -1120,6 +1120,19 @@ describe('ast', () => {
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
+
+    context('function call without parameters', () => {
+      let ast = {
+        type: 'callExpression',
+        id: 'date',
+        arguments: []
+      }
+
+      it('returns empty array', () => {
+        var expected = []
+        expect(extract(ast)).to.deep.equal(expected)
+      })
+    })
   })
 
   describe('replace', () => {

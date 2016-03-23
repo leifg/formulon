@@ -130,5 +130,14 @@ describe('Formulon', () => {
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
+
+    context('parameterless function name', () => {
+      let formula = 'DATE()'
+
+      it('returns empty array', () => {
+        var expected = []
+        expect(extract(formula)).to.deep.equal(expected)
+      })
+    })
   })
 })

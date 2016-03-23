@@ -30,7 +30,7 @@ export const extract = (ast, state = []) => {
     case 'literal':
       return state
     case 'callExpression':
-      return ast.arguments.map((arg) => extract(arg, state)).reduce((a, b) => { return a.concat(b) })
+      return ast.arguments.map((arg) => extract(arg, state)).reduce((a, b) => { return a.concat(b) }, [])
     case 'identifier':
       return state.concat(ast.name)
   }
