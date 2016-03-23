@@ -101,6 +101,20 @@ describe('greaterThan', () => {
   })
 })
 
+describe('greaterThanOrEqual', () => {
+  it('greater than', () => {
+    expect(functions.sf$greaterThanOrEqual(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('smaller than', () => {
+    expect(functions.sf$greaterThanOrEqual(buildLiteralFromJs(0), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('equal', () => {
+    expect(functions.sf$greaterThanOrEqual(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(true))
+  })
+})
+
 describe('if', () => {
   it('true', () => {
     expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))
