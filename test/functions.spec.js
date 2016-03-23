@@ -87,6 +87,26 @@ describe('not', () => {
   })
 })
 
+describe('equal', () => {
+  it('equal', () => {
+    expect(functions.sf$equal(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('unequal', () => {
+    expect(functions.sf$equal(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
+describe('unequal', () => {
+  it('equal', () => {
+    expect(functions.sf$unequal(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('unequal', () => {
+    expect(functions.sf$unequal(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(true))
+  })
+})
+
 describe('greaterThan', () => {
   it('greater than', () => {
     expect(functions.sf$greaterThan(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(true))

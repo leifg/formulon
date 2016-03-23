@@ -42,6 +42,14 @@ export const sf$if = (logicalTest, valueIfTrue, valueIfFalse) => {
   return logicalTest.value ? valueIfTrue : valueIfFalse
 }
 
+export const sf$equal = (value1, value2) => {
+  return buildLiteralFromJs(value1.value == value2.value)
+}
+
+export const sf$unequal = (value1, value2) => {
+  return buildLiteralFromJs(value1.value != value2.value)
+}
+
 export const sf$greaterThan = (value1, value2) => {
   return buildLiteralFromJs(value1.value > value2.value)
 }
