@@ -66,7 +66,7 @@ ExponentiateExpression
   / BinaryExpression
 
 BinaryExpression
-  = head:(LeftHandSideExpression) __ op:LogicalOperator __ tail:BinaryExpression
+  = head:(LeftHandSideExpression) __ op:(LogicalOperator / ConcatinationOperator) __ tail:BinaryExpression
   {
     var name;
     switch(op) {
@@ -96,6 +96,9 @@ BinaryExpression
       case "<>":
         name = "unequal"
         break;
+      case "&":
+        name = "add"
+        break;
       default:
     }
 
@@ -118,6 +121,9 @@ LogicalOperator
   / "=="
   / "="
   / "!="
+
+ConcatinationOperator
+  = "&"
 
 UnaryExpression
   = UnaryOperator __ tail:PrimaryExpression {

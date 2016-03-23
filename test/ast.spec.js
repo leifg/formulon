@@ -101,6 +101,33 @@ describe('ast', () => {
     })
 
     context('Arithmetics', () => {
+      it('string concatenation', () => {
+        var expected = {
+          type: 'callExpression',
+          id: 'add',
+          arguments: [
+            {
+              type: 'literal',
+              value: 'con',
+              dataType: 'text',
+              meta: {
+                length: 3
+              }
+            },
+            {
+              type: 'literal',
+              value: 'cated',
+              dataType: 'text',
+              meta: {
+                length: 5
+              }
+            }
+          ]
+        }
+
+        expect(build('"con" & "cated"')).to.deep.equal(expected)
+      })
+
       it('simple addition', () => {
         var expected = {
           type: 'callExpression',
