@@ -21,6 +21,10 @@ describe('Formulon', () => {
         it('returns correct result for function with variable argument list', () => {
           expect(parse('MAX(1, 2, 10, 7)', {})).to.deep.eq(buildLiteralFromJs(10))
         })
+
+        it('returns correct result for logical operations', () => {
+          expect(parse('1 > 2', {})).to.deep.eq(buildLiteralFromJs(false))
+        })
       })
 
       context('with identifiers', () => {

@@ -87,6 +87,20 @@ describe('not', () => {
   })
 })
 
+describe('greaterThan', () => {
+  it('greater than', () => {
+    expect(functions.sf$greaterThan(buildLiteralFromJs(1), buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('smaller than', () => {
+    expect(functions.sf$greaterThan(buildLiteralFromJs(0), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('equal', () => {
+    expect(functions.sf$greaterThan(buildLiteralFromJs(1), buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
 describe('if', () => {
   it('true', () => {
     expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))
