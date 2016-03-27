@@ -26,6 +26,5 @@ export const parse = (formula, substitutions) => {
 
 export const extract = (formula) => {
   let ast = build(formula)
-  console.log(ast)
   return arrayUnique(astExtract(ast))
 }
