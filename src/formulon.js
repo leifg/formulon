@@ -9,7 +9,7 @@ export const parseAndThrowError = (formula, substitutions) => {
 }
 
 export const parse = (formula, substitutions) => {
-  if (formula === undefined || formula === null || formula.trim() === '') {
+  if (formula == null || formula.trim() === '') {
     return buildLiteralFromJs('')
   }
 
