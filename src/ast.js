@@ -4,7 +4,7 @@ import { dispatch } from './functionDispatcher'
 export const build = (formula) => {
   const parser = require('./salesforceParser.js')
   try {
-    return parser.parse(formula)
+    return parser.parse(formula == null ? '' : formula.trim())
   } catch (err) {
     if (err instanceof parser.SyntaxError) {
       throw new EvalError('Parsing Error')

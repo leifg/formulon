@@ -7,6 +7,47 @@ const expect = require('chai').expect
 
 describe('ast', () => {
   describe('build', () => {
+    context('Trimming', () => {
+      it('parses AST correctly with trailing whitespace', () => {
+        var expected = {
+          type: 'literal',
+          value: 1,
+          dataType: 'number',
+          meta: {
+            length: 1,
+            scale: 0
+          }
+        }
+        expect(build('1 ')).to.deep.equal(expected)
+      })
+
+      it('parses AST correctly with leading whitespace', () => {
+        var expected = {
+          type: 'literal',
+          value: 2,
+          dataType: 'number',
+          meta: {
+            length: 1,
+            scale: 0
+          }
+        }
+        expect(build(' 2')).to.deep.equal(expected)
+      })
+
+      it('parses AST correctly with leading and trailing whitespace', () => {
+        var expected = {
+          type: 'literal',
+          value: 3,
+          dataType: 'number',
+          meta: {
+            length: 1,
+            scale: 0
+          }
+        }
+        expect(build(' 3 ')).to.deep.equal(expected)
+      })
+    })
+
     context('Function Calls', () => {
       it('function call without arguments', () => {
         var expected = {
