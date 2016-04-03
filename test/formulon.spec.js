@@ -34,7 +34,7 @@ describe('Formulon', () => {
       context('with identifiers', () => {
         let substitutions = {
           Custom_field__c: {
-            value: '2',
+            value: 2,
             dataType: 'number',
             meta: {
               length: 8,

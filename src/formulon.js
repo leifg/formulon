@@ -1,11 +1,11 @@
 'use strict'
 
 import { build, extract as astExtract, replace, traverse } from './ast'
-import { arrayUnique, buildLiteralFromJs, normalizeLiteral } from './utils'
+import { arrayUnique, buildLiteralFromJs } from './utils'
 
 export const parseAndThrowError = (formula, substitutions) => {
   let ast = build(formula)
-  return traverse(replace(ast, normalizeLiteral(substitutions)))
+  return traverse(replace(ast, substitutions))
 }
 
 export const parse = (formula, substitutions) => {
