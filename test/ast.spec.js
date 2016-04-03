@@ -13,7 +13,7 @@ describe('ast', () => {
           type: 'literal',
           value: 1,
           dataType: 'number',
-          meta: {
+          options: {
             length: 1,
             scale: 0
           }
@@ -26,7 +26,7 @@ describe('ast', () => {
           type: 'literal',
           value: 2,
           dataType: 'number',
-          meta: {
+          options: {
             length: 1,
             scale: 0
           }
@@ -39,7 +39,7 @@ describe('ast', () => {
           type: 'literal',
           value: 3,
           dataType: 'number',
-          meta: {
+          options: {
             length: 1,
             scale: 0
           }
@@ -67,7 +67,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1.5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 1
               }
@@ -86,7 +86,7 @@ describe('ast', () => {
               type: 'literal',
               value: 11,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 2,
                 scale: 0
               }
@@ -95,7 +95,7 @@ describe('ast', () => {
               type: 'literal',
               value: 2,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -119,7 +119,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 'Closed Won',
                   dataType: 'text',
-                  meta: {
+                  options: {
                     length: 10
                   }
                 }
@@ -130,7 +130,7 @@ describe('ast', () => {
               type: 'literal',
               value: 0,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -151,7 +151,7 @@ describe('ast', () => {
               type: 'literal',
               value: 'con',
               dataType: 'text',
-              meta: {
+              options: {
                 length: 3
               }
             },
@@ -159,7 +159,7 @@ describe('ast', () => {
               type: 'literal',
               value: 'cated',
               dataType: 'text',
-              meta: {
+              options: {
                 length: 5
               }
             }
@@ -178,7 +178,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1.5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 1
               }
@@ -187,7 +187,7 @@ describe('ast', () => {
               type: 'literal',
               value: 2,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -206,7 +206,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -215,7 +215,7 @@ describe('ast', () => {
               type: 'literal',
               value: 10,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 2,
                 scale: 0
               }
@@ -234,7 +234,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -247,7 +247,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 2,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -256,7 +256,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 3,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -281,7 +281,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 1,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -290,7 +290,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 3,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -301,7 +301,7 @@ describe('ast', () => {
               type: 'literal',
               value: 7,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -321,7 +321,7 @@ describe('ast', () => {
               type: 'literal',
               value: 7,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -330,7 +330,7 @@ describe('ast', () => {
               type: 'literal',
               value: 8,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -349,7 +349,7 @@ describe('ast', () => {
               type: 'literal',
               value: 100,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 3,
                 scale: 0
               }
@@ -358,7 +358,7 @@ describe('ast', () => {
               type: 'literal',
               value: 25,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 2,
                 scale: 0
               }
@@ -381,7 +381,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 7,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -390,7 +390,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 8,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -401,7 +401,7 @@ describe('ast', () => {
               type: 'literal',
               value: 5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -420,7 +420,7 @@ describe('ast', () => {
               type: 'literal',
               value: 5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -433,7 +433,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 7,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -442,7 +442,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 8,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -463,7 +463,7 @@ describe('ast', () => {
               type: 'literal',
               value: 7,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -476,7 +476,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 8,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -485,7 +485,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 5,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -505,7 +505,7 @@ describe('ast', () => {
               type: 'literal',
               value: 2,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -514,7 +514,7 @@ describe('ast', () => {
               type: 'literal',
               value: 8,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -537,7 +537,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 2,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -546,7 +546,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 8,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -557,7 +557,7 @@ describe('ast', () => {
               type: 'literal',
               value: 7,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -584,7 +584,7 @@ describe('ast', () => {
                       type: 'literal',
                       value: 2,
                       dataType: 'number',
-                      meta: {
+                      options: {
                         length: 1,
                         scale: 0
                       }
@@ -593,7 +593,7 @@ describe('ast', () => {
                       type: 'literal',
                       value: 8,
                       dataType: 'number',
-                      meta: {
+                      options: {
                         length: 1,
                         scale: 0
                       }
@@ -604,7 +604,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 7,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -615,7 +615,7 @@ describe('ast', () => {
               type: 'literal',
               value: 5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -634,7 +634,7 @@ describe('ast', () => {
               type: 'literal',
               value: 2,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -651,7 +651,7 @@ describe('ast', () => {
                       type: 'literal',
                       value: 8,
                       dataType: 'number',
-                      meta: {
+                      options: {
                         length: 1,
                         scale: 0
                       }
@@ -660,7 +660,7 @@ describe('ast', () => {
                       type: 'literal',
                       value: 7,
                       dataType: 'number',
-                      meta: {
+                      options: {
                         length: 1,
                         scale: 0
                       }
@@ -671,7 +671,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 5,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -700,7 +700,7 @@ describe('ast', () => {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
-          meta: {
+          options: {
             length: 8
           }
         }
@@ -712,7 +712,7 @@ describe('ast', () => {
           type: 'literal',
           value: 12,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 0
           }
@@ -725,7 +725,7 @@ describe('ast', () => {
           type: 'literal',
           value: -123,
           dataType: 'number',
-          meta: {
+          options: {
             length: 3,
             scale: 0
           }
@@ -738,7 +738,7 @@ describe('ast', () => {
           type: 'literal',
           value: 1234,
           dataType: 'number',
-          meta: {
+          options: {
             length: 4,
             scale: 0
           }
@@ -751,7 +751,7 @@ describe('ast', () => {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 1
           }
@@ -764,7 +764,7 @@ describe('ast', () => {
           type: 'literal',
           value: true,
           dataType: 'checkbox',
-          meta: {}
+          options: {}
         }
         expect(build('TRUE')).to.deep.equal(expected)
       })
@@ -774,7 +774,7 @@ describe('ast', () => {
           type: 'literal',
           value: false,
           dataType: 'checkbox',
-          meta: {}
+          options: {}
         }
         expect(build('FALSE')).to.deep.equal(expected)
       })
@@ -800,7 +800,7 @@ describe('ast', () => {
                 type: 'literal',
                 value: false,
                 dataType: 'checkbox',
-                meta: {}
+                options: {}
               }
             ]
           }
@@ -939,7 +939,7 @@ describe('ast', () => {
           type: 'literal',
           value: 11,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 0
           }
@@ -948,7 +948,7 @@ describe('ast', () => {
           type: 'literal',
           value: 11,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 0
           }
@@ -962,7 +962,7 @@ describe('ast', () => {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 1
           }
@@ -972,7 +972,7 @@ describe('ast', () => {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 1
           }
@@ -986,7 +986,7 @@ describe('ast', () => {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
-          meta: {
+          options: {
             length: 8,
             scale: 0
           }
@@ -996,7 +996,7 @@ describe('ast', () => {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
-          meta: {
+          options: {
             length: 8,
             scale: 0
           }
@@ -1025,7 +1025,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1.5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 1
               }
@@ -1034,7 +1034,7 @@ describe('ast', () => {
               type: 'literal',
               value: 9,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -1046,7 +1046,7 @@ describe('ast', () => {
           type: 'literal',
           value: 10.5,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 1
           }
@@ -1068,7 +1068,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 7,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -1077,7 +1077,7 @@ describe('ast', () => {
                   type: 'literal',
                   value: 8,
                   dataType: 'number',
-                  meta: {
+                  options: {
                     length: 1,
                     scale: 0
                   }
@@ -1088,7 +1088,7 @@ describe('ast', () => {
               type: 'literal',
               value: 5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 0
               }
@@ -1099,7 +1099,7 @@ describe('ast', () => {
           type: 'literal',
           value: 61,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 0
           }
@@ -1120,7 +1120,7 @@ describe('ast', () => {
             type: 'literal',
             value: 1.5,
             dataType: 'number',
-            meta: {
+            options: {
               length: 1,
               scale: 1
             }
@@ -1129,7 +1129,7 @@ describe('ast', () => {
             type: 'literal',
             value: 2,
             dataType: 'number',
-            meta: {
+            options: {
               length: 1,
               scale: 0
             }
@@ -1213,7 +1213,7 @@ describe('ast', () => {
             type: 'literal',
             value: 1.5,
             dataType: 'number',
-            meta: {
+            options: {
               length: 1,
               scale: 1
             }
@@ -1222,7 +1222,7 @@ describe('ast', () => {
             type: 'literal',
             value: 2,
             dataType: 'number',
-            meta: {
+            options: {
               length: 1,
               scale: 0
             }
@@ -1246,7 +1246,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1.5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 1
               }
@@ -1267,7 +1267,7 @@ describe('ast', () => {
                 type: 'literal',
                 value: 1.5,
                 dataType: 'number',
-                meta: {
+                options: {
                   length: 1,
                   scale: 1
                 }
@@ -1276,7 +1276,7 @@ describe('ast', () => {
                 type: 'literal',
                 value: 'value',
                 dataType: 'text',
-                meta: {
+                options: {
                   length: 4
                 }
               }
@@ -1286,7 +1286,7 @@ describe('ast', () => {
             Name: {
               value: 'value',
               dataType: 'text',
-              meta: {
+              options: {
                 length: 4
               }
             }
@@ -1304,7 +1304,7 @@ describe('ast', () => {
               type: 'literal',
               value: 1.5,
               dataType: 'number',
-              meta: {
+              options: {
                 length: 1,
                 scale: 1
               }

@@ -36,7 +36,7 @@ describe('Formulon', () => {
           Custom_field__c: {
             value: 2,
             dataType: 'number',
-            meta: {
+            options: {
               length: 8,
               scale: 0
             }

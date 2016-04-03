@@ -188,7 +188,7 @@ StringLiteral
         type: "literal",
         value: chars.join(""),
         dataType: "text",
-        meta: {
+        options: {
           length: chars.length
         }
       };
@@ -204,7 +204,7 @@ DecimalLiteral
         type: "literal",
         value: parseFloat(text()),
         dataType: "number",
-        meta: {
+        options: {
           length: splitted[0].length,
           scale: splitted[1].length,
         }
@@ -215,7 +215,7 @@ DecimalLiteral
         type: "literal",
         value: parseInt(text()),
         dataType: "number",
-        meta: {
+        options: {
           length: text().replace(/[\+\-]/g, "").length,
           scale: 0,
         }
@@ -238,7 +238,7 @@ BooleanLiteral
       type: "literal",
       value: true,
       dataType: "checkbox",
-      meta: {}
+      options: {}
     }
   }
   / "FALSE" {
@@ -246,7 +246,7 @@ BooleanLiteral
       type: "literal",
       value: false,
       dataType: "checkbox",
-      meta: {}
+      options: {}
     }
   }
 

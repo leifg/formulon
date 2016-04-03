@@ -7,17 +7,17 @@ export const buildLiteralFromJs = (input) => {
     case 'number':
       return Object.assign(
         base,
-        { dataType: 'number', meta: calculateNumberMeta(input) }
+        { dataType: 'number', options: calculateNumberOptions(input) }
       )
     case 'string':
       return Object.assign(
         base,
-        { dataType: 'text', meta: { length: input.length } }
+        { dataType: 'text', options: { length: input.length } }
       )
     case 'boolean':
       return Object.assign(
         base,
-        { dataType: 'checkbox', meta: {} }
+        { dataType: 'checkbox', options: {} }
       )
     default:
       throw new TypeError(`Unsupported type '${type}'`)
@@ -46,7 +46,7 @@ export const sfRound = (number, numDigits) => {
 
 // private
 
-const calculateNumberMeta = (number) => {
+const calculateNumberOptions = (number) => {
   let numberString = (number).toString().replace('-', '')
   if (numberString.indexOf('.') !== -1) {
     let splitted = numberString.split('.')

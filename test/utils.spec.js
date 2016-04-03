@@ -14,7 +14,7 @@ describe('buildLiteralFromJs', () => {
           type: 'literal',
           value: 1,
           dataType: 'number',
-          meta: {
+          options: {
             length: 1,
             scale: 0
           }
@@ -27,7 +27,7 @@ describe('buildLiteralFromJs', () => {
           type: 'literal',
           value: -12,
           dataType: 'number',
-          meta: {
+          options: {
             length: 2,
             scale: 0
           }
@@ -42,7 +42,7 @@ describe('buildLiteralFromJs', () => {
           type: 'literal',
           value: 1.5,
           dataType: 'number',
-          meta: {
+          options: {
             length: 1,
             scale: 1
           }
@@ -55,7 +55,7 @@ describe('buildLiteralFromJs', () => {
           type: 'literal',
           value: -125.75,
           dataType: 'number',
-          meta: {
+          options: {
             length: 3,
             scale: 2
           }
@@ -71,7 +71,7 @@ describe('buildLiteralFromJs', () => {
         type: 'literal',
         value: 'four',
         dataType: 'text',
-        meta: {
+        options: {
           length: 4
         }
       }
@@ -85,7 +85,7 @@ describe('buildLiteralFromJs', () => {
         type: 'literal',
         value: true,
         dataType: 'checkbox',
-        meta: {}
+        options: {}
       }
       expect(buildLiteralFromJs(true)).to.deep.eq(expected)
     })
