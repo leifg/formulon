@@ -1,25 +1,5 @@
 'use strict'
 
-export const normalizeLiteral = (input) => {
-  return Object.keys(input).map((key) => {
-    return Object.assign(
-      {},
-      { name: key },
-      input[key]
-    )
-  }).reduce((agg, identifier) => {
-    let name = identifier.name
-    let object = normalizeIdentifier(identifier)
-    delete object.name
-    return Object.assign(
-      agg,
-      {
-        [name]: object
-      }
-    )
-  }, {})
-}
-
 export const buildLiteralFromJs = (input) => {
   let type = typeof (input)
   let base = { type: 'literal', value: input }
@@ -65,20 +45,6 @@ export const sfRound = (number, numDigits) => {
 }
 
 // private
-
-// TODO implement for other types
-const normalizeIdentifier = (input) => {
-  switch (input.dataType) {
-    case 'number':
-      return Object.assign(
-        {},
-        input,
-        { value: parseInt(input.value, 10) }
-      )
-    default:
-      return input
-  }
-}
 
 const calculateNumberMeta = (number) => {
   let numberString = (number).toString().replace('-', '')
