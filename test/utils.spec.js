@@ -22,7 +22,7 @@ describe('buildLiteralFromJs', () => {
         expect(buildLiteralFromJs(1)).to.deep.eq(expected)
       })
 
-      it('returns expected Literal for positive number', () => {
+      it('returns expected Literal for negative number', () => {
         let expected = {
           type: 'literal',
           value: -12,
