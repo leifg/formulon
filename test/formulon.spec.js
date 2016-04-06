@@ -99,6 +99,17 @@ describe('Formulon', () => {
           expect(parse('Custom_field__c +', {})).to.deep.eq(expected)
         })
       })
+
+      context('wrong number of parameters', () => {
+        it('returns error object with ReferenceError', () => {
+          let expected = {
+            type: 'error',
+            errorType: 'SyntaxError',
+            message: "Incorrect number of parameters for function 'IF()'. Expected 3, received 1"
+          }
+          expect(parse('IF(1)', {})).to.deep.eq(expected)
+        })
+      })
     })
   })
 
