@@ -25,6 +25,10 @@ export const parse = (formula, substitutions) => {
 }
 
 export const extract = (formula) => {
+  if (formula == null || formula.trim() === '') {
+    return []
+  }
+
   let ast = build(formula)
   return arrayUnique(astExtract(ast))
 }

@@ -158,5 +158,33 @@ describe('Formulon', () => {
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
+
+      context('empty input', () => {
+        let expected = []
+
+        context('null input', () => {
+          it('returns empty string', () => {
+            expect(extract(null)).to.deep.eq(expected)
+          })
+        })
+
+        context('undefined input', () => {
+          it('returns empty string', () => {
+            expect(extract(undefined)).to.deep.eq(expected)
+          })
+        })
+
+        context('empty string input', () => {
+          it('returns empty string', () => {
+            expect(extract('')).to.deep.eq(expected)
+          })
+        })
+
+        context('whitespace only input', () => {
+          it('returns empty string', () => {
+            expect(extract('   ')).to.deep.eq(expected)
+          })
+        })
+      })
   })
 })
