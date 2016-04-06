@@ -107,7 +107,7 @@ describe('Formulon', () => {
       let formula = '1.5 + 2'
 
       it('returns empty array', () => {
-        var expected = []
+        const expected = []
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
@@ -116,7 +116,7 @@ describe('Formulon', () => {
       let formula = '1.5 + Name'
 
       it('returns array with identifiers', () => {
-        var expected = ['Name']
+        const expected = ['Name']
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
@@ -125,7 +125,7 @@ describe('Formulon', () => {
       let formula = 'Argument1 - Argument2 + Name'
 
       it('returns array with identifiers', () => {
-        var expected = ['Argument1', 'Argument2', 'Name']
+        const expected = ['Argument1', 'Argument2', 'Name']
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
@@ -134,7 +134,7 @@ describe('Formulon', () => {
       let formula = 'Name * Name'
 
       it('returns array unique identifiers', () => {
-        var expected = ['Name']
+        const expected = ['Name']
         expect(extract(formula)).to.deep.equal(expected)
       })
     })
@@ -143,7 +143,7 @@ describe('Formulon', () => {
       let formula = 'DATE()'
 
       it('returns empty array', () => {
-        var expected = []
+        const expected = []
         expect(extract(formula)).to.deep.equal(expected)
       })
     })

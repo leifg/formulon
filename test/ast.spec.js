@@ -9,7 +9,7 @@ describe('ast', () => {
   describe('build', () => {
     context('Trimming', () => {
       it('parses AST correctly with trailing whitespace', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 1,
           dataType: 'number',
@@ -22,7 +22,7 @@ describe('ast', () => {
       })
 
       it('parses AST correctly with leading whitespace', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 2,
           dataType: 'number',
@@ -35,7 +35,7 @@ describe('ast', () => {
       })
 
       it('parses AST correctly with leading and trailing whitespace', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 3,
           dataType: 'number',
@@ -50,7 +50,7 @@ describe('ast', () => {
 
     context('Function Calls', () => {
       it('function call without arguments', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'now',
           arguments: []
@@ -59,7 +59,7 @@ describe('ast', () => {
       })
 
       it('function call with single argument', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'abs',
           arguments: [
@@ -78,7 +78,7 @@ describe('ast', () => {
       })
 
       it('function call with multiple arguments', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'mod',
           arguments: [
@@ -106,7 +106,7 @@ describe('ast', () => {
       })
 
       it('nested function calls', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'if',
           arguments: [
@@ -143,7 +143,7 @@ describe('ast', () => {
 
     context('Arithmetics', () => {
       it('string concatenation', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -170,7 +170,7 @@ describe('ast', () => {
       })
 
       it('simple addition', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -198,7 +198,7 @@ describe('ast', () => {
       })
 
       it('simple subtraction', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'subtract',
           arguments: [
@@ -226,7 +226,7 @@ describe('ast', () => {
       })
 
       it('addition with more than 2 arguments', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -269,7 +269,7 @@ describe('ast', () => {
       })
 
       it('addition with function', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -313,7 +313,7 @@ describe('ast', () => {
       })
 
       it('simple multiplication', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'multiply',
           arguments: [
@@ -341,7 +341,7 @@ describe('ast', () => {
       })
 
       it('simple division', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'divide',
           arguments: [
@@ -369,7 +369,7 @@ describe('ast', () => {
       })
 
       it('addition and multiplication (multiplication first)', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -412,7 +412,7 @@ describe('ast', () => {
       })
 
       it('addition and multiplication (addition first)', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -455,7 +455,7 @@ describe('ast', () => {
       })
 
       it('addition and multiplication with parentheses', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'multiply',
           arguments: [
@@ -497,7 +497,7 @@ describe('ast', () => {
       })
 
       it('simple exponentiation', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'exponentiate',
           arguments: [
@@ -525,7 +525,7 @@ describe('ast', () => {
       })
 
       it('exponentiation and multiplication', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'multiply',
           arguments: [
@@ -568,7 +568,7 @@ describe('ast', () => {
       })
 
       it('exponentiation, multiplication and addition', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -626,7 +626,7 @@ describe('ast', () => {
       })
 
       it('exponentiation, multiplication and addition in parentheses', () => {
-        var expected = {
+        const expected = {
           type: 'callExpression',
           id: 'exponentiate',
           arguments: [
@@ -686,7 +686,7 @@ describe('ast', () => {
 
     context('Identifiers', () => {
       it('identifier', () => {
-        var expected = {
+        const expected = {
           type: 'identifier',
           name: 'Name'
         }
@@ -696,7 +696,7 @@ describe('ast', () => {
 
     context('Literals', () => {
       it('string literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
@@ -708,7 +708,7 @@ describe('ast', () => {
       })
 
       it('integer literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 12,
           dataType: 'number',
@@ -721,7 +721,7 @@ describe('ast', () => {
       })
 
       it('negative integer literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: -123,
           dataType: 'number',
@@ -734,7 +734,7 @@ describe('ast', () => {
       })
 
       it('explicitely positive integer literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 1234,
           dataType: 'number',
@@ -747,7 +747,7 @@ describe('ast', () => {
       })
 
       it('float literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
@@ -760,7 +760,7 @@ describe('ast', () => {
       })
 
       it('TRUE literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: true,
           dataType: 'checkbox',
@@ -770,7 +770,7 @@ describe('ast', () => {
       })
 
       it('FALSE literal', () => {
-        var expected = {
+        const expected = {
           type: 'literal',
           value: false,
           dataType: 'checkbox',
@@ -783,7 +783,7 @@ describe('ast', () => {
     context('Logic', () => {
       context('unary', () => {
         it('NOT with Identifier', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'not',
             arguments: [{type: 'identifier', name: 'Negative'}]
@@ -792,7 +792,7 @@ describe('ast', () => {
         })
 
         it('NOT with boolean literal', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'not',
             arguments: [
@@ -810,7 +810,7 @@ describe('ast', () => {
 
       context('binary', () => {
         it('&&', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'and',
             arguments: [
@@ -822,7 +822,7 @@ describe('ast', () => {
         })
 
         it('||', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'or',
             arguments: [
@@ -834,7 +834,7 @@ describe('ast', () => {
         })
 
         it('==', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'equal',
             arguments: [
@@ -846,7 +846,7 @@ describe('ast', () => {
         })
 
         it('=', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'equal',
             arguments: [
@@ -858,7 +858,7 @@ describe('ast', () => {
         })
 
         it('!=', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'unequal',
             arguments: [
@@ -870,7 +870,7 @@ describe('ast', () => {
         })
 
         it('<>', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'unequal',
             arguments: [
@@ -882,7 +882,7 @@ describe('ast', () => {
         })
 
         it('<', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'lessThan',
             arguments: [
@@ -894,7 +894,7 @@ describe('ast', () => {
         })
 
         it('<=', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'lessThanOrEqual',
             arguments: [
@@ -906,7 +906,7 @@ describe('ast', () => {
         })
 
         it('>', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'greaterThan',
             arguments: [
@@ -918,7 +918,7 @@ describe('ast', () => {
         })
 
         it('>=', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'greaterThanOrEqual',
             arguments: [
@@ -935,7 +935,7 @@ describe('ast', () => {
   describe('traverse', () => {
     context('literal', () => {
       it('integer literal', () => {
-        var input = {
+        const input = {
           type: 'literal',
           value: 11,
           dataType: 'number',
@@ -944,7 +944,7 @@ describe('ast', () => {
             scale: 0
           }
         }
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 11,
           dataType: 'number',
@@ -958,7 +958,7 @@ describe('ast', () => {
       })
 
       it('float literal', () => {
-        var input = {
+        const input = {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
@@ -968,7 +968,7 @@ describe('ast', () => {
           }
         }
 
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 11.2,
           dataType: 'number',
@@ -982,7 +982,7 @@ describe('ast', () => {
       })
 
       it('string literal', () => {
-        var input = {
+        const input = {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
@@ -992,7 +992,7 @@ describe('ast', () => {
           }
         }
 
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 'a String',
           dataType: 'text',
@@ -1008,8 +1008,8 @@ describe('ast', () => {
 
     context('identifier', () => {
       it('throws ReferenceError', () => {
-        var input = { type: 'identifier', name: 'Name' }
-        var fn = function () { traverse(input) }
+        const input = { type: 'identifier', name: 'Name' }
+        const fn = function () { traverse(input) }
 
         expect(fn).to.throw(ReferenceError, `Undefined variable '${input.name}'`)
       })
@@ -1017,7 +1017,7 @@ describe('ast', () => {
 
     context('callExpression', () => {
       it('1 level', () => {
-        var input = {
+        const input = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -1042,7 +1042,7 @@ describe('ast', () => {
           ]
         }
 
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 10.5,
           dataType: 'number',
@@ -1056,7 +1056,7 @@ describe('ast', () => {
       })
 
       it('2 levels', () => {
-        var input = {
+        const input = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -1095,7 +1095,7 @@ describe('ast', () => {
             }
           ]
         }
-        var expected = {
+        const expected = {
           type: 'literal',
           value: 61,
           dataType: 'number',
@@ -1138,7 +1138,7 @@ describe('ast', () => {
       }
 
       it('returns empty array', () => {
-        var expected = []
+        const expected = []
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
@@ -1151,7 +1151,7 @@ describe('ast', () => {
       }
 
       it('returns array with identifiers', () => {
-        var expected = ['Name']
+        const expected = ['Name']
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
@@ -1171,7 +1171,7 @@ describe('ast', () => {
       }
 
       it('returns array with identifiers', () => {
-        var expected = ['Argument1', 'Argument2', 'Name']
+        const expected = ['Argument1', 'Argument2', 'Name']
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
@@ -1184,7 +1184,7 @@ describe('ast', () => {
       }
 
       it('returns array with replaced variables', () => {
-        var expected = ['Name', 'Name']
+        const expected = ['Name', 'Name']
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
@@ -1197,7 +1197,7 @@ describe('ast', () => {
       }
 
       it('returns empty array', () => {
-        var expected = []
+        const expected = []
         expect(extract(ast)).to.deep.equal(expected)
       })
     })
@@ -1231,7 +1231,7 @@ describe('ast', () => {
       }
 
       it('returns empty array', () => {
-        var expected = ast
+        const expected = ast
         expect(replace(ast, {Name: 'value'})).to.deep.equal(expected)
       })
     })
@@ -1259,7 +1259,7 @@ describe('ast', () => {
         }
 
         it('returns replaced array', () => {
-          var expected = {
+          const expected = {
             type: 'callExpression',
             id: 'add',
             arguments: [
@@ -1317,7 +1317,7 @@ describe('ast', () => {
         }
 
         it('returns replaced array', () => {
-          var expected = ast
+          const expected = ast
           expect(replace(ast, {})).to.deep.equal(expected)
         })
       })
