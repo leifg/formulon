@@ -12,9 +12,11 @@ This method will return a object holding value and its metadata
 
 ```javascript
 import { parse } from 'formulon'
+```
 
 #### Simple examples
 
+```
 parse('IF(TRUE, "True String", "False String")')
 // {
 //  type: 'literal',
