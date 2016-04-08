@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { build, extract, replace, traverse } from '../src/ast'
+import { build, extract, replace, traverse } from '../lib/ast'
 const expect = require('chai').expect
 
 describe('ast', () => {

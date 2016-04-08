@@ -2,8 +2,8 @@
 
 'use strict'
 
-import { buildLiteralFromJs } from '../src/utils'
-import { validateNumOfParams } from '../src/validations'
+import { buildLiteralFromJs } from '../lib/utils'
+import { validateNumOfParams } from '../lib/validations'
 
 const expect = require('chai').expect
 

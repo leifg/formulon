@@ -4,8 +4,8 @@
 
 const expect = require('chai').expect
 
-import * as functions from '../src/functions'
-import { buildLiteralFromJs } from '../src/utils'
+import * as functions from '../lib/functions'
+import { buildLiteralFromJs } from '../lib/utils'
 
 // Math Operators and  Functions
 

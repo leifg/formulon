@@ -4,7 +4,7 @@
 
 const expect = require('chai').expect
 
-import { arrayUnique, buildLiteralFromJs, sfRound } from '../src/utils'
+import { arrayUnique, buildLiteralFromJs, sfRound } from '../lib/utils'
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {

@@ -2,8 +2,8 @@
 
 'use strict'
 
-import { dispatch } from '../src/functionDispatcher'
-import { buildLiteralFromJs } from '../src/utils'
+import { dispatch } from '../lib/functionDispatcher'
+import { buildLiteralFromJs } from '../lib/utils'
 
 const expect = require('chai').expect
 
