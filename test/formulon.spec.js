@@ -3,31 +3,31 @@
 'use strict'
 
 const expect = require('chai').expect
-import { extract, parse } from '../src/formulon'
-import { buildLiteralFromJs } from '../src/utils'
+import { extract, parse } from '../lib/formulon'
+import { buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
     context('success', () => {
       context('no identifiers', () => {
         it('returns correct result for addition', () => {
-          expect(parse('1 + 2', {})).to.deep.eq(buildLiteralFromJs(3))
+          expect(parse('1 + 2')).to.deep.eq(buildLiteralFromJs(3))
         })
 
         it('returns correct result for subtraction', () => {
-          expect(parse('1 - 2', {})).to.deep.eq(buildLiteralFromJs(-1))
+          expect(parse('1 - 2')).to.deep.eq(buildLiteralFromJs(-1))
         })
 
         it('returns correct result for function with variable argument list', () => {
-          expect(parse('MAX(1, 2, 10, 7)', {})).to.deep.eq(buildLiteralFromJs(10))
+          expect(parse('MAX(1, 2, 10, 7)')).to.deep.eq(buildLiteralFromJs(10))
         })
 
         it('returns correct result for logical operations', () => {
-          expect(parse('1 > 2', {})).to.deep.eq(buildLiteralFromJs(false))
+          expect(parse('1 > 2')).to.deep.eq(buildLiteralFromJs(false))
         })
 
         it('returns correct result for flow control', () => {
-          expect(parse('IF(1 > 2, "greater", "smaller")', {})).to.deep.eq(buildLiteralFromJs('smaller'))
+          expect(parse('IF(1 > 2, "greater", "smaller")')).to.deep.eq(buildLiteralFromJs('smaller'))
         })
       })
 

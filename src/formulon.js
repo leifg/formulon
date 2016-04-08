@@ -3,12 +3,12 @@
 import { build, extract as astExtract, replace, traverse } from './ast'
 import { arrayUnique, buildLiteralFromJs } from './utils'
 
-export const parseAndThrowError = (formula, substitutions) => {
+export const parseAndThrowError = (formula, substitutions = {}) => {
   let ast = build(formula)
   return traverse(replace(ast, substitutions))
 }
 
-export const parse = (formula, substitutions) => {
+export const parse = (formula, substitutions = {}) => {
   if (formula == null || formula.trim() === '') {
     return buildLiteralFromJs('')
   }
