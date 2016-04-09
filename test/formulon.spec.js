@@ -57,6 +57,21 @@ describe('Formulon', () => {
             expect(parse('var1 + var2', {var1: var1, var2: var2})).to.deep.eq(buildLiteralFromJs(3.8))
           })
         })
+
+        context('text', () => {
+          it('cuts off text', () => {
+            let input = {
+              type: 'literal',
+              dataType: 'text',
+              value: 'first second',
+              options: {
+                length: 5
+              }
+            }
+
+            expect(parse('a_text', {a_text: input})).to.deep.eq(buildLiteralFromJs('first'))
+          })
+        })
       })
 
       context('with identifiers', () => {

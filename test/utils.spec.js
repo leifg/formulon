@@ -172,4 +172,27 @@ describe('coerceLiteral', () => {
       expect(coerceLiteral(input)).to.deep.eq(expectedOutput)
     })
   })
+
+  context('Text', () => {
+    it('cuts text off', () => {
+      let input = {
+        type: 'literal',
+        dataType: 'text',
+        value: 'first second',
+        options: {
+          length: 5
+        }
+      }
+
+      let expectedOutput = {
+        type: 'literal',
+        dataType: 'text',
+        value: 'first',
+        options: {
+          length: 5
+        }
+      }
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput)
+    })
+  })
 })
