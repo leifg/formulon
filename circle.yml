@@ -5,6 +5,9 @@ machine:
 dependencies:
   pre:
     - npm install
+
 test:
   override:
     - npm run test
+  post:
+    - DEBUG=condition npm run semantic-release || true

@@ -1,16 +1,20 @@
 {
   "name": "formulon",
-  "version": "0.1.1",
+  "version": "0.0.0-semantic-release",
   "description": "Salesforce Formula Parser",
   "main": "lib/formulon.js",
   "scripts": {
     "build": "npm run compile:parser && babel src --out-dir lib",
     "compile:parser": "pegjs ./grammars/salesforceFormula.pegjs ./lib/salesforceParser.js",
-    "test": "npm run build && mocha --compilers js:babel-register --recursive"
+    "test": "npm run build && mocha --compilers js:babel-register --recursive",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leifg/formulon.git"
+    "url": "https://github.com/leifg/formulon.git"
   },
   "keywords": [
     "parser",
@@ -26,6 +30,7 @@
     "babel-preset-es2015": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "condition-circle": "^1.2.0",
     "mocha": "^2.4.5",
     "pegjs": "^0.9.0",
     "semantic-release": "^4.3.5"
