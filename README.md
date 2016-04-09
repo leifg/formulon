@@ -81,10 +81,11 @@ parse('IF(Variable__c, "True String", "False String")', {Variable__c: {type: 'li
 //  dataType: 'text',
 //  options: { length: 11 }
 // }
+```
 
 You'll have to provide the variable in the form:
 
-```
+```javascript
 {
   type: 'literal',
   value: <the actual value as a JS type>,
