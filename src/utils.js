@@ -31,6 +31,10 @@ export const arrayUnique = (array) => {
   }, [])
 }
 
+export const coerceLiteral = (input) => {
+  return Object.assign({}, input, { value: sfRound(input.value, input.options.scale) })
+}
+
 // Salesforce rounding works slightly different than JS rounding
 // JS:
 // Math.round(-1.5) => -1

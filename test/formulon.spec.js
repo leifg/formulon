@@ -31,6 +31,34 @@ describe('Formulon', () => {
         })
       })
 
+      context('coerce inputs', () => {
+        context('number', () => {
+          it('rounds variables accordingly', () => {
+            let var1 = {
+              type: 'literal',
+              dataType: 'number',
+              value: 1.35,
+              options: {
+                length: 1,
+                scale: 1
+              }
+            }
+
+            let var2 = {
+              type: 'literal',
+              dataType: 'number',
+              value: 2.35,
+              options: {
+                length: 1,
+                scale: 1
+              }
+            }
+
+            expect(parse('var1 + var2', {var1: var1, var2: var2})).to.deep.eq(buildLiteralFromJs(3.8))
+          })
+        })
+      })
+
       context('with identifiers', () => {
         let substitutions = {
           Custom_field__c: {
