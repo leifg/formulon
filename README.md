@@ -14,9 +14,9 @@ This method will return a object holding value and its metadata
 import { parse } from 'formulon'
 ```
 
-#### Simple examples
+#### Examples
 
-```
+```javascript
 parse('IF(TRUE, "True String", "False String")')
 // {
 //  type: 'literal',
