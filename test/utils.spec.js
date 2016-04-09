@@ -4,7 +4,7 @@
 
 const expect = require('chai').expect
 
-import { arrayUnique, buildLiteralFromJs, sfRound } from '../lib/utils'
+import { arrayUnique, buildLiteralFromJs, sfRound, coerceLiteral } from '../lib/utils'
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
@@ -144,5 +144,55 @@ describe('sfRound', () => {
 
   it('positive number down to 2 digits', () => {
     expect(sfRound(-225.495, 2)).to.deep.eq(-225.50)
+  })
+})
+
+describe('coerceLiteral', () => {
+  context('Number', () => {
+    it('rounds accordingly', () => {
+      let input = {
+        type: 'literal',
+        dataType: 'number',
+        value: 1.5,
+        options: {
+          length: 1,
+          scale: 0
+        }
+      }
+
+      let expectedOutput = {
+        type: 'literal',
+        dataType: 'number',
+        value: 2,
+        options: {
+          length: 1,
+          scale: 0
+        }
+      }
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput)
+    })
+  })
+
+  context('Text', () => {
+    it('cuts text off', () => {
+      let input = {
+        type: 'literal',
+        dataType: 'text',
+        value: 'first second',
+        options: {
+          length: 5
+        }
+      }
+
+      let expectedOutput = {
+        type: 'literal',
+        dataType: 'text',
+        value: 'first',
+        options: {
+          length: 5
+        }
+      }
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput)
+    })
   })
 })
