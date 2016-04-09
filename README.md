@@ -55,3 +55,58 @@ Options depend on the data type:
 ##### Checkbox
 
 *no options*
+
+#### Errors
+
+Whenever an error occurs, an according object is returned:
+
+```javascript
+parse('IF(TRUE)')
+// {
+//  type: 'error',
+//  errorType: 'SyntaxError',
+//  message: 'Incorrect number of parameters for function \'IF()\'. Expected 3, received 1'
+// }
+```
+
+#### Identifiers (Variables)
+
+It's possible to specify formulas that contain variables. In that case pass the value of the variable in as a second argument:
+
+```javascript
+parse('IF(Variable__c, "True String", "False String")', {Variable__c: {type: 'literal', dataType: 'checkbox', value: true}})
+// {
+//  type: 'literal',
+//  value: 'True String',
+//  dataType: 'text',
+//  options: { length: 11 }
+// }
+
+You'll have to provide the variable in the form:
+
+```
+{
+  type: 'literal',
+  value: <the actual value as a JS type>,
+  dataType: <the salesforce field type specified above>,
+  options: <salesforce field options>
+}
+```
+
+### parseAndThrowError
+
+Works in the same way as `parse` but will throw an exception when an error occurs:
+
+```javascript
+parseAndThrowError('IF(TRUE)')
+// SyntaxError: Incorrect number of parameters for function 'IF()'. Expected 3, received 1
+```
+
+### extract
+
+Utility function that returns a list of used variables
+
+```javascript
+extract('IF(Variable__c, Variable__c, AnotherVariable__c)')
+// [ 'Variable__c', 'AnotherVariable__c' ]
+```
