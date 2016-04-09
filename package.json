@@ -1,6 +1,6 @@
 {
   "name": "formulon",
-  "version": "1.0.0-semantically-released",
+  "version": "0.0.0-semantically-released",
   "description": "Salesforce Formula Parser",
   "main": "lib/formulon.js",
   "scripts": {
