@@ -2,6 +2,15 @@
 
 **DISCLAIMER:** Under heavy development, far from feature complete. See [Contributing](CONTRIBUTING.md) for details
 
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
+
+[![Dependency Status](https://david-dm.org/leifg/formulon.svg)](https://david-dm.org/leifg/formulon)
+[![devDependency Status](https://david-dm.org/leifg/formulon/dev-status.svg)](https://david-dm.org/leifg/formulon#info=devDependencies)
+
+[![Circle CI](https://circleci.com/gh/leifg/formulon.svg?style=svg)](https://circleci.com/gh/leifg/formulon)
+
 Formulon is a Parser for [Salesforce Formulas](https://help.salesforce.com/apex/HTViewHelpDoc?id=customize_functions.htm) completely written in ECMA Script 2015.
 
 ## Usage
@@ -81,10 +90,11 @@ parse('IF(Variable__c, "True String", "False String")', {Variable__c: {type: 'li
 //  dataType: 'text',
 //  options: { length: 11 }
 // }
+```
 
 You'll have to provide the variable in the form:
 
-```
+```javascript
 {
   type: 'literal',
   value: <the actual value as a JS type>,
