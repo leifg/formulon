@@ -370,6 +370,34 @@ describe('contains', () => {
   })
 })
 
+describe('find', () => {
+  const textToSearchIn = buildLiteralFromJs('search token in this text')
+
+  it('returns 0 for empty search string', () => {
+    expect(functions.sf$find(buildLiteralFromJs(''), textToSearchIn)).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if searchText is not found', () => {
+    expect(functions.sf$find(buildLiteralFromJs('something different'), textToSearchIn)).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if startNum is 0', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if startNum is negative', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(-2))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns correct number for found string', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn)).to.deep.eq(buildLiteralFromJs(8))
+  })
+
+  it('returns 0 if found string appears after startNum', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(9))).to.deep.eq(buildLiteralFromJs(0))
+  })
+})
+
 describe('left', () => {
   it('returns correct string', () => {
     expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('123'))

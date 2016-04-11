@@ -128,6 +128,15 @@ export const sf$contains = (text, compareText) => {
   return buildLiteralFromJs(text.value.includes(compareText.value))
 }
 
+export const sf$find = (searchText, text, startNum = buildLiteralFromJs(1)) => {
+  if (startNum.value <= 0 || searchText.value === '') {
+    return buildLiteralFromJs(0)
+  }
+
+  let textToSearchIn = text.value.substring(startNum.value - 1)
+  return buildLiteralFromJs(textToSearchIn.indexOf(searchText.value) + 1)
+}
+
 export const sf$left = (text, numChars) => {
   return sf$mid(text, buildLiteralFromJs(1), numChars)
 }
