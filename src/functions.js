@@ -30,6 +30,23 @@ export const sf$and = (logical1, logical2) => {
   return buildLiteralFromJs(logical1.value && logical2.value)
 }
 
+export const sf$case = (expression, ...values) => {
+  let lastValueIndex = values.length - 1
+  if (lastValueIndex <= 0) {
+    throw new SyntaxError(`Incorrect number of parameters for function 'CASE()'. Expected 4+, received ${lastValueIndex + 2}`)
+  }
+
+  if (lastValueIndex % 2 !== 0) {
+    throw new SyntaxError(`Incorrect number of parameters for function 'CASE()'. Expected ${lastValueIndex + 1}, received ${lastValueIndex + 2}`)
+  }
+  for (let index = 0; index < lastValueIndex; index += 2) {
+    if (sf$equal(values[index], expression).value) {
+      return values[index + 1]
+    }
+  }
+  return values[lastValueIndex]
+}
+
 export const sf$or = (logical1, logical2) => {
   return buildLiteralFromJs(logical1.value || logical2.value)
 }
