@@ -19,7 +19,7 @@ describe('Formulon', () => {
         })
 
         it('returns correct result for function with variable argument list', () => {
-          expect(parse('MAX(1, 2, 10, 7)')).to.deep.eq(buildLiteralFromJs(10))
+          expect(parse('CASE(1, 1, "January", 2, "February", "None")')).to.deep.eq(buildLiteralFromJs('January'))
         })
 
         it('returns correct result for logical operations', () => {
