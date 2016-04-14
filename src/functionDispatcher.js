@@ -40,5 +40,6 @@ const functionValidations = {
   len: validateNumOfParams(1),
   mid: validateNumOfParams(3),
   right: validateNumOfParams(2),
-  trim: validateNumOfParams(1)
+  trim: validateNumOfParams(1),
+  regex: validateNumOfParams(3)
 }

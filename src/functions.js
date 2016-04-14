@@ -201,3 +201,10 @@ export const sf$trim = (text) => {
 export const sf$upper = (text, locale) => {
   return buildLiteralFromJs(text.value.toUpperCase())
 }
+
+// Advanced Functions
+
+export const sf$regex = (text, regexText) => {
+  let r = new RegExp(`^${regexText.value}$`)
+  return buildLiteralFromJs(r.exec(text.value) != null)
+}
