@@ -59,6 +59,67 @@ describe('and', () => {
   })
 })
 
+describe('case', () => {
+  const validFn = (input) => {
+    return functions.sf$case(
+      buildLiteralFromJs(input),
+      buildLiteralFromJs(1), buildLiteralFromJs('January'),
+      buildLiteralFromJs(2), buildLiteralFromJs('February'),
+      buildLiteralFromJs(3), buildLiteralFromJs('March'),
+      buildLiteralFromJs(4), buildLiteralFromJs('April'),
+      buildLiteralFromJs(5), buildLiteralFromJs('May'),
+      buildLiteralFromJs(6), buildLiteralFromJs('June'),
+      buildLiteralFromJs(7), buildLiteralFromJs('July'),
+      buildLiteralFromJs(8), buildLiteralFromJs('August'),
+      buildLiteralFromJs(9), buildLiteralFromJs('September'),
+      buildLiteralFromJs(10), buildLiteralFromJs('October'),
+      buildLiteralFromJs(11), buildLiteralFromJs('November'),
+      buildLiteralFromJs(12), buildLiteralFromJs('December'),
+      buildLiteralFromJs('None')
+    )
+  }
+
+  const invalidFn1 = (input) => {
+    return functions.sf$case(
+      buildLiteralFromJs(input),
+      buildLiteralFromJs(1), buildLiteralFromJs('January'),
+      buildLiteralFromJs(2), buildLiteralFromJs('February'),
+      buildLiteralFromJs(3), buildLiteralFromJs('March'),
+      buildLiteralFromJs(4), buildLiteralFromJs('April'),
+      buildLiteralFromJs(5), buildLiteralFromJs('May'),
+      buildLiteralFromJs(6), buildLiteralFromJs('June'),
+      buildLiteralFromJs(7), buildLiteralFromJs('July'),
+      buildLiteralFromJs(8), buildLiteralFromJs('August'),
+      buildLiteralFromJs(9), buildLiteralFromJs('September'),
+      buildLiteralFromJs(10), buildLiteralFromJs('October'),
+      buildLiteralFromJs(11), buildLiteralFromJs('November'),
+      buildLiteralFromJs(12), buildLiteralFromJs('December')
+    )
+  }
+
+  const invalidFn2 = (input) => {
+    return functions.sf$case(buildLiteralFromJs(input),buildLiteralFromJs(1))
+  }
+
+  it('value found', () => {
+    expect(validFn(5)).to.deep.eq(buildLiteralFromJs('May'))
+  })
+
+  it('value not found', () => {
+    expect(validFn(13)).to.deep.eq(buildLiteralFromJs('None'))
+  })
+
+  it('incorrect number of arguments', () => {
+    let fn = () => { invalidFn1(5) }
+    expect(fn).to.throw(SyntaxError, "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25")
+  })
+
+  it('only 2 arguments', () => {
+    let fn = () => { invalidFn2(5) }
+    expect(fn).to.throw(SyntaxError, "Incorrect number of parameters for function 'CASE()'. Expected 4+, received 2")
+  })
+})
+
 describe('or', () => {
   it('both true', () => {
     expect(functions.sf$or(buildLiteralFromJs(true), buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(true))
@@ -367,6 +428,34 @@ describe('contains', () => {
 
   it('does not contain', () => {
     expect(functions.sf$contains(buildLiteralFromJs('a string'), buildLiteralFromJs('integer'))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
+describe('find', () => {
+  const textToSearchIn = buildLiteralFromJs('search token in this text')
+
+  it('returns 0 for empty search string', () => {
+    expect(functions.sf$find(buildLiteralFromJs(''), textToSearchIn)).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if searchText is not found', () => {
+    expect(functions.sf$find(buildLiteralFromJs('something different'), textToSearchIn)).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if startNum is 0', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns 0 if startNum is negative', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(-2))).to.deep.eq(buildLiteralFromJs(0))
+  })
+
+  it('returns correct number for found string', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn)).to.deep.eq(buildLiteralFromJs(8))
+  })
+
+  it('returns 0 if found string appears after startNum', () => {
+    expect(functions.sf$find(buildLiteralFromJs('token'), textToSearchIn, buildLiteralFromJs(9))).to.deep.eq(buildLiteralFromJs(0))
   })
 })
 
