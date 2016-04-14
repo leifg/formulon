@@ -556,3 +556,31 @@ describe('upper', () => {
     expect(functions.sf$upper(buildLiteralFromJs('mycompany.com'))).to.deep.eq(buildLiteralFromJs('MYCOMPANY.COM'))
   })
 })
+
+// Advanced Functions
+
+describe('regex', () => {
+  it('returns true for match', () => {
+    let text = buildLiteralFromJs('999-99-9999')
+    let regexText = buildLiteralFromJs('[0-9]{3}-[0-9]{2}-[0-9]{4}')
+    expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it ('returns false for non-match', () => {
+    let text = buildLiteralFromJs('something else')
+    let regexText = buildLiteralFromJs('[0-9]{3}-[0-9]{2}-[0-9]{4}')
+    expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('matches complete string', () => {
+    let text = buildLiteralFromJs('According to Marc Benioff, the social enterprise increases customer success.')
+    let regexText = buildLiteralFromJs('.*Marc Benioff.*')
+    expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('does not match partial string', () => {
+    let text = buildLiteralFromJs('According to Marc Benioff, the social enterprise increases customer success.')
+    let regexText = buildLiteralFromJs('Marc Benioff')
+    expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
