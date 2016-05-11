@@ -682,6 +682,64 @@ describe('ast', () => {
         }
         expect(build('2 ^ (8 * 7 + 5)')).to.deep.equal(expected)
       })
+
+      it('logical comparison and concatination', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'and',
+          arguments: [
+            {
+              type: 'callExpression',
+              id: 'equal',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: 1,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                },
+                {
+                  type: 'literal',
+                  value: 1,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                }
+              ]
+            },
+            {
+              type: 'callExpression',
+              id: 'equal',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: 1,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                },
+                {
+                  type: 'literal',
+                  value: 1,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+        expect(build('1 == 1 && 1 == 1')).to.deep.equal(expected)
+      })
     })
 
     context('Identifiers', () => {

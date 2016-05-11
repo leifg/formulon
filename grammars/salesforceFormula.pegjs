@@ -30,52 +30,35 @@ CallExpression
   }
 
 ArithmeticExpression
-  = AdditiveExpression
+  = LogicalConcatinationExpression
 
-AdditiveExpression
-  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
-  {
-    return {
-      type: "callExpression",
-      id: op === "+" ? "add" : "subtract",
-      arguments: [head, tail]
-    }
-  }
-  / MultiplicativeExpression
-
-MultiplicativeExpression
-  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
-  {
-    return {
-      type: "callExpression",
-      id: op === "*" ? "multiply" : "divide",
-      arguments: [head, tail]
-    }
-  }
-  / ExponentiateExpression
-
-ExponentiateExpression
-  = head:(BinaryExpression) __ "^" __ tail:ExponentiateExpression
-  {
-    return {
-      type: "callExpression",
-      id: "exponentiate",
-      arguments: [head, tail]
-    }
-  }
-  / BinaryExpression
-
-BinaryExpression
-  = head:(LeftHandSideExpression) __ op:(LogicalOperator / ConcatinationOperator) __ tail:BinaryExpression
+LogicalConcatinationExpression
+  = head:(LogicalCompareExpression) __ op:(LogicalConcatinationOperator) __ tail:LogicalConcatinationExpression
   {
     var name;
     switch(op) {
-      case "&&":
-        name = "and";
-        break;
       case "||":
         name = "or"
         break;
+      case "&&":
+        name = "and"
+        break;
+      default:
+    }
+
+    return {
+      type: "callExpression",
+      id: name,
+      arguments: [head, tail]
+    }
+  }
+  / LogicalCompareExpression
+
+LogicalCompareExpression
+  = head:(AdditiveExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
+  {
+    var name;
+    switch(op) {
       case "<":
         name = "lessThan"
         break;
@@ -108,19 +91,54 @@ BinaryExpression
       arguments: [head, tail]
     }
   }
+  / AdditiveExpression
+
+AdditiveExpression
+  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
+  {
+    return {
+      type: "callExpression",
+      id: op === "+" ? "add" : "subtract",
+      arguments: [head, tail]
+    }
+  }
+  / MultiplicativeExpression
+
+MultiplicativeExpression
+  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
+  {
+    return {
+      type: "callExpression",
+      id: op === "*" ? "multiply" : "divide",
+      arguments: [head, tail]
+    }
+  }
+  / ExponentiateExpression
+
+ExponentiateExpression
+  = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression
+  {
+    return {
+      type: "callExpression",
+      id: "exponentiate",
+      arguments: [head, tail]
+    }
+  }
   / LeftHandSideExpression
 
-LogicalOperator
+LogicalCompareOperator
   = "<="
   / ">="
   / "<>"
   / "<"
   / ">"
-  / "&&"
-  / "||"
   / "=="
   / "="
   / "!="
+
+LogicalConcatinationOperator
+  = "&&"
+  / "||"
 
 ConcatinationOperator
   = "&"
@@ -133,10 +151,6 @@ UnaryExpression
       arguments: [tail]
     }
   }
-
-LogicalExpression
-  = UnaryExpression
-  / BinaryExpression
 
 UnaryOperator
   = "!"
