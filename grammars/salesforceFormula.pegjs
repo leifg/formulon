@@ -30,40 +30,7 @@ CallExpression
   }
 
 ArithmeticExpression
-  = AdditiveExpression
-
-AdditiveExpression
-  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
-  {
-    return {
-      type: "callExpression",
-      id: op === "+" ? "add" : "subtract",
-      arguments: [head, tail]
-    }
-  }
-  / MultiplicativeExpression
-
-MultiplicativeExpression
-  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
-  {
-    return {
-      type: "callExpression",
-      id: op === "*" ? "multiply" : "divide",
-      arguments: [head, tail]
-    }
-  }
-  / ExponentiateExpression
-
-ExponentiateExpression
-  = head:(LogicalConcatinationExpression) __ "^" __ tail:ExponentiateExpression
-  {
-    return {
-      type: "callExpression",
-      id: "exponentiate",
-      arguments: [head, tail]
-    }
-  }
-  / LogicalConcatinationExpression
+  = LogicalConcatinationExpression
 
 LogicalConcatinationExpression
   = head:(LogicalCompareExpression) __ op:(LogicalConcatinationOperator) __ tail:LogicalConcatinationExpression
@@ -88,7 +55,7 @@ LogicalConcatinationExpression
   / LogicalCompareExpression
 
 LogicalCompareExpression
-  = head:(LeftHandSideExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
+  = head:(AdditiveExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
   {
     var name;
     switch(op) {
@@ -121,6 +88,39 @@ LogicalCompareExpression
     return {
       type: "callExpression",
       id: name,
+      arguments: [head, tail]
+    }
+  }
+  / AdditiveExpression
+
+AdditiveExpression
+  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
+  {
+    return {
+      type: "callExpression",
+      id: op === "+" ? "add" : "subtract",
+      arguments: [head, tail]
+    }
+  }
+  / MultiplicativeExpression
+
+MultiplicativeExpression
+  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
+  {
+    return {
+      type: "callExpression",
+      id: op === "*" ? "multiply" : "divide",
+      arguments: [head, tail]
+    }
+  }
+  / ExponentiateExpression
+
+ExponentiateExpression
+  = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression
+  {
+    return {
+      type: "callExpression",
+      id: "exponentiate",
       arguments: [head, tail]
     }
   }
