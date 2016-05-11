@@ -55,7 +55,7 @@ MultiplicativeExpression
   / ExponentiateExpression
 
 ExponentiateExpression
-  = head:(LogicalExpression) __ "^" __ tail:ExponentiateExpression
+  = head:(LogicalConcatinationExpression) __ "^" __ tail:ExponentiateExpression
   {
     return {
       type: "callExpression",
@@ -63,19 +63,35 @@ ExponentiateExpression
       arguments: [head, tail]
     }
   }
-  / LogicalExpression
+  / LogicalConcatinationExpression
 
-LogicalExpression
-  = head:(LeftHandSideExpression) __ op:(LogicalCompareOperator / LogicalConcatinationOperator / ConcatinationOperator) __ tail:LogicalExpression
+LogicalConcatinationExpression
+  = head:(LogicalCompareExpression) __ op:(LogicalConcatinationOperator) __ tail:LogicalConcatinationExpression
   {
     var name;
     switch(op) {
-      case "&&":
-        name = "and";
-        break;
       case "||":
         name = "or"
         break;
+      case "&&":
+        name = "and"
+        break;
+      default:
+    }
+
+    return {
+      type: "callExpression",
+      id: name,
+      arguments: [head, tail]
+    }
+  }
+  / LogicalCompareExpression
+
+LogicalCompareExpression
+  = head:(LeftHandSideExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
+  {
+    var name;
+    switch(op) {
       case "<":
         name = "lessThan"
         break;

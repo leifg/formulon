@@ -29,6 +29,10 @@ describe('Formulon', () => {
         it('returns correct result for flow control', () => {
           expect(parse('IF(1 > 2, "greater", "smaller")')).to.deep.eq(buildLiteralFromJs('smaller'))
         })
+
+        it('returns correct result for multiple logicals', () => {
+          expect(parse('"a" == "b" || "a" == "a"')).to.deep.eq(buildLiteralFromJs(true))
+        })
       })
 
       context('coerce inputs', () => {
