@@ -98,7 +98,7 @@ describe('case', () => {
   }
 
   const invalidFn2 = (input) => {
-    return functions.sf$case(buildLiteralFromJs(input),buildLiteralFromJs(1))
+    return functions.sf$case(buildLiteralFromJs(input), buildLiteralFromJs(1))
   }
 
   it('value found', () => {
@@ -566,7 +566,7 @@ describe('regex', () => {
     expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(true))
   })
 
-  it ('returns false for non-match', () => {
+  it('returns false for non-match', () => {
     let text = buildLiteralFromJs('something else')
     let regexText = buildLiteralFromJs('[0-9]{3}-[0-9]{2}-[0-9]{4}')
     expect(functions.sf$regex(text, regexText)).to.deep.eq(buildLiteralFromJs(false))
