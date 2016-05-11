@@ -134,10 +134,6 @@ UnaryExpression
     }
   }
 
-LogicalExpression
-  = UnaryExpression
-  / BinaryExpression
-
 UnaryOperator
   = "!"
 
