@@ -55,7 +55,7 @@ MultiplicativeExpression
   / ExponentiateExpression
 
 ExponentiateExpression
-  = head:(BinaryExpression) __ "^" __ tail:ExponentiateExpression
+  = head:(LogicalExpression) __ "^" __ tail:ExponentiateExpression
   {
     return {
       type: "callExpression",
@@ -63,10 +63,10 @@ ExponentiateExpression
       arguments: [head, tail]
     }
   }
-  / BinaryExpression
+  / LogicalExpression
 
-BinaryExpression
-  = head:(LeftHandSideExpression) __ op:(LogicalOperator / ConcatinationOperator) __ tail:BinaryExpression
+LogicalExpression
+  = head:(LeftHandSideExpression) __ op:(LogicalCompareOperator / LogicalConcatinationOperator / ConcatinationOperator) __ tail:LogicalExpression
   {
     var name;
     switch(op) {
@@ -110,17 +110,19 @@ BinaryExpression
   }
   / LeftHandSideExpression
 
-LogicalOperator
+LogicalCompareOperator
   = "<="
   / ">="
   / "<>"
   / "<"
   / ">"
-  / "&&"
-  / "||"
   / "=="
   / "="
   / "!="
+
+LogicalConcatinationOperator
+  = "&&"
+  / "||"
 
 ConcatinationOperator
   = "&"
