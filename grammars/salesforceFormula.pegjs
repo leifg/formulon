@@ -197,7 +197,7 @@ Literal
   / BooleanLiteral
 
 StringLiteral
-  = '"' chars:DoubleStringCharacter* '"' {
+  = Quote chars:Character* Quote {
       return {
         type: "literal",
         value: chars.join(""),
@@ -264,8 +264,18 @@ BooleanLiteral
     }
   }
 
-DoubleStringCharacter
-  = !('"' / "\\" / LineTerminator) SourceCharacter { return text(); }
+Character
+  = !(Quote / "\\" / LineTerminator) SourceCharacter { return text(); }
+
+Quote
+ = SingleQuote
+ / DoubleQuote
+
+SingleQuote
+  = '\''
+
+DoubleQuote
+  = '"'
 
 SourceCharacter
   = .

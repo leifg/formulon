@@ -37,6 +37,10 @@ describe('Formulon', () => {
         it('returns correct result for mixed logicals and arithmetics', () => {
           expect(parse('2 == 1 + 2 || 4 == 2 + 2')).to.deep.eq(buildLiteralFromJs(true))
         })
+
+        it('returns correct result for single quotes', () => {
+          expect(parse("'a' + 'b'")).to.deep.eq(buildLiteralFromJs('ab'))
+        })
       })
 
       context('coerce inputs', () => {
