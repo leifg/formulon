@@ -1,9 +1,10 @@
 machine:
   node:
-    version: 5.8.0
+    version: 6.2.0
 
 dependencies:
   pre:
+    - npm prune
     - npm install
 
 test:
