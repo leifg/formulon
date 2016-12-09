@@ -34,6 +34,14 @@ describe('Formulon', () => {
           expect(parseAndThrowError('36 / 2 / 3')).to.deep.eq(buildLiteralFromJs(6))
         })
 
+        it('returns correct result longer subtraction and addition', () => {
+          expect(parseAndThrowError('8 - 4 + 2')).to.deep.eq(buildLiteralFromJs(6))
+        })
+
+        it('returns correct result longer multiplication and divison', () => {
+          expect(parseAndThrowError('12 / 2 * 3')).to.deep.eq(buildLiteralFromJs(18))
+        })
+
         it('returns correct result for function with variable argument list', () => {
           expect(parse('CASE(1, 1, "January", 2, "February", "None")')).to.deep.eq(buildLiteralFromJs('January'))
         })
