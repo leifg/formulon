@@ -105,7 +105,8 @@ describe('ast', () => {
         expect(build('MOD(11, 2)')).to.deep.equal(expected)
       })
 
-      it('nested function calls', () => {
+      it('nested function calls', function() {
+        this.timeout(5000)
         const expected = {
           type: 'callExpression',
           id: 'if',
