@@ -39,7 +39,7 @@ LeftHandSideExpression
   / "(" __ expression:ArithmeticExpression __ ")" { return expression; }
 
 CallExpression
-  = id:FunctionIdentifier args:Arguments {
+  = id:FunctionIdentifier __ args:Arguments {
     return {
       type: "callExpression",
       id: id,

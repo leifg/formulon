@@ -46,6 +46,25 @@ describe('ast', () => {
         }
         expect(build(' 3 ')).to.deep.equal(expected)
       })
+
+      it('parses AST correctly with whitespaces in function calls', () => {
+        const expected = {
+          type: "callExpression",
+          id: "ceiling",
+          arguments: [
+            {
+              type: "literal",
+              value: 1.9,
+              dataType: "number",
+              options: {
+                length: 1,
+                scale: 1
+              }
+            }
+          ]
+        }
+        expect(build('CEILING (1.9 )')).to.deep.equal(expected)
+      })
     })
 
     context('Function Calls', () => {
