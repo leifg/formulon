@@ -3,21 +3,39 @@
     return value !== null ? value[0] : [];
   }
 
-  function convertArithmetics(operation, head, tail) {
-    {
-      if (tail.type == "callExpression" && tail.id == operation) {
+  function mapArgumentsToArithmetics(args) {
+    return args.map((elem) => {
+      if (elem.operator == "-") {
         return {
           type: "callExpression",
-          id: operation,
-          arguments: [].concat.apply([], [head, tail.arguments])
+          id: "negate",
+          arguments: [elem.expression]
+        }
+      } else if (elem.operator == "/") {
+        return {
+          type: "callExpression",
+          id: "invert",
+          arguments: [elem.expression]
         }
       } else {
-        return {
-          type: "callExpression",
-          id: operation,
-          arguments: [head, tail]
-        }
+        return elem.expression
       }
+    })
+  }
+
+  function evaluateAdditiveArithmetics(head, tail) {
+    return {
+      type: "callExpression",
+      id: "add",
+      arguments: [].concat.apply([], [head, mapArgumentsToArithmetics(tail)])
+    }
+  }
+
+  function evaluateMultiplicativeArithmetics(head, tail) {
+    return {
+      type: "callExpression",
+      id: "multiply",
+      arguments: [].concat.apply([], [head, mapArgumentsToArithmetics(tail)])
     }
   }
 }
@@ -112,26 +130,36 @@ LogicalCompareExpression
   / AdditiveExpression
 
 AdditiveExpression
-  = head:(MultiplicativeExpression) __ "+" __ tail:AdditiveExpression
+  = head:(MultiplicativeExpression) tail:(AddtitivePart)+
   {
-    return convertArithmetics("add", head, tail)
-  }
-  / head:(MultiplicativeExpression) __ "-" __ tail:AdditiveExpression
-  {
-    return convertArithmetics("subtract", head, tail)
+    return evaluateAdditiveArithmetics(head, tail)
   }
   / MultiplicativeExpression
 
-MultiplicativeExpression
-  = head:(ExponentiateExpression) __ "*" __ tail:MultiplicativeExpression
+AddtitivePart
+  = __ op:("+" / "-" ) __ expr:MultiplicativeExpression
   {
-    return convertArithmetics("multiply", head, tail)
+    return {
+      operator: op,
+      expression: expr
+    }
   }
-  / head:(ExponentiateExpression) __ "/" __ tail:MultiplicativeExpression
+
+MultiplicativeExpression
+  = head:(ExponentiateExpression) tail:(MultiplicativePart)+
   {
-    return convertArithmetics("divide", head, tail)
+    return evaluateMultiplicativeArithmetics(head, tail)
   }
   / ExponentiateExpression
+
+MultiplicativePart
+  = __ op:("*" / "/" ) __ expr:ExponentiateExpression
+  {
+    return {
+      operator: op,
+      expression: expr
+    }
+  }
 
 ExponentiateExpression
   = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression

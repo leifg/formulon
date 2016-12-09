@@ -220,7 +220,7 @@ describe('ast', () => {
       it('simple subtraction', () => {
         const expected = {
           type: 'callExpression',
-          id: 'subtract',
+          id: 'add',
           arguments: [
             {
               type: 'literal',
@@ -232,13 +232,19 @@ describe('ast', () => {
               }
             },
             {
-              type: 'literal',
-              value: 10,
-              dataType: 'number',
-              options: {
-                length: 2,
-                scale: 0
-              }
+              type: "callExpression",
+              id: "negate",
+              arguments: [
+                {
+                  type: 'literal',
+                  value: 10,
+                  dataType: 'number',
+                  options: {
+                    length: 2,
+                    scale: 0
+                  }
+                }
+              ]
             }
           ]
         }
@@ -357,7 +363,7 @@ describe('ast', () => {
       it('simple division', () => {
         const expected = {
           type: 'callExpression',
-          id: 'divide',
+          id: 'multiply',
           arguments: [
             {
               type: 'literal',
@@ -369,13 +375,19 @@ describe('ast', () => {
               }
             },
             {
-              type: 'literal',
-              value: 25,
-              dataType: 'number',
-              options: {
-                length: 2,
-                scale: 0
-              }
+              type: "callExpression",
+              id: "invert",
+              arguments: [
+                {
+                  type: 'literal',
+                  value: 25,
+                  dataType: 'number',
+                  options: {
+                    length: 2,
+                    scale: 0
+                  }
+                }
+              ]
             }
           ]
         }
