@@ -2,6 +2,24 @@
   function optionalList(value) {
     return value !== null ? value[0] : [];
   }
+
+  function convertArithmetics(operation, head, tail) {
+    {
+      if (tail.type == "callExpression" && tail.id == operation) {
+        return {
+          type: "callExpression",
+          id: operation,
+          arguments: [].concat.apply([], [head, tail.arguments])
+        }
+      } else {
+        return {
+          type: "callExpression",
+          id: operation,
+          arguments: [head, tail]
+        }
+      }
+    }
+  }
 }
 
 start
@@ -94,24 +112,24 @@ LogicalCompareExpression
   / AdditiveExpression
 
 AdditiveExpression
-  = head:(MultiplicativeExpression) __ op:("+" / "-" ) __ tail:AdditiveExpression
+  = head:(MultiplicativeExpression) __ "+" __ tail:AdditiveExpression
   {
-    return {
-      type: "callExpression",
-      id: op === "+" ? "add" : "subtract",
-      arguments: [head, tail]
-    }
+    return convertArithmetics("add", head, tail)
+  }
+  / head:(MultiplicativeExpression) __ "-" __ tail:AdditiveExpression
+  {
+    return convertArithmetics("subtract", head, tail)
   }
   / MultiplicativeExpression
 
 MultiplicativeExpression
-  = head:(ExponentiateExpression) __ op:("*" / "/" ) __ tail:MultiplicativeExpression
+  = head:(ExponentiateExpression) __ "*" __ tail:MultiplicativeExpression
   {
-    return {
-      type: "callExpression",
-      id: op === "*" ? "multiply" : "divide",
-      arguments: [head, tail]
-    }
+    return convertArithmetics("multiply", head, tail)
+  }
+  / head:(ExponentiateExpression) __ "/" __ tail:MultiplicativeExpression
+  {
+    return convertArithmetics("divide", head, tail)
   }
   / ExponentiateExpression
 

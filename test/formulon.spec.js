@@ -3,7 +3,7 @@
 'use strict'
 
 const expect = require('chai').expect
-import { extract, parse } from '../lib/formulon'
+import { extract, parse, parseAndThrowError } from '../lib/formulon'
 import { buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
@@ -16,6 +16,22 @@ describe('Formulon', () => {
 
         it('returns correct result for subtraction', () => {
           expect(parse('1 - 2')).to.deep.eq(buildLiteralFromJs(-1))
+        })
+
+        it('returns correct result longer subtraction', () => {
+          expect(parseAndThrowError('5 - 2 - 4')).to.deep.eq(buildLiteralFromJs(-1))
+        })
+
+        it('returns correct result longer addition', () => {
+          expect(parseAndThrowError('1 + 2 + 4')).to.deep.eq(buildLiteralFromJs(7))
+        })
+
+        it('returns correct result longer multiplication', () => {
+          expect(parseAndThrowError('2 * 3 * 4')).to.deep.eq(buildLiteralFromJs(24))
+        })
+
+        it('returns correct result longer division', () => {
+          expect(parseAndThrowError('36 / 2 / 3')).to.deep.eq(buildLiteralFromJs(6))
         })
 
         it('returns correct result for function with variable argument list', () => {

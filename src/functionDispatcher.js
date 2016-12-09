@@ -9,10 +9,6 @@ export const dispatch = (name, args) => {
 }
 
 const functionValidations = {
-  add: validateNumOfParams(2),
-  subtract: validateNumOfParams(2),
-  multiply: validateNumOfParams(2),
-  divide: validateNumOfParams(2),
   exponentiate: validateNumOfParams(2),
   and: validateNumOfParams(2),
   or: validateNumOfParams(2),
