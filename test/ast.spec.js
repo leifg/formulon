@@ -241,28 +241,22 @@ describe('ast', () => {
               }
             },
             {
-              type: 'callExpression',
-              id: 'add',
-              arguments: [
-                {
-                  type: 'literal',
-                  value: 2,
-                  dataType: 'number',
-                  options: {
-                    length: 1,
-                    scale: 0
-                  }
-                },
-                {
-                  type: 'literal',
-                  value: 3,
-                  dataType: 'number',
-                  options: {
-                    length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+              type: 'literal',
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0
+              }
+            },
+            {
+              type: 'literal',
+              value: 3,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0
+              }
             }
           ]
         }
