@@ -30,7 +30,7 @@
     "babel-cli": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "condition-circle": "^1.2.0",
     "mocha": "^2.5.3",
     "pegjs": "^0.9.0",
