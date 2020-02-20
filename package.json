@@ -6,7 +6,7 @@
   "scripts": {
     "build": "yarn compile:parser && babel src --out-dir lib",
     "compile:parser": "pegjs ./grammars/salesforceFormula.pegjs ./lib/salesforceParser.js",
-    "test": "yarn build && mocha --compilers js:babel-register --recursive",
+    "test": "yarn build && mocha --require babel-core/register --recursive",
     "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
   },
   "release": {
