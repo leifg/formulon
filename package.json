@@ -5,7 +5,7 @@
   "main": "lib/formulon.js",
   "scripts": {
     "build": "yarn compile:parser && babel src --out-dir lib",
-    "compile:parser": "pegjs ./grammars/salesforceFormula.pegjs ./lib/salesforceParser.js",
+    "compile:parser": "pegjs -o ./lib/salesforceParser.js ./grammars/salesforceFormula.pegjs",
     "test": "yarn build && mocha --require babel-core/register --recursive",
     "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
   },
