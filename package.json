@@ -33,7 +33,7 @@
     "chai": "^4.2.0",
     "condition-circle": "^1.2.0",
     "mocha": "^7.0.1",
-    "pegjs": "^0.9.0",
+    "pegjs": "^0.10.0",
     "semantic-release": "^6.3.0"
   }
 }
