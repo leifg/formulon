@@ -3,5 +3,4 @@
 /lib/*
 !/lib/.keep
 /tmp
-npm-debug.log
-.npmrc
+yarn-error.log

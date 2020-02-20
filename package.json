@@ -4,10 +4,10 @@
   "description": "Salesforce Formula Parser",
   "main": "lib/formulon.js",
   "scripts": {
-    "build": "npm run compile:parser && babel src --out-dir lib",
+    "build": "yarn compile:parser && babel src --out-dir lib",
     "compile:parser": "pegjs ./grammars/salesforceFormula.pegjs ./lib/salesforceParser.js",
-    "test": "npm run build && mocha --compilers js:babel-register --recursive",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "test": "yarn build && mocha --compilers js:babel-register --recursive",
+    "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
   },
   "release": {
     "verifyConditions": "condition-circle",
