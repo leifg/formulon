@@ -32,6 +32,7 @@ const functionValidations = {
   begins: validateNumOfParams(2),
   br: validateNumOfParams(0),
   contains: validateNumOfParams(2),
+  isblank: validateNumOfParams(1),
   left: validateNumOfParams(2),
   len: validateNumOfParams(1),
   mid: validateNumOfParams(3),

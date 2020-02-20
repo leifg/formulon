@@ -156,6 +156,10 @@ export const sf$find = (searchText, text, startNum = buildLiteralFromJs(1)) => {
   return buildLiteralFromJs(textToSearchIn.indexOf(searchText.value) + 1)
 }
 
+export const sf$isblank = (text) => {
+  return buildLiteralFromJs(text.value === '')
+}
+
 export const sf$left = (text, numChars) => {
   return sf$mid(text, buildLiteralFromJs(1), numChars)
 }

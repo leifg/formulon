@@ -459,6 +459,20 @@ describe('find', () => {
   })
 })
 
+describe('isblank', () => {
+  it('returns true if value is an empty string', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(''))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('returns false if value is 0', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('returns false if value is space', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(' '))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
 describe('left', () => {
   it('returns correct string', () => {
     expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('123'))
