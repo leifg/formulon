@@ -162,7 +162,8 @@ describe('Formulon', () => {
           let expected = {
             type: 'error',
             errorType: 'ReferenceError',
-            message: "Undefined variable 'Custom_field__c'"
+            identifier: 'Custom_field__c',
+            message: 'Field Custom_field__c does not exist. Check spelling.'
           }
           expect(parse('1 + Custom_field__c', {})).to.deep.eq(expected)
         })

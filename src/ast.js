@@ -1,5 +1,6 @@
 'use strict'
 import { dispatch } from './functionDispatcher'
+import { buildErrorLiteral } from './utils'
 
 export const build = (formula) => {
   const parser = require('./salesforceParser.js')
@@ -15,13 +16,14 @@ export const build = (formula) => {
 }
 
 export const traverse = (ast) => {
-  switch (ast.type) {
-    case 'literal':
-      return ast
-    case 'callExpression':
-      return dispatch(ast.id, ast.arguments.map((arg) => traverse(arg)))
-    case 'identifier':
-      throw new ReferenceError(`Undefined variable '${ast.name}'`)
+  try {
+    return traverseAndThrow(ast)
+  } catch (err) {
+    if (err instanceof AstTraversalError) {
+      return buildErrorLiteral(err.errorType, err.message, err.options)
+    } else {
+      throw err
+    }
   }
 }
 
@@ -56,5 +58,27 @@ export const replace = (ast, replacement) => {
       } else {
         return ast
       }
+  }
+}
+
+// private
+
+const traverseAndThrow = (ast) => {
+  switch (ast.type) {
+    case 'literal':
+      return ast
+    case 'callExpression':
+      return dispatch(ast.id, ast.arguments.map((arg) => traverseAndThrow(arg)))
+    case 'identifier':
+      throw new AstTraversalError('ReferenceError', `Field ${ast.name} does not exist. Check spelling.`, { identifier: ast.name })
+  }
+}
+
+
+class AstTraversalError extends Error {
+  constructor(errorType, message, options) {
+    super(message)
+    this.errorType = errorType
+    this.options = options
   }
 }

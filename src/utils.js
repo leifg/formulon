@@ -24,6 +24,17 @@ export const buildLiteralFromJs = (input) => {
   }
 }
 
+export const buildErrorLiteral = (errorType, message, options) =>{
+  return Object.assign(
+    {
+      type: 'error',
+      errorType: errorType,
+      message: message
+    },
+    options
+  )
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)

@@ -4,7 +4,7 @@
 
 const expect = require('chai').expect
 
-import { arrayUnique, buildLiteralFromJs, sfRound, coerceLiteral } from '../lib/utils'
+import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, sfRound, coerceLiteral } from '../lib/utils'
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
@@ -97,6 +97,18 @@ describe('buildLiteralFromJs', () => {
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
     })
+  })
+})
+
+describe('buildErrorLiteral', () => {
+  it('returns expected Literal for error', () => {
+    let expected = {
+      type: 'error',
+      errorType: 'ReferenceError',
+      identifier: 'idontexist',
+      message: 'Field idontexist does not exist. Check spelling.'
+    }
+    expect(buildErrorLiteral('ReferenceError', 'Field idontexist does not exist. Check spelling.', { identifier: 'idontexist' })).to.deep.eq(expected)
   })
 })
 
