@@ -19,6 +19,9 @@ const existingFunctions = {
   abs: {
     validations: [validateNumOfParams(1)]
   },
+  add: {
+    validations: []
+  },
   and: {
     validations: [validateNumOfParams(2)]
   },
@@ -27,6 +30,9 @@ const existingFunctions = {
   },
   br: {
     validations: [validateNumOfParams(0)]
+  },
+  case: {
+    validations: [],
   },
   ceiling: {
     validations: [validateNumOfParams(1)]
@@ -43,11 +49,17 @@ const existingFunctions = {
   exponentiate: {
     validations: [validateNumOfParams(2)],
   },
+  find: {
+    validations: [],
+  },
   floor: {
     validations: [validateNumOfParams(1)]
   },
   if: {
     validations: [validateNumOfParams(3)]
+  },
+  invert: {
+    validations: [validateNumOfParams(1)]
   },
   isblank: {
     validations: [validateNumOfParams(1)]
@@ -76,11 +88,29 @@ const existingFunctions = {
   log: {
     validations: [validateNumOfParams(1)]
   },
+  lower: {
+    validations: [validateNumOfParams(1)]
+  },
+  lpad: {
+    validations: []
+  },
+  max: {
+    validations: []
+  },
   mid: {
     validations: [validateNumOfParams(3)]
   },
+  min: {
+    validations: []
+  },
   mod: {
     validations: [validateNumOfParams(2)]
+  },
+  multiply: {
+    validations: []
+  },
+  negate: {
+    validations: [validateNumOfParams(1)]
   },
   not: {
     validations: [validateNumOfParams(1)]
@@ -105,5 +135,8 @@ const existingFunctions = {
   },
   unequal: {
     validations: [validateNumOfParams(2)]
-  }
+  },
+  upper: {
+    validations: [validateNumOfParams(1)]
+  },
 }
