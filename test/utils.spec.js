@@ -3,7 +3,7 @@
 'use strict'
 
 import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
-import { ArgumentError, ReferenceError } from '../lib/errors'
+import { ArgumentError, NoFunctionError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
 
@@ -238,6 +238,19 @@ describe('handleFormulonError', () => {
         type: 'error',
         errorType: 'ReferenceError',
         message: 'Test ReferenceError',
+        optionKey: 'optionValue',
+      }
+      expect(handleFormulonError(fn)).to.deep.eq(expected)
+    })
+  })
+
+  context('NoFunctionError', () => {
+    it('returns error object', () => {
+      let fn = () => { throw new NoFunctionError('Test NoFunctionError', { optionKey: 'optionValue' }) }
+      let expected = {
+        type: 'error',
+        errorType: 'NoFunctionError',
+        message: 'Test NoFunctionError',
         optionKey: 'optionValue',
       }
       expect(handleFormulonError(fn)).to.deep.eq(expected)

@@ -1,6 +1,7 @@
 import * as functions from './functions'
 import { validateNumOfParams } from './validations'
 import { handleFormulonError } from './utils.js'
+import { NoFunctionError } from './errors.js'
 
 export const dispatch = (name, args) => {
   return handleFormulonError(() => {
@@ -10,8 +11,11 @@ export const dispatch = (name, args) => {
       existingFunction.validations.forEach(
         validateFn => validateFn(name)(args)
       )
+
+      return functions[`sf$${name}`](...args)
     }
-    return functions[`sf$${name}`](...args)
+
+    throw new NoFunctionError(`Unknown function ${name.toUpperCase()}. Check spelling.`, { function: name })
   })
 }
 
