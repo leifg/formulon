@@ -23,3 +23,13 @@ export class NoFunctionError extends FormulonRuntimeError {
     super(message, 'NoFunctionError', options)
   }
 }
+
+export class NotImplementedError extends FormulonRuntimeError {
+  constructor(message, options) {
+    super(message, 'NotImplementedError', options)
+  }
+}
+
+export const throwNotImplemeted = (fnName) => {
+  throw new NotImplementedError(`Function ${fnName} not implemented yet.`, {name: fnName})
+}
