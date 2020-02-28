@@ -4,42 +4,106 @@ import { handleFormulonError } from './utils.js'
 
 export const dispatch = (name, args) => {
   return handleFormulonError(() => {
-    if (functionValidations[name]) {
-      functionValidations[name](name)(args)
+    let existingFunction = existingFunctions[name]
+
+    if (existingFunction) {
+      existingFunction.validations.forEach(
+        validateFn => validateFn(name)(args)
+      )
     }
     return functions[`sf$${name}`](...args)
   })
 }
 
-const functionValidations = {
-  exponentiate: validateNumOfParams(2),
-  and: validateNumOfParams(2),
-  or: validateNumOfParams(2),
-  not: validateNumOfParams(1),
-  if: validateNumOfParams(3),
-  equal: validateNumOfParams(2),
-  unequal: validateNumOfParams(2),
-  greaterThan: validateNumOfParams(2),
-  greaterThanOrEqual: validateNumOfParams(2),
-  lessThan: validateNumOfParams(2),
-  lessThanOrEqual: validateNumOfParams(2),
-  abs: validateNumOfParams(1),
-  ceiling: validateNumOfParams(1),
-  exp: validateNumOfParams(1),
-  floor: validateNumOfParams(1),
-  ln: validateNumOfParams(1),
-  log: validateNumOfParams(1),
-  mod: validateNumOfParams(2),
-  round: validateNumOfParams(2),
-  sqrt: validateNumOfParams(1),
-  begins: validateNumOfParams(2),
-  br: validateNumOfParams(0),
-  contains: validateNumOfParams(2),
-  isblank: validateNumOfParams(1),
-  left: validateNumOfParams(2),
-  len: validateNumOfParams(1),
-  mid: validateNumOfParams(3),
-  right: validateNumOfParams(2),
-  trim: validateNumOfParams(1),
-  regex: validateNumOfParams(3)
+const existingFunctions = {
+  abs: {
+    validations: [validateNumOfParams(1)]
+  },
+  and: {
+    validations: [validateNumOfParams(2)]
+  },
+  begins: {
+    validations: [validateNumOfParams(2)]
+  },
+  br: {
+    validations: [validateNumOfParams(0)]
+  },
+  ceiling: {
+    validations: [validateNumOfParams(1)]
+  },
+  contains: {
+    validations: [validateNumOfParams(2)]
+  },
+  equal: {
+    validations: [validateNumOfParams(2)]
+  },
+  exp: {
+    validations: [validateNumOfParams(1)]
+  },
+  exponentiate: {
+    validations: [validateNumOfParams(2)],
+  },
+  floor: {
+    validations: [validateNumOfParams(1)]
+  },
+  if: {
+    validations: [validateNumOfParams(3)]
+  },
+  isblank: {
+    validations: [validateNumOfParams(1)]
+  },
+  greaterThan: {
+    validations: [validateNumOfParams(2)]
+  },
+  greaterThanOrEqual: {
+    validations: [validateNumOfParams(2)]
+  },
+  left: {
+    validations: [validateNumOfParams(2)]
+  },
+  len: {
+    validations: [validateNumOfParams(1)]
+  },
+  lessThan: {
+    validations: [validateNumOfParams(2)]
+  },
+  lessThanOrEqual: {
+    validations: [validateNumOfParams(2)]
+  },
+  ln: {
+    validations: [validateNumOfParams(1)]
+  },
+  log: {
+    validations: [validateNumOfParams(1)]
+  },
+  mid: {
+    validations: [validateNumOfParams(3)]
+  },
+  mod: {
+    validations: [validateNumOfParams(2)]
+  },
+  not: {
+    validations: [validateNumOfParams(1)]
+  },
+  or: {
+    validations: [validateNumOfParams(2)]
+  },
+  regex: {
+    validations: [validateNumOfParams(3)]
+  },
+  right: {
+    validations: [validateNumOfParams(2)]
+  },
+  round: {
+    validations: [validateNumOfParams(2)]
+  },
+  sqrt: {
+    validations: [validateNumOfParams(1)]
+  },
+  trim: {
+    validations: [validateNumOfParams(1)]
+  },
+  unequal: {
+    validations: [validateNumOfParams(2)]
+  }
 }
