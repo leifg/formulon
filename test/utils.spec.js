@@ -5,7 +5,7 @@
 import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, ReferenceError } from '../lib/errors'
 
-const expect = require('chai').expect
+import { expect } from 'chai'
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {

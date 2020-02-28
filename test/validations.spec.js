@@ -6,7 +6,7 @@ import { buildLiteralFromJs } from '../lib/utils'
 import { validateNumOfParams } from '../lib/validations'
 import { ArgumentError } from '../lib/errors'
 
-const expect = require('chai').expect
+import { expect } from 'chai'
 
 describe('validateNumOfParams', () => {
   context('correct length', () => {

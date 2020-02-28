@@ -2,7 +2,7 @@
 
 'use strict'
 
-const expect = require('chai').expect
+import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
 import { buildLiteralFromJs } from '../lib/utils'
