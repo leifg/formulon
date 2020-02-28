@@ -1091,11 +1091,46 @@ describe('ast', () => {
     })
 
     context('identifier', () => {
-      it('throws ReferenceError', () => {
-        const input = { type: 'identifier', name: 'Name' }
-        const fn = function () { traverse(input) }
+      context('just an identifer', () => {
+        it('returns ReferenceError', () => {
+          const input = { type: 'identifier', name: 'Name' }
+          expect(traverse(input)).to.deep.eq({
+            type: 'error',
+            errorType: 'ReferenceError',
+            identifier: input.name,
+            message: `Field ${input.name} does not exist. Check spelling.`
+          })
+        })
+      })
 
-        expect(fn).to.throw(ReferenceError, `Undefined variable '${input.name}'`)
+      context('identifer in call', () => {
+        it('returns ReferenceError', () => {
+          const input = {
+            type: 'callExpression',
+            id: 'add',
+            arguments: [
+              {
+                type: 'identifier',
+                name: 'idontexist',
+              },
+              {
+                type: 'literal',
+                value: 1.5,
+                dataType: 'number',
+                options: {
+                  length: 1,
+                  scale: 1
+                }
+              }
+            ]
+          }
+          expect(traverse(input)).to.deep.eq({
+            type: 'error',
+            errorType: 'ReferenceError',
+            identifier: 'idontexist',
+            message: 'Field idontexist does not exist. Check spelling.'
+          })
+        })
       })
     })
 

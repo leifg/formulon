@@ -1,5 +1,7 @@
 'use strict'
 
+import { FormulonRuntimeError } from './errors.js'
+
 export const buildLiteralFromJs = (input) => {
   let type = typeof (input)
   let base = { type: 'literal', value: input }
@@ -24,6 +26,17 @@ export const buildLiteralFromJs = (input) => {
   }
 }
 
+export const buildErrorLiteral = (errorType, message, options) =>{
+  return Object.assign(
+    {
+      type: 'error',
+      errorType: errorType,
+      message: message
+    },
+    options
+  )
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)
@@ -46,6 +59,18 @@ export const sfRound = (number, numDigits) => {
   }
   let multiplier = Math.pow(10, numDigits)
   return Math.round(number * multiplier) / multiplier
+}
+
+export const handleFormulonError = (fn) => {
+  try {
+    return fn()
+  } catch (err) {
+    if(err instanceof FormulonRuntimeError) {
+      return buildErrorLiteral(err.errorType, err.message, err.options)
+    }
+
+    throw err
+  }
 }
 
 // private

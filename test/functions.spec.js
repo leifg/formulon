@@ -6,6 +6,7 @@ const expect = require('chai').expect
 
 import * as functions from '../lib/functions'
 import { buildLiteralFromJs } from '../lib/utils'
+import { ArgumentError } from '../lib/errors'
 
 // Math Operators and  Functions
 
@@ -111,12 +112,12 @@ describe('case', () => {
 
   it('incorrect number of arguments', () => {
     let fn = () => { invalidFn1(5) }
-    expect(fn).to.throw(SyntaxError, "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25")
+    expect(fn).to.throw(ArgumentError, "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25")
   })
 
   it('only 2 arguments', () => {
     let fn = () => { invalidFn2(5) }
-    expect(fn).to.throw(SyntaxError, "Incorrect number of parameters for function 'CASE()'. Expected 4+, received 2")
+    expect(fn).to.throw(ArgumentError, "Incorrect number of parameters for function 'CASE()'. Expected 4+, received 2")
   })
 })
 

@@ -2,9 +2,10 @@
 
 'use strict'
 
-const expect = require('chai').expect
+import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { ArgumentError, ReferenceError } from '../lib/errors'
 
-import { arrayUnique, buildLiteralFromJs, sfRound, coerceLiteral } from '../lib/utils'
+const expect = require('chai').expect
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
@@ -97,6 +98,18 @@ describe('buildLiteralFromJs', () => {
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
     })
+  })
+})
+
+describe('buildErrorLiteral', () => {
+  it('returns expected Literal for error', () => {
+    let expected = {
+      type: 'error',
+      errorType: 'ReferenceError',
+      identifier: 'idontexist',
+      message: 'Field idontexist does not exist. Check spelling.'
+    }
+    expect(buildErrorLiteral('ReferenceError', 'Field idontexist does not exist. Check spelling.', { identifier: 'idontexist' })).to.deep.eq(expected)
   })
 })
 
@@ -193,6 +206,48 @@ describe('coerceLiteral', () => {
         }
       }
       expect(coerceLiteral(input)).to.deep.eq(expectedOutput)
+    })
+  })
+})
+
+describe('handleFormulonError', () => {
+  context('no error raised', () => {
+    it('returns value of function', () => {
+      let fn = () => { return 'success' }
+      expect(handleFormulonError(fn)).to.eq('success')
+    })
+  })
+
+  context('ArgumentError', () => {
+    it('returns error object', () => {
+      let fn = () => { throw new ArgumentError('Test Argument Error', { optionKey: 'optionValue' }) }
+      let expected = {
+        type: 'error',
+        errorType: 'ArgumentError',
+        message: 'Test Argument Error',
+        optionKey: 'optionValue'
+      }
+      expect(handleFormulonError(fn)).to.deep.eq(expected)
+    })
+  })
+
+  context('ReferenceError', () => {
+    it('returns error object', () => {
+      let fn = () => { throw new ReferenceError('Test ReferenceError', { optionKey: 'optionValue' }) }
+      let expected = {
+        type: 'error',
+        errorType: 'ReferenceError',
+        message: 'Test ReferenceError',
+        optionKey: 'optionValue',
+      }
+      expect(handleFormulonError(fn)).to.deep.eq(expected)
+    })
+  })
+
+  context('non formulon error', () => {
+    it('throws error', () => {
+      let fn = () => { throw new TypeError('Something different') }
+      expect(fn).to.throw(TypeError, 'Something different')
     })
   })
 })

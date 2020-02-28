@@ -1,13 +1,18 @@
 'use strict'
 import { dispatch } from './functionDispatcher'
+import { buildErrorLiteral, handleFormulonError} from './utils'
+import { ReferenceError } from './errors'
 
 export const build = (formula) => {
+  /* eslint-disable no-undef */
   const parser = require('./salesforceParser.js')
+  /* eslint-enable no-undef */
+
   try {
     return parser.parse(formula == null ? '' : formula.trim())
   } catch (err) {
     if (err instanceof parser.SyntaxError) {
-      throw new EvalError('Parsing Error')
+      return buildErrorLiteral('SyntaxError', 'Syntax error.', {})
     }
 
     throw err
@@ -15,19 +20,13 @@ export const build = (formula) => {
 }
 
 export const traverse = (ast) => {
-  switch (ast.type) {
-    case 'literal':
-      return ast
-    case 'callExpression':
-      return dispatch(ast.id, ast.arguments.map((arg) => traverse(arg)))
-    case 'identifier':
-      throw new ReferenceError(`Undefined variable '${ast.name}'`)
-  }
+  return handleFormulonError( () => { return traverseAndThrow(ast) } )
 }
 
 export const extract = (ast, state = []) => {
   switch (ast.type) {
     case 'literal':
+    case 'error':
       return state
     case 'callExpression':
       return ast.arguments.map((arg) => extract(arg, state)).reduce((a, b) => { return a.concat(b) }, [])
@@ -39,6 +38,7 @@ export const extract = (ast, state = []) => {
 export const replace = (ast, replacement) => {
   switch (ast.type) {
     case 'literal':
+    case 'error':
       return ast
     case 'callExpression':
       return {
@@ -56,5 +56,19 @@ export const replace = (ast, replacement) => {
       } else {
         return ast
       }
+  }
+}
+
+// private
+
+const traverseAndThrow = (ast) => {
+  switch (ast.type) {
+    case 'literal':
+    case 'error':
+      return ast
+    case 'callExpression':
+      return dispatch(ast.id, ast.arguments.map((arg) => traverseAndThrow(arg)))
+    case 'identifier':
+      throw new ReferenceError(`Field ${ast.name} does not exist. Check spelling.`, { identifier: ast.name })
   }
 }
