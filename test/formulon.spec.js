@@ -2,7 +2,7 @@
 
 'use strict'
 
-const expect = require('chai').expect
+import { expect } from 'chai'
 import { extract, parse } from '../lib/formulon'
 import { buildLiteralFromJs } from '../lib/utils'
 

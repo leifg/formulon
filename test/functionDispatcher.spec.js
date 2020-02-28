@@ -2,10 +2,10 @@
 
 'use strict'
 
+import { expect } from 'chai'
+
 import { dispatch } from '../lib/functionDispatcher'
 import { buildLiteralFromJs } from '../lib/utils'
-
-const expect = require('chai').expect
 
 describe('dispatch', () => {
   context('valid input', () => {
