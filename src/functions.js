@@ -1,6 +1,7 @@
 'use strict'
 
 import { buildLiteralFromJs, sfRound } from './utils'
+import { ArgumentError } from './errors'
 
 // Math Operators
 
@@ -35,11 +36,21 @@ export const sf$and = (logical1, logical2) => {
 export const sf$case = (expression, ...values) => {
   let lastValueIndex = values.length - 1
   if (lastValueIndex <= 0) {
-    throw new SyntaxError(`Incorrect number of parameters for function 'CASE()'. Expected 4+, received ${lastValueIndex + 2}`)
+    let options = {
+      function: 'case',
+      expected: 4,
+      received: lastValueIndex + 2
+    }
+    throw new ArgumentError(`Incorrect number of parameters for function '${options.function.toUpperCase()}()'. Expected ${options.expected}+, received ${options.received}`, options)
   }
 
   if (lastValueIndex % 2 !== 0) {
-    throw new SyntaxError(`Incorrect number of parameters for function 'CASE()'. Expected ${lastValueIndex + 1}, received ${lastValueIndex + 2}`)
+    let options = {
+      function: 'case',
+      expected: lastValueIndex + 1,
+      received: lastValueIndex + 2
+    }
+    throw new ArgumentError(`Incorrect number of parameters for function '${options.function.toUpperCase()}()'. Expected ${options.expected}, received ${options.received}`, options)
   }
   for (let index = 0; index < lastValueIndex; index += 2) {
     if (sf$equal(values[index], expression).value) {

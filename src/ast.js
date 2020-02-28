@@ -1,6 +1,7 @@
 'use strict'
 import { dispatch } from './functionDispatcher'
-import { buildErrorLiteral } from './utils'
+import { buildErrorLiteral, handleFormulonError} from './utils'
+import { ReferenceError } from './errors'
 
 export const build = (formula) => {
   const parser = require('./salesforceParser.js')
@@ -8,7 +9,7 @@ export const build = (formula) => {
     return parser.parse(formula == null ? '' : formula.trim())
   } catch (err) {
     if (err instanceof parser.SyntaxError) {
-      throw new EvalError('Parsing Error')
+      return buildErrorLiteral('SyntaxError', 'Syntax error.', {})
     }
 
     throw err
@@ -16,20 +17,13 @@ export const build = (formula) => {
 }
 
 export const traverse = (ast) => {
-  try {
-    return traverseAndThrow(ast)
-  } catch (err) {
-    if (err instanceof AstTraversalError) {
-      return buildErrorLiteral(err.errorType, err.message, err.options)
-    } else {
-      throw err
-    }
-  }
+  return handleFormulonError( () => { return traverseAndThrow(ast) } )
 }
 
 export const extract = (ast, state = []) => {
   switch (ast.type) {
     case 'literal':
+    case 'error':
       return state
     case 'callExpression':
       return ast.arguments.map((arg) => extract(arg, state)).reduce((a, b) => { return a.concat(b) }, [])
@@ -41,6 +35,7 @@ export const extract = (ast, state = []) => {
 export const replace = (ast, replacement) => {
   switch (ast.type) {
     case 'literal':
+    case 'error':
       return ast
     case 'callExpression':
       return {
@@ -66,19 +61,11 @@ export const replace = (ast, replacement) => {
 const traverseAndThrow = (ast) => {
   switch (ast.type) {
     case 'literal':
+    case 'error':
       return ast
     case 'callExpression':
       return dispatch(ast.id, ast.arguments.map((arg) => traverseAndThrow(arg)))
     case 'identifier':
-      throw new AstTraversalError('ReferenceError', `Field ${ast.name} does not exist. Check spelling.`, { identifier: ast.name })
-  }
-}
-
-
-class AstTraversalError extends Error {
-  constructor(errorType, message, options) {
-    super(message)
-    this.errorType = errorType
-    this.options = options
+      throw new ReferenceError(`Field ${ast.name} does not exist. Check spelling.`, { identifier: ast.name })
   }
 }

@@ -3,7 +3,7 @@
 'use strict'
 
 const expect = require('chai').expect
-import { extract, parse, parseAndThrowError } from '../lib/formulon'
+import { extract, parse } from '../lib/formulon'
 import { buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
@@ -19,27 +19,27 @@ describe('Formulon', () => {
         })
 
         it('returns correct result longer subtraction', () => {
-          expect(parseAndThrowError('5 - 2 - 4')).to.deep.eq(buildLiteralFromJs(-1))
+          expect(parse('5 - 2 - 4')).to.deep.eq(buildLiteralFromJs(-1))
         })
 
         it('returns correct result longer addition', () => {
-          expect(parseAndThrowError('1 + 2 + 4')).to.deep.eq(buildLiteralFromJs(7))
+          expect(parse('1 + 2 + 4')).to.deep.eq(buildLiteralFromJs(7))
         })
 
         it('returns correct result longer multiplication', () => {
-          expect(parseAndThrowError('2 * 3 * 4')).to.deep.eq(buildLiteralFromJs(24))
+          expect(parse('2 * 3 * 4')).to.deep.eq(buildLiteralFromJs(24))
         })
 
         it('returns correct result longer division', () => {
-          expect(parseAndThrowError('36 / 2 / 3')).to.deep.eq(buildLiteralFromJs(6))
+          expect(parse('36 / 2 / 3')).to.deep.eq(buildLiteralFromJs(6))
         })
 
         it('returns correct result longer subtraction and addition', () => {
-          expect(parseAndThrowError('8 - 4 + 2')).to.deep.eq(buildLiteralFromJs(6))
+          expect(parse('8 - 4 + 2')).to.deep.eq(buildLiteralFromJs(6))
         })
 
         it('returns correct result longer multiplication and divison', () => {
-          expect(parseAndThrowError('12 / 2 * 3')).to.deep.eq(buildLiteralFromJs(18))
+          expect(parse('12 / 2 * 3')).to.deep.eq(buildLiteralFromJs(18))
         })
 
         it('returns correct result for function with variable argument list', () => {
@@ -170,11 +170,11 @@ describe('Formulon', () => {
       })
 
       context('parse error', () => {
-        it('returns error object with ReferenceError', () => {
+        it('returns error object with SyntaxError', () => {
           let expected = {
             type: 'error',
-            errorType: 'EvalError',
-            message: 'Parsing Error'
+            errorType: 'SyntaxError',
+            message: 'Syntax error.'
           }
           expect(parse('Custom_field__c +', {})).to.deep.eq(expected)
         })
@@ -184,10 +184,13 @@ describe('Formulon', () => {
         it('returns error object with ReferenceError', () => {
           let expected = {
             type: 'error',
-            errorType: 'SyntaxError',
-            message: "Incorrect number of parameters for function 'IF()'. Expected 3, received 1"
+            errorType: 'ArgumentError',
+            message: "Incorrect number of parameters for function 'IF()'. Expected 3, received 1",
+            function: 'if',
+            expected: 3,
+            received: 1,
           }
-          expect(parse('IF(1)', {})).to.deep.eq(expected)
+          expect(parse('IF(FALSE)', {})).to.deep.eq(expected)
         })
       })
     })

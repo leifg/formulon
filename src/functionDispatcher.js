@@ -1,11 +1,14 @@
 import * as functions from './functions'
 import { validateNumOfParams } from './validations'
+import { handleFormulonError } from './utils.js'
 
 export const dispatch = (name, args) => {
-  if (functionValidations[name]) {
-    functionValidations[name](name)(args)
-  }
-  return functions[`sf$${name}`](...args)
+  return handleFormulonError(() => {
+    if (functionValidations[name]) {
+      functionValidations[name](name)(args)
+    }
+    return functions[`sf$${name}`](...args)
+  })
 }
 
 const functionValidations = {

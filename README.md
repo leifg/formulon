@@ -44,9 +44,9 @@ parse('IF(TRUE, "True String", "False String")')
 
 Currently the following data types are supported (naming is taken from the Salesforce Field Types):
 
-  - Number (Integer or Float depending on the options)
-  - Text
-  - Checkbox (TRUE or FALSE)
+- Number (Integer or Float depending on the options)
+- Text
+- Checkbox (TRUE or FALSE)
 
 #### Options
 
@@ -54,12 +54,12 @@ Options depend on the data type:
 
 ##### Number
 
-  - Length: Number of digits to the left of the decimal point
-  - Scale: Number of digits to the right of the decimal point
+- Length: Number of digits to the left of the decimal point
+- Scale: Number of digits to the right of the decimal point
 
 ##### Text
 
-  - Length: Number of characters
+- Length: Number of characters
 
 ##### Checkbox
 
@@ -72,9 +72,12 @@ Whenever an error occurs, an according object is returned:
 ```javascript
 parse('IF(TRUE)')
 // {
-//  type: 'error',
-//  errorType: 'SyntaxError',
-//  message: 'Incorrect number of parameters for function \'IF()\'. Expected 3, received 1'
+//   type: 'error',
+//   errorType: 'ArgumentError',
+//   message: "Incorrect number of parameters for function 'IF()'. Expected 3, received 1",
+//   function: 'if',
+//   expected: 3,
+//   received: 1,
 // }
 ```
 
@@ -101,15 +104,6 @@ You'll have to provide the variable in the form:
   dataType: <the salesforce field type specified above>,
   options: <salesforce field options>
 }
-```
-
-### parseAndThrowError
-
-Works in the same way as `parse` but will throw an exception when an error occurs:
-
-```javascript
-parseAndThrowError('IF(TRUE)')
-// SyntaxError: Incorrect number of parameters for function 'IF()'. Expected 3, received 1
 ```
 
 ### extract
