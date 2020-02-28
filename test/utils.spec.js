@@ -2,10 +2,10 @@
 
 'use strict'
 
-const expect = require('chai').expect
-
 import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, ReferenceError } from '../lib/errors'
+
+const expect = require('chai').expect
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
@@ -212,7 +212,6 @@ describe('coerceLiteral', () => {
 
 describe('handleFormulonError', () => {
   context('no error raised', () => {
-
     it('returns value of function', () => {
       let fn = () => { return 'success' }
       expect(handleFormulonError(fn)).to.eq('success')
@@ -226,7 +225,7 @@ describe('handleFormulonError', () => {
         type: 'error',
         errorType: 'ArgumentError',
         message: 'Test Argument Error',
-        optionKey: 'optionValue',
+        optionKey: 'optionValue'
       }
       expect(handleFormulonError(fn)).to.deep.eq(expected)
     })

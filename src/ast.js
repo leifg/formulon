@@ -4,7 +4,10 @@ import { buildErrorLiteral, handleFormulonError} from './utils'
 import { ReferenceError } from './errors'
 
 export const build = (formula) => {
+  /* eslint-disable no-undef */
   const parser = require('./salesforceParser.js')
+  /* eslint-enable no-undef */
+
   try {
     return parser.parse(formula == null ? '' : formula.trim())
   } catch (err) {

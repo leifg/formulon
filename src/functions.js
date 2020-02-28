@@ -179,9 +179,11 @@ export const sf$len = (text) => {
   return buildLiteralFromJs(text.value.length)
 }
 
-export const sf$lower = (text, locale) => {
+/* eslint-disable no-unused-vars */
+export const sf$lower = (text, _locale) => {
   return buildLiteralFromJs(text.value.toLowerCase())
 }
+/* eslint-enable no-unused-vars */
 
 export const sf$lpad = (text, paddedLength, padString) => {
   if (padString == null) {
@@ -215,9 +217,11 @@ export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
 }
 
-export const sf$upper = (text, locale) => {
+/* eslint-disable no-unused-vars */
+export const sf$upper = (text, _locale) => {
   return buildLiteralFromJs(text.value.toUpperCase())
 }
+/* eslint-enable no-unused-vars */
 
 // Advanced Functions
 
