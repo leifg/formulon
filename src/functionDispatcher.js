@@ -26,10 +26,16 @@ const existingFunctions = {
   add: {
     validations: []
   },
+  addmonths: {
+    validations: [validateNumOfParams(2)]
+  },
   and: {
     validations: [validateNumOfParams(2)]
   },
   begins: {
+    validations: [validateNumOfParams(2)]
+  },
+  blankvalue: {
     validations: [validateNumOfParams(2)]
   },
   br: {
@@ -38,11 +44,32 @@ const existingFunctions = {
   case: {
     validations: [],
   },
+  casesafeid: {
+    validations: [validateNumOfParams(1)],
+  },
   ceiling: {
     validations: [validateNumOfParams(1)]
   },
   contains: {
     validations: [validateNumOfParams(2)]
+  },
+  currencyrate: {
+    validations: [validateNumOfParams(1)]
+  },
+  date: {
+    validations: [validateNumOfParams(3)]
+  },
+  datetimevalue: {
+    validations: [validateNumOfParams(1)]
+  },
+  datevalue: {
+    validations: [validateNumOfParams(1)]
+  },
+  day: {
+    validations: [validateNumOfParams(1)]
+  },
+  distance: {
+    validations: [validateNumOfParams(3)]
   },
   equal: {
     validations: [validateNumOfParams(2)]
@@ -59,8 +86,32 @@ const existingFunctions = {
   floor: {
     validations: [validateNumOfParams(1)]
   },
+  geolocation: {
+    validations: [validateNumOfParams(2)]
+  },
+  getsessionid: {
+    validations: [validateNumOfParams(0)]
+  },
+  greaterThan: {
+    validations: [validateNumOfParams(2)]
+  },
+  greaterThanOrEqual: {
+    validations: [validateNumOfParams(2)]
+  },
+  hour: {
+    validations: [validateNumOfParams(1)]
+  },
+  hyperlink: {
+    validations: []
+  },
   if: {
     validations: [validateNumOfParams(3)]
+  },
+  image: {
+    validations: []
+  },
+  includes: {
+    validations: [validateNumOfParams(2)]
   },
   invert: {
     validations: [validateNumOfParams(1)]
@@ -68,11 +119,14 @@ const existingFunctions = {
   isblank: {
     validations: [validateNumOfParams(1)]
   },
-  greaterThan: {
+  isnull: {
+    validations: [validateNumOfParams(1)]
+  },
+  ispickval: {
     validations: [validateNumOfParams(2)]
   },
-  greaterThanOrEqual: {
-    validations: [validateNumOfParams(2)]
+  isnumber: {
+    validations: [validateNumOfParams(1)]
   },
   left: {
     validations: [validateNumOfParams(2)]
@@ -101,14 +155,29 @@ const existingFunctions = {
   max: {
     validations: []
   },
+  mceiling: {
+    validations: [validateNumOfParams(1)]
+  },
+  mfloor: {
+    validations: [validateNumOfParams(1)]
+  },
   mid: {
     validations: [validateNumOfParams(3)]
+  },
+  millisecond: {
+    validations: [validateNumOfParams(1)]
   },
   min: {
     validations: []
   },
+  minute: {
+    validations: [validateNumOfParams(1)]
+  },
   mod: {
     validations: [validateNumOfParams(2)]
+  },
+  month: {
+    validations: [validateNumOfParams(1)]
   },
   multiply: {
     validations: []
@@ -118,6 +187,12 @@ const existingFunctions = {
   },
   not: {
     validations: [validateNumOfParams(1)]
+  },
+  now: {
+    validations: [validateNumOfParams(0)]
+  },
+  nullvalue: {
+    validations: [validateNumOfParams(2)]
   },
   or: {
     validations: [validateNumOfParams(2)]
@@ -131,8 +206,29 @@ const existingFunctions = {
   round: {
     validations: [validateNumOfParams(2)]
   },
+  rpad: {
+    validations: []
+  },
+  second: {
+    validations: [validateNumOfParams(1)]
+  },
   sqrt: {
     validations: [validateNumOfParams(1)]
+  },
+  substitute: {
+    validations: [validateNumOfParams(3)],
+  },
+  text: {
+    validations: [validateNumOfParams(1)],
+  },
+  timenow: {
+    validations: [validateNumOfParams(0)]
+  },
+  timevalue: {
+    validations: [validateNumOfParams(1)]
+  },
+  today: {
+    validations: [validateNumOfParams(0)]
   },
   trim: {
     validations: [validateNumOfParams(1)]
@@ -141,6 +237,15 @@ const existingFunctions = {
     validations: [validateNumOfParams(2)]
   },
   upper: {
+    validations: [validateNumOfParams(1)]
+  },
+  value: {
+    validations: [validateNumOfParams(1)]
+  },
+  weekday: {
+    validations: [validateNumOfParams(1)]
+  },
+  year: {
     validations: [validateNumOfParams(1)]
   },
 }
