@@ -8,39 +8,114 @@ import * as functions from '../lib/functions'
 import { buildLiteralFromJs } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
-// Math Operators and  Functions
+// Date & Time Functions
 
-describe('add', () => {
-  it('adds correctly', () => {
-    expect(functions.sf$add(buildLiteralFromJs(1), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(3))
+describe.skip('addmonths', () => {
+  it('returns correct date', () => {
+    // TODO implement test for sf$addmonths
+    expect(functions.sf$addmonths(null, null)).to.deep.eq(null)
   })
 })
 
-describe('negate', () => {
-  it('negates correctly', () => {
-    expect(functions.sf$negate(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(-10))
+describe.skip('date', () => {
+  it('returns correct date', () => {
+    // TODO implement test for sf$date
+    expect(functions.sf$date(null, null, null)).to.deep.eq(null)
   })
 })
 
-describe('multiply', () => {
-  it('multiplies correctly', () => {
-    expect(functions.sf$multiply(buildLiteralFromJs(7), buildLiteralFromJs(8))).to.deep.eq(buildLiteralFromJs(56))
+describe.skip('datetimevalue', () => {
+  it('returns correct datetime', () => {
+    // TODO implement test for sf$datetimevalue
+    expect(functions.sf$datetimevalue(null)).to.deep.eq(null)
   })
 })
 
-describe('invert', () => {
-  it('inverts correctly', () => {
-    expect(functions.sf$invert(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(0.1))
+describe.skip('datevalue', () => {
+  it('returns correct date', () => {
+    // TODO implement test for sf$datevalue
+    expect(functions.sf$datevalue(null, null, null)).to.deep.eq(null)
   })
 })
 
-describe('exponentiate', () => {
-  it('exponentiates correctly', () => {
-    expect(functions.sf$exponentiate(buildLiteralFromJs(2), buildLiteralFromJs(5))).to.deep.eq(buildLiteralFromJs(32))
+describe.skip('day', () => {
+  it('returns correct day', () => {
+    // TODO implement test for sf$day
+    expect(functions.sf$day(null)).to.deep.eq(null)
   })
 })
 
-// Logical Operators and Functions
+describe.skip('hour', () => {
+  it('returns correct hour', () => {
+    // TODO implement test for sf$hour
+    expect(functions.sf$hour(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('millisecond', () => {
+  it('returns correct millisecond', () => {
+    // TODO implement test for sf$millisecond
+    expect(functions.sf$millisecond(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('minute', () => {
+  it('returns correct minute', () => {
+    // TODO implement test for sf$minute
+    expect(functions.sf$minute(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('month', () => {
+  it('returns correct month', () => {
+    // TODO implement test for sf$month
+    expect(functions.sf$month(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('now', () => {
+  it('returns correct now', () => {
+    // TODO implement test for sf$now
+    expect(functions.sf$now()).to.deep.eq(null)
+  })
+})
+
+describe.skip('second', () => {
+  it('returns correct second', () => {
+    // TODO implement test for sf$second
+    expect(functions.sf$second(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('timenow', () => {
+  it('returns correct timenow', () => {
+    // TODO implement test for sf$timenow
+    expect(functions.sf$timenow()).to.deep.eq(null)
+  })
+})
+
+describe.skip('today', () => {
+  it('returns correct today', () => {
+    // TODO implement test for sf$today
+    expect(functions.sf$today()).to.deep.eq(null)
+  })
+})
+
+describe.skip('weekday', () => {
+  it('returns correct weekday', () => {
+    // TODO implement test for sf$weekday
+    expect(functions.sf$weekday(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('year', () => {
+  it('returns correct year', () => {
+    // TODO implement test for sf$year
+    expect(functions.sf$year(null)).to.deep.eq(null)
+  })
+})
+
+// Logical Functions
 
 describe('and', () => {
   it('both true', () => {
@@ -57,6 +132,13 @@ describe('and', () => {
 
   it('both false', () => {
     expect(functions.sf$and(buildLiteralFromJs(false), buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
+describe.skip('blankvalue', () => {
+  it('returns correct blankvalue', () => {
+    // TODO implement test for sf$blankvalue
+    expect(functions.sf$blankvalue(null, null)).to.deep.eq(null)
   })
 })
 
@@ -121,6 +203,53 @@ describe('case', () => {
   })
 })
 
+describe('if', () => {
+  it('true', () => {
+    expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))
+  })
+  it('false', () => {
+    expect(functions.sf$if(buildLiteralFromJs(false), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('second'))
+  })
+})
+
+describe('isblank', () => {
+  it('returns true if value is an empty string', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(''))).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('returns false if value is 0', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('returns false if value is space', () => {
+    expect(functions.sf$isblank(buildLiteralFromJs(' '))).to.deep.eq(buildLiteralFromJs(false))
+  })
+})
+
+describe.skip('isnull', () => {
+  it('returns correct isnull', () => {
+    // TODO implement test for sf$isnull
+    expect(functions.sf$isnull(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('isnumber', () => {
+  it('returns correct isnumber', () => {
+    // TODO implement test for sf$isnumber
+    expect(functions.sf$isnumber(null)).to.deep.eq(null)
+  })
+})
+
+describe('not', () => {
+  it('true', () => {
+    expect(functions.sf$not(buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(false))
+  })
+
+  it('false', () => {
+    expect(functions.sf$not(buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
+  })
+})
+
 describe('or', () => {
   it('both true', () => {
     expect(functions.sf$or(buildLiteralFromJs(true), buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(true))
@@ -139,13 +268,10 @@ describe('or', () => {
   })
 })
 
-describe('not', () => {
-  it('true', () => {
-    expect(functions.sf$not(buildLiteralFromJs(true))).to.deep.eq(buildLiteralFromJs(false))
-  })
-
-  it('false', () => {
-    expect(functions.sf$not(buildLiteralFromJs(false))).to.deep.eq(buildLiteralFromJs(true))
+describe.skip('nullvalue', () => {
+  it('returns correct nullvalue', () => {
+    // TODO implement test for sf$nullvalue
+    expect(functions.sf$nullvalue(null, null)).to.deep.eq(null)
   })
 })
 
@@ -225,12 +351,35 @@ describe('lessThanOrEqual', () => {
   })
 })
 
-describe('if', () => {
-  it('true', () => {
-    expect(functions.sf$if(buildLiteralFromJs(true), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('first'))
+// Math Operators
+
+describe('add', () => {
+  it('adds correctly', () => {
+    expect(functions.sf$add(buildLiteralFromJs(1), buildLiteralFromJs(2))).to.deep.eq(buildLiteralFromJs(3))
   })
-  it('false', () => {
-    expect(functions.sf$if(buildLiteralFromJs(false), buildLiteralFromJs('first'), buildLiteralFromJs('second'))).to.deep.eq(buildLiteralFromJs('second'))
+})
+
+describe('negate', () => {
+  it('negates correctly', () => {
+    expect(functions.sf$negate(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(-10))
+  })
+})
+
+describe('multiply', () => {
+  it('multiplies correctly', () => {
+    expect(functions.sf$multiply(buildLiteralFromJs(7), buildLiteralFromJs(8))).to.deep.eq(buildLiteralFromJs(56))
+  })
+})
+
+describe('invert', () => {
+  it('inverts correctly', () => {
+    expect(functions.sf$invert(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(0.1))
+  })
+})
+
+describe('exponentiate', () => {
+  it('exponentiates correctly', () => {
+    expect(functions.sf$exponentiate(buildLiteralFromJs(2), buildLiteralFromJs(5))).to.deep.eq(buildLiteralFromJs(32))
   })
 })
 
@@ -268,13 +417,18 @@ describe('ceiling', () => {
   })
 })
 
+describe.skip('distance', () => {
+  it('returns correct distance', () => {
+    // TODO implement test for sf$distance
+    expect(functions.sf$distance(null, null, null)).to.deep.eq(null)
+  })
+})
+
 describe('exp', () => {
   it('Integer Literal', () => {
     expect(functions.sf$exp(buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs(2.718281828459045))
   })
 })
-
-describe('distance', () => {})
 
 describe('floor', () => {
   it('fix value', () => {
@@ -298,7 +452,12 @@ describe('floor', () => {
   })
 })
 
-describe('geolocation', () => {})
+describe.skip('geolocation', () => {
+  it('returns correct geolocation', () => {
+    // TODO implement test for sf$geolocation
+    expect(functions.sf$geolocation(null, null)).to.deep.eq(null)
+  })
+})
 
 describe('ln', () => {
   it('Integer Literal', () => {
@@ -334,6 +493,20 @@ describe('max', () => {
         buildLiteralFromJs(-100),
         buildLiteralFromJs(10)
       )).to.deep.eq(buildLiteralFromJs(10))
+  })
+})
+
+describe.skip('mceiling', () => {
+  it('returns correct mceiling', () => {
+    // TODO implement test for sf$mceiling
+    expect(functions.sf$mceiling(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('mfloor', () => {
+  it('returns correct mfloor', () => {
+    // TODO implement test for sf$mfloor
+    expect(functions.sf$mfloor(null)).to.deep.eq(null)
   })
 })
 
@@ -422,6 +595,13 @@ describe('br', () => {
   })
 })
 
+describe.skip('casesafeid', () => {
+  it('returns correct casesafeid', () => {
+    // TODO implement test for sf$casesafeid
+    expect(functions.sf$casesafeid(null)).to.deep.eq(null)
+  })
+})
+
 describe('contains', () => {
   it('contains', () => {
     expect(functions.sf$contains(buildLiteralFromJs('a string'), buildLiteralFromJs('string'))).to.deep.eq(buildLiteralFromJs(true))
@@ -460,17 +640,38 @@ describe('find', () => {
   })
 })
 
-describe('isblank', () => {
-  it('returns true if value is an empty string', () => {
-    expect(functions.sf$isblank(buildLiteralFromJs(''))).to.deep.eq(buildLiteralFromJs(true))
+describe.skip('getsessionid', () => {
+  it('returns correct getsessionid', () => {
+    // TODO implement test for sf$getsessionid
+    expect(functions.sf$getsessionid()).to.deep.eq(null)
   })
+})
 
-  it('returns false if value is 0', () => {
-    expect(functions.sf$isblank(buildLiteralFromJs(0))).to.deep.eq(buildLiteralFromJs(false))
+describe.skip('hyperlink', () => {
+  it('returns correct hyperlink', () => {
+    // TODO implement test for sf$hyperlink
+    expect(functions.sf$hyperlink(null, null, null)).to.deep.eq(null)
   })
+})
 
-  it('returns false if value is space', () => {
-    expect(functions.sf$isblank(buildLiteralFromJs(' '))).to.deep.eq(buildLiteralFromJs(false))
+describe.skip('image', () => {
+  it('returns correct image', () => {
+    // TODO implement test for sf$image
+    expect(functions.sf$image(null, null, null, null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('includes', () => {
+  it('returns correct includes', () => {
+    // TODO implement test for sf$includes
+    expect(functions.sf$includes(null, null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('ispickval', () => {
+  it('returns correct ispickval', () => {
+    // TODO implement test for sf$ispickval
+    expect(functions.sf$ispickval(null)).to.deep.eq(null)
   })
 })
 
@@ -520,6 +721,16 @@ describe('mid', () => {
   })
 })
 
+describe('right', () => {
+  it('returns correct string', () => {
+    expect(functions.sf$right(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('345'))
+  })
+
+  it('returns correct string for negative input', () => {
+    expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(-1))).to.deep.eq(buildLiteralFromJs(''))
+  })
+})
+
 describe('rpad', () => {
   it('no pad string given', () => {
     expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(20))).to.deep.eq(buildLiteralFromJs('my_company.com'))
@@ -535,6 +746,20 @@ describe('rpad', () => {
 
   it('padded length shorter than string', () => {
     expect(functions.sf$rpad(buildLiteralFromJs('my_company.com'), buildLiteralFromJs(2), buildLiteralFromJs('z'))).to.deep.eq(buildLiteralFromJs('my'))
+  })
+})
+
+describe.skip('substitute', () => {
+  it('returns correct substitute', () => {
+    // TODO implement test for sf$substitute
+    expect(functions.sf$substitute(null)).to.deep.eq(null)
+  })
+})
+
+describe.skip('text', () => {
+  it('returns correct text', () => {
+    // TODO implement test for sf$text
+    expect(functions.sf$text(null)).to.deep.eq(null)
   })
 })
 
@@ -556,23 +781,27 @@ describe('trim', () => {
   })
 })
 
-describe('right', () => {
-  it('returns correct string', () => {
-    expect(functions.sf$right(buildLiteralFromJs('12345'), buildLiteralFromJs(3))).to.deep.eq(buildLiteralFromJs('345'))
-  })
-
-  it('returns correct string for negative input', () => {
-    expect(functions.sf$left(buildLiteralFromJs('12345'), buildLiteralFromJs(-1))).to.deep.eq(buildLiteralFromJs(''))
-  })
-})
-
 describe('upper', () => {
   it('returns correct string', () => {
     expect(functions.sf$upper(buildLiteralFromJs('mycompany.com'))).to.deep.eq(buildLiteralFromJs('MYCOMPANY.COM'))
   })
 })
 
+describe.skip('value', () => {
+  it('returns correct value', () => {
+    // TODO implement test for sf$value
+    expect(functions.sf$value(null)).to.deep.eq(null)
+  })
+})
+
 // Advanced Functions
+
+describe.skip('currencyrate', () => {
+  it('returns correct currencyrate', () => {
+    // TODO implement test for sf$currencyrate
+    expect(functions.sf$currencyrate(null)).to.deep.eq(null)
+  })
+})
 
 describe('regex', () => {
   it('returns true for match', () => {

@@ -10,16 +10,46 @@ If you come a across a discrepancy, [raise an issue](https://github.com/leifg/fo
 
 ### Implementing missing behaviour
 
-At this point not all formula functions have been implemented. For every formula there is, there is an issue, so go ahead and pick what you want to implement.
+At this point not all formula functions have been implemented. For every formula there is, there is an issue, so go ahead and pick what you want to implement. Here is a detailed step by step guide for implementing new behavior:
+
+Check functions.js to see if the function you want to implement already has a stub (should just throw NotImplementedError).
+
+#### If there is not implementation stub
+
+- Add function (name is lower case of salesforce function) to `functionDispatcher.js` (alphabetically sorted). If function has a fixed length of arguments add according validation to validations array (e.g. if a function is supposed to receive exactly 2 arguments, the validations line should look like this: `validations: [validateNumOfParams(2)]` ). Otherwise add emtpy validations array.
+- Add test stub for function to `functions.spec.js` (sorted by category then alphabetically)
+
+  ```javascript
+  describe.skip('<function_name>', () => {
+    it('returns correct value', () => {
+      // TODO implement test for sf$<function_name>
+      expect(functions.sf$<function_name>(null)).to.deep.eq(null)
+    })
+  })
+  ```
+
+- Add implemention stub to `functions.js` (sorted by category then alphabetically) that throws `NotImplementedError`
+
+  ```javascript
+  /* eslint-disable no-unused-vars */
+  export const sf$<function_name> = (_arguments) => {
+    throwNotImplemeted('<function_name>')
+  }
+  /* eslint-enable no-unused-vars */
+  ```
+
+For implementation move on to next section
+
+#### If there is a implementation stub
+
+- remove `.skip` from unit test
+- Implement tests and the feature (ideally in this order). Look at other tests and implementation to get a feeling on how to implement the individual features.
+- Submit a PR referencing the issue number
 
 ## How to Get in Touch
 
-* Twitter - [@leifg](https://twitter.com/leifg)
-* Email - formulon (at) leif.io
-
-## Style Guide
-
-This project adopted the [Standard JS](https://github.com/feross/standard) style guide
+- Twitter - [@leifg](https://twitter.com/leifg)
+- Email - formulon (at) leif.io
 
 ## License
 

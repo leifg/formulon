@@ -169,6 +169,18 @@ describe('Formulon', () => {
         })
       })
 
+      context('unknown function call', () => {
+        it('returns error object with ReferenceError', () => {
+          let expected = {
+            type: 'error',
+            errorType: 'NoFunctionError',
+            function: 'missing',
+            message: 'Unknown function MISSING. Check spelling.'
+          }
+          expect(parse('MISSING(1)', {})).to.deep.eq(expected)
+        })
+      })
+
       context('parse error', () => {
         it('returns error object with SyntaxError', () => {
           let expected = {
