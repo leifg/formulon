@@ -37,11 +37,15 @@ export const buildErrorLiteral = (errorType, message, options) =>{
   )
 }
 
-export const buildDateLiteral = ( year, month, day ) => {
+export const buildDateLiteral = (yearOrDateObj, month, day) => {
+  if(yearOrDateObj instanceof Date) {
+    return buildDateLiteral(yearOrDateObj.getUTCFullYear(), yearOrDateObj.getUTCMonth() + 1, yearOrDateObj.getUTCDate())
+  }
+
   return {
     type: 'literal',
     dataType: 'date',
-    value: new Date(Date.UTC(year, month - 1, day)),
+    value: new Date(Date.UTC(yearOrDateObj, month - 1, day)),
     options: {}
   }
 }
@@ -82,6 +86,17 @@ export const handleFormulonError = (fn) => {
   }
 }
 
+// shamelessly stolen from https://stackoverflow.com/a/12793246/1087469
+export const addMonths = (date, numOfMonth) => {
+  let newMonth = date.getUTCMonth() + numOfMonth
+  let newDate = new Date(Date.UTC(date.getUTCFullYear(), newMonth, date.getUTCDate()))
+
+  if (date.getUTCDate() != newDate.getUTCDate()) {
+    newDate.setUTCDate(0);
+  }
+
+  return newDate
+}
 // private
 
 const calculateNumberOptions = (number) => {
