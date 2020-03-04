@@ -17,10 +17,10 @@ describe.skip('addmonths', () => {
   })
 })
 
-describe.skip('date', () => {
+describe('date', () => {
   it('returns correct date', () => {
-    // TODO implement test for sf$date
-    expect(functions.sf$date(null, null, null)).to.deep.eq(null)
+    let expected = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$date(buildLiteralFromJs(2020), buildLiteralFromJs(2), buildLiteralFromJs(11))).to.deep.eq(expected)
   })
 })
 

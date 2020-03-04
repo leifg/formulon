@@ -11,11 +11,9 @@ export const sf$addmonths = (_date, _num) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$date = (_year, _month, _day) => {
-  throwNotImplemeted('date')
+export const sf$date = (year, month, day) => {
+  return buildDateLiteral(year.value, month.value, day.value)
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$datetimevalue = (_expression) => {
