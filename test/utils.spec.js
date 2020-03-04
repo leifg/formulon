@@ -105,7 +105,7 @@ describe('buildDateLiteral', () => {
   it('returns expected literal for year/month/day', () => {
     let expected = {
       type: 'literal',
-      value: new Date(2020, 1, 11),
+      value: new Date(Date.UTC(2020, 1, 11)),
       dataType: 'date',
       options: {}
     }
