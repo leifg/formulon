@@ -37,11 +37,15 @@ export const buildErrorLiteral = (errorType, message, options) =>{
   )
 }
 
-export const buildDateLiteral = ( year, month, day ) => {
+export const buildDateLiteral = (yearOrDateObj, month, day) => {
+  if(yearOrDateObj instanceof Date) {
+    return buildDateLiteral(yearOrDateObj.getUTCFullYear(), yearOrDateObj.getUTCMonth() + 1, yearOrDateObj.getUTCDate())
+  }
+
   return {
     type: 'literal',
     dataType: 'date',
-    value: new Date(Date.UTC(year, month - 1, day)),
+    value: new Date(Date.UTC(yearOrDateObj, month - 1, day)),
     options: {}
   }
 }

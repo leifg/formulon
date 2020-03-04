@@ -102,14 +102,28 @@ describe('buildLiteralFromJs', () => {
 })
 
 describe('buildDateLiteral', () => {
-  it('returns expected literal for year/month/day', () => {
-    let expected = {
-      type: 'literal',
-      value: new Date(Date.UTC(2020, 1, 11)),
-      dataType: 'date',
-      options: {}
-    }
-    expect(buildDateLiteral(2020, 2, 11)).to.deep.eq(expected)
+  context('integer input', () => {
+    it('returns expected literal for year/month/day', () => {
+      let expected = {
+        type: 'literal',
+        value: new Date(Date.UTC(2020, 1, 11)),
+        dataType: 'date',
+        options: {}
+      }
+      expect(buildDateLiteral(2020, 2, 11)).to.deep.eq(expected)
+    })
+  })
+
+  context('date input', () => {
+    it('returns expected literal for date', () => {
+      let expected = {
+        type: 'literal',
+        value: new Date(Date.UTC(2020, 1, 11)),
+        dataType: 'date',
+        options: {}
+      }
+      expect(buildDateLiteral(new Date(Date.UTC(2020, 1, 11)))).to.deep.eq(expected)
+    })
   })
 })
 

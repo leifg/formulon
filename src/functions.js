@@ -7,8 +7,7 @@ import { throwNotImplemeted, ArgumentError } from './errors'
 
 /* eslint-disable no-unused-vars */
 export const sf$addmonths = (date, num) => {
-  let newDate = addMonths(date.value, num.value)
-  return buildDateLiteral(newDate.getUTCFullYear(), newDate.getUTCMonth() + 1, newDate.getUTCDate())
+  return buildDateLiteral(addMonths(date.value, num.value))
 }
 /* eslint-enable no-unused-vars */
 
@@ -73,8 +72,7 @@ export const sf$timevalue = (_expression) => {
 /* eslint-enable no-unused-vars */
 
 export const sf$today = () => {
-  let date = new Date()
-  return buildDateLiteral(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
+  return buildDateLiteral(new Date())
 }
 
 export const sf$weekday = (date) => {
