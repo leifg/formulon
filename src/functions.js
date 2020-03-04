@@ -23,11 +23,9 @@ export const sf$datetimevalue = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$day = (_date) => {
-  throwNotImplemeted('day')
+export const sf$day = (date) => {
+  return buildLiteralFromJs(date.value.getUTCDate())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$hour = (_expression) => {
