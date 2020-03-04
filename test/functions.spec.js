@@ -67,10 +67,11 @@ describe.skip('minute', () => {
   })
 })
 
-describe.skip('month', () => {
+describe('month', () => {
   it('returns correct month', () => {
-    // TODO implement test for sf$month
-    expect(functions.sf$month(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(2)
+    let input = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$month(input)).to.deep.eq(expected)
   })
 })
 
