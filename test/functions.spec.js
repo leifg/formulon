@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -38,10 +38,11 @@ describe.skip('datevalue', () => {
   })
 })
 
-describe.skip('day', () => {
+describe('day', () => {
   it('returns correct day', () => {
-    // TODO implement test for sf$day
-    expect(functions.sf$day(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(11)
+    let input = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$day(input)).to.deep.eq(expected)
   })
 })
 
@@ -66,10 +67,11 @@ describe.skip('minute', () => {
   })
 })
 
-describe.skip('month', () => {
+describe('month', () => {
   it('returns correct month', () => {
-    // TODO implement test for sf$month
-    expect(functions.sf$month(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(2)
+    let input = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$month(input)).to.deep.eq(expected)
   })
 })
 
@@ -94,24 +96,41 @@ describe.skip('timenow', () => {
   })
 })
 
-describe.skip('today', () => {
+describe('today', () => {
   it('returns correct today', () => {
-    // TODO implement test for sf$today
-    expect(functions.sf$today()).to.deep.eq(null)
+    let date = new Date()
+    let expected = buildDateLiteral(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
+
+    expect(functions.sf$today()).to.deep.eq(expected)
   })
 })
 
-describe.skip('weekday', () => {
-  it('returns correct weekday', () => {
-    // TODO implement test for sf$weekday
-    expect(functions.sf$weekday(null)).to.deep.eq(null)
+describe('weekday', () => {
+  context('sunday', () => {
+    it('returns correct weekday', () => {
+      let expected = buildLiteralFromJs(1)
+      let input = buildDateLiteral(2020, 3, 15)
+
+      expect(functions.sf$weekday(input)).to.deep.eq(expected)
+    })
+  })
+
+  context('saturday', () => {
+    it('returns correct weekday', () => {
+      let expected = buildLiteralFromJs(7)
+      let input = buildDateLiteral(2020, 2, 15)
+
+      expect(functions.sf$weekday(input)).to.deep.eq(expected)
+    })
   })
 })
 
-describe.skip('year', () => {
+describe('year', () => {
   it('returns correct year', () => {
-    // TODO implement test for sf$year
-    expect(functions.sf$year(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(2020)
+    let input = buildDateLiteral(2020, 2, 15)
+
+    expect(functions.sf$year(input)).to.deep.eq(expected)
   })
 })
 

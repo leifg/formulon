@@ -1,6 +1,6 @@
 'use strict'
 
-import { buildLiteralFromJs, sfRound } from './utils'
+import { buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -23,11 +23,9 @@ export const sf$datetimevalue = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$day = (_date) => {
-  throwNotImplemeted('day')
+export const sf$day = (date) => {
+  return buildLiteralFromJs(date.value.getUTCDate())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$hour = (_expression) => {
@@ -47,11 +45,9 @@ export const sf$minute = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$month = (_date) => {
-  throwNotImplemeted('month')
+export const sf$month = (date) => {
+  return buildLiteralFromJs(date.value.getUTCMonth() + 1)
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$now = () => {
@@ -77,23 +73,18 @@ export const sf$timevalue = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
 export const sf$today = () => {
-  throwNotImplemeted('today')
+  let date = new Date()
+  return buildDateLiteral(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$weekday = (_date) => {
-  throwNotImplemeted('weekday')
+export const sf$weekday = (date) => {
+  return buildLiteralFromJs(date.value.getUTCDay() + 1)
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$year = (_date) => {
-  throwNotImplemeted('year')
+export const sf$year = (date) => {
+  return buildLiteralFromJs(date.value.getUTCFullYear())
 }
-/* eslint-enable no-unused-vars */
 
 // Logical Functions
 
