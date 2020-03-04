@@ -379,21 +379,9 @@ describe('add', () => {
   })
 })
 
-describe('negate', () => {
-  it('negates correctly', () => {
-    expect(functions.sf$negate(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(-10))
-  })
-})
-
 describe('multiply', () => {
   it('multiplies correctly', () => {
     expect(functions.sf$multiply(buildLiteralFromJs(7), buildLiteralFromJs(8))).to.deep.eq(buildLiteralFromJs(56))
-  })
-})
-
-describe('invert', () => {
-  it('inverts correctly', () => {
-    expect(functions.sf$invert(buildLiteralFromJs(10))).to.deep.eq(buildLiteralFromJs(0.1))
   })
 })
 
@@ -619,6 +607,12 @@ describe.skip('casesafeid', () => {
   it('returns correct casesafeid', () => {
     // TODO implement test for sf$casesafeid
     expect(functions.sf$casesafeid(null)).to.deep.eq(null)
+  })
+})
+
+describe('concat', () => {
+  it('concats correctly', () => {
+    expect(functions.sf$concat(buildLiteralFromJs('Grapefruit'), buildLiteralFromJs('fruchtfleisch'))).to.deep.eq(buildLiteralFromJs('Grapefruitfruchtfleisch'))
   })
 })
 

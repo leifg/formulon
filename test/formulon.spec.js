@@ -30,8 +30,24 @@ describe('Formulon', () => {
           expect(parse('2 * 3 * 4')).to.deep.eq(buildLiteralFromJs(24))
         })
 
+        it('returns correct result for mixed multiplication and addition', () => {
+          expect(parse('5 + 7 * 8')).to.deep.eq(buildLiteralFromJs(61))
+        })
+
+        it('returns correct result longer multiplication and addition with negative number', () => {
+          expect(parse('-5 + 7 * 8')).to.deep.eq(buildLiteralFromJs(51))
+        })
+
+        it('returns correct result longer multiplication and addition with negative number', () => {
+          expect(parse('(5 + 7) * 8')).to.deep.eq(buildLiteralFromJs(96))
+        })
+
         it('returns correct result longer division', () => {
           expect(parse('36 / 2 / 3')).to.deep.eq(buildLiteralFromJs(6))
+        })
+
+        it('returns correct result longer division', () => {
+          expect(parse('36 / 2')).to.deep.eq(buildLiteralFromJs(18))
         })
 
         it('returns correct result longer subtraction and addition', () => {

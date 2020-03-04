@@ -165,7 +165,7 @@ describe('ast', () => {
       it('string concatenation', () => {
         const expected = {
           type: 'callExpression',
-          id: 'add',
+          id: 'concat',
           arguments: [
             {
               type: 'literal',
@@ -220,7 +220,7 @@ describe('ast', () => {
       it('simple subtraction', () => {
         const expected = {
           type: 'callExpression',
-          id: 'add',
+          id: 'subtract',
           arguments: [
             {
               type: 'literal',
@@ -232,19 +232,13 @@ describe('ast', () => {
               }
             },
             {
-              type: "callExpression",
-              id: "negate",
-              arguments: [
-                {
-                  type: 'literal',
-                  value: 10,
-                  dataType: 'number',
-                  options: {
-                    length: 2,
-                    scale: 0
-                  }
-                }
-              ]
+              type: 'literal',
+              value: 10,
+              dataType: 'number',
+              options: {
+                length: 2,
+                scale: 0
+              }
             }
           ]
         }
@@ -257,22 +251,28 @@ describe('ast', () => {
           id: 'add',
           arguments: [
             {
-              type: 'literal',
-              value: 1,
-              dataType: 'number',
-              options: {
-                length: 1,
-                scale: 0
-              }
-            },
-            {
-              type: 'literal',
-              value: 2,
-              dataType: 'number',
-              options: {
-                length: 1,
-                scale: 0
-              }
+              type: 'callExpression',
+              id: 'add',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: 1,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                },
+                {
+                  type: 'literal',
+                  value: 2,
+                  dataType: 'number',
+                  options: {
+                    length: 1,
+                    scale: 0
+                  }
+                }
+              ]
             },
             {
               type: 'literal',
@@ -282,7 +282,7 @@ describe('ast', () => {
                 length: 1,
                 scale: 0
               }
-            }
+            },
           ]
         }
         expect(build('1 + 2 + 3')).to.deep.equal(expected)
@@ -363,7 +363,7 @@ describe('ast', () => {
       it('simple division', () => {
         const expected = {
           type: 'callExpression',
-          id: 'multiply',
+          id: 'divide',
           arguments: [
             {
               type: 'literal',
@@ -375,19 +375,13 @@ describe('ast', () => {
               }
             },
             {
-              type: "callExpression",
-              id: "invert",
-              arguments: [
-                {
-                  type: 'literal',
-                  value: 25,
-                  dataType: 'number',
-                  options: {
-                    length: 2,
-                    scale: 0
-                  }
-                }
-              ]
+              type: 'literal',
+              value: 25,
+              dataType: 'number',
+              options: {
+                length: 2,
+                scale: 0
+              }
             }
           ]
         }
