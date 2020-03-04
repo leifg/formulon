@@ -41,7 +41,7 @@ export const buildDateLiteral = ( year, month, day ) => {
   return {
     type: 'literal',
     dataType: 'date',
-    value: new Date(year, month - 1, day),
+    value: new Date(Date.UTC(year, month - 1, day)),
     options: {}
   }
 }
