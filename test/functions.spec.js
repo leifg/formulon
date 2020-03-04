@@ -125,10 +125,12 @@ describe('weekday', () => {
   })
 })
 
-describe.skip('year', () => {
+describe('year', () => {
   it('returns correct year', () => {
-    // TODO implement test for sf$year
-    expect(functions.sf$year(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(2020)
+    let input = buildDateLiteral(2020, 2, 15)
+
+    expect(functions.sf$year(input)).to.deep.eq(expected)
   })
 })
 

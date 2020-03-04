@@ -82,11 +82,9 @@ export const sf$weekday = (date) => {
   return buildLiteralFromJs(date.value.getUTCDay() + 1)
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$year = (_date) => {
-  throwNotImplemeted('year')
+export const sf$year = (date) => {
+  return buildLiteralFromJs(date.value.getUTCFullYear())
 }
-/* eslint-enable no-unused-vars */
 
 // Logical Functions
 
