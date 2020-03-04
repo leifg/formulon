@@ -105,10 +105,23 @@ describe('today', () => {
   })
 })
 
-describe.skip('weekday', () => {
-  it('returns correct weekday', () => {
-    // TODO implement test for sf$weekday
-    expect(functions.sf$weekday(null)).to.deep.eq(null)
+describe('weekday', () => {
+  context('sunday', () => {
+    it('returns correct weekday', () => {
+      let expected = buildLiteralFromJs(1)
+      let input = buildDateLiteral(2020, 3, 15)
+
+      expect(functions.sf$weekday(input)).to.deep.eq(expected)
+    })
+  })
+
+  context('saturday', () => {
+    it('returns correct weekday', () => {
+      let expected = buildLiteralFromJs(7)
+      let input = buildDateLiteral(2020, 2, 15)
+
+      expect(functions.sf$weekday(input)).to.deep.eq(expected)
+    })
   })
 })
 
