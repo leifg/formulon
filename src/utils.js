@@ -82,6 +82,17 @@ export const handleFormulonError = (fn) => {
   }
 }
 
+// shamelessly stolen from https://stackoverflow.com/a/12793246/1087469
+export const addMonths = (date, numOfMonth) => {
+  let newMonth = date.getUTCMonth() + numOfMonth
+  let newDate = new Date(Date.UTC(date.getUTCFullYear(), newMonth, date.getUTCDate()))
+
+  if (date.getUTCDate() != newDate.getUTCDate()) {
+    newDate.setUTCDate(0);
+  }
+
+  return newDate
+}
 // private
 
 const calculateNumberOptions = (number) => {

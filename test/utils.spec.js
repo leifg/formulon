@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { arrayUnique, buildDateLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { addMonths, arrayUnique, buildDateLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -169,6 +169,32 @@ describe('sfRound', () => {
 
   it('positive number down to 2 digits', () => {
     expect(sfRound(-225.495, 2)).to.deep.eq(-225.50)
+  })
+})
+
+describe('addMonths', () => {
+  context('mid month', () => {
+    it('returns one month later', () => {
+      let input = new Date(Date.UTC(2020, 6, 15))
+      let expected = new Date(Date.UTC(2020, 8, 15))
+      expect(addMonths(input, 2)).to.deep.eq(expected)
+    })
+  })
+
+  context('end of the year', () => {
+    it('returns one month later', () => {
+      let input = new Date(Date.UTC(1999, 11, 15))
+      let expected = new Date(Date.UTC(2000, 0, 15))
+      expect(addMonths(input, 1)).to.deep.eq(expected)
+    })
+  })
+
+  context('end of the month', () => {
+    it('returns one month later', () => {
+      let input = new Date(Date.UTC(2005, 0, 31))
+      let expected = new Date(Date.UTC(2005, 1, 28))
+      expect(addMonths(input, 1)).to.deep.eq(expected)
+    })
   })
 })
 

@@ -1,13 +1,14 @@
 'use strict'
 
-import { buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
+import { addMonths, buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
 
 /* eslint-disable no-unused-vars */
-export const sf$addmonths = (_date, _num) => {
-  throwNotImplemeted('addmonths')
+export const sf$addmonths = (date, num) => {
+  let newDate = addMonths(date.value, num.value)
+  return buildDateLiteral(newDate.getUTCFullYear(), newDate.getUTCMonth() + 1, newDate.getUTCDate())
 }
 /* eslint-enable no-unused-vars */
 

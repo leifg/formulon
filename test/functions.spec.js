@@ -10,10 +10,11 @@ import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
 
-describe.skip('addmonths', () => {
+describe('addmonths', () => {
   it('returns correct date', () => {
-    // TODO implement test for sf$addmonths
-    expect(functions.sf$addmonths(null, null)).to.deep.eq(null)
+    let input = buildDateLiteral(1999, 12, 31)
+    let expected = buildDateLiteral(2000, 2, 29)
+    expect(functions.sf$addmonths(input, buildLiteralFromJs(2))).to.deep.eq(expected)
   })
 })
 
