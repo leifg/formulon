@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -94,10 +94,12 @@ describe.skip('timenow', () => {
   })
 })
 
-describe.skip('today', () => {
+describe('today', () => {
   it('returns correct today', () => {
-    // TODO implement test for sf$today
-    expect(functions.sf$today()).to.deep.eq(null)
+    let date = new Date()
+    let expected = buildDateLiteral(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
+
+    expect(functions.sf$today()).to.deep.eq(expected)
   })
 })
 

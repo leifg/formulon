@@ -1,6 +1,6 @@
 'use strict'
 
-import { buildLiteralFromJs, sfRound } from './utils'
+import { buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -77,11 +77,10 @@ export const sf$timevalue = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
 export const sf$today = () => {
-  throwNotImplemeted('today')
+  let date = new Date()
+  return buildDateLiteral(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$weekday = (_date) => {
