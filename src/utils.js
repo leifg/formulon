@@ -37,6 +37,15 @@ export const buildErrorLiteral = (errorType, message, options) =>{
   )
 }
 
+export const buildDateLiteral = ( year, month, day ) => {
+  return {
+    type: 'literal',
+    dataType: 'date',
+    value: new Date(year, month - 1, day),
+    options: {}
+  }
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)

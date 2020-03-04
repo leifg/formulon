@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { arrayUnique, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { arrayUnique, buildDateLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -98,6 +98,18 @@ describe('buildLiteralFromJs', () => {
 
       expect(fn).to.throw(TypeError, "Unsupported type 'object'")
     })
+  })
+})
+
+describe('buildDateLiteral', () => {
+  it('returns expected literal for year/month/day', () => {
+    let expected = {
+      type: 'literal',
+      value: new Date(2020, 1, 11),
+      dataType: 'date',
+      options: {}
+    }
+    expect(buildDateLiteral(2020, 2, 11)).to.deep.eq(expected)
   })
 })
 
