@@ -92,6 +92,18 @@ describe('buildLiteralFromJs', () => {
     })
   })
 
+  context('Null', () => {
+    it('returns expected Literal', () => {
+      let expected = {
+        type: 'literal',
+        value: null,
+        dataType: 'null',
+        options: {}
+      }
+      expect(buildLiteralFromJs(null)).to.deep.eq(expected)
+    })
+  })
+
   context('unsupported type', () => {
     it('throws TypeError', () => {
       let fn = () => { buildLiteralFromJs({}) }

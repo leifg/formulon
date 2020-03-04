@@ -3,8 +3,16 @@
 import { FormulonRuntimeError } from './errors.js'
 
 export const buildLiteralFromJs = (input) => {
-  let type = typeof (input)
   let base = { type: 'literal', value: input }
+
+  if (input === null) {
+    return Object.assign(
+      base,
+      { dataType: 'null', options: {} }
+    )
+  }
+
+  let type = typeof (input)
   switch (typeof (input)) {
     case 'number':
       return Object.assign(
