@@ -776,10 +776,23 @@ describe.skip('substitute', () => {
   })
 })
 
-describe.skip('text', () => {
-  it('returns correct text', () => {
-    // TODO implement test for sf$text
-    expect(functions.sf$text(null)).to.deep.eq(null)
+describe('text', () => {
+  context('Number', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs('1'))
+    })
+  })
+
+  context('Text', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildLiteralFromJs('text'))).to.deep.eq(buildLiteralFromJs('text'))
+    })
+  })
+
+  context('Date', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildDateLiteral(2020, 2, 11))).to.deep.eq(buildLiteralFromJs('2020-02-11'))
+    })
   })
 })
 
