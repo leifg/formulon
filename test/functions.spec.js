@@ -776,10 +776,23 @@ describe.skip('substitute', () => {
   })
 })
 
-describe.skip('text', () => {
-  it('returns correct text', () => {
-    // TODO implement test for sf$text
-    expect(functions.sf$text(null)).to.deep.eq(null)
+describe('text', () => {
+  context('Number', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildLiteralFromJs(1))).to.deep.eq(buildLiteralFromJs('1'))
+    })
+  })
+
+  context('Text', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildLiteralFromJs('text'))).to.deep.eq(buildLiteralFromJs('text'))
+    })
+  })
+
+  context('Date', () => {
+    it('returns correct text', () => {
+      expect(functions.sf$text(buildDateLiteral(2020, 2, 11))).to.deep.eq(buildLiteralFromJs('2020-02-11'))
+    })
   })
 })
 
@@ -807,10 +820,21 @@ describe('upper', () => {
   })
 })
 
-describe.skip('value', () => {
-  it('returns correct value', () => {
-    // TODO implement test for sf$value
-    expect(functions.sf$value(null)).to.deep.eq(null)
+describe('value', () => {
+  context('Parsable', () => {
+    it('returns correct value for integer', () => {
+      expect(functions.sf$value(buildLiteralFromJs('1'))).to.deep.eq(buildLiteralFromJs(1))
+    })
+
+    it('returns correct value for float', () => {
+      expect(functions.sf$value(buildLiteralFromJs('3.14'))).to.deep.eq(buildLiteralFromJs(3.14))
+    })
+  })
+
+  context('Not Parsable', () => {
+    it('returns null', () => {
+      expect(functions.sf$value(buildLiteralFromJs('Number Kaputt'))).to.deep.eq(buildLiteralFromJs(null))
+    })
   })
 })
 

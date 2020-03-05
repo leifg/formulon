@@ -1,5 +1,6 @@
 'use strict'
 
+import { toString } from './formulon'
 import { addMonths, buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
@@ -381,11 +382,13 @@ export const sf$substitute = (text, oldText, newText) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$text = (_value) => {
-  throwNotImplemeted('text')
+export const sf$text = (value) => {
+  if(value.dataType === 'text') {
+    return value
+  }
+
+  return buildLiteralFromJs(toString(value))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$trim = (text) => {
   return buildLiteralFromJs(text.value.trim())
@@ -398,8 +401,14 @@ export const sf$upper = (text, _locale) => {
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
-export const sf$value = (_text) => {
-  throwNotImplemeted('value')
+export const sf$value = (text) => {
+  let parsedValue = parseFloat(text.value)
+
+  if(parsedValue) {
+    return buildLiteralFromJs(parsedValue)
+  }
+
+  return buildLiteralFromJs(null)
 }
 /* eslint-enable no-unused-vars */
 
