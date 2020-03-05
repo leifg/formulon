@@ -401,8 +401,14 @@ export const sf$upper = (text, _locale) => {
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
-export const sf$value = (_text) => {
-  throwNotImplemeted('value')
+export const sf$value = (text) => {
+  let parsedValue = parseFloat(text.value)
+
+  if(parsedValue) {
+    return buildLiteralFromJs(parsedValue)
+  }
+
+  return buildLiteralFromJs(null)
 }
 /* eslint-enable no-unused-vars */
 

@@ -820,10 +820,21 @@ describe('upper', () => {
   })
 })
 
-describe.skip('value', () => {
-  it('returns correct value', () => {
-    // TODO implement test for sf$value
-    expect(functions.sf$value(null)).to.deep.eq(null)
+describe('value', () => {
+  context('Parsable', () => {
+    it('returns correct value for integer', () => {
+      expect(functions.sf$value(buildLiteralFromJs('1'))).to.deep.eq(buildLiteralFromJs(1))
+    })
+
+    it('returns correct value for float', () => {
+      expect(functions.sf$value(buildLiteralFromJs('3.14'))).to.deep.eq(buildLiteralFromJs(3.14))
+    })
+  })
+
+  context('Not Parsable', () => {
+    it('returns null', () => {
+      expect(functions.sf$value(buildLiteralFromJs('Number Kaputt'))).to.deep.eq(buildLiteralFromJs(null))
+    })
   })
 })
 
