@@ -26,3 +26,18 @@ export const extract = (formula) => {
   let ast = build(formula)
   return arrayUnique(astExtract(ast))
 }
+
+export const toString = (literal) => {
+  switch(literal.dataType) {
+    case 'null':
+      return 'NULL'
+    case 'number':
+      return literal.value.toString()
+    case 'text':
+      return `"${literal.value}"`
+    case 'checkbox':
+      return literal.value.toString().toUpperCase()
+    case 'date':
+      return `${literal.value.getUTCFullYear()}-${(literal.value.getUTCMonth() + 1).toString().padStart(2, '0')}-${literal.value.getUTCDate().toString().padStart(2, '0')}`
+  }
+}

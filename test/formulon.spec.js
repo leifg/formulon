@@ -3,8 +3,8 @@
 'use strict'
 
 import { expect } from 'chai'
-import { extract, parse } from '../lib/formulon'
-import { buildLiteralFromJs } from '../lib/utils'
+import { extract, parse, toString } from '../lib/formulon'
+import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -279,6 +279,46 @@ describe('Formulon', () => {
         it('returns empty string', () => {
           expect(extract('   ')).to.deep.eq(expected)
         })
+      })
+    })
+  })
+
+  describe('toString', () => {
+    context('Number', () => {
+      it('returns correct string for integer', () => {
+        expect(toString(buildLiteralFromJs(1))).to.eq('1')
+      })
+
+      it('returns correct string for float', () => {
+        expect(toString(buildLiteralFromJs(3.14))).to.eq('3.14')
+      })
+    })
+
+    context('Text', () => {
+      it('returns correct string', () => {
+        expect(toString(buildLiteralFromJs('string'))).to.eq('"string"')
+      })
+    })
+
+    context('Checkbox', () => {
+      it('returns correct string for true', () => {
+        expect(toString(buildLiteralFromJs(true))).to.eq('TRUE')
+      })
+
+      it('returns correct string for false', () => {
+        expect(toString(buildLiteralFromJs(false))).to.eq('FALSE')
+      })
+    })
+
+    context('Date', () => {
+      it('returns correct string for date', () => {
+        expect(toString(buildDateLiteral(2020, 2, 11))).to.eq('2020-02-11')
+      })
+    })
+
+    context('Null', () => {
+      it('returns correct string for date', () => {
+        expect(toString(buildLiteralFromJs(null))).to.eq('NULL')
       })
     })
   })
