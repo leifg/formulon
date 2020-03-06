@@ -24,7 +24,7 @@ const existingFunctions = {
     validations: [validateNumOfParams(1)]
   },
   add: {
-    validations: []
+    validations: [validateNumOfParams(2)]
   },
   addmonths: {
     validations: [validateNumOfParams(2)]
@@ -71,6 +71,9 @@ const existingFunctions = {
   distance: {
     validations: [validateNumOfParams(3)]
   },
+  divide: {
+    validations: [validateNumOfParams(2)],
+  },
   equal: {
     validations: [validateNumOfParams(2)]
   },
@@ -112,9 +115,6 @@ const existingFunctions = {
   },
   includes: {
     validations: [validateNumOfParams(2)]
-  },
-  invert: {
-    validations: [validateNumOfParams(1)]
   },
   isblank: {
     validations: [validateNumOfParams(1)]
@@ -180,10 +180,7 @@ const existingFunctions = {
     validations: [validateNumOfParams(1)]
   },
   multiply: {
-    validations: []
-  },
-  negate: {
-    validations: [validateNumOfParams(1)]
+    validations: [validateNumOfParams(2)]
   },
   not: {
     validations: [validateNumOfParams(1)]
@@ -214,6 +211,9 @@ const existingFunctions = {
   },
   sqrt: {
     validations: [validateNumOfParams(1)]
+  },
+  subtract: {
+    validations: [validateNumOfParams(2)],
   },
   substitute: {
     validations: [validateNumOfParams(3)],

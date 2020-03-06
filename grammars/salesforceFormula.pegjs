@@ -1,41 +1,78 @@
 {
+  const operators = {
+    '^': {
+      functionName: 'exponentiate',
+      rightAssociative: true,
+      precedence: 4,
+    },
+    '*': {
+      functionName: 'multiply',
+      rightAssociative: false,
+      precedence: 3,
+    },
+    '/': {
+      functionName: 'divide',
+      rightAssociative: false,
+      precedence: 3,
+    },
+    '+': {
+      functionName: 'add',
+      rightAssociative: false,
+      precedence: 2,
+    },
+    '-': {
+      functionName: 'subtract',
+      rightAssociative: false,
+      precedence: 2,
+    }
+  }
+
   function optionalList(value) {
     return value !== null ? value[0] : [];
   }
 
-  function mapArgumentsToArithmetics(args) {
-    return args.map((elem) => {
-      if (elem.operator == "-") {
-        return {
-          type: "callExpression",
-          id: "negate",
-          arguments: [elem.expression]
+  // Shunting Yard Algorithm to order operands by arithmetic precedence
+  function infixToPostfixAst(tokens) {
+    const operatorStack = []
+    const operandStack = []
+
+    tokens.forEach((token) => {
+      if(token.type === 'operator') {
+        while(operatorStack.length > 0) {
+          if(operatorStack[operatorStack.length - 1].precedence < token.precedence) {
+            break
+          }
+
+          let operator = operatorStack.pop()
+          let operand2 = operandStack.pop()
+          let operand1 = operandStack.pop()
+
+          operandStack.push(buildOperatorNode(operator, operand1, operand2))
         }
-      } else if (elem.operator == "/") {
-        return {
-          type: "callExpression",
-          id: "invert",
-          arguments: [elem.expression]
-        }
-      } else {
-        return elem.expression
+
+        operatorStack.push(token)
+      }
+      else {
+        operandStack.push(token)
       }
     })
-  }
 
-  function evaluateAdditiveArithmetics(head, tail) {
-    return {
-      type: "callExpression",
-      id: "add",
-      arguments: [].concat.apply([], [head, mapArgumentsToArithmetics(tail)])
+    while(operatorStack.length > 0) {
+      let operator = operatorStack.pop()
+      let operand2 = operandStack.pop()
+      let operand1 = operandStack.pop()
+
+      operandStack.push(buildOperatorNode(operator, operand1, operand2))
     }
+
+    return operandStack.pop()
   }
 
-  function evaluateMultiplicativeArithmetics(head, tail) {
+  function buildOperatorNode(operator, arg1, arg2) {
     return {
       type: "callExpression",
-      id: "multiply",
-      arguments: [].concat.apply([], [head, mapArgumentsToArithmetics(tail)])
+      id: operator.functionName,
+      arguments: [arg1, arg2]
     }
   }
 }
@@ -44,13 +81,13 @@ start
   = PrimaryExpression
 
 PrimaryExpression
-  = ArithmeticExpression
+  = LogicalConcatinationExpression
   / UnaryExpression
   / CallExpression
   / Identifier
   / Literal
 
-LeftHandSideExpression
+Term
   = CallExpression
   / Identifier
   / Literal
@@ -66,7 +103,22 @@ CallExpression
   }
 
 ArithmeticExpression
-  = LogicalConcatinationExpression
+  = head:Term __ tail:(ArithmeticPart)* {
+    return infixToPostfixAst([head, tail].flat(2))
+  }
+
+ArithmeticPart
+  = __ op:ArithmeticOperator __ expr:Term
+  {
+    return [Object.assign({ type: 'operator' }, operators[op]), expr]
+  }
+
+ArithmeticOperator
+  = "^"
+  / "*"
+  / "/"
+  / "+"
+  / "-"
 
 LogicalConcatinationExpression
   = head:(LogicalCompareExpression) __ op:(LogicalConcatinationOperator) __ tail:LogicalConcatinationExpression
@@ -91,7 +143,7 @@ LogicalConcatinationExpression
   / LogicalCompareExpression
 
 LogicalCompareExpression
-  = head:(AdditiveExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
+  = head:(ArithmeticExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
   {
     var name;
     switch(op) {
@@ -116,7 +168,7 @@ LogicalCompareExpression
         name = "unequal"
         break;
       case "&":
-        name = "add"
+        name = "concat"
         break;
       default:
     }
@@ -127,50 +179,7 @@ LogicalCompareExpression
       arguments: [head, tail]
     }
   }
-  / AdditiveExpression
-
-AdditiveExpression
-  = head:(MultiplicativeExpression) tail:(AddtitivePart)+
-  {
-    return evaluateAdditiveArithmetics(head, tail)
-  }
-  / MultiplicativeExpression
-
-AddtitivePart
-  = __ op:("+" / "-" ) __ expr:MultiplicativeExpression
-  {
-    return {
-      operator: op,
-      expression: expr
-    }
-  }
-
-MultiplicativeExpression
-  = head:(ExponentiateExpression) tail:(MultiplicativePart)+
-  {
-    return evaluateMultiplicativeArithmetics(head, tail)
-  }
-  / ExponentiateExpression
-
-MultiplicativePart
-  = __ op:("*" / "/" ) __ expr:ExponentiateExpression
-  {
-    return {
-      operator: op,
-      expression: expr
-    }
-  }
-
-ExponentiateExpression
-  = head:(LeftHandSideExpression) __ "^" __ tail:ExponentiateExpression
-  {
-    return {
-      type: "callExpression",
-      id: "exponentiate",
-      arguments: [head, tail]
-    }
-  }
-  / LeftHandSideExpression
+  / ArithmeticExpression
 
 LogicalCompareOperator
   = "<="
