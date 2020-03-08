@@ -36,11 +36,9 @@ export const sf$millisecond = (_expression) => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$minute = (_expression) => {
-  throwNotImplemeted('minute')
+export const sf$minute = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCMinutes())
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$month = (date) => {
   return buildLiteralFromJs(date.value.getUTCMonth() + 1)
