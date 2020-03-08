@@ -32,10 +32,10 @@ describe.skip('datetimevalue', () => {
   })
 })
 
-describe.skip('datevalue', () => {
+describe('datevalue', () => {
   it('returns correct date', () => {
-    // TODO implement test for sf$datevalue
-    expect(functions.sf$datevalue(null, null, null)).to.deep.eq(null)
+    let expected = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$datevalue(buildLiteralFromJs('2020-02-11'))).to.deep.eq(expected)
   })
 })
 

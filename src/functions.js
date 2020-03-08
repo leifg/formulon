@@ -16,6 +16,10 @@ export const sf$date = (year, month, day) => {
   return buildDateLiteral(year.value, month.value, day.value)
 }
 
+export const sf$datevalue = (expression) => {
+  return buildDateLiteral(new Date(Date.parse(expression.value)))
+}
+
 /* eslint-disable no-unused-vars */
 export const sf$datetimevalue = (_expression) => {
   throwNotImplemeted('datetimevalue')
