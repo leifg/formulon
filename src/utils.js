@@ -58,6 +58,15 @@ export const buildDateLiteral = (yearOrDateObj, month, day) => {
   }
 }
 
+export const buildDatetimeLiteral = (unixTimestamp) => {
+  return {
+    type: 'literal',
+    dataType: 'datetime',
+    value: new Date(unixTimestamp),
+    options: {}
+  }
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)

@@ -4,7 +4,7 @@
 
 import { expect } from 'chai'
 import { extract, parse, toString } from '../lib/formulon'
-import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -329,6 +329,13 @@ describe('Formulon', () => {
     context('Date', () => {
       it('returns correct string for date', () => {
         expect(toString(buildDateLiteral(2020, 2, 11))).to.eq('2020-02-11')
+      })
+    })
+
+    context('Datetime', () => {
+      it('returns correct string for date', () => {
+        let unixTimestamp = Date.UTC(2020, 1, 11, 14, 39, 42, 974)
+        expect(toString(buildDatetimeLiteral(unixTimestamp))).to.eq('2020-02-11T14:39:42.974Z')
       })
     })
 

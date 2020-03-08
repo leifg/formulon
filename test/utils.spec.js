@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { addMonths, arrayUnique, buildDateLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -135,6 +135,20 @@ describe('buildDateLiteral', () => {
         options: {}
       }
       expect(buildDateLiteral(new Date(Date.UTC(2020, 1, 11)))).to.deep.eq(expected)
+    })
+  })
+})
+
+describe('buildDatetimeLiteral', () => {
+  context('unit timestamp input', () => {
+    it('returns expected literal for unix timesampt', () => {
+      let expected = {
+        type: 'literal',
+        value: new Date(Date.UTC(2020, 1, 11, 14, 39, 42, 974)),
+        dataType: 'datetime',
+        options: {}
+      }
+      expect(buildDatetimeLiteral(1581431982974)).to.deep.eq(expected)
     })
   })
 })
