@@ -39,5 +39,7 @@ export const toString = (literal) => {
       return literal.value.toString().toUpperCase()
     case 'date':
       return `${literal.value.getUTCFullYear()}-${(literal.value.getUTCMonth() + 1).toString().padStart(2, '0')}-${literal.value.getUTCDate().toString().padStart(2, '0')}`
+      case 'datetime':
+        return literal.value.toISOString()
   }
 }
