@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -47,10 +47,11 @@ describe('day', () => {
   })
 })
 
-describe.skip('hour', () => {
+describe('hour', () => {
   it('returns correct hour', () => {
-    // TODO implement test for sf$hour
-    expect(functions.sf$hour(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(17)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 0))
+    expect(functions.sf$hour(input)).to.deep.eq(expected)
   })
 })
 

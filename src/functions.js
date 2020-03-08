@@ -26,11 +26,9 @@ export const sf$day = (date) => {
   return buildLiteralFromJs(date.value.getUTCDate())
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$hour = (_expression) => {
-  throwNotImplemeted('hour')
+export const sf$hour = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCHours())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$millisecond = (_expression) => {
