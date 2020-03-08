@@ -86,10 +86,11 @@ describe.skip('now', () => {
   })
 })
 
-describe.skip('second', () => {
+describe('second', () => {
   it('returns correct second', () => {
-    // TODO implement test for sf$second
-    expect(functions.sf$second(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(19)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 19))
+    expect(functions.sf$second(input)).to.deep.eq(expected)
   })
 })
 

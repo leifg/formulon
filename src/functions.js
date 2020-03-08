@@ -48,11 +48,9 @@ export const sf$now = () => {
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$second = (_expression) => {
-  throwNotImplemeted('second')
+export const sf$second = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCSeconds())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$timenow = () => {
