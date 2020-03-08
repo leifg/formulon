@@ -1,7 +1,7 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addMonths, buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
+import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -42,11 +42,9 @@ export const sf$month = (date) => {
   return buildLiteralFromJs(date.value.getUTCMonth() + 1)
 }
 
-/* eslint-disable no-unused-vars */
 export const sf$now = () => {
-  throwNotImplemeted('now')
+  return buildDatetimeLiteral(new Date().getTime())
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$second = (expression) => {
   return buildLiteralFromJs(expression.value.getUTCSeconds())

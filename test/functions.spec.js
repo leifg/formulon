@@ -79,10 +79,12 @@ describe('month', () => {
   })
 })
 
-describe.skip('now', () => {
+describe('now', () => {
   it('returns correct now', () => {
-    // TODO implement test for sf$now
-    expect(functions.sf$now()).to.deep.eq(null)
+    let date = new Date()
+    let expected = buildDatetimeLiteral(date.getTime())
+
+    expect(functions.sf$now()).to.deep.eq(expected)
   })
 })
 
