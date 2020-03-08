@@ -1,7 +1,7 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addMonths, buildDateLiteral, buildLiteralFromJs, sfRound } from './utils'
+import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -16,49 +16,41 @@ export const sf$date = (year, month, day) => {
   return buildDateLiteral(year.value, month.value, day.value)
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$datetimevalue = (_expression) => {
-  throwNotImplemeted('datetimevalue')
+export const sf$datevalue = (expression) => {
+  return buildDateLiteral(new Date(Date.parse(expression.value)))
 }
-/* eslint-enable no-unused-vars */
+
+export const sf$datetimevalue = (expression) => {
+  return buildDatetimeLiteral(Date.parse(`${expression.value}Z`))
+}
 
 export const sf$day = (date) => {
   return buildLiteralFromJs(date.value.getUTCDate())
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$hour = (_expression) => {
-  throwNotImplemeted('hour')
+export const sf$hour = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCHours())
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$millisecond = (_expression) => {
-  throwNotImplemeted('millisecond')
+export const sf$millisecond = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCMilliseconds())
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$minute = (_expression) => {
-  throwNotImplemeted('minute')
+export const sf$minute = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCMinutes())
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$month = (date) => {
   return buildLiteralFromJs(date.value.getUTCMonth() + 1)
 }
 
-/* eslint-disable no-unused-vars */
 export const sf$now = () => {
-  throwNotImplemeted('now')
+  return buildDatetimeLiteral(new Date().getTime())
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$second = (_expression) => {
-  throwNotImplemeted('second')
+export const sf$second = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCSeconds())
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$timenow = () => {

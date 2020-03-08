@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -25,17 +25,18 @@ describe('date', () => {
   })
 })
 
-describe.skip('datetimevalue', () => {
+describe('datetimevalue', () => {
   it('returns correct datetime', () => {
-    // TODO implement test for sf$datetimevalue
-    expect(functions.sf$datetimevalue(null)).to.deep.eq(null)
+    let input = buildLiteralFromJs('2020-02-11 17:39:00.973')
+    let expected = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))
+    expect(functions.sf$datetimevalue(input)).to.deep.eq(expected)
   })
 })
 
-describe.skip('datevalue', () => {
+describe('datevalue', () => {
   it('returns correct date', () => {
-    // TODO implement test for sf$datevalue
-    expect(functions.sf$datevalue(null, null, null)).to.deep.eq(null)
+    let expected = buildDateLiteral(2020, 2, 11)
+    expect(functions.sf$datevalue(buildLiteralFromJs('2020-02-11'))).to.deep.eq(expected)
   })
 })
 
@@ -47,24 +48,27 @@ describe('day', () => {
   })
 })
 
-describe.skip('hour', () => {
+describe('hour', () => {
   it('returns correct hour', () => {
-    // TODO implement test for sf$hour
-    expect(functions.sf$hour(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(17)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 0))
+    expect(functions.sf$hour(input)).to.deep.eq(expected)
   })
 })
 
-describe.skip('millisecond', () => {
+describe('millisecond', () => {
   it('returns correct millisecond', () => {
-    // TODO implement test for sf$millisecond
-    expect(functions.sf$millisecond(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(973)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 0, 973))
+    expect(functions.sf$millisecond(input)).to.deep.eq(expected)
   })
 })
 
-describe.skip('minute', () => {
+describe('minute', () => {
   it('returns correct minute', () => {
-    // TODO implement test for sf$minute
-    expect(functions.sf$minute(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(39)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 0))
+    expect(functions.sf$minute(input)).to.deep.eq(expected)
   })
 })
 
@@ -76,17 +80,20 @@ describe('month', () => {
   })
 })
 
-describe.skip('now', () => {
+describe('now', () => {
   it('returns correct now', () => {
-    // TODO implement test for sf$now
-    expect(functions.sf$now()).to.deep.eq(null)
+    let date = new Date()
+    let expected = buildDatetimeLiteral(date.getTime())
+
+    expect(functions.sf$now()).to.deep.eq(expected)
   })
 })
 
-describe.skip('second', () => {
+describe('second', () => {
   it('returns correct second', () => {
-    // TODO implement test for sf$second
-    expect(functions.sf$second(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(19)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 19))
+    expect(functions.sf$second(input)).to.deep.eq(expected)
   })
 })
 
