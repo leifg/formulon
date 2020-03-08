@@ -1,0 +1,150 @@
+{
+  "Account Management Formulas": {
+    "link": "https://help.salesforce.com/articleView?id=useful_advanced_formulas_acct_mgmt.html",
+    "examples": [
+      {
+        "name": "Account Rating",
+        "disabled": true,
+        "formula": "IF (AND (AnnualRevenue > 10000000, CONTAINS (CASE (BillingCountry, \"United States\", \"US\", \"America\", \"US\", \"USA\", \"US\", \"NA\"), \"US\")), IF(ISPICKVAL(Type, \"Manufacturing Partner\"), \"Hot\", IF(OR (ISPICKVAL (Type, \"Channel Partner/Reseller\"), ISPICKVAL(Type, \"Installation Partner\")), \"Warm\", \"Cold\")), \"Cold\")",
+        "suites": [
+          {
+            "context": "AnnualRevenue < 10000000",
+            "identifiers": {
+              "AnnualRevenue": {
+                "dataType": "number",
+                "value": 9999999
+              },
+              "BillingCountry": {
+                "dataType": "text",
+                "value": "United States"
+              },
+              "Type": {
+                "dataType": "picklist",
+                "value": "Manufacturing Partner",
+                "options": {
+                  "values": ["Manufacturing Partner", "Channel Partner/Reseller", "Installation Partner"]
+                }
+              }
+            },
+            "expectedResult": {
+
+            }
+          }
+        ]
+      },
+      {
+        "name": "Account Region",
+        "formula": "IF(ISBLANK(BillingState), \"None\", IF(CONTAINS(\"AK:AZ:CA:HA:NV:NM:OR:UT:WA\", BillingState), \"West\", IF(CONTAINS(\"CO:ID:MT:KS:OK:TX:WY\", BillingState), \"Central\", IF(CONTAINS(\"CT:ME:MA:NH:NY:PA:RI:VT\", BillingState), \"East\", IF(CONTAINS(\"AL:AR:DC:DE:FL:GA:KY:LA:MD:MS:NC:NJ:SC:TN:VA:WV\", BillingState), \"South\", IF(CONTAINS(\"IL:IN:IA:MI:MN:MO:NE:ND:OH:SD:WI\", BillingState), \"North\", \"Other\"))))))",
+        "suites": [
+          {
+            "context": "Blank",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "",
+                "options": { "length": "5"}
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "None"
+            }
+          },
+          {
+            "context": "California",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "CA"
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "West"
+            }
+          },
+          {
+            "context": "Texas",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "TX"
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "Central"
+            }
+          },
+          {
+            "context": "New York",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "NY"
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "East"
+            }
+          },
+          {
+            "context": "Florida",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "FL"
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "South"
+            }
+          },
+          {
+            "context": "Ohio",
+            "identifiers": {
+              "BillingState": {
+                "dataType": "text",
+                "value": "OH"
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "North"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Contract Aging",
+        "disabled": true,
+        "formula": "IF(ISPICKVAL(Contract_Status__c, \"Activated\"), NOW() - Contract_Activated_Date__c, null)",
+        "suites": [
+          {
+
+            "context": "activated",
+            "identifiers": {
+              "Contract_Status__c": {
+                "dataType": "picklist",
+                "value": "Activated",
+                "options": {
+                  "values": ["Activated", "Deactivated"]
+                }
+              },
+              "Contract_Activated_Date__c": {
+                "dataType": "datetime",
+                "value": ""
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "None"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
