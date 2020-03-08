@@ -55,10 +55,11 @@ describe('hour', () => {
   })
 })
 
-describe.skip('millisecond', () => {
+describe('millisecond', () => {
   it('returns correct millisecond', () => {
-    // TODO implement test for sf$millisecond
-    expect(functions.sf$millisecond(null)).to.deep.eq(null)
+    let expected = buildLiteralFromJs(973)
+    let input = buildDatetimeLiteral(Date.UTC(2020, 2, 11, 17, 39, 0, 973))
+    expect(functions.sf$millisecond(input)).to.deep.eq(expected)
   })
 })
 

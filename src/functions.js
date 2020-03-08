@@ -30,11 +30,9 @@ export const sf$hour = (expression) => {
   return buildLiteralFromJs(expression.value.getUTCHours())
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$millisecond = (_expression) => {
-  throwNotImplemeted('millisecond')
+export const sf$millisecond = (expression) => {
+  return buildLiteralFromJs(expression.value.getUTCMilliseconds())
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$minute = (expression) => {
   return buildLiteralFromJs(expression.value.getUTCMinutes())
