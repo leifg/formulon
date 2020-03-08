@@ -25,10 +25,11 @@ describe('date', () => {
   })
 })
 
-describe.skip('datetimevalue', () => {
+describe('datetimevalue', () => {
   it('returns correct datetime', () => {
-    // TODO implement test for sf$datetimevalue
-    expect(functions.sf$datetimevalue(null)).to.deep.eq(null)
+    let input = buildLiteralFromJs('2020-02-11 17:39:00.973')
+    let expected = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))
+    expect(functions.sf$datetimevalue(input)).to.deep.eq(expected)
   })
 })
 

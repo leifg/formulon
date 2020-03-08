@@ -20,11 +20,9 @@ export const sf$datevalue = (expression) => {
   return buildDateLiteral(new Date(Date.parse(expression.value)))
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$datetimevalue = (_expression) => {
-  throwNotImplemeted('datetimevalue')
+export const sf$datetimevalue = (expression) => {
+  return buildDatetimeLiteral(Date.parse(`${expression.value}Z`))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$day = (date) => {
   return buildLiteralFromJs(date.value.getUTCDate())
