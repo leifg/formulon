@@ -324,8 +324,8 @@ export const sf$includes = (_multiselectPicklistField, _textLiteral) => {
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
-export const sf$ispickval = (_picklist_field, _textLiteral) => {
-  throwNotImplemeted('ispickval')
+export const sf$ispickval = (picklistField, textLiteral) => {
+  return buildLiteralFromJs(picklistField.value === textLiteral.value)
 }
 /* eslint-enable no-unused-vars */
 
