@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -689,10 +689,12 @@ describe.skip('includes', () => {
   })
 })
 
-describe.skip('ispickval', () => {
+describe('ispickval', () => {
   it('returns correct ispickval', () => {
-    // TODO implement test for sf$ispickval
-    expect(functions.sf$ispickval(null)).to.deep.eq(null)
+    let field = buildPicklistLiteral('Active', ['Active', 'Inactive'])
+    let text = buildLiteralFromJs('Active')
+
+    expect(functions.sf$ispickval(field, text)).to.deep.eq(buildLiteralFromJs(true))
   })
 })
 
