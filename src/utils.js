@@ -67,6 +67,15 @@ export const buildDatetimeLiteral = (unixTimestamp) => {
   }
 }
 
+export const buildPicklistLiteral = (value, values) => {
+  return {
+    type: 'literal',
+    dataType: 'picklist',
+    value: value,
+    options: { values: values }
+  }
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)

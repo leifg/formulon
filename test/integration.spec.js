@@ -7,7 +7,7 @@ import integration from './integration'
 import { expect } from 'chai'
 
 import { parse } from '../lib/formulon'
-import { buildDateLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
 
 Object.entries(integration).forEach(([category, categoryProperties]) => {
   describe(category, () => {
@@ -39,8 +39,14 @@ const coerceIdentifiers = (identifiers) => {
 }
 
 const coerceLiteral = (literal) => {
-  if(literal.dataType == 'date') {
-    return buildDateLiteral(literal.value)
+  switch(literal.dataType) {
+    case 'date':
+      return buildDateLiteral(literal.value)
+    case 'datetime':
+      return buildDatetimeLiteral(literal.value.getTime)
+    case 'picklist':
+      return literal
   }
+
   return buildLiteralFromJs(literal.value)
 }

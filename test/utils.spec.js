@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, buildPicklistLiteral, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -164,6 +164,19 @@ describe('buildErrorLiteral', () => {
     expect(buildErrorLiteral('ReferenceError', 'Field idontexist does not exist. Check spelling.', { identifier: 'idontexist' })).to.deep.eq(expected)
   })
 })
+
+describe('buildPicklistLiteral', () => {
+  it('returns expected Literal for error', () => {
+    let expected = {
+      type: 'literal',
+      value: 'Public',
+      dataType: 'picklist',
+      options: { values: ['Public', 'Private', 'Subsidiary', 'Other'] }
+    }
+    expect(buildPicklistLiteral('Public', ['Public', 'Private', 'Subsidiary', 'Other'])).to.deep.eq(expected)
+  })
+})
+
 
 describe('arrayUnique', () => {
   // TODO add deepFreeze

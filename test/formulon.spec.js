@@ -4,7 +4,7 @@
 
 import { expect } from 'chai'
 import { extract, parse, toString } from '../lib/formulon'
-import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildPicklistLiteral, buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -336,6 +336,12 @@ describe('Formulon', () => {
       it('returns correct string for date', () => {
         let unixTimestamp = Date.UTC(2020, 1, 11, 14, 39, 42, 974)
         expect(toString(buildDatetimeLiteral(unixTimestamp))).to.eq('2020-02-11T14:39:42.974Z')
+      })
+    })
+
+    context('Picklist', () => {
+      it('returns correct string for picklist', () => {
+        expect(toString(buildPicklistLiteral('Public', ['Public', 'Private'] ))).to.eq('"Public"')
       })
     })
 
