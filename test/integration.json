@@ -4,15 +4,14 @@
     "examples": [
       {
         "name": "Account Rating",
-        "disabled": true,
         "formula": "IF (AND (AnnualRevenue > 10000000, CONTAINS (CASE (BillingCountry, \"United States\", \"US\", \"America\", \"US\", \"USA\", \"US\", \"NA\"), \"US\")), IF(ISPICKVAL(Type, \"Manufacturing Partner\"), \"Hot\", IF(OR (ISPICKVAL (Type, \"Channel Partner/Reseller\"), ISPICKVAL(Type, \"Installation Partner\")), \"Warm\", \"Cold\")), \"Cold\")",
         "suites": [
           {
-            "context": "AnnualRevenue < 10000000",
+            "context": "AnnualRevenue <= 10000000",
             "identifiers": {
               "AnnualRevenue": {
                 "dataType": "number",
-                "value": 9999999
+                "value": 10000000
               },
               "BillingCountry": {
                 "dataType": "text",
@@ -22,12 +21,109 @@
                 "dataType": "picklist",
                 "value": "Manufacturing Partner",
                 "options": {
-                  "values": ["Manufacturing Partner", "Channel Partner/Reseller", "Installation Partner"]
+                  "values": ["Prospect", "Customer - Direct", "Customer - Direct", "Channel Partner/Reseller", "Installation Partner", "Manufacturing Partner", "Technology Partner", "Other"]
                 }
               }
             },
             "expectedResult": {
-
+              "dataType": "text",
+              "value": "Cold"
+            }
+          },
+          {
+            "context": "Outside US",
+            "identifiers": {
+              "AnnualRevenue": {
+                "dataType": "number",
+                "value": 10000001
+              },
+              "BillingCountry": {
+                "dataType": "text",
+                "value": "Canada"
+              },
+              "Type": {
+                "dataType": "picklist",
+                "value": "Manufacturing Partner",
+                "options": {
+                  "values": ["Prospect", "Customer - Direct", "Customer - Direct", "Channel Partner/Reseller", "Installation Partner", "Manufacturing Partner", "Technology Partner", "Other"]
+                }
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "Cold"
+            }
+          },
+          {
+            "context": "AnnualRevenue > 10000000 Manufacturing Partner",
+            "identifiers": {
+              "AnnualRevenue": {
+                "dataType": "number",
+                "value": 10000001
+              },
+              "BillingCountry": {
+                "dataType": "text",
+                "value": "United States"
+              },
+              "Type": {
+                "dataType": "picklist",
+                "value": "Manufacturing Partner",
+                "options": {
+                  "values": ["Prospect", "Customer - Direct", "Customer - Direct", "Channel Partner/Reseller", "Installation Partner", "Manufacturing Partner", "Technology Partner", "Other"]
+                }
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "Hot"
+            }
+          },
+          {
+            "context": "AnnualRevenue > 10000000 Installation Partner",
+            "identifiers": {
+              "AnnualRevenue": {
+                "dataType": "number",
+                "value": 10000001
+              },
+              "BillingCountry": {
+                "dataType": "text",
+                "value": "United States"
+              },
+              "Type": {
+                "dataType": "picklist",
+                "value": "Installation Partner",
+                "options": {
+                  "values": ["Prospect", "Customer - Direct", "Customer - Direct", "Channel Partner/Reseller", "Installation Partner", "Manufacturing Partner", "Technology Partner", "Other"]
+                }
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "Warm"
+            }
+          },
+          {
+            "context": "AnnualRevenue > 10000000 Technology Partner",
+            "identifiers": {
+              "AnnualRevenue": {
+                "dataType": "number",
+                "value": 10000001
+              },
+              "BillingCountry": {
+                "dataType": "text",
+                "value": "United States"
+              },
+              "Type": {
+                "dataType": "picklist",
+                "value": "Technology Partner",
+                "options": {
+                  "values": ["Prospect", "Customer - Direct", "Customer - Direct", "Channel Partner/Reseller", "Installation Partner", "Manufacturing Partner", "Technology Partner", "Other"]
+                }
+              }
+            },
+            "expectedResult": {
+              "dataType": "text",
+              "value": "Cold"
             }
           }
         ]
@@ -120,11 +216,11 @@
       {
         "name": "Contract Aging",
         "disabled": true,
-        "formula": "IF(ISPICKVAL(Contract_Status__c, \"Activated\"), NOW() - Contract_Activated_Date__c, null)",
+        "formula": "IF(ISPICKVAL(Contract_Status__c, \"Activated\"), DATETIMEVALUE(\"2020-03-09 22:34:00\") - Contract_Activated_Date__c, null)",
         "suites": [
           {
 
-            "context": "activated",
+            "context": "Activated",
             "identifiers": {
               "Contract_Status__c": {
                 "dataType": "picklist",
@@ -135,7 +231,7 @@
               },
               "Contract_Activated_Date__c": {
                 "dataType": "datetime",
-                "value": ""
+                "value": "2020-03-09 22:34:00"
               }
             },
             "expectedResult": {
