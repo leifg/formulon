@@ -19,7 +19,7 @@ Object.entries(integration).forEach(([category, categoryProperties]) => {
               context(suite.context, () => {
                 it('returns correct result @integration', () => {
                   expect(parse(example.formula, coerceIdentifiers(suite.identifiers))).to.deep.eq(coerceLiteral(suite.expectedResult))
-                })
+                }).timeout(5000)
               })
             }
           })

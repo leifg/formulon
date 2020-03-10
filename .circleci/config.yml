@@ -10,9 +10,21 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: yarn install
-            - run: yarn test:ci
-            - run: yarn semantic-release || true
+            - run:
+                name: Install Dependencies
+                command: yarn install
+            - run:
+                name: Build Parser
+                command: yarn build
+            - run:
+                name: Execute Unit Tests
+                command: yarn test
+            - run:
+                name: Execute Integration Tests
+                command: yarn test:integration
+            - run:
+                name: Release
+                command: yarn semantic-release || true
 workflows:
     build-and-test:
       jobs:
