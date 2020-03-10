@@ -85,7 +85,19 @@ describe('now', () => {
     let date = new Date()
     let expected = buildDatetimeLiteral(date.getTime())
 
-    expect(functions.sf$now()).to.deep.eq(expected)
+    let result = functions.sf$now()
+
+    let timeDiference = result.value.getTime() - expected.value.getTime()
+
+    // ignore exact time for comparison
+    expected = Object.assign(expected, {value: null})
+    result = Object.assign(result, {value: null})
+
+    expect(result).to.deep.eq(expected)
+
+    // check if time difference is below 100 milliseconds
+    expect(timeDiference).to.be.at.least(0)
+    expect(timeDiference).to.be.below(100)
   })
 })
 
