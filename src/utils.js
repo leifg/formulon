@@ -67,6 +67,15 @@ export const buildDatetimeLiteral = (unixTimestamp) => {
   }
 }
 
+export const buildGeolocationLiteral = (latitude, longitude) => {
+  return {
+    type: 'literal',
+    dataType: 'geolocation',
+    value: [latitude, longitude],
+    options: {}
+  }
+}
+
 export const buildPicklistLiteral = (value, values) => {
   return {
     type: 'literal',

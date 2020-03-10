@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, buildPicklistLiteral, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, buildGeolocationLiteral, buildPicklistLiteral, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -166,7 +166,7 @@ describe('buildErrorLiteral', () => {
 })
 
 describe('buildPicklistLiteral', () => {
-  it('returns expected Literal for error', () => {
+  it('returns expected Literal for picklist', () => {
     let expected = {
       type: 'literal',
       value: 'Public',
@@ -174,6 +174,18 @@ describe('buildPicklistLiteral', () => {
       options: { values: ['Public', 'Private', 'Subsidiary', 'Other'] }
     }
     expect(buildPicklistLiteral('Public', ['Public', 'Private', 'Subsidiary', 'Other'])).to.deep.eq(expected)
+  })
+})
+
+describe('buildGeolocationLiteral', () => {
+  it('returns expected Literal for geolocation', () => {
+    let expected = {
+      type: 'literal',
+      value: [32.855160, -117.258836],
+      dataType: 'geolocation',
+      options: { }
+    }
+    expect(buildGeolocationLiteral(32.855160, -117.258836)).to.deep.eq(expected)
   })
 })
 
