@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -467,10 +467,10 @@ describe('floor', () => {
   })
 })
 
-describe.skip('geolocation', () => {
+describe('geolocation', () => {
   it('returns correct geolocation', () => {
-    // TODO implement test for sf$geolocation
-    expect(functions.sf$geolocation(null, null)).to.deep.eq(null)
+    32.855160, -117.258836
+    expect(functions.sf$geolocation(32.855160, -117.258836)).to.deep.eq(buildGeolocationLiteral(32.855160, -117.258836))
   })
 })
 

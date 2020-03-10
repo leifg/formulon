@@ -1,7 +1,7 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs, sfRound } from './utils'
+import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -219,11 +219,9 @@ export const sf$floor = (number) => {
   return buildLiteralFromJs(Math.floor(number.value))
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$geolocation = (_latitude, _longitude) => {
-  throwNotImplemeted('geolocation')
+export const sf$geolocation = (latitude, longitude) => {
+  return buildGeolocationLiteral(latitude, longitude)
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$ln = (number) => {
   return buildLiteralFromJs(Math.log(number.value))
