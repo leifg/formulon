@@ -36,6 +36,8 @@ export const toString = (literal) => {
     case 'text':
     case 'picklist':
         return `"${literal.value}"`
+    case 'multipicklist':
+      return '[' + literal.value.map((value) => `"${value}"` ).join(', ') + ']'
     case 'checkbox':
       return literal.value.toString().toUpperCase()
     case 'date':

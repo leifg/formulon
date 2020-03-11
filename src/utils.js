@@ -85,6 +85,15 @@ export const buildPicklistLiteral = (value, values) => {
   }
 }
 
+export const buildMultipicklistLiteral = (value, values) => {
+  return {
+    type: 'literal',
+    dataType: 'multipicklist',
+    value: value,
+    options: { values: values }
+  }
+}
+
 export const arrayUnique = (array) => {
   return array.reduce((p, c) => {
     if (p.indexOf(c) < 0) p.push(c)

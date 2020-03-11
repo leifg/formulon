@@ -4,7 +4,7 @@
 
 import { expect } from 'chai'
 import { extract, parse, toString } from '../lib/formulon'
-import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildPicklistLiteral, buildLiteralFromJs } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildMultipicklistLiteral, buildPicklistLiteral, buildLiteralFromJs } from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -356,6 +356,12 @@ describe('Formulon', () => {
     context('Picklist', () => {
       it('returns correct string for picklist', () => {
         expect(toString(buildPicklistLiteral('Public', ['Public', 'Private'] ))).to.eq('"Public"')
+      })
+    })
+
+    context('Multipicklist', () => {
+      it('returns correct string for picklist', () => {
+        expect(toString(buildMultipicklistLiteral(['Pumpkin', 'Vanilla'], ['Gingerbread', 'Strawberry', 'Chocolate', 'Raspberry', 'Pumpkin', 'Mint', 'Vanilla']))).to.eq('["Pumpkin", "Vanilla"]')
       })
     })
 
