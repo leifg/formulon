@@ -2,7 +2,20 @@
 
 'use strict'
 
-import { addMonths, arrayUnique, buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildLiteralFromJs, buildGeolocationLiteral, buildPicklistLiteral, handleFormulonError, sfRound, coerceLiteral } from '../lib/utils'
+import {
+  addMonths,
+  arrayUnique,
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildErrorLiteral,
+  buildLiteralFromJs,
+  buildGeolocationLiteral,
+  buildMultipicklistLiteral,
+  buildPicklistLiteral,
+  handleFormulonError,
+  sfRound,
+  coerceLiteral
+} from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
@@ -162,6 +175,19 @@ describe('buildErrorLiteral', () => {
       message: 'Field idontexist does not exist. Check spelling.'
     }
     expect(buildErrorLiteral('ReferenceError', 'Field idontexist does not exist. Check spelling.', { identifier: 'idontexist' })).to.deep.eq(expected)
+  })
+})
+
+describe('buildMultipicklistLiteral', () => {
+  it('returns expected Literal for picklist', () => {
+    let expected = {
+      type: 'literal',
+      value: ['Pumpkin', 'Vanilla'],
+      dataType: 'multipicklist',
+      options: { values: ['Gingerbread', 'Strawberry', 'Chocolate', 'Raspberry', 'Pumpkin', 'Mint', 'Vanilla'] }
+    }
+
+    expect(buildMultipicklistLiteral(['Pumpkin', 'Vanilla'], ['Gingerbread', 'Strawberry', 'Chocolate', 'Raspberry', 'Pumpkin', 'Mint', 'Vanilla'])).to.deep.eq(expected)
   })
 })
 
