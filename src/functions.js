@@ -220,7 +220,7 @@ export const sf$floor = (number) => {
 }
 
 export const sf$geolocation = (latitude, longitude) => {
-  return buildGeolocationLiteral(latitude, longitude)
+  return buildGeolocationLiteral(latitude.value, longitude.value)
 }
 
 export const sf$ln = (number) => {

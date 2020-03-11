@@ -340,8 +340,16 @@ describe('Formulon', () => {
     })
 
     context('Geolocation', () => {
-      it('returns correct string for gelocation', () => {
-        expect(toString(buildGeolocationLiteral(32.855160, -117.258836))).to.eq('32.855160, -117.258836')
+      context('float input', () => {
+        it('returns correct string for gelocation', () => {
+          expect(toString(buildGeolocationLiteral(32.855160, -117.258836))).to.eq('32.855160, -117.258836')
+        })
+      })
+
+      context('integer input', () => {
+        it('returns correct string for gelocation', () => {
+          expect(toString(buildGeolocationLiteral(51.4764081, 0))).to.eq('51.476408, 0.000000')
+        })
       })
     })
 
