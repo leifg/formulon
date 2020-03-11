@@ -482,7 +482,7 @@ describe('floor', () => {
 describe('geolocation', () => {
   it('returns correct geolocation', () => {
     32.855160, -117.258836
-    expect(functions.sf$geolocation(32.855160, -117.258836)).to.deep.eq(buildGeolocationLiteral(32.855160, -117.258836))
+    expect(functions.sf$geolocation(buildLiteralFromJs(32.855160), buildLiteralFromJs(-117.258836))).to.deep.eq(buildGeolocationLiteral(32.855160, -117.258836))
   })
 })
 
