@@ -6,7 +6,6 @@ import { expect } from 'chai'
 
 import { dispatch } from '../lib/functionDispatcher'
 import { buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral, buildTimeLiteral } from '../lib/utils'
-import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
 
@@ -259,7 +258,7 @@ describe('case', () => {
   })
 
   it('only 2 arguments', () => {
-    expect(invalidFn2(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 4+, received 2", { function: 'case', expected: 4, received: 2 }))
+    expect(invalidFn2(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 4, received 2", { function: 'case', expected: 4, received: 2 }))
   })
 })
 
