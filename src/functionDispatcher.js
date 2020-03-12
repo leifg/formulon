@@ -73,11 +73,11 @@ const existingFunctions = {
     returnType: 'date'
   },
   datetimevalue: {
-    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
+    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text', 'date', 'datetime')],
     returnType: 'datetime'
   },
   datevalue: {
-    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
+    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'date', 'datetime'])],
     returnType: 'date'
   },
   day: {
