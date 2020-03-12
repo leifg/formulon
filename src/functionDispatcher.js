@@ -25,8 +25,8 @@ const existingFunctions = {
     returnType: 'number'
   },
   add: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'text', 'date', 'datetime'], ['number', 'text', 'date', 'datetime'])],
-    returnType: ['number', 'text', 'date', 'datetime']
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'text', 'date', 'datetime', 'time'], ['number', 'text', 'date', 'datetime', 'time'])],
+    returnType: ['number', 'text', 'date', 'datetime', 'time']
   },
   addmonths: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['date', 'datetime'], ['number'])],
@@ -285,7 +285,7 @@ const existingFunctions = {
     returnType: 'text'
   },
   text: {
-    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['number', 'date', 'datetime', 'picklist'])],
+    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['number', 'date', 'datetime', 'picklist', 'time'])],
     returnType: 'text'
   },
   timenow: {

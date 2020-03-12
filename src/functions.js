@@ -1,8 +1,8 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildTimeLiteral, parseTime, sfRound } from './utils'
-import { throwNotImplemeted, ArgumentError } from './errors'
+import { addDays, addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildTimeLiteral, parseTime, sfRound } from './utils'
+import { throwNotImplemeted, throwWrongType, ArgumentError } from './errors'
 
 // Date & Time Functions
 
@@ -176,7 +176,25 @@ export const sf$lessThanOrEqual = (value1, value2) => {
 // Math Operators
 
 export const sf$add = (value1, value2) => {
-  return buildLiteralFromJs(value1.value + value2.value)
+  switch([value1.dataType, value2.dataType].join(' ')) {
+    case 'date number':
+      return buildDateLiteral(addDays(value1.value, value2.value))
+    case 'number date':
+      return buildDateLiteral(addDays(value2.value, value1.value))
+    case 'time number':
+      return buildTimeLiteral(value1.value.getTime() + value2.value)
+    case 'number time':
+      return buildTimeLiteral(value1.value + value2.value.getTime())
+    case 'datetime number':
+      return buildDatetimeLiteral(addDays(value1.value, value2.value))
+    case 'number datetime':
+      return buildDatetimeLiteral(addDays(value2.value, value1.value))
+    case 'number number':
+    case 'text text':
+      return buildLiteralFromJs(value1.value + value2.value)
+    default:
+      throwWrongType('add', 'number', value2.dataType)
+  }
 }
 
 export const sf$subtract = (value1, value2) => {
