@@ -195,7 +195,7 @@ const existingFunctions = {
     validations: [validateNumOfParams(2)]
   },
   regex: {
-    validations: [validateNumOfParams(3)]
+    validations: [validateNumOfParams(2)]
   },
   right: {
     validations: [validateNumOfParams(2)]
