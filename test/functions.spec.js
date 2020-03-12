@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral, buildTimeLiteral } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -113,6 +113,13 @@ describe.skip('timenow', () => {
   it('returns correct timenow', () => {
     // TODO implement test for sf$timenow
     expect(functions.sf$timenow()).to.deep.eq(null)
+  })
+})
+
+describe('timevalue', () => {
+  it('returns correct timevalue', () => {
+    let expected = buildTimeLiteral(63061003)
+    expect(functions.sf$timevalue(buildLiteralFromJs('17:31:01.003'))).to.deep.eq(expected)
   })
 })
 
