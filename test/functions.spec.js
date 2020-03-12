@@ -817,15 +817,15 @@ describe('text', () => {
     })
   })
 
-  context('Text', () => {
-    it('returns correct text', () => {
-      expect(dispatch('text', [buildLiteralFromJs('text')])).to.deep.eq(buildLiteralFromJs('text'))
-    })
-  })
-
   context('Date', () => {
     it('returns correct text', () => {
       expect(dispatch('text', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs('2020-02-11'))
+    })
+  })
+
+  context('Datetime', () => {
+    it('returns correct text', () => {
+      expect(dispatch('text', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs('2020-02-11 17:39:00Z'))
     })
   })
 })
