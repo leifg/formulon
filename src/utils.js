@@ -2,6 +2,22 @@
 
 import { FormulonRuntimeError } from './errors.js'
 
+export const parseTime = (input) => {
+    /* eslint-disable no-undef */
+    const parser = require('./timeParser.js')
+    /* eslint-enable no-undef */
+
+    try {
+      return parser.parse(input)
+    } catch (err) {
+      if (err instanceof parser.SyntaxError) {
+        return buildLiteralFromJs(null)
+      }
+
+      throw err
+    }
+}
+
 export const buildLiteralFromJs = (input) => {
   let base = { type: 'literal', value: input }
 
@@ -91,6 +107,15 @@ export const buildMultipicklistLiteral = (value, values) => {
     dataType: 'multipicklist',
     value: value,
     options: { values: values }
+  }
+}
+
+export const buildTimeLiteral = (millisecondsFromMidnight) => {
+  return {
+    type: 'literal',
+    dataType: 'time',
+    value: new Date(millisecondsFromMidnight),
+    options: {}
   }
 }
 

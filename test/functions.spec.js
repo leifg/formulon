@@ -5,7 +5,7 @@
 import { expect } from 'chai'
 
 import * as functions from '../lib/functions'
-import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils'
+import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral, buildTimeLiteral } from '../lib/utils'
 import { ArgumentError } from '../lib/errors'
 
 // Date & Time Functions
@@ -96,8 +96,7 @@ describe('now', () => {
     expect(result).to.deep.eq(expected)
 
     // check if time difference is below 100 milliseconds
-    expect(timeDiference).to.be.at.least(0)
-    expect(timeDiference).to.be.below(100)
+    expect(timeDiference).to.be.within(0, 100);
   })
 })
 
@@ -109,10 +108,32 @@ describe('second', () => {
   })
 })
 
-describe.skip('timenow', () => {
+describe('timenow', () => {
   it('returns correct timenow', () => {
-    // TODO implement test for sf$timenow
-    expect(functions.sf$timenow()).to.deep.eq(null)
+    let millisecondsInDay = 24 * 60 * 60 * 1000
+
+    let date = new Date()
+    let expected = buildTimeLiteral(date.getTime() % millisecondsInDay)
+
+    let result = functions.sf$timenow()
+
+    let timeDiference = result.value.getTime() - expected.value.getTime()
+
+    // ignore exact time for comparison
+    expected = Object.assign(expected, {value: null})
+    result = Object.assign(result, {value: null})
+
+    expect(result).to.deep.eq(expected)
+
+    // check if time difference is below 100 milliseconds
+    expect(timeDiference).to.be.within(0, 100);
+  })
+})
+
+describe('timevalue', () => {
+  it('returns correct timevalue', () => {
+    let expected = buildTimeLiteral(63061003)
+    expect(functions.sf$timevalue(buildLiteralFromJs('17:31:01.003'))).to.deep.eq(expected)
   })
 })
 
