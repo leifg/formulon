@@ -380,6 +380,10 @@ export const sf$text = (value) => {
     return value
   }
 
+  if(value.dataType === 'datetime') {
+    return buildLiteralFromJs(toString(value).replace('T', ' ').replace(/\.\d{3}/, ''))
+  }
+
   return buildLiteralFromJs(toString(value))
 }
 
