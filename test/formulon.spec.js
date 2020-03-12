@@ -4,7 +4,15 @@
 
 import { expect } from 'chai'
 import { extract, parse, toString } from '../lib/formulon'
-import { buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildMultipicklistLiteral, buildPicklistLiteral, buildLiteralFromJs } from '../lib/utils'
+import {
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildGeolocationLiteral,
+  buildMultipicklistLiteral,
+  buildPicklistLiteral,
+  buildTimeLiteral,
+  buildLiteralFromJs
+} from '../lib/utils'
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -333,9 +341,16 @@ describe('Formulon', () => {
     })
 
     context('Datetime', () => {
-      it('returns correct string for date', () => {
+      it('returns correct string for datetime', () => {
         let unixTimestamp = Date.UTC(2020, 1, 11, 14, 39, 42, 974)
         expect(toString(buildDatetimeLiteral(unixTimestamp))).to.eq('2020-02-11T14:39:42.974Z')
+      })
+    })
+
+    context('Time', () => {
+      it('returns correct string for time', () => {
+        let milliSecondsFromMidnight = 32833019
+        expect(toString(buildTimeLiteral(milliSecondsFromMidnight))).to.eq('09:07:13.019')
       })
     })
 

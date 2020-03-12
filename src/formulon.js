@@ -44,6 +44,8 @@ export const toString = (literal) => {
       return `${literal.value.getUTCFullYear()}-${(literal.value.getUTCMonth() + 1).toString().padStart(2, '0')}-${literal.value.getUTCDate().toString().padStart(2, '0')}`
     case 'datetime':
       return literal.value.toISOString()
+    case 'time':
+      return literal.value.toISOString().split('T')[1].replace('Z', '')
     case 'geolocation':
       return `${literal.value[0].toFixed(6)}, ${literal.value[1].toFixed(6)}`
   }

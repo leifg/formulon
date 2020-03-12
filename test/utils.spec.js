@@ -12,13 +12,55 @@ import {
   buildGeolocationLiteral,
   buildMultipicklistLiteral,
   buildPicklistLiteral,
+  buildTimeLiteral,
   handleFormulonError,
+  parseTime,
   sfRound,
   coerceLiteral
 } from '../lib/utils'
 import { ArgumentError, NoFunctionError, NotImplementedError, ReferenceError } from '../lib/errors'
 
 import { expect } from 'chai'
+
+describe('parseTime', () => {
+  context('valid time', () => {
+    it('returns expected result', () => {
+      expect(parseTime('16:23:56.826')).to.deep.eq(buildTimeLiteral(59036826))
+    })
+  })
+
+  context('invalid time', () => {
+    context('invalid format', () => {
+      it('returns expected result', () => {
+        expect(parseTime('abc')).to.deep.eq(buildLiteralFromJs(null))
+      })
+    })
+
+    context('hour invalid', () => {
+      it('returns expected result', () => {
+        expect(parseTime('24:23:56.826')).to.deep.eq(buildLiteralFromJs(null))
+      })
+    })
+
+    context('minute invalid', () => {
+      it('returns expected result', () => {
+        expect(parseTime('16:60:56.826')).to.deep.eq(buildLiteralFromJs(null))
+      })
+    })
+
+    context('second invalid', () => {
+      it('returns expected result', () => {
+        expect(parseTime('16:23:60.826')).to.deep.eq(buildLiteralFromJs(null))
+      })
+    })
+
+    context('millisecond invalid', () => {
+      it('returns expected result', () => {
+        expect(parseTime('16:23:56.1000')).to.deep.eq(buildLiteralFromJs(null))
+      })
+    })
+  })
+})
 
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
@@ -162,6 +204,20 @@ describe('buildDatetimeLiteral', () => {
         options: {}
       }
       expect(buildDatetimeLiteral(1581431982974)).to.deep.eq(expected)
+    })
+  })
+})
+
+describe('buildTimeLiteral', () => {
+  context('milliseconds from midnight input', () => {
+    it('returns expected literal for milliseconds from midnight', () => {
+      let expected = {
+        type: 'literal',
+        value: new Date(86341005),
+        dataType: 'time',
+        options: {}
+      }
+      expect(buildTimeLiteral(86341005)).to.deep.eq(expected)
     })
   })
 })
