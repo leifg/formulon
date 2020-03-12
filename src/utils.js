@@ -2,6 +2,8 @@
 
 import { FormulonRuntimeError } from './errors.js'
 
+const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000
+
 export const parseTime = (input) => {
     /* eslint-disable no-undef */
     const parser = require('./timeParser.js')
@@ -161,11 +163,16 @@ export const addMonths = (date, numOfMonths) => {
   let newDate = new Date(Date.UTC(date.getUTCFullYear(), newMonth, date.getUTCDate()))
 
   if (date.getUTCDate() != newDate.getUTCDate()) {
-    newDate.setUTCDate(0);
+    newDate.setUTCDate(0)
   }
 
   return newDate
 }
+
+export const addDays = (date, numOfDays) => {
+  return new Date(date.getTime() + numOfDays * MILLISECONDS_IN_DAY)
+}
+
 // private
 
 const calculateNumberOptions = (number) => {

@@ -195,7 +195,7 @@ describe('buildDateLiteral', () => {
 })
 
 describe('buildDatetimeLiteral', () => {
-  context('unit timestamp input', () => {
+  context('unix timestamp input', () => {
     it('returns expected literal for unix timesampt', () => {
       let expected = {
         type: 'literal',
@@ -204,6 +204,19 @@ describe('buildDatetimeLiteral', () => {
         options: {}
       }
       expect(buildDatetimeLiteral(1581431982974)).to.deep.eq(expected)
+    })
+  })
+
+  context('date input', () => {
+    it('returns expected literal for date', () => {
+      let input = new Date(Date.UTC(2020, 1, 11, 14, 39, 42, 974))
+      let expected = {
+        type: 'literal',
+        value: input,
+        dataType: 'datetime',
+        options: {}
+      }
+      expect(buildDatetimeLiteral(input)).to.deep.eq(expected)
     })
   })
 })

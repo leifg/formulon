@@ -253,7 +253,6 @@ describe('case', () => {
   })
 
   it('incorrect number of arguments', () => {
-    let fn = () => { invalidFn1(5) }
     expect(invalidFn1(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25", { function: 'case', expected: 24, received: 25 }))
   })
 
@@ -413,8 +412,59 @@ describe('lessThanOrEqual', () => {
 // Math Operators
 
 describe('add', () => {
-  it('adds correctly', () => {
-    expect(dispatch('add', [buildLiteralFromJs(1), buildLiteralFromJs(2)])).to.deep.eq(buildLiteralFromJs(3))
+  context('Number, Number', () => {
+    it('adds correctly', () => {
+      expect(dispatch('add', [buildLiteralFromJs(1), buildLiteralFromJs(2)])).to.deep.eq(buildLiteralFromJs(3))
+    })
+  })
+
+  context('Text, Text', () => {
+    it('concats correctly', () => {
+      expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'))
+    })
+  })
+
+  context('Date, Number', () => {
+    it('adds number of days', () => {
+      expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildLiteralFromJs(5)])).to.deep.eq(buildDateLiteral(2020, 2, 16))
+    })
+  })
+
+  context('Number, Date', () => {
+    it('adds number of days', () => {
+      expect(dispatch('add', [buildLiteralFromJs(5), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildDateLiteral(2020, 2, 16))
+    })
+  })
+
+  context('Time, Number', () => {
+
+    it('adds number of milliseconds', () => {
+      expect(dispatch('add', [buildTimeLiteral(45000000), buildLiteralFromJs(5000)])).to.deep.eq(buildTimeLiteral(45005000))
+    })
+  })
+
+  context('Number, Time', () => {
+    it('adds number of milliseconds', () => {
+      expect(dispatch('add', [buildLiteralFromJs(5000), buildTimeLiteral(45000000)])).to.deep.eq(buildTimeLiteral(45005000))
+    })
+  })
+
+  context('Datetime, Number', () => {
+    it('adds number of days', () => {
+      expect(dispatch('add', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildLiteralFromJs(5)])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)))
+    })
+  })
+
+  context('Number, Datetime', () => {
+    it('adds number of days', () => {
+      expect(dispatch('add', [buildLiteralFromJs(5), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)))
+    })
+  })
+
+  context('Date, Date', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'ADD()'. Expected Number, received Date", { function: 'add', expected: 'number', received: 'date' }))
+    })
   })
 })
 
@@ -645,12 +695,6 @@ describe.skip('casesafeid', () => {
   it('returns correct casesafeid', () => {
     // TODO implement test for sf$casesafeid
     expect(dispatch('casesafeid', [null])).to.deep.eq(null)
-  })
-})
-
-describe('concat', () => {
-  it('concats correctly', () => {
-    expect(dispatch('add', [buildLiteralFromJs('Grapefruit'), buildLiteralFromJs('fruchtfleisch')])).to.deep.eq(buildLiteralFromJs('Grapefruitfruchtfleisch'))
   })
 })
 
