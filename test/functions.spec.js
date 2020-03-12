@@ -96,8 +96,7 @@ describe('now', () => {
     expect(result).to.deep.eq(expected)
 
     // check if time difference is below 100 milliseconds
-    expect(timeDiference).to.be.at.least(0)
-    expect(timeDiference).to.be.below(100)
+    expect(timeDiference).to.be.within(0, 100);
   })
 })
 
@@ -109,10 +108,25 @@ describe('second', () => {
   })
 })
 
-describe.skip('timenow', () => {
+describe('timenow', () => {
   it('returns correct timenow', () => {
-    // TODO implement test for sf$timenow
-    expect(functions.sf$timenow()).to.deep.eq(null)
+    let millisecondsInDay = 24 * 60 * 60 * 1000
+
+    let date = new Date()
+    let expected = buildTimeLiteral(date.getTime() % millisecondsInDay)
+
+    let result = functions.sf$timenow()
+
+    let timeDiference = result.value.getTime() - expected.value.getTime()
+
+    // ignore exact time for comparison
+    expected = Object.assign(expected, {value: null})
+    result = Object.assign(result, {value: null})
+
+    expect(result).to.deep.eq(expected)
+
+    // check if time difference is below 100 milliseconds
+    expect(timeDiference).to.be.within(0, 100);
   })
 })
 

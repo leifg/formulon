@@ -1,7 +1,7 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, parseTime, sfRound } from './utils'
+import { addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildTimeLiteral, parseTime, sfRound } from './utils'
 import { throwNotImplemeted, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -54,7 +54,9 @@ export const sf$second = (expression) => {
 
 /* eslint-disable no-unused-vars */
 export const sf$timenow = () => {
-  throwNotImplemeted('timenow')
+  let millisecondsInDay = 24 * 60 * 60 * 1000
+
+  return buildTimeLiteral(new Date().getTime() % millisecondsInDay)
 }
 /* eslint-enable no-unused-vars */
 
