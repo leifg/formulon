@@ -875,6 +875,16 @@ describe('ast', () => {
         expect(build('TRUE')).to.deep.equal(expected)
       })
 
+      it('NULL literal', () => {
+        const expected = {
+          type: 'literal',
+          value: null,
+          dataType: 'null',
+          options: {}
+        }
+        expect(build('NULL')).to.deep.equal(expected)
+      })
+
       it('FALSE literal', () => {
         const expected = {
           type: 'literal',

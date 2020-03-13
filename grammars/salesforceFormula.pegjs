@@ -250,6 +250,7 @@ Literal
   = StringLiteral
   / NumericLiteral
   / BooleanLiteral
+  / NullLiteral
 
 StringLiteral
   = Quote chars:Character* Quote {
@@ -319,6 +320,16 @@ BooleanLiteral
     }
   }
 
+NullLiteral
+  = "NULL" {
+    return {
+      type: "literal",
+      value: null,
+      dataType: "null",
+      options: {}
+    }
+  }
+
 Character
   = !(Quote / "\\" / LineTerminator) SourceCharacter { return text(); }
 
@@ -340,6 +351,7 @@ LineTerminator
 
 ReservedKeyword
   = BooleanLiteral
+  / NullLiteral
 
 __
   = (WhiteSpace)*
