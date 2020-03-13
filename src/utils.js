@@ -173,6 +173,10 @@ export const addDays = (date, numOfDays) => {
   return new Date(date.getTime() + numOfDays * MILLISECONDS_IN_DAY)
 }
 
+export const daysDifference = (date1, date2) => {
+  return (date1.getTime() - date2.getTime()) / MILLISECONDS_IN_DAY
+}
+
 // private
 
 const calculateNumberOptions = (number) => {

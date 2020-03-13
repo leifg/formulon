@@ -213,7 +213,7 @@ const existingFunctions = {
     returnType: 'number'
   },
   millisecond: {
-    validations: [minNumOfParams(1), maxNumOfParams(1), , paramTypes('datetime')],
+    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('datetime')],
     returnType: 'number'
   },
   min: {
@@ -277,8 +277,8 @@ const existingFunctions = {
     returnType: 'number'
   },
   subtract: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime'], ['number', 'date', 'datetime'])],
-    returnType: ['number', 'date', 'datetime']
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time'], ['number', 'date', 'datetime', 'time'])],
+    returnType: ['number', 'date', 'datetime', 'time']
   },
   substitute: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('text', 'text', 'text')],

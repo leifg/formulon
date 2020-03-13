@@ -673,6 +673,80 @@ describe('sqrt', () => {
   })
 })
 
+describe('subtract', () => {
+  context('Number, Number', () => {
+    it('adds correctly', () => {
+      expect(dispatch('subtract', [buildLiteralFromJs(5), buildLiteralFromJs(3)])).to.deep.eq(buildLiteralFromJs(2))
+    })
+  })
+
+  context('Text, Text', () => {
+    it('returns ArgumentError', () => {
+      let expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, Date, Datetime, Time, received Text", { function: 'subtract', expected: ['number', 'date', 'datetime', 'time'], received: 'text' })
+      expect(dispatch('subtract', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(expected)
+    })
+  })
+
+  context('Date, Number', () => {
+    it('subtracts number of days', () => {
+      expect(dispatch('subtract', [buildDateLiteral(2020, 2, 11), buildLiteralFromJs(5)])).to.deep.eq(buildDateLiteral(2020, 2, 6))
+    })
+  })
+
+  context('Number, Date', () => {
+    it('returns ArgumentError', () => {
+      let expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Date", { function: 'subtract', expected: 'number', received: 'date' })
+      expect(dispatch('subtract', [buildLiteralFromJs(5), buildDateLiteral(2020, 2, 11)])).to.deep.eq(expected)
+    })
+  })
+
+  context('Time, Number', () => {
+    it('subtracts number of milliseconds', () => {
+      expect(dispatch('subtract', [buildTimeLiteral(45005000), buildLiteralFromJs(5000)])).to.deep.eq(buildTimeLiteral(45000000))
+    })
+  })
+
+  context('Number, Time', () => {
+    it('returns ArgumentError', () => {
+      let expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Time", { function: 'subtract', expected: 'number', received: 'time' })
+      expect(dispatch('subtract', [buildLiteralFromJs(5000), buildTimeLiteral(45000000)])).to.deep.eq(expected)
+    })
+  })
+
+  context('Datetime, Number', () => {
+    it('subtracts number of days', () => {
+      expect(dispatch('subtract', [buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)), buildLiteralFromJs(5)])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)))
+    })
+  })
+
+  context('Number, Datetime', () => {
+    it('returns ArgumentError', () => {
+      let expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Datetime", { function: 'subtract', expected: 'number', received: 'datetime' })
+      expect(dispatch('subtract', [buildLiteralFromJs(5), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(expected)
+    })
+  })
+
+  context('Date, Date', () => {
+    it('returns difference in days', () => {
+      expect(dispatch('subtract', [buildDateLiteral(2020, 2, 16), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(5))
+    })
+  })
+
+  context('Time, Time', () => {
+    it('returns difference in milliseconds', () => {
+      expect(dispatch('subtract', [buildTimeLiteral(45005000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(5000))
+    })
+  })
+
+  context('Datetime, DateTime', () => {
+    it('returns difference in days', () => {
+      let datetime1 = buildDatetimeLiteral(Date.UTC(2020, 2, 1, 17, 39, 0, 973))
+      let datetime2 = buildDatetimeLiteral(Date.UTC(2020, 1, 28, 5, 39, 0, 973))
+      expect(dispatch('subtract', [datetime1, datetime2])).to.deep.eq(buildLiteralFromJs(2.5))
+    })
+  })
+})
+
 // Text Functions
 
 describe('begins', () => {
