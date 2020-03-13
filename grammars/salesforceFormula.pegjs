@@ -225,7 +225,7 @@ ArgumentList
   }
 
 FunctionIdentifier
-  = id:[A-Z]+ { return id.join("").toLowerCase(); }
+  = id:[A-Za-z]+ { return id.join("").toLowerCase(); }
 
 Identifier
   = !ReservedKeyword name:IdentifierName { return name; }

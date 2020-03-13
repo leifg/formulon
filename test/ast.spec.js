@@ -1076,6 +1076,38 @@ describe('ast', () => {
         })
       })
     })
+
+    context('Function', () => {
+      context('case sensitivity', () => {
+        it('returns expected AST', () => {
+          let expected = {
+            type: 'callExpression',
+            id: 'contains',
+            arguments: [
+              {
+                type: 'literal',
+                dataType: 'text',
+                value: 'funeral',
+                options: {
+                  length: 7
+                }
+              },
+              {
+                type: 'literal',
+                dataType: 'text',
+                value: 'fun',
+                options: {
+                  length: 3
+                }
+              }
+            ]
+          }
+
+          expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected)
+          expect(build('contains("funeral", "fun")')).to.deep.equal(expected)
+        })
+      })
+    })
   })
 
   describe('traverse', () => {
