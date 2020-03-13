@@ -303,7 +303,7 @@ NonZeroDigit
   = [1-9]
 
 BooleanLiteral
-  = "TRUE" {
+  = "true"i {
     return {
       type: "literal",
       value: true,
@@ -311,7 +311,7 @@ BooleanLiteral
       options: {}
     }
   }
-  / "FALSE" {
+  / "false"i {
     return {
       type: "literal",
       value: false,
@@ -321,7 +321,7 @@ BooleanLiteral
   }
 
 NullLiteral
-  = "NULL" {
+  = "null"i {
     return {
       type: "literal",
       value: null,

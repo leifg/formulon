@@ -875,14 +875,14 @@ describe('ast', () => {
         expect(build('TRUE')).to.deep.equal(expected)
       })
 
-      it('NULL literal', () => {
+      it('true literal', () => {
         const expected = {
           type: 'literal',
-          value: null,
-          dataType: 'null',
+          value: true,
+          dataType: 'checkbox',
           options: {}
         }
-        expect(build('NULL')).to.deep.equal(expected)
+        expect(build('true')).to.deep.equal(expected)
       })
 
       it('FALSE literal', () => {
@@ -893,6 +893,36 @@ describe('ast', () => {
           options: {}
         }
         expect(build('FALSE')).to.deep.equal(expected)
+      })
+
+      it('false literal', () => {
+        const expected = {
+          type: 'literal',
+          value: false,
+          dataType: 'checkbox',
+          options: {}
+        }
+        expect(build('false')).to.deep.equal(expected)
+      })
+
+      it('NULL literal', () => {
+        const expected = {
+          type: 'literal',
+          value: null,
+          dataType: 'null',
+          options: {}
+        }
+        expect(build('NULL')).to.deep.equal(expected)
+      })
+
+      it('null literal', () => {
+        const expected = {
+          type: 'literal',
+          value: null,
+          dataType: 'null',
+          options: {}
+        }
+        expect(build('null')).to.deep.equal(expected)
       })
     })
 
