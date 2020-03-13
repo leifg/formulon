@@ -215,8 +215,7 @@
       },
       {
         "name": "Contract Aging",
-        "disabled": true,
-        "formula": "IF(ISPICKVAL(Contract_Status__c, \"Activated\"), DATETIMEVALUE(\"2020-03-09 22:34:00\") - Contract_Activated_Date__c, null)",
+        "formula": "IF(ISPICKVAL(Contract_Status__c, \"Activated\"), DATETIMEVALUE(\"2020-03-09 22:34:00\") - Contract_Activated_Date__c, NULL)",
         "suites": [
           {
 
@@ -231,12 +230,32 @@
               },
               "Contract_Activated_Date__c": {
                 "dataType": "datetime",
-                "value": "2020-03-09 22:34:00"
+                "value": "2020-03-06T22:34:00Z"
               }
             },
             "expectedResult": {
-              "dataType": "text",
-              "value": "None"
+              "dataType": "number",
+              "value": 3
+            }
+          },
+          {
+            "context": "Deactivated",
+            "identifiers": {
+              "Contract_Status__c": {
+                "dataType": "picklist",
+                "value": "Deactivated",
+                "options": {
+                  "values": ["Activated", "Deactivated"]
+                }
+              },
+              "Contract_Activated_Date__c": {
+                "dataType": "datetime",
+                "value": "2020-03-06T22:34:00Z"
+              }
+            },
+            "expectedResult": {
+              "dataType": "null",
+              "value": null
             }
           }
         ]

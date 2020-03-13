@@ -43,7 +43,7 @@ const coerceLiteral = (literal) => {
     case 'date':
       return buildDateLiteral(literal.value)
     case 'datetime':
-      return buildDatetimeLiteral(literal.value.getTime)
+      return buildDatetimeLiteral(Date.parse(literal.value))
     case 'picklist':
       return literal
   }
