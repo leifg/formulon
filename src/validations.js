@@ -31,12 +31,15 @@ export const paramTypes = (...paramTypeList) => {
       })
 
       comparableArray.forEach(([received, expected]) => {
-        if(Array.isArray(expected)) {
-          if(expected.indexOf(received) === -1) {
+        // allow null input in all functions
+        if(received !== 'null') {
+          if(Array.isArray(expected)) {
+            if(expected.indexOf(received) === -1) {
+              throwWrongType(fnName, expected, received)
+            }
+          } else if(received !== expected)  {
             throwWrongType(fnName, expected, received)
           }
-        } else if(received !== expected)  {
-          throwWrongType(fnName, expected, received)
         }
       })
     }
