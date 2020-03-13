@@ -875,6 +875,16 @@ describe('ast', () => {
         expect(build('TRUE')).to.deep.equal(expected)
       })
 
+      it('true literal', () => {
+        const expected = {
+          type: 'literal',
+          value: true,
+          dataType: 'checkbox',
+          options: {}
+        }
+        expect(build('true')).to.deep.equal(expected)
+      })
+
       it('FALSE literal', () => {
         const expected = {
           type: 'literal',
@@ -883,6 +893,36 @@ describe('ast', () => {
           options: {}
         }
         expect(build('FALSE')).to.deep.equal(expected)
+      })
+
+      it('false literal', () => {
+        const expected = {
+          type: 'literal',
+          value: false,
+          dataType: 'checkbox',
+          options: {}
+        }
+        expect(build('false')).to.deep.equal(expected)
+      })
+
+      it('NULL literal', () => {
+        const expected = {
+          type: 'literal',
+          value: null,
+          dataType: 'null',
+          options: {}
+        }
+        expect(build('NULL')).to.deep.equal(expected)
+      })
+
+      it('null literal', () => {
+        const expected = {
+          type: 'literal',
+          value: null,
+          dataType: 'null',
+          options: {}
+        }
+        expect(build('null')).to.deep.equal(expected)
       })
     })
 
@@ -1033,6 +1073,38 @@ describe('ast', () => {
             ]
           }
           expect(build('First >= Second')).to.deep.equal(expected)
+        })
+      })
+    })
+
+    context('Function', () => {
+      context('case sensitivity', () => {
+        it('returns expected AST', () => {
+          let expected = {
+            type: 'callExpression',
+            id: 'contains',
+            arguments: [
+              {
+                type: 'literal',
+                dataType: 'text',
+                value: 'funeral',
+                options: {
+                  length: 7
+                }
+              },
+              {
+                type: 'literal',
+                dataType: 'text',
+                value: 'fun',
+                options: {
+                  length: 3
+                }
+              }
+            ]
+          }
+
+          expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected)
+          expect(build('contains("funeral", "fun")')).to.deep.equal(expected)
         })
       })
     })

@@ -69,6 +69,12 @@ describe('paramTypes', () => {
           const fn = () => paramTypes('text')('len')(params)
           expect(fn()).to.eq(undefined)
         })
+
+        it('throws no error with null input', () => {
+          const params = [buildLiteralFromJs(null)]
+          const fn = () => paramTypes('text')('len')(params)
+          expect(fn()).to.eq(undefined)
+        })
       })
 
       context('multi type expectatiosn', () => {

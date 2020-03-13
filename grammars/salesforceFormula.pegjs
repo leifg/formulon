@@ -225,7 +225,7 @@ ArgumentList
   }
 
 FunctionIdentifier
-  = id:[A-Z]+ { return id.join("").toLowerCase(); }
+  = id:[A-Za-z]+ { return id.join("").toLowerCase(); }
 
 Identifier
   = !ReservedKeyword name:IdentifierName { return name; }
@@ -250,6 +250,7 @@ Literal
   = StringLiteral
   / NumericLiteral
   / BooleanLiteral
+  / NullLiteral
 
 StringLiteral
   = Quote chars:Character* Quote {
@@ -302,7 +303,7 @@ NonZeroDigit
   = [1-9]
 
 BooleanLiteral
-  = "TRUE" {
+  = "true"i {
     return {
       type: "literal",
       value: true,
@@ -310,11 +311,21 @@ BooleanLiteral
       options: {}
     }
   }
-  / "FALSE" {
+  / "false"i {
     return {
       type: "literal",
       value: false,
       dataType: "checkbox",
+      options: {}
+    }
+  }
+
+NullLiteral
+  = "null"i {
+    return {
+      type: "literal",
+      value: null,
+      dataType: "null",
       options: {}
     }
   }
@@ -340,6 +351,7 @@ LineTerminator
 
 ReservedKeyword
   = BooleanLiteral
+  / NullLiteral
 
 __
   = (WhiteSpace)*
