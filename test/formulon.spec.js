@@ -135,19 +135,37 @@ describe('Formulon', () => {
       })
 
       context('with identifiers', () => {
-        let substitutions = {
-          Custom_field__c: {
-            value: 2,
-            dataType: 'number',
-            options: {
-              length: 8,
-              scale: 0
+        context('string', () => {
+          let substitutions = {
+            Custom_field__c: {
+              value: '',
+              dataType: 'text',
+              options: {
+                length: 0,
+              }
             }
           }
-        }
 
-        it('returns correct result', () => {
-          expect(parse('1 + Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(3))
+          it('returns correct result', () => {
+            expect(parse('Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(''))
+          })
+        })
+
+        context('arithmetics', () => {
+          let substitutions = {
+            Custom_field__c: {
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 8,
+                scale: 0
+              }
+            }
+          }
+
+          it('returns correct result', () => {
+            expect(parse('1 + Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(3))
+          })
         })
       })
     })
