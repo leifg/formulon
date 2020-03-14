@@ -47,6 +47,12 @@ export const toString = (literal) => {
     case 'time':
       return literal.value.toISOString().split('T')[1].replace('Z', '')
     case 'geolocation':
-      return `${literal.value[0].toFixed(6)}, ${literal.value[1].toFixed(6)}`
+      return geolocationFormat(literal.value[0], literal.value[1])
   }
+}
+
+const geolocationFormat = (latitude, longitude) => {
+  if((!latitude || !longitude) && (latitude !== 0 && longitude !== 0)) return ''
+
+  return `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
 }
