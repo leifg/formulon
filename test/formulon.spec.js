@@ -135,19 +135,37 @@ describe('Formulon', () => {
       })
 
       context('with identifiers', () => {
-        let substitutions = {
-          Custom_field__c: {
-            value: 2,
-            dataType: 'number',
-            options: {
-              length: 8,
-              scale: 0
+        context('string', () => {
+          let substitutions = {
+            Custom_field__c: {
+              value: '',
+              dataType: 'text',
+              options: {
+                length: 0,
+              }
             }
           }
-        }
 
-        it('returns correct result', () => {
-          expect(parse('1 + Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(3))
+          it('returns correct result', () => {
+            expect(parse('Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(''))
+          })
+        })
+
+        context('arithmetics', () => {
+          let substitutions = {
+            Custom_field__c: {
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 8,
+                scale: 0
+              }
+            }
+          }
+
+          it('returns correct result', () => {
+            expect(parse('1 + Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(3))
+          })
         })
       })
     })
@@ -355,6 +373,26 @@ describe('Formulon', () => {
     })
 
     context('Geolocation', () => {
+      context('null input', () => {
+        it('returns correct string for both arguments being null', () => {
+          expect(toString(buildGeolocationLiteral(null, null))).to.eq('')
+        })
+
+        it('returns correct string for first arguments being null', () => {
+          expect(toString(buildGeolocationLiteral(null, -117.258836))).to.eq('')
+        })
+
+        it('returns correct string for last arguments being null', () => {
+          expect(toString(buildGeolocationLiteral(32.855160, null))).to.eq('')
+        })
+      })
+
+      context('default input', () => {
+        it('returns correct string for 0,0', () => {
+          expect(toString(buildGeolocationLiteral(0, 0))).to.eq('0.000000, 0.000000')
+        })
+      })
+
       context('float input', () => {
         it('returns correct string for gelocation', () => {
           expect(toString(buildGeolocationLiteral(32.855160, -117.258836))).to.eq('32.855160, -117.258836')
