@@ -28,6 +28,8 @@ export const extract = (formula) => {
 }
 
 export const toString = (literal) => {
+  if (!literal.value && literal.dataType !== 'null' && literal.value !== 0 && literal.value !== false && literal.value !== '' ) return ''
+
   switch(literal.dataType) {
     case 'null':
       return 'NULL'

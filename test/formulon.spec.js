@@ -327,6 +327,20 @@ describe('Formulon', () => {
 
   describe('toString', () => {
     context('Number', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildLiteralFromJs(1), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildLiteralFromJs(1), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for zero', () => {
+        expect(toString(buildLiteralFromJs(0))).to.eq('0')
+      })
+
       it('returns correct string for integer', () => {
         expect(toString(buildLiteralFromJs(1))).to.eq('1')
       })
@@ -337,12 +351,36 @@ describe('Formulon', () => {
     })
 
     context('Text', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildLiteralFromJs('string'), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildLiteralFromJs('string'), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for empty string', () => {
+        expect(toString(buildLiteralFromJs(''))).to.eq('""')
+      })
+
       it('returns correct string', () => {
         expect(toString(buildLiteralFromJs('string'))).to.eq('"string"')
       })
     })
 
     context('Checkbox', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildLiteralFromJs(false), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildLiteralFromJs(false), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
       it('returns correct string for true', () => {
         expect(toString(buildLiteralFromJs(true))).to.eq('TRUE')
       })
@@ -353,12 +391,32 @@ describe('Formulon', () => {
     })
 
     context('Date', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildDateLiteral(2020, 2, 11), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildDateLiteral(2020, 2, 11), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
       it('returns correct string for date', () => {
         expect(toString(buildDateLiteral(2020, 2, 11))).to.eq('2020-02-11')
       })
     })
 
     context('Datetime', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildDatetimeLiteral(Date.UTC(2020, 1, 11, 14, 39, 42, 974)), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildDatetimeLiteral(Date.UTC(2020, 1, 11, 14, 39, 42, 974)), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
       it('returns correct string for datetime', () => {
         let unixTimestamp = Date.UTC(2020, 1, 11, 14, 39, 42, 974)
         expect(toString(buildDatetimeLiteral(unixTimestamp))).to.eq('2020-02-11T14:39:42.974Z')
@@ -366,6 +424,16 @@ describe('Formulon', () => {
     })
 
     context('Time', () => {
+      it('returns correct string for null value', () => {
+        let input = Object.assign(buildTimeLiteral(32833019), { value: null })
+        expect(toString(input)).to.eq('')
+      })
+
+      it('returns correct string for undefined value', () => {
+        let input = Object.assign(buildTimeLiteral(32833019), { value: undefined })
+        expect(toString(input)).to.eq('')
+      })
+
       it('returns correct string for time', () => {
         let milliSecondsFromMidnight = 32833019
         expect(toString(buildTimeLiteral(milliSecondsFromMidnight))).to.eq('09:07:13.019')
