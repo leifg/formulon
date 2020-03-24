@@ -1,7 +1,19 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addDays, addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildTimeLiteral, daysDifference, parseTime, sfRound } from './utils'
+import {
+  addDays,
+  addMonths,
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildGeolocationLiteral,
+  buildLiteralFromJs,
+  buildTimeLiteral,
+  daysDifference,
+  escapeRegExp,
+  parseTime,
+  sfRound
+} from './utils'
 import { throwNotImplemeted, throwWrongType, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -237,6 +249,10 @@ export const sf$abs = (number) => {
 }
 
 export const sf$ceiling = (number) => {
+  if(number.value < 0) {
+    return buildLiteralFromJs(-1 * Math.ceil(-1 * number.value))
+  }
+
   return buildLiteralFromJs(Math.ceil(number.value))
 }
 
@@ -251,6 +267,10 @@ export const sf$exp = (number) => {
 }
 
 export const sf$floor = (number) => {
+  if(number.value < 0) {
+    return buildLiteralFromJs(-1 * Math.floor(-1 * number.value))
+  }
+
   return buildLiteralFromJs(Math.floor(number.value))
 }
 
@@ -271,17 +291,13 @@ export const sf$max = (...numbers) => {
   return buildLiteralFromJs(Math.max(...values))
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$mceiling = (_number) => {
-  throwNotImplemeted('mceiling')
+export const sf$mceiling = (number) => {
+  return buildLiteralFromJs(Math.ceil(number.value))
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$mfloor = (_number) => {
-  throwNotImplemeted('mfloor')
+export const sf$mfloor = (number) => {
+  return buildLiteralFromJs(Math.floor(number.value))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$min = (...numbers) => {
   let values = numbers.map((v) => v.value)
@@ -350,11 +366,9 @@ export const sf$image = (_imageUrl, _alternateText, _height = null, _width = nul
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$includes = (_multiselectPicklistField, _textLiteral) => {
-  throwNotImplemeted('includes')
+export const sf$includes = (multiselectPicklistField, textLiteral) => {
+  return buildLiteralFromJs(multiselectPicklistField.value.includes(textLiteral.value))
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$ispickval = (picklistField, textLiteral) => {
@@ -404,11 +418,9 @@ export const sf$rpad = (text, paddedLength, padString) => {
   return buildLiteralFromJs((text.value + maxPadding).substr(0, paddedLength.value))
 }
 
-/* eslint-disable no-unused-vars */
 export const sf$substitute = (text, oldText, newText) => {
-  throwNotImplemeted('substitute')
+  return buildLiteralFromJs(text.value.replace(new RegExp(escapeRegExp(oldText.value), 'g'), newText.value))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$text = (value) => {
   if(value.dataType === 'text') {

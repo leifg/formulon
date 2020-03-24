@@ -5,7 +5,16 @@
 import { expect } from 'chai'
 
 import { dispatch } from '../lib/functionDispatcher'
-import { buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral, buildTimeLiteral } from '../lib/utils'
+import {
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildErrorLiteral,
+  buildGeolocationLiteral,
+  buildLiteralFromJs,
+  buildPicklistLiteral,
+  buildMultipicklistLiteral,
+  buildTimeLiteral
+} from '../lib/utils'
 
 // Date & Time Functions
 
@@ -505,12 +514,16 @@ describe('ceiling', () => {
     expect(dispatch('ceiling', [buildLiteralFromJs(999.9)])).to.deep.eq(buildLiteralFromJs(1000))
   })
 
+  it('negative value', () => {
+    expect(dispatch('ceiling', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-3))
+  })
+
   it('negative low value', () => {
-    expect(dispatch('ceiling', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-0))
+    expect(dispatch('ceiling', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-1))
   })
 
   it('negative high value', () => {
-    expect(dispatch('ceiling', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-999))
+    expect(dispatch('ceiling', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-1000))
   })
 })
 
@@ -540,12 +553,16 @@ describe('floor', () => {
     expect(dispatch('floor', [buildLiteralFromJs(999.9)])).to.deep.eq(buildLiteralFromJs(999))
   })
 
+  it('negative value', () => {
+    expect(dispatch('floor', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-2))
+  })
+
   it('negative low value', () => {
-    expect(dispatch('floor', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-1))
+    expect(dispatch('floor', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-0))
   })
 
   it('negative high value', () => {
-    expect(dispatch('floor', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-1000))
+    expect(dispatch('floor', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-999))
   })
 })
 
@@ -592,17 +609,23 @@ describe('max', () => {
   })
 })
 
-describe.skip('mceiling', () => {
-  it('returns correct mceiling', () => {
-    // TODO implement test for sf$mceiling
-    expect(dispatch('mceiling', [null])).to.deep.eq(null)
+describe('mceiling', () => {
+  it('returns correct value for positive numbers', () => {
+    expect(dispatch('mceiling', [buildLiteralFromJs(2.5)])).to.deep.eq(buildLiteralFromJs(3))
+  })
+
+  it('returns correct value for negative numbers', () => {
+    expect(dispatch('mceiling', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-2))
   })
 })
 
-describe.skip('mfloor', () => {
-  it('returns correct mfloor', () => {
-    // TODO implement test for sf$mfloor
-    expect(dispatch('mfloor', [null])).to.deep.eq(null)
+describe('mfloor', () => {
+  it('returns correct value for positive numbers', () => {
+    expect(dispatch('mfloor', [buildLiteralFromJs(2.5)])).to.deep.eq(buildLiteralFromJs(2))
+  })
+
+  it('returns correct value for negative numbers', () => {
+    expect(dispatch('mfloor', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-3))
   })
 })
 
@@ -831,10 +854,15 @@ describe.skip('image', () => {
   })
 })
 
-describe.skip('includes', () => {
-  it('returns correct includes', () => {
-    // TODO implement test for sf$includes
-    expect(dispatch('includes', [null, null])).to.deep.eq(null)
+describe('includes', () => {
+  it('returns correct result for selected value', () => {
+    let field = buildMultipicklistLiteral(['Golf', 'Computer'], ['Golf', 'Swimming', 'Horseback Riding', 'Computer'])
+    expect(dispatch('includes', [field, buildLiteralFromJs('Golf')])).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('returns correct result for non-selected value', () => {
+    let field = buildMultipicklistLiteral(['Golf', 'Computer'], ['Golf', 'Swimming', 'Horseback Riding', 'Computer'])
+    expect(dispatch('includes', [field, buildLiteralFromJs('Swimming')])).to.deep.eq(buildLiteralFromJs(false))
   })
 })
 
@@ -921,10 +949,21 @@ describe('rpad', () => {
   })
 })
 
-describe.skip('substitute', () => {
-  it('returns correct substitute', () => {
-    // TODO implement test for sf$substitute
-    expect(dispatch('substitute', [null])).to.deep.eq(null)
+describe('substitute', () => {
+  it('returns correct result for no replace', () => {
+    expect(dispatch('substitute', [buildLiteralFromJs('Beer'), buildLiteralFromJs('Water'), buildLiteralFromJs('Wine')])).to.deep.eq(buildLiteralFromJs('Beer'))
+  })
+
+  it('returns correct result for single replace', () => {
+    expect(dispatch('substitute', [buildLiteralFromJs('50% Coupon'), buildLiteralFromJs('Coupon'), buildLiteralFromJs('Discount')])).to.deep.eq(buildLiteralFromJs('50% Discount'))
+  })
+
+  it('returns correct result for mutli replace', () => {
+    expect(dispatch('substitute', [buildLiteralFromJs('Wake me up before you go go'), buildLiteralFromJs('go'), buildLiteralFromJs('leave')])).to.deep.eq(buildLiteralFromJs('Wake me up before you leave leave'))
+  })
+
+  it('returns correct result for conflicting regex characters', () => {
+    expect(dispatch('substitute', [buildLiteralFromJs("("), buildLiteralFromJs('('), buildLiteralFromJs('[')])).to.deep.eq(buildLiteralFromJs('['))
   })
 })
 

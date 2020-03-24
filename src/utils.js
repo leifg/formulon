@@ -177,6 +177,10 @@ export const daysDifference = (date1, date2) => {
   return (date1.getTime() - date2.getTime()) / MILLISECONDS_IN_DAY
 }
 
+export const escapeRegExp = (string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 // private
 
 const calculateNumberOptions = (number) => {
