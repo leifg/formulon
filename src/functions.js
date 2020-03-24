@@ -284,8 +284,8 @@ export const sf$max = (...numbers) => {
 }
 
 /* eslint-disable no-unused-vars */
-export const sf$mceiling = (_number) => {
-  throwNotImplemeted('mceiling')
+export const sf$mceiling = (number) => {
+  return buildLiteralFromJs(Math.ceil(number.value))
 }
 /* eslint-enable no-unused-vars */
 

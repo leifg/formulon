@@ -601,10 +601,13 @@ describe('max', () => {
   })
 })
 
-describe.skip('mceiling', () => {
-  it('returns correct mceiling', () => {
-    // TODO implement test for sf$mceiling
-    expect(dispatch('mceiling', [null])).to.deep.eq(null)
+describe('mceiling', () => {
+  it('returns correct value for positive numbers', () => {
+    expect(dispatch('mceiling', [buildLiteralFromJs(2.5)])).to.deep.eq(buildLiteralFromJs(3))
+  })
+
+  it('returns correct value for negative numbers', () => {
+    expect(dispatch('mceiling', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-2))
   })
 })
 
