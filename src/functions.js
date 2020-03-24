@@ -358,11 +358,9 @@ export const sf$image = (_imageUrl, _alternateText, _height = null, _width = nul
 }
 /* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
 export const sf$includes = (multiselectPicklistField, textLiteral) => {
   return buildLiteralFromJs(multiselectPicklistField.value.includes(textLiteral.value))
 }
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$ispickval = (picklistField, textLiteral) => {
@@ -412,11 +410,9 @@ export const sf$rpad = (text, paddedLength, padString) => {
   return buildLiteralFromJs((text.value + maxPadding).substr(0, paddedLength.value))
 }
 
-/* eslint-disable no-unused-vars */
 export const sf$substitute = (text, oldText, newText) => {
   return buildLiteralFromJs(text.value.replace(new RegExp(escapeRegExp(oldText.value), 'g'), newText.value))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$text = (value) => {
   if(value.dataType === 'text') {
