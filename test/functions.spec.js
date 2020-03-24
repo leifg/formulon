@@ -611,10 +611,13 @@ describe('mceiling', () => {
   })
 })
 
-describe.skip('mfloor', () => {
-  it('returns correct mfloor', () => {
-    // TODO implement test for sf$mfloor
-    expect(dispatch('mfloor', [null])).to.deep.eq(null)
+describe('mfloor', () => {
+  it('returns correct value for positive numbers', () => {
+    expect(dispatch('mfloor', [buildLiteralFromJs(2.5)])).to.deep.eq(buildLiteralFromJs(2))
+  })
+
+  it('returns correct value for negative numbers', () => {
+    expect(dispatch('mfloor', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-3))
   })
 })
 

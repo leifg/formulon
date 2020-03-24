@@ -283,17 +283,13 @@ export const sf$max = (...numbers) => {
   return buildLiteralFromJs(Math.max(...values))
 }
 
-/* eslint-disable no-unused-vars */
 export const sf$mceiling = (number) => {
   return buildLiteralFromJs(Math.ceil(number.value))
 }
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
-export const sf$mfloor = (_number) => {
-  throwNotImplemeted('mfloor')
+export const sf$mfloor = (number) => {
+  return buildLiteralFromJs(Math.floor(number.value))
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$min = (...numbers) => {
   let values = numbers.map((v) => v.value)
