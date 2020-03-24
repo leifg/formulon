@@ -5,7 +5,16 @@
 import { expect } from 'chai'
 
 import { dispatch } from '../lib/functionDispatcher'
-import { buildDateLiteral, buildDatetimeLiteral, buildErrorLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildPicklistLiteral, buildTimeLiteral } from '../lib/utils'
+import {
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildErrorLiteral,
+  buildGeolocationLiteral,
+  buildLiteralFromJs,
+  buildPicklistLiteral,
+  buildMultipicklistLiteral,
+  buildTimeLiteral
+} from '../lib/utils'
 
 // Date & Time Functions
 
@@ -831,10 +840,15 @@ describe.skip('image', () => {
   })
 })
 
-describe.skip('includes', () => {
-  it('returns correct includes', () => {
-    // TODO implement test for sf$includes
-    expect(dispatch('includes', [null, null])).to.deep.eq(null)
+describe('includes', () => {
+  it('returns correct result for selected value', () => {
+    let field = buildMultipicklistLiteral(['Golf', 'Computer'], ['Golf', 'Swimming', 'Horseback Riding', 'Computer'])
+    expect(dispatch('includes', [field, buildLiteralFromJs('Golf')])).to.deep.eq(buildLiteralFromJs(true))
+  })
+
+  it('returns correct result for non-selected value', () => {
+    let field = buildMultipicklistLiteral(['Golf', 'Computer'], ['Golf', 'Swimming', 'Horseback Riding', 'Computer'])
+    expect(dispatch('includes', [field, buildLiteralFromJs('Swimming')])).to.deep.eq(buildLiteralFromJs(false))
   })
 })
 

@@ -351,8 +351,8 @@ export const sf$image = (_imageUrl, _alternateText, _height = null, _width = nul
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
-export const sf$includes = (_multiselectPicklistField, _textLiteral) => {
-  throwNotImplemeted('includes')
+export const sf$includes = (multiselectPicklistField, textLiteral) => {
+  return buildLiteralFromJs(multiselectPicklistField.value.includes(textLiteral.value))
 }
 /* eslint-enable no-unused-vars */
 
