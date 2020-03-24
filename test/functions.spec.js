@@ -527,10 +527,24 @@ describe('ceiling', () => {
   })
 })
 
-describe.skip('distance', () => {
-  it('returns correct distance', () => {
-    // TODO implement test for sf$distance
-    expect(dispatch('distance', [null, null, null])).to.deep.eq(null)
+describe('distance', () => {
+  it('returns error for unknown unit', () => {
+    let expectedOptions = {
+      function: 'distance',
+      expected: ['km', 'mi'],
+      received: 'ft'
+    }
+    expect(
+      dispatch('distance', [buildGeolocationLiteral(51.5105474,-0.1358797), buildGeolocationLiteral(32.855160, -117.258836), buildLiteralFromJs('ft')])
+    ).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter value for function 'DISTANCE()'. Expected 'mi'/'km', received 'ft'", expectedOptions))
+  })
+
+  it('returns correct distance for Europe -> US', () => {
+    expect(dispatch('distance', [buildGeolocationLiteral(51.5105474,-0.1358797), buildGeolocationLiteral(32.855160, -117.258836), buildLiteralFromJs('km')])).to.deep.eq(buildLiteralFromJs(8813.750642478108))
+  })
+
+  it('returns correct distance for longest distance possible', () => {
+    expect(dispatch('distance', [buildGeolocationLiteral(0,0), buildGeolocationLiteral(0, 180), buildLiteralFromJs('km')])).to.deep.eq(buildLiteralFromJs(20015.115070354455))
   })
 })
 

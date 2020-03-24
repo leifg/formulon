@@ -256,11 +256,47 @@ export const sf$ceiling = (number) => {
   return buildLiteralFromJs(Math.ceil(number.value))
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$distance = (_location1, _location2, _unit) => {
-  throwNotImplemeted('distance')
+export const sf$distance = (location1, location2, unit) => {
+  const distanceUnit = unit.value
+
+  if(distanceUnit !== 'km' && distanceUnit !== 'mi') {
+    let options = {
+      function: 'distance',
+      expected: ['km', 'mi'],
+      received: distanceUnit
+    }
+    throw new ArgumentError(`Incorrect parameter value for function 'DISTANCE()'. Expected 'mi'/'km', received '${distanceUnit}'`, options)
+  }
+
+  const [lat1, lon1] = location1.value
+  const [lat2, lon2] = location2.value
+
+  // haversine algorithm taken from https://www.movable-type.co.uk/scripts/latlong.html
+	if ((lat1 === lat2) && (lon1 === lon2)) {
+		return buildLiteralFromJs(0)
+	}
+	else {
+    const earthRadius = 6371009 // earth radius in meters, reverse engineered from Salesforce DISTANCE(GEOLOCATION(0,0), GEOLOCATION(0, 180), 'km')
+    const phi1 = lat1 * Math.PI / 180
+    const phi2 = lat2 * Math.PI / 180
+    const deltaPhi = (lat2 - lat1) * Math.PI / 180
+    const deltaLambda = (lon2 - lon1) * Math.PI / 180
+
+    const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+              Math.cos(phi1) * Math.cos(phi2) *
+              Math.sin(deltaLambda/2) * Math.sin(deltaLambda/2)
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+
+    const d = earthRadius * c / 1000
+
+    if (distanceUnit === 'mi') {
+      return buildLiteralFromJs(d / 1.609344)
+    }
+
+    return buildLiteralFromJs(d)
+	}
 }
-/* eslint-enable no-unused-vars */
 
 export const sf$exp = (number) => {
   return buildLiteralFromJs(Math.exp(number.value))
