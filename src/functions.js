@@ -1,7 +1,19 @@
 'use strict'
 
 import { toString } from './formulon'
-import { addDays, addMonths, buildDateLiteral, buildDatetimeLiteral, buildGeolocationLiteral, buildLiteralFromJs, buildTimeLiteral, daysDifference, parseTime, sfRound } from './utils'
+import {
+  addDays,
+  addMonths,
+  buildDateLiteral,
+  buildDatetimeLiteral,
+  buildGeolocationLiteral,
+  buildLiteralFromJs,
+  buildTimeLiteral,
+  daysDifference,
+  escapeRegExp,
+  parseTime,
+  sfRound
+} from './utils'
 import { throwNotImplemeted, throwWrongType, ArgumentError } from './errors'
 
 // Date & Time Functions
@@ -406,7 +418,7 @@ export const sf$rpad = (text, paddedLength, padString) => {
 
 /* eslint-disable no-unused-vars */
 export const sf$substitute = (text, oldText, newText) => {
-  throwNotImplemeted('substitute')
+  return buildLiteralFromJs(text.value.replace(new RegExp(escapeRegExp(oldText.value), 'g'), newText.value))
 }
 /* eslint-enable no-unused-vars */
 
