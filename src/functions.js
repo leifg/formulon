@@ -249,6 +249,10 @@ export const sf$abs = (number) => {
 }
 
 export const sf$ceiling = (number) => {
+  if(number.value < 0) {
+    return buildLiteralFromJs(-1 * Math.ceil(-1 * number.value))
+  }
+
   return buildLiteralFromJs(Math.ceil(number.value))
 }
 
@@ -263,6 +267,10 @@ export const sf$exp = (number) => {
 }
 
 export const sf$floor = (number) => {
+  if(number.value < 0) {
+    return buildLiteralFromJs(-1 * Math.floor(-1 * number.value))
+  }
+
   return buildLiteralFromJs(Math.floor(number.value))
 }
 

@@ -514,12 +514,16 @@ describe('ceiling', () => {
     expect(dispatch('ceiling', [buildLiteralFromJs(999.9)])).to.deep.eq(buildLiteralFromJs(1000))
   })
 
+  it('negative value', () => {
+    expect(dispatch('ceiling', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-3))
+  })
+
   it('negative low value', () => {
-    expect(dispatch('ceiling', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-0))
+    expect(dispatch('ceiling', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-1))
   })
 
   it('negative high value', () => {
-    expect(dispatch('ceiling', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-999))
+    expect(dispatch('ceiling', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-1000))
   })
 })
 
@@ -549,12 +553,16 @@ describe('floor', () => {
     expect(dispatch('floor', [buildLiteralFromJs(999.9)])).to.deep.eq(buildLiteralFromJs(999))
   })
 
+  it('negative value', () => {
+    expect(dispatch('floor', [buildLiteralFromJs(-2.5)])).to.deep.eq(buildLiteralFromJs(-2))
+  })
+
   it('negative low value', () => {
-    expect(dispatch('floor', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-1))
+    expect(dispatch('floor', [buildLiteralFromJs(-0.1)])).to.deep.eq(buildLiteralFromJs(-0))
   })
 
   it('negative high value', () => {
-    expect(dispatch('floor', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-1000))
+    expect(dispatch('floor', [buildLiteralFromJs(-999.9)])).to.deep.eq(buildLiteralFromJs(-999))
   })
 })
 
