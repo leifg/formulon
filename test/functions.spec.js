@@ -802,10 +802,13 @@ describe('br', () => {
   })
 })
 
-describe.skip('casesafeid', () => {
-  it('returns correct casesafeid', () => {
-    // TODO implement test for sf$casesafeid
-    expect(dispatch('casesafeid', [null])).to.deep.eq(null)
+describe('casesafeid', () => {
+  it('returns correct id for real example', () => {
+    expect(dispatch('casesafeid', [buildLiteralFromJs('0033z00002f6o3T')])).to.deep.eq(buildLiteralFromJs('0033z00002f6o3TAAQ'))
+  })
+
+  it('returns correct id for comfan reference', () => {
+    expect(dispatch('casesafeid', [buildLiteralFromJs('752S00000000Ktk')])).to.deep.eq(buildLiteralFromJs('752S00000000KtkIAE'))
   })
 })
 

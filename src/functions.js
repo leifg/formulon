@@ -362,12 +362,23 @@ export const sf$br = () => {
   return buildLiteralFromJs('\n')
 }
 
-/* eslint-disable no-unused-vars */
-export const sf$casesafeid = (_id) => {
-  throwNotImplemeted('casesafeid')
-}
-/* eslint-enable no-unused-vars */
+export const sf$casesafeid = (id) => {
+  let suffix = '';
 
+  [0,1,2].forEach((i) => {
+    let flags = 0;
+
+    [0,1,2,3,4].forEach((j) => {
+      let c = id.value[i * 5 + j]
+      if(c.toUpperCase() === c && c >= 'A' && c <= 'Z') {
+        flags += 1 << j
+      }
+    })
+    suffix += "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345"[flags]
+  })
+
+  return buildLiteralFromJs(id.value + suffix)
+}
 
 export const sf$concat = (text1, text2) => {
   return buildLiteralFromJs(text1.value + text2.value)
