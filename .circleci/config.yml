@@ -17,6 +17,9 @@ jobs:
                 name: Build Parser
                 command: yarn build
             - run:
+                name: Run Linter
+                command: yarn lint
+            - run:
                 name: Execute Unit Tests
                 command: yarn test
             - run:

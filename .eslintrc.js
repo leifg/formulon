@@ -1,4 +1,4 @@
 module.exports = {
   parser: "babel-eslint",
-  extends: "eslint:recommended"
+  extends: ["eslint:recommended", "airbnb-base"]
 }

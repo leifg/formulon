@@ -1,9 +1,10 @@
 /* global describe it context */
 
-'use strict'
 
-import { build, extract, replace, traverse } from '../lib/ast'
-import { expect } from 'chai'
+import { expect } from 'chai';
+import {
+  build, extract, replace, traverse,
+} from '../lib/ast';
 
 describe('ast', () => {
   describe('build', () => {
@@ -15,11 +16,11 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 1,
-            scale: 0
-          }
-        }
-        expect(build('1 ')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build('1 ')).to.deep.equal(expected);
+      });
 
       it('parses AST correctly with leading whitespace', () => {
         const expected = {
@@ -28,11 +29,11 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 1,
-            scale: 0
-          }
-        }
-        expect(build(' 2')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build(' 2')).to.deep.equal(expected);
+      });
 
       it('parses AST correctly with leading and trailing whitespace', () => {
         const expected = {
@@ -41,69 +42,69 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 1,
-            scale: 0
-          }
-        }
-        expect(build(' 3 ')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build(' 3 ')).to.deep.equal(expected);
+      });
 
       it('parses AST correctly with whitespaces in function calls', () => {
         const expected = {
-          type: "callExpression",
-          id: "ceiling",
+          type: 'callExpression',
+          id: 'ceiling',
           arguments: [
             {
-              type: "literal",
+              type: 'literal',
               value: 1.9,
-              dataType: "number",
+              dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
-            }
-          ]
-        }
-        expect(build('CEILING (1.9 )')).to.deep.equal(expected)
-      })
+                scale: 1,
+              },
+            },
+          ],
+        };
+        expect(build('CEILING (1.9 )')).to.deep.equal(expected);
+      });
 
       it('parses AST correctly with newlines', () => {
         const expected = {
-          type: "callExpression",
-          id: "add",
+          type: 'callExpression',
+          id: 'add',
           arguments: [
             {
-              type: "literal",
+              type: 'literal',
               value: 1,
-              dataType: "number",
+              dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
-              type: "literal",
+              type: 'literal',
               value: 2,
-              dataType: "number",
+              dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('1 + \n2')).to.deep.equal(expected)
-      })
-    })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('1 + \n2')).to.deep.equal(expected);
+      });
+    });
 
     context('Function Calls', () => {
       it('function call without arguments', () => {
         const expected = {
           type: 'callExpression',
           id: 'now',
-          arguments: []
-        }
-        expect(build('NOW()')).to.deep.equal(expected)
-      })
+          arguments: [],
+        };
+        expect(build('NOW()')).to.deep.equal(expected);
+      });
 
       it('function call with single argument', () => {
         const expected = {
@@ -116,13 +117,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
-            }
-          ]
-        }
-        expect(build('ABS(1.5)')).to.deep.equal(expected)
-      })
+                scale: 1,
+              },
+            },
+          ],
+        };
+        expect(build('ABS(1.5)')).to.deep.equal(expected);
+      });
 
       it('function call with multiple arguments', () => {
         const expected = {
@@ -135,8 +136,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 2,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'literal',
@@ -144,16 +145,15 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('MOD(11, 2)')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('MOD(11, 2)')).to.deep.equal(expected);
+      });
 
-      it('nested function calls', function() {
-        this.timeout(5000)
+      it('nested function calls', () => {
         const expected = {
           type: 'callExpression',
           id: 'if',
@@ -168,10 +168,10 @@ describe('ast', () => {
                   value: 'Closed Won',
                   dataType: 'text',
                   options: {
-                    length: 10
-                  }
-                }
-              ]
+                    length: 10,
+                  },
+                },
+              ],
             },
             { type: 'identifier', name: 'Amount' },
             {
@@ -180,14 +180,14 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('IF(ISPICKVAL(StageName, "Closed Won"), Amount, 0)')).to.deep.equal(expected)
-      })
-    })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('IF(ISPICKVAL(StageName, "Closed Won"), Amount, 0)')).to.deep.equal(expected);
+      });
+    });
 
     context('Arithmetics', () => {
       it('string concatenation', () => {
@@ -200,22 +200,22 @@ describe('ast', () => {
               value: 'con',
               dataType: 'text',
               options: {
-                length: 3
-              }
+                length: 3,
+              },
             },
             {
               type: 'literal',
               value: 'cated',
               dataType: 'text',
               options: {
-                length: 5
-              }
-            }
-          ]
-        }
+                length: 5,
+              },
+            },
+          ],
+        };
 
-        expect(build('"con" & "cated"')).to.deep.equal(expected)
-      })
+        expect(build('"con" & "cated"')).to.deep.equal(expected);
+      });
 
       it('simple addition', () => {
         const expected = {
@@ -228,8 +228,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
+                scale: 1,
+              },
             },
             {
               type: 'literal',
@@ -237,13 +237,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('1.5 + 2')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('1.5 + 2')).to.deep.equal(expected);
+      });
 
       it('simple subtraction', () => {
         const expected = {
@@ -256,8 +256,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'literal',
@@ -265,13 +265,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 2,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('1 - 10')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('1 - 10')).to.deep.equal(expected);
+      });
 
       it('addition with more than 2 arguments', () => {
         const expected = {
@@ -288,8 +288,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -297,10 +297,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -308,13 +308,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
-          ]
-        }
-        expect(build('1 + 2 + 3')).to.deep.equal(expected)
-      })
+          ],
+        };
+        expect(build('1 + 2 + 3')).to.deep.equal(expected);
+      });
 
       it('addition with function', () => {
         const expected = {
@@ -331,8 +331,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -340,10 +340,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -351,14 +351,14 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
+                scale: 0,
+              },
+            },
+          ],
+        };
 
-        expect(build('MAX(1,3) + 7')).to.deep.equal(expected)
-      })
+        expect(build('MAX(1,3) + 7')).to.deep.equal(expected);
+      });
 
       it('simple multiplication', () => {
         const expected = {
@@ -371,8 +371,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'literal',
@@ -380,13 +380,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('7 * 8')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('7 * 8')).to.deep.equal(expected);
+      });
 
       it('simple division', () => {
         const expected = {
@@ -399,8 +399,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 3,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'literal',
@@ -408,13 +408,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 2,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('100 / 25')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('100 / 25')).to.deep.equal(expected);
+      });
 
       it('addition and multiplication (multiplication first)', () => {
         const expected = {
@@ -431,8 +431,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -440,10 +440,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -451,13 +451,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('7 * 8 + 5')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('7 * 8 + 5')).to.deep.equal(expected);
+      });
 
       it('addition and multiplication (addition first)', () => {
         const expected = {
@@ -470,8 +470,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'callExpression',
@@ -483,8 +483,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -492,15 +492,15 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
-            }
-          ]
-        }
-        expect(build('5 + 7 * 8')).to.deep.equal(expected)
-      })
+                    scale: 0,
+                  },
+                },
+              ],
+            },
+          ],
+        };
+        expect(build('5 + 7 * 8')).to.deep.equal(expected);
+      });
 
       it('addition and multiplication with parentheses', () => {
         const expected = {
@@ -513,8 +513,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'callExpression',
@@ -526,8 +526,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -535,14 +535,14 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }]
-            }
-          ]
-        }
-        expect(build('7 * (8 + 5)')).to.deep.equal(expected)
-      })
+                    scale: 0,
+                  },
+                }],
+            },
+          ],
+        };
+        expect(build('7 * (8 + 5)')).to.deep.equal(expected);
+      });
 
       it('simple exponentiation', () => {
         const expected = {
@@ -555,8 +555,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'literal',
@@ -564,13 +564,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('2 ^ 8')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('2 ^ 8')).to.deep.equal(expected);
+      });
 
       it('exponentiation and multiplication', () => {
         const expected = {
@@ -587,8 +587,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -596,10 +596,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -607,13 +607,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('2 ^ 8 * 7')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('2 ^ 8 * 7')).to.deep.equal(expected);
+      });
 
       it('exponentiation, multiplication and addition', () => {
         const expected = {
@@ -634,8 +634,8 @@ describe('ast', () => {
                       dataType: 'number',
                       options: {
                         length: 1,
-                        scale: 0
-                      }
+                        scale: 0,
+                      },
                     },
                     {
                       type: 'literal',
@@ -643,10 +643,10 @@ describe('ast', () => {
                       dataType: 'number',
                       options: {
                         length: 1,
-                        scale: 0
-                      }
-                    }
-                  ]
+                        scale: 0,
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'literal',
@@ -654,10 +654,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -665,13 +665,13 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
-        expect(build('2 ^ 8 * 7 + 5')).to.deep.equal(expected)
-      })
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('2 ^ 8 * 7 + 5')).to.deep.equal(expected);
+      });
 
       it('exponentiation, multiplication and addition in parentheses', () => {
         const expected = {
@@ -684,8 +684,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
+                scale: 0,
+              },
             },
             {
               type: 'callExpression',
@@ -701,8 +701,8 @@ describe('ast', () => {
                       dataType: 'number',
                       options: {
                         length: 1,
-                        scale: 0
-                      }
+                        scale: 0,
+                      },
                     },
                     {
                       type: 'literal',
@@ -710,10 +710,10 @@ describe('ast', () => {
                       dataType: 'number',
                       options: {
                         length: 1,
-                        scale: 0
-                      }
-                    }
-                  ]
+                        scale: 0,
+                      },
+                    },
+                  ],
                 },
                 {
                   type: 'literal',
@@ -721,15 +721,15 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
-            }
-          ]
-        }
-        expect(build('2 ^ (8 * 7 + 5)')).to.deep.equal(expected)
-      })
+                    scale: 0,
+                  },
+                },
+              ],
+            },
+          ],
+        };
+        expect(build('2 ^ (8 * 7 + 5)')).to.deep.equal(expected);
+      });
 
       it('logical comparison and concatination', () => {
         const expected = {
@@ -746,8 +746,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -755,10 +755,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'callExpression',
@@ -770,8 +770,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -779,26 +779,26 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
-            }
-          ]
-        }
-        expect(build('1 == 1 && 1 == 1')).to.deep.equal(expected)
-      })
-    })
+                    scale: 0,
+                  },
+                },
+              ],
+            },
+          ],
+        };
+        expect(build('1 == 1 && 1 == 1')).to.deep.equal(expected);
+      });
+    });
 
     context('Identifiers', () => {
       it('identifier', () => {
         const expected = {
           type: 'identifier',
-          name: 'Name'
-        }
-        expect(build('Name')).to.deep.equal(expected)
-      })
-    })
+          name: 'Name',
+        };
+        expect(build('Name')).to.deep.equal(expected);
+      });
+    });
 
     context('Literals', () => {
       it('string literal', () => {
@@ -807,11 +807,11 @@ describe('ast', () => {
           value: 'a String',
           dataType: 'text',
           options: {
-            length: 8
-          }
-        }
-        expect(build('"a String"')).to.deep.equal(expected)
-      })
+            length: 8,
+          },
+        };
+        expect(build('"a String"')).to.deep.equal(expected);
+      });
 
       it('integer literal', () => {
         const expected = {
@@ -820,11 +820,11 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 0
-          }
-        }
-        expect(build('12')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build('12')).to.deep.equal(expected);
+      });
 
       it('negative integer literal', () => {
         const expected = {
@@ -833,11 +833,11 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 3,
-            scale: 0
-          }
-        }
-        expect(build('-123')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build('-123')).to.deep.equal(expected);
+      });
 
       it('explicitely positive integer literal', () => {
         const expected = {
@@ -846,11 +846,11 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 4,
-            scale: 0
-          }
-        }
-        expect(build('+1234')).to.deep.equal(expected)
-      })
+            scale: 0,
+          },
+        };
+        expect(build('+1234')).to.deep.equal(expected);
+      });
 
       it('float literal', () => {
         const expected = {
@@ -859,72 +859,72 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 1
-          }
-        }
-        expect(build('11.2')).to.deep.equal(expected)
-      })
+            scale: 1,
+          },
+        };
+        expect(build('11.2')).to.deep.equal(expected);
+      });
 
       it('TRUE literal', () => {
         const expected = {
           type: 'literal',
           value: true,
           dataType: 'checkbox',
-          options: {}
-        }
-        expect(build('TRUE')).to.deep.equal(expected)
-      })
+          options: {},
+        };
+        expect(build('TRUE')).to.deep.equal(expected);
+      });
 
       it('true literal', () => {
         const expected = {
           type: 'literal',
           value: true,
           dataType: 'checkbox',
-          options: {}
-        }
-        expect(build('true')).to.deep.equal(expected)
-      })
+          options: {},
+        };
+        expect(build('true')).to.deep.equal(expected);
+      });
 
       it('FALSE literal', () => {
         const expected = {
           type: 'literal',
           value: false,
           dataType: 'checkbox',
-          options: {}
-        }
-        expect(build('FALSE')).to.deep.equal(expected)
-      })
+          options: {},
+        };
+        expect(build('FALSE')).to.deep.equal(expected);
+      });
 
       it('false literal', () => {
         const expected = {
           type: 'literal',
           value: false,
           dataType: 'checkbox',
-          options: {}
-        }
-        expect(build('false')).to.deep.equal(expected)
-      })
+          options: {},
+        };
+        expect(build('false')).to.deep.equal(expected);
+      });
 
       it('NULL literal', () => {
         const expected = {
           type: 'literal',
           value: null,
           dataType: 'null',
-          options: {}
-        }
-        expect(build('NULL')).to.deep.equal(expected)
-      })
+          options: {},
+        };
+        expect(build('NULL')).to.deep.equal(expected);
+      });
 
       it('null literal', () => {
         const expected = {
           type: 'literal',
           value: null,
           dataType: 'null',
-          options: {}
-        }
-        expect(build('null')).to.deep.equal(expected)
-      })
-    })
+          options: {},
+        };
+        expect(build('null')).to.deep.equal(expected);
+      });
+    });
 
     context('Logic', () => {
       context('unary', () => {
@@ -932,10 +932,10 @@ describe('ast', () => {
           const expected = {
             type: 'callExpression',
             id: 'not',
-            arguments: [{type: 'identifier', name: 'Negative'}]
-          }
-          expect(build('!Negative')).to.deep.equal(expected)
-        })
+            arguments: [{ type: 'identifier', name: 'Negative' }],
+          };
+          expect(build('!Negative')).to.deep.equal(expected);
+        });
 
         it('NOT with boolean literal', () => {
           const expected = {
@@ -946,13 +946,13 @@ describe('ast', () => {
                 type: 'literal',
                 value: false,
                 dataType: 'checkbox',
-                options: {}
-              }
-            ]
-          }
-          expect(build('!FALSE')).to.deep.equal(expected)
-        })
-      })
+                options: {},
+              },
+            ],
+          };
+          expect(build('!FALSE')).to.deep.equal(expected);
+        });
+      });
 
       context('binary', () => {
         it('&&', () => {
@@ -960,127 +960,127 @@ describe('ast', () => {
             type: 'callExpression',
             id: 'and',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First && Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First && Second')).to.deep.equal(expected);
+        });
 
         it('||', () => {
           const expected = {
             type: 'callExpression',
             id: 'or',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First || Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First || Second')).to.deep.equal(expected);
+        });
 
         it('==', () => {
           const expected = {
             type: 'callExpression',
             id: 'equal',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First == Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First == Second')).to.deep.equal(expected);
+        });
 
         it('=', () => {
           const expected = {
             type: 'callExpression',
             id: 'equal',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First = Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First = Second')).to.deep.equal(expected);
+        });
 
         it('!=', () => {
           const expected = {
             type: 'callExpression',
             id: 'unequal',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First != Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First != Second')).to.deep.equal(expected);
+        });
 
         it('<>', () => {
           const expected = {
             type: 'callExpression',
             id: 'unequal',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First <> Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First <> Second')).to.deep.equal(expected);
+        });
 
         it('<', () => {
           const expected = {
             type: 'callExpression',
             id: 'lessThan',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First < Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First < Second')).to.deep.equal(expected);
+        });
 
         it('<=', () => {
           const expected = {
             type: 'callExpression',
             id: 'lessThanOrEqual',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First <= Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First <= Second')).to.deep.equal(expected);
+        });
 
         it('>', () => {
           const expected = {
             type: 'callExpression',
             id: 'greaterThan',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First > Second')).to.deep.equal(expected)
-        })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First > Second')).to.deep.equal(expected);
+        });
 
         it('>=', () => {
           const expected = {
             type: 'callExpression',
             id: 'greaterThanOrEqual',
             arguments: [
-              {type: 'identifier', name: 'First'},
-              {type: 'identifier', name: 'Second'}
-            ]
-          }
-          expect(build('First >= Second')).to.deep.equal(expected)
-        })
-      })
-    })
+              { type: 'identifier', name: 'First' },
+              { type: 'identifier', name: 'Second' },
+            ],
+          };
+          expect(build('First >= Second')).to.deep.equal(expected);
+        });
+      });
+    });
 
     context('Function', () => {
       context('case sensitivity', () => {
         it('returns expected AST', () => {
-          let expected = {
+          const expected = {
             type: 'callExpression',
             id: 'contains',
             arguments: [
@@ -1089,26 +1089,26 @@ describe('ast', () => {
                 dataType: 'text',
                 value: 'funeral',
                 options: {
-                  length: 7
-                }
+                  length: 7,
+                },
               },
               {
                 type: 'literal',
                 dataType: 'text',
                 value: 'fun',
                 options: {
-                  length: 3
-                }
-              }
-            ]
-          }
+                  length: 3,
+                },
+              },
+            ],
+          };
 
-          expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected)
-          expect(build('contains("funeral", "fun")')).to.deep.equal(expected)
-        })
-      })
-    })
-  })
+          expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected);
+          expect(build('contains("funeral", "fun")')).to.deep.equal(expected);
+        });
+      });
+    });
+  });
 
   describe('traverse', () => {
     context('literal', () => {
@@ -1119,21 +1119,21 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 0
-          }
-        }
+            scale: 0,
+          },
+        };
         const expected = {
           type: 'literal',
           value: 11,
           dataType: 'number',
           options: {
             length: 2,
-            scale: 0
-          }
-        }
+            scale: 0,
+          },
+        };
 
-        expect(traverse(input)).to.deep.equal(expected)
-      })
+        expect(traverse(input)).to.deep.equal(expected);
+      });
 
       it('float literal', () => {
         const input = {
@@ -1142,9 +1142,9 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 1
-          }
-        }
+            scale: 1,
+          },
+        };
 
         const expected = {
           type: 'literal',
@@ -1152,12 +1152,12 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 1
-          }
-        }
+            scale: 1,
+          },
+        };
 
-        expect(traverse(input)).to.deep.equal(expected)
-      })
+        expect(traverse(input)).to.deep.equal(expected);
+      });
 
       it('string literal', () => {
         const input = {
@@ -1166,9 +1166,9 @@ describe('ast', () => {
           dataType: 'text',
           options: {
             length: 8,
-            scale: 0
-          }
-        }
+            scale: 0,
+          },
+        };
 
         const expected = {
           type: 'literal',
@@ -1176,26 +1176,26 @@ describe('ast', () => {
           dataType: 'text',
           options: {
             length: 8,
-            scale: 0
-          }
-        }
+            scale: 0,
+          },
+        };
 
-        expect(traverse(input)).to.deep.equal(expected)
-      })
-    })
+        expect(traverse(input)).to.deep.equal(expected);
+      });
+    });
 
     context('identifier', () => {
       context('just an identifer', () => {
         it('returns ReferenceError', () => {
-          const input = { type: 'identifier', name: 'Name' }
+          const input = { type: 'identifier', name: 'Name' };
           expect(traverse(input)).to.deep.eq({
             type: 'error',
             errorType: 'ReferenceError',
             identifier: input.name,
-            message: `Field ${input.name} does not exist. Check spelling.`
-          })
-        })
-      })
+            message: `Field ${input.name} does not exist. Check spelling.`,
+          });
+        });
+      });
 
       context('identifer in call', () => {
         it('returns ReferenceError', () => {
@@ -1213,20 +1213,20 @@ describe('ast', () => {
                 dataType: 'number',
                 options: {
                   length: 1,
-                  scale: 1
-                }
-              }
-            ]
-          }
+                  scale: 1,
+                },
+              },
+            ],
+          };
           expect(traverse(input)).to.deep.eq({
             type: 'error',
             errorType: 'ReferenceError',
             identifier: 'idontexist',
-            message: 'Field idontexist does not exist. Check spelling.'
-          })
-        })
-      })
-    })
+            message: 'Field idontexist does not exist. Check spelling.',
+          });
+        });
+      });
+    });
 
     context('callExpression', () => {
       it('1 level', () => {
@@ -1240,8 +1240,8 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
+                scale: 1,
+              },
             },
             {
               type: 'literal',
@@ -1249,11 +1249,11 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
+                scale: 0,
+              },
+            },
+          ],
+        };
 
         const expected = {
           type: 'literal',
@@ -1261,12 +1261,12 @@ describe('ast', () => {
           dataType: 'number',
           options: {
             length: 2,
-            scale: 1
-          }
-        }
+            scale: 1,
+          },
+        };
 
-        expect(traverse(input)).to.deep.equal(expected)
-      })
+        expect(traverse(input)).to.deep.equal(expected);
+      });
 
       it('2 levels', () => {
         const input = {
@@ -1283,8 +1283,8 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
+                    scale: 0,
+                  },
                 },
                 {
                   type: 'literal',
@@ -1292,10 +1292,10 @@ describe('ast', () => {
                   dataType: 'number',
                   options: {
                     length: 1,
-                    scale: 0
-                  }
-                }
-              ]
+                    scale: 0,
+                  },
+                },
+              ],
             },
             {
               type: 'literal',
@@ -1303,29 +1303,29 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 0
-              }
-            }
-          ]
-        }
+                scale: 0,
+              },
+            },
+          ],
+        };
         const expected = {
           type: 'literal',
           value: 61,
           dataType: 'number',
           options: {
             length: 2,
-            scale: 0
-          }
-        }
+            scale: 0,
+          },
+        };
 
-        expect(traverse(input)).to.deep.equal(expected)
-      })
-    })
-  })
+        expect(traverse(input)).to.deep.equal(expected);
+      });
+    });
+  });
 
   describe('extract', () => {
     context('no identifiers', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'add',
         arguments: [
@@ -1335,8 +1335,8 @@ describe('ast', () => {
             dataType: 'number',
             options: {
               length: 1,
-              scale: 1
-            }
+              scale: 1,
+            },
           },
           {
             type: 'literal',
@@ -1344,81 +1344,81 @@ describe('ast', () => {
             dataType: 'number',
             options: {
               length: 1,
-              scale: 0
-            }
-          }
-        ]
-      }
+              scale: 0,
+            },
+          },
+        ],
+      };
 
       it('returns empty array', () => {
-        const expected = []
-        expect(extract(ast)).to.deep.equal(expected)
-      })
-    })
+        const expected = [];
+        expect(extract(ast)).to.deep.equal(expected);
+      });
+    });
 
     context('one identifier', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'add',
-        arguments: [{type: 'literal', value: 1.5}, {type: 'identifier', name: 'Name'}]
-      }
+        arguments: [{ type: 'literal', value: 1.5 }, { type: 'identifier', name: 'Name' }],
+      };
 
       it('returns array with identifiers', () => {
-        const expected = ['Name']
-        expect(extract(ast)).to.deep.equal(expected)
-      })
-    })
+        const expected = ['Name'];
+        expect(extract(ast)).to.deep.equal(expected);
+      });
+    });
 
     context('multiple identifiers', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'add',
         arguments: [
           {
             type: 'callExpression',
             id: 'subtract',
-            arguments: [{type: 'identifier', name: 'Argument1'}, {type: 'identifier', name: 'Argument2'}]
+            arguments: [{ type: 'identifier', name: 'Argument1' }, { type: 'identifier', name: 'Argument2' }],
           },
-          {type: 'identifier', name: 'Name'}
-        ]
-      }
+          { type: 'identifier', name: 'Name' },
+        ],
+      };
 
       it('returns array with identifiers', () => {
-        const expected = ['Argument1', 'Argument2', 'Name']
-        expect(extract(ast)).to.deep.equal(expected)
-      })
-    })
+        const expected = ['Argument1', 'Argument2', 'Name'];
+        expect(extract(ast)).to.deep.equal(expected);
+      });
+    });
 
     context('redundant identifiers', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'add',
-        arguments: [{type: 'identifier', name: 'Name'}, {type: 'identifier', name: 'Name'}]
-      }
+        arguments: [{ type: 'identifier', name: 'Name' }, { type: 'identifier', name: 'Name' }],
+      };
 
       it('returns array with replaced variables', () => {
-        const expected = ['Name', 'Name']
-        expect(extract(ast)).to.deep.equal(expected)
-      })
-    })
+        const expected = ['Name', 'Name'];
+        expect(extract(ast)).to.deep.equal(expected);
+      });
+    });
 
     context('function call without parameters', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'date',
-        arguments: []
-      }
+        arguments: [],
+      };
 
       it('returns empty array', () => {
-        const expected = []
-        expect(extract(ast)).to.deep.equal(expected)
-      })
-    })
-  })
+        const expected = [];
+        expect(extract(ast)).to.deep.equal(expected);
+      });
+    });
+  });
 
   describe('replace', () => {
     context('no identifiers', () => {
-      let ast = {
+      const ast = {
         type: 'callExpression',
         id: 'add',
         arguments: [
@@ -1428,8 +1428,8 @@ describe('ast', () => {
             dataType: 'number',
             options: {
               length: 1,
-              scale: 1
-            }
+              scale: 1,
+            },
           },
           {
             type: 'literal',
@@ -1437,21 +1437,21 @@ describe('ast', () => {
             dataType: 'number',
             options: {
               length: 1,
-              scale: 0
-            }
-          }
-        ]
-      }
+              scale: 0,
+            },
+          },
+        ],
+      };
 
       it('returns empty array', () => {
-        const expected = ast
-        expect(replace(ast, {Name: 'value'})).to.deep.equal(expected)
-      })
-    })
+        const expected = ast;
+        expect(replace(ast, { Name: 'value' })).to.deep.equal(expected);
+      });
+    });
 
     context('one identifier', () => {
       context('replacement given', () => {
-        let ast = {
+        const ast = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -1461,15 +1461,15 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
+                scale: 1,
+              },
             },
             {
               type: 'identifier',
-              name: 'Name'
-            }
-          ]
-        }
+              name: 'Name',
+            },
+          ],
+        };
 
         it('returns replaced array', () => {
           const expected = {
@@ -1482,34 +1482,34 @@ describe('ast', () => {
                 dataType: 'number',
                 options: {
                   length: 1,
-                  scale: 1
-                }
+                  scale: 1,
+                },
               },
               {
                 type: 'literal',
                 value: 'value',
                 dataType: 'text',
                 options: {
-                  length: 4
-                }
-              }
-            ]
-          }
-          let substitutions = {
+                  length: 4,
+                },
+              },
+            ],
+          };
+          const substitutions = {
             Name: {
               value: 'value',
               dataType: 'text',
               options: {
-                length: 4
-              }
-            }
-          }
-          expect(replace(ast, substitutions)).to.deep.equal(expected)
-        })
-      })
+                length: 4,
+              },
+            },
+          };
+          expect(replace(ast, substitutions)).to.deep.equal(expected);
+        });
+      });
 
       context('no replacement given', () => {
-        let ast = {
+        const ast = {
           type: 'callExpression',
           id: 'add',
           arguments: [
@@ -1519,21 +1519,21 @@ describe('ast', () => {
               dataType: 'number',
               options: {
                 length: 1,
-                scale: 1
-              }
+                scale: 1,
+              },
             },
             {
               type: 'identifier',
-              name: 'Name'
-            }
-          ]
-        }
+              name: 'Name',
+            },
+          ],
+        };
 
         it('returns replaced array', () => {
-          const expected = ast
-          expect(replace(ast, {})).to.deep.equal(expected)
-        })
-      })
-    })
-  })
-})
+          const expected = ast;
+          expect(replace(ast, {})).to.deep.equal(expected);
+        });
+      });
+    });
+  });
+});

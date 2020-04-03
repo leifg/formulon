@@ -1,327 +1,328 @@
-import * as functions from './functions'
-import { maxNumOfParams, minNumOfParams, paramTypes } from './validations'
-import { handleFormulonError } from './utils.js'
-import { NoFunctionError } from './errors.js'
-
-export const dispatch = (name, args) => {
-  return handleFormulonError(() => {
-    let existingFunction = existingFunctions[name]
-
-    if (existingFunction) {
-      existingFunction.validations.forEach(
-        validateFn => validateFn(name)(args)
-      )
-
-      return functions[`sf$${name}`](...args)
-    }
-
-    throw new NoFunctionError(`Unknown function ${name.toUpperCase()}. Check spelling.`, { function: name })
-  })
-}
+import * as functions from './functions';
+import { maxNumOfParams, minNumOfParams, paramTypes } from './validations';
+import { handleFormulonError } from './utils';
+import NoFunctionError from './errors/NoFunctionError';
 
 const existingFunctions = {
   abs: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   add: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'text', 'date', 'datetime', 'time'], ['number', 'text', 'date', 'datetime', 'time'])],
-    returnType: ['number', 'text', 'date', 'datetime', 'time']
+    returnType: ['number', 'text', 'date', 'datetime', 'time'],
   },
   addmonths: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['date', 'datetime'], ['number'])],
-    returnType: ['date', 'datetime']
+    returnType: ['date', 'datetime'],
   },
   and: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('checkbox', 'checkbox')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   begins: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'text')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   blankvalue: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
-    returnType: ['text', 'number']
+    returnType: ['text', 'number'],
   },
   br: {
     validations: [minNumOfParams(0), maxNumOfParams(0)],
-    returnType: 'text'
+    returnType: 'text',
   },
   case: {
     validations: [minNumOfParams(4), paramTypes(['text', 'number', 'date', 'datetime'])],
-    returnType: ['text', 'number', 'date', 'datetime']
+    returnType: ['text', 'number', 'date', 'datetime'],
   },
   casesafeid: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   ceiling: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   contains: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'text')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   currencyrate: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   date: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('number', 'number', 'number')],
-    returnType: 'date'
+    returnType: 'date',
   },
   datetimevalue: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text', 'date', 'datetime')],
-    returnType: 'datetime'
+    returnType: 'datetime',
   },
   datevalue: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'date', 'datetime'])],
-    returnType: 'date'
+    returnType: 'date',
   },
   day: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('date')],
-    returnType: 'number'
+    returnType: 'number',
   },
   distance: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('geolocation', 'geolocation', 'text')],
-    returnType: 'number'
+    returnType: 'number',
   },
   divide: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   equal: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime'])],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   exp: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   exponentiate: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   find: {
     validations: [minNumOfParams(2), maxNumOfParams(3), paramTypes('text', 'text', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   floor: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   geolocation: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'geolocation'
+    returnType: 'geolocation',
   },
   getsessionid: {
     validations: [minNumOfParams(0), maxNumOfParams(0)],
-    returnType: 'text'
+    returnType: 'text',
   },
   greaterThan: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   greaterThanOrEqual: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   hour: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('datetime')],
-    returnType: 'number'
+    returnType: 'number',
   },
   hyperlink: {
     validations: [minNumOfParams(2), maxNumOfParams(3), paramTypes('text', 'text', 'text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   if: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('checkbox', ['text', 'number', 'date', 'datetime'], ['text', 'number', 'date', 'datetime'])],
-    returnType: ['text', 'number', 'date', 'datetime']
+    returnType: ['text', 'number', 'date', 'datetime'],
   },
   image: {
     validations: [minNumOfParams(2), maxNumOfParams(4), paramTypes('text', 'text', 'number', 'number')],
-    returnType: 'text'
+    returnType: 'text',
   },
   includes: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('multipicklist', 'text')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   isblank: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'number'])],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   isnull: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'number'])],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   ispickval: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('picklist', 'text')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   isnumber: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   left: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'number')],
-    returnType: 'text'
+    returnType: 'text',
   },
   len: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'number'
+    returnType: 'number',
   },
   lessThan: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   lessThanOrEqual: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   ln: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   log: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   lower: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   lpad: {
     validations: [minNumOfParams(2), maxNumOfParams(3), paramTypes('text', 'number', 'text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   max: {
     validations: [minNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   mceiling: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   mfloor: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   mid: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('text', 'number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   millisecond: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('datetime')],
-    returnType: 'number'
+    returnType: 'number',
   },
   min: {
     validations: [minNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   minute: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('datetime')],
-    returnType: 'number'
+    returnType: 'number',
   },
   mod: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   month: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('date')],
-    returnType: 'number'
+    returnType: 'number',
   },
   multiply: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   not: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('checkbox')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   now: {
     validations: [minNumOfParams(0), maxNumOfParams(0)],
-    returnType: 'datetime'
+    returnType: 'datetime',
   },
   nullvalue: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
-    returnType: ['text', 'number']
+    returnType: ['text', 'number'],
   },
   or: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('checkbox')],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   regex: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   right: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'number')],
-    returnType: 'text'
+    returnType: 'text',
   },
   round: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   rpad: {
     validations: [minNumOfParams(2), maxNumOfParams(3), paramTypes('text', 'number', 'text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   second: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('datetime')],
-    returnType: 'number'
+    returnType: 'number',
   },
   sqrt: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('number')],
-    returnType: 'number'
+    returnType: 'number',
   },
   subtract: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time'], ['number', 'date', 'datetime', 'time'])],
-    returnType: ['number', 'date', 'datetime', 'time']
+    returnType: ['number', 'date', 'datetime', 'time'],
   },
   substitute: {
     validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('text', 'text', 'text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   text: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['number', 'date', 'datetime', 'picklist', 'time'])],
-    returnType: 'text'
+    returnType: 'text',
   },
   timenow: {
     validations: [minNumOfParams(0), maxNumOfParams(0)],
-    returnType: 'time'
+    returnType: 'time',
   },
   timevalue: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'time'
+    returnType: 'time',
   },
   today: {
     validations: [minNumOfParams(0), maxNumOfParams(0)],
-    returnType: 'date'
+    returnType: 'date',
   },
   trim: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   unequal: {
     validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
-    returnType: 'checkbox'
+    returnType: 'checkbox',
   },
   upper: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'text'
+    returnType: 'text',
   },
   value: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('text')],
-    returnType: 'number'
+    returnType: 'number',
   },
   weekday: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('date')],
-    returnType: 'number'
+    returnType: 'number',
   },
   year: {
     validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes('date')],
-    returnType: 'number'
+    returnType: 'number',
   },
-}
+};
+
+
+const dispatch = (name, args) => handleFormulonError(() => {
+  const existingFunction = existingFunctions[name];
+
+  if (existingFunction) {
+    existingFunction.validations.forEach(
+      (validateFn) => validateFn(name)(args),
+    );
+
+    return functions[`sf$${name}`](...args);
+  }
+
+  throw new NoFunctionError(`Unknown function ${name.toUpperCase()}. Check spelling.`, { function: name });
+});
+
+export default dispatch;
