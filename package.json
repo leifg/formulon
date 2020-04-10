@@ -8,7 +8,7 @@
     "compile:parser": "pegjs -o ./lib/timeParser.js ./grammars/salesforceTimeDataType.pegjs && pegjs -o ./lib/salesforceParser.js ./grammars/salesforceFormula.pegjs",
     "test": "mocha --require @babel/register --recursive --grep @integration --invert",
     "test:integration": "mocha --require @babel/register --recursive --grep @integration",
-    "lint": "eslint",
+    "lint": "eslint --ignore-path .gitignore .",
     "semantic-release": "semantic-release"
   },
   "repository": {
