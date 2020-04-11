@@ -372,11 +372,11 @@ export const sf$hyperlink = (url, friendlyName, target = null) => {
   return buildLiteralFromJs(`<a href="${url.value}"${targetString}>${friendlyName.value}</a>`);
 };
 
-/* eslint-disable no-unused-vars */
-export const sf$image = (_imageUrl, _alternateText, _height = null, _width = null) => {
-  NotImplementedError.throwError('image');
+export const sf$image = (imageUrl, alternateText, height = null, width = null) => {
+  const heightString = height ? ` height="${height.value}"` : '';
+  const widthString = width ? ` width="${width.value}"` : '';
+  return buildLiteralFromJs(`<img src="${imageUrl.value}" alt="${alternateText.value}"${heightString}${widthString}/>`);
 };
-/* eslint-enable no-unused-vars */
 
 export const sf$includes = (multiselectPicklistField, textLiteral) => (
   buildLiteralFromJs(multiselectPicklistField.value.includes(textLiteral.value))
