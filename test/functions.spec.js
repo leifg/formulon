@@ -856,10 +856,19 @@ describe.skip('getsessionid', () => {
   });
 });
 
-describe.skip('hyperlink', () => {
-  it('returns correct hyperlink', () => {
-    // TODO implement test for sf$hyperlink
-    expect(dispatch('hyperlink', [null, null, null])).to.deep.eq(null);
+describe('hyperlink', () => {
+  context('no target', () => {
+    it('returns correct hyperlink', () => {
+      const expected = '<a href="http://www.bbc.co.uk">BBC News</a>';
+      expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News')])).to.deep.eq(buildLiteralFromJs(expected));
+    });
+  });
+
+  context('target _blank', () => {
+    it('returns correct hyperlink', () => {
+      const expected = '<a href="http://www.bbc.co.uk" target="_blank">BBC News</a>';
+      expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News'), buildLiteralFromJs('_blank')])).to.deep.eq(buildLiteralFromJs(expected));
+    });
   });
 });
 

@@ -365,11 +365,11 @@ export const sf$getsessionid = () => {
   ArgumentError.throwNotImplemeted('getsessionid');
 };
 
-/* eslint-disable no-unused-vars */
-export const sf$hyperlink = (_url, _friendlyName, _target = null) => {
-  ArgumentError.throwNotImplemeted('hyperlink');
+export const sf$hyperlink = (url, friendlyName, target = null) => {
+  const targetString = target ? ` target="${target.value}"` : '';
+
+  return buildLiteralFromJs(`<a href="${url.value}"${targetString}>${friendlyName.value}</a>`);
 };
-/* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$image = (_imageUrl, _alternateText, _height = null, _width = null) => {
