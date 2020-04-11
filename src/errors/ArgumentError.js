@@ -27,7 +27,6 @@ export default class ArgumentError extends FormulonRuntimeError {
     throw new ArgumentError(`Incorrect parameter type for function '${fnName.toUpperCase()}()'. Expected ${capitalize(expected)}, received ${capitalize(receivedStr)}`, options);
   }
 
-
   static throwIncorrectNumberOfArguments(fnName, expected, received) {
     const options = {
       function: fnName,

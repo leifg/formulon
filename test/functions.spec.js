@@ -856,17 +856,40 @@ describe.skip('getsessionid', () => {
   });
 });
 
-describe.skip('hyperlink', () => {
-  it('returns correct hyperlink', () => {
-    // TODO implement test for sf$hyperlink
-    expect(dispatch('hyperlink', [null, null, null])).to.deep.eq(null);
+describe('hyperlink', () => {
+  context('no target', () => {
+    it('returns correct hyperlink', () => {
+      const expected = '<a href="http://www.bbc.co.uk">BBC News</a>';
+      expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News')])).to.deep.eq(buildLiteralFromJs(expected));
+    });
+  });
+
+  context('target _blank', () => {
+    it('returns correct hyperlink', () => {
+      const expected = '<a href="http://www.bbc.co.uk" target="_blank">BBC News</a>';
+      expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News'), buildLiteralFromJs('_blank')])).to.deep.eq(buildLiteralFromJs(expected));
+    });
   });
 });
 
-describe.skip('image', () => {
-  it('returns correct image', () => {
-    // TODO implement test for sf$image
-    expect(dispatch('image', [null, null, null, null])).to.deep.eq(null);
+describe('image', () => {
+  context('no dimensions', () => {
+    it('returns correct image', () => {
+      const expected = '<img src="https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2" alt="Leif Gravatar"/>';
+      expect(dispatch('image', [buildLiteralFromJs('https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2'), buildLiteralFromJs('Leif Gravatar')])).to.deep.eq(buildLiteralFromJs(expected));
+    });
+  });
+
+  context('height and width defined', () => {
+    it('returns correct image', () => {
+      const expected = '<img src="https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2" alt="Leif Gravatar" height="100" width="200"/>';
+      expect(dispatch('image', [
+        buildLiteralFromJs('https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2'),
+        buildLiteralFromJs('Leif Gravatar'),
+        buildLiteralFromJs(100),
+        buildLiteralFromJs(200),
+      ])).to.deep.eq(buildLiteralFromJs(expected));
+    });
   });
 });
 
