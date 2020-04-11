@@ -33,7 +33,7 @@ Check functions.js to see if the function you want to implement already has a st
   ```javascript
   /* eslint-disable no-unused-vars */
   export const sf$<function_name> = (_arguments) => {
-    throwNotImplemeted('<function_name>')
+    NotImplementedError.throwError('<function_name>')
   }
   /* eslint-enable no-unused-vars */
   ```

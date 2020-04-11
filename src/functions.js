@@ -13,6 +13,7 @@ import {
   parseTime,
   sfRound,
 } from './utils';
+import NotImplementedError from './errors/NotImplementedError';
 import ArgumentError from './errors/ArgumentError';
 
 // Essential Functions
@@ -111,7 +112,7 @@ export const sf$and = (logical1, logical2) => buildLiteralFromJs(logical1.value 
 
 /* eslint-disable no-unused-vars */
 export const sf$blankvalue = (_expression, _substituteExpression) => {
-  ArgumentError.throwNotImplemeted('blankvalue');
+  NotImplementedError.throwError('blankvalue');
 };
 /* eslint-enable no-unused-vars */
 
@@ -150,13 +151,13 @@ export const sf$isblank = (text) => buildLiteralFromJs(text.value === '');
 
 /* eslint-disable no-unused-vars */
 export const sf$isnull = (_expression) => {
-  ArgumentError.throwNotImplemeted('isnull');
+  NotImplementedError.throwError('isnull');
 };
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable no-unused-vars */
 export const sf$isnumber = (_text) => {
-  ArgumentError.throwNotImplemeted('isnumber');
+  NotImplementedError.throwError('isnumber');
 };
 /* eslint-enable no-unused-vars */
 
@@ -164,7 +165,7 @@ export const sf$not = (logical) => buildLiteralFromJs(!logical.value);
 
 /* eslint-disable no-unused-vars */
 export const sf$nullvalue = (_expression, _substituteExpression) => {
-  ArgumentError.throwNotImplemeted('nullvalue');
+  NotImplementedError.throwError('nullvalue');
 };
 /* eslint-enable no-unused-vars */
 
@@ -362,7 +363,7 @@ export const sf$find = (searchText, text, startNum = buildLiteralFromJs(1)) => {
 };
 
 export const sf$getsessionid = () => {
-  ArgumentError.throwNotImplemeted('getsessionid');
+  NotImplementedError.throwError('getsessionid');
 };
 
 export const sf$hyperlink = (url, friendlyName, target = null) => {
@@ -373,7 +374,7 @@ export const sf$hyperlink = (url, friendlyName, target = null) => {
 
 /* eslint-disable no-unused-vars */
 export const sf$image = (_imageUrl, _alternateText, _height = null, _width = null) => {
-  ArgumentError.throwNotImplemeted('image');
+  NotImplementedError.throwError('image');
 };
 /* eslint-enable no-unused-vars */
 
@@ -457,7 +458,7 @@ export const sf$value = (text) => {
 
 /* eslint-disable no-unused-vars */
 export const sf$currencyrate = (_isoCode) => {
-  ArgumentError.throwNotImplemeted('currencyrate');
+  NotImplementedError.throwError('currencyrate');
 };
 /* eslint-enable no-unused-vars */
 
