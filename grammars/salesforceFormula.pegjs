@@ -168,7 +168,7 @@ LogicalCompareExpression
         name = "unequal"
         break;
       case "&":
-        name = "concat"
+        name = "add"
         break;
       default:
     }

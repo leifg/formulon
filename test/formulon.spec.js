@@ -80,6 +80,10 @@ describe('Formulon', () => {
         it('returns correct result for single quotes', () => {
           expect(parse("'a' + 'b'")).to.deep.eq(buildLiteralFromJs('ab'));
         });
+
+        it('returns correct result for string concatenation', () => {
+          expect(parse("'a' & 'b'")).to.deep.eq(buildLiteralFromJs('ab'));
+        });
       });
 
       context('coerce inputs', () => {

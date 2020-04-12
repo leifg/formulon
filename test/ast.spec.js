@@ -193,7 +193,7 @@ describe('ast', () => {
       it('string concatenation', () => {
         const expected = {
           type: 'callExpression',
-          id: 'concat',
+          id: 'add',
           arguments: [
             {
               type: 'literal',
