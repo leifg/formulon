@@ -147,7 +147,7 @@ export const sf$if = (logicalTest, valueIfTrue, valueIfFalse) => (
   logicalTest.value ? valueIfTrue : valueIfFalse
 );
 
-export const sf$isblank = (text) => buildLiteralFromJs(text.value === '');
+export const sf$isblank = (expression) => buildLiteralFromJs(expression.dataType === 'null' || expression.value === '');
 
 /* eslint-disable no-unused-vars */
 export const sf$isnull = (_expression) => {
