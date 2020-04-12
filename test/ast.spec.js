@@ -68,7 +68,7 @@ describe('ast', () => {
       });
     });
 
-    context('whitespace characters', () => {
+    context('Whitespace Characters', () => {
       it('parses AST correctly with newlines between operators', () => {
         const expected = {
           type: 'callExpression',
@@ -1172,6 +1172,68 @@ describe('ast', () => {
 
           expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected);
           expect(build('contains("funeral", "fun")')).to.deep.equal(expected);
+        });
+      });
+    });
+
+    context('Quotes', () => {
+      context('Single Quotes', () => {
+        it('returns expected result', () => {
+          const expected = {
+            type: 'literal',
+            value: 'string',
+            dataType: 'text',
+            options: {
+              length: 6,
+            },
+          };
+
+          expect(build('\'string\'')).to.deep.equal(expected);
+        });
+
+        context('Double Quotes in Single Quotes', () => {
+          it('returns expected result', () => {
+            const expected = {
+              type: 'literal',
+              value: '"string"',
+              dataType: 'text',
+              options: {
+                length: 8,
+              },
+            };
+
+            expect(build('\'"string"\'')).to.deep.equal(expected);
+          });
+        });
+      });
+
+      context('Double Quotes', () => {
+        it('returns expected result', () => {
+          const expected = {
+            type: 'literal',
+            value: 'string',
+            dataType: 'text',
+            options: {
+              length: 6,
+            },
+          };
+
+          expect(build('"string"')).to.deep.equal(expected);
+        });
+
+        context('Single Quotes in Double Quotes', () => {
+          it('returns expected result', () => {
+            const expected = {
+              type: 'literal',
+              value: '\'string\'',
+              dataType: 'text',
+              options: {
+                length: 8,
+              },
+            };
+
+            expect(build('"\'string\'"')).to.deep.equal(expected);
+          });
         });
       });
     });

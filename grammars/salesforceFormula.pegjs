@@ -27,6 +27,17 @@
     }
   }
 
+  function stringLiteral(chars) {
+      return {
+        type: "literal",
+        value: chars.join(""),
+        dataType: "text",
+        options: {
+          length: chars.length
+        }
+      };
+  }
+
   function optionalList(value) {
     return value !== null ? value[0] : [];
   }
@@ -253,16 +264,8 @@ Literal
   / NullLiteral
 
 StringLiteral
-  = Quote chars:Character* Quote {
-      return {
-        type: "literal",
-        value: chars.join(""),
-        dataType: "text",
-        options: {
-          length: chars.length
-        }
-      };
-    }
+  = SingleQuote chars:(Character / DoubleQuote)* SingleQuote { return stringLiteral(chars); }
+  / DoubleQuote chars:(Character / SingleQuote)* DoubleQuote { return stringLiteral(chars); }
 
 NumericLiteral
   = DecimalLiteral
