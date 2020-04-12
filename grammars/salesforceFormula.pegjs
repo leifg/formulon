@@ -363,4 +363,5 @@ WhiteSpace
   / "\f"
   / " "
   / "\u00A0"
+  / "\u200b"
   / "\uFEFF"

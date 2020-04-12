@@ -68,7 +68,7 @@ describe('ast', () => {
       });
     });
 
-    context('newlines', () => {
+    context('whitespace characters', () => {
       it('parses AST correctly with newlines between operators', () => {
         const expected = {
           type: 'callExpression',
@@ -131,7 +131,35 @@ describe('ast', () => {
             },
           ],
         };
-        expect(build('MAX(1,\n2,\n3)')).to.deep.equal(expected);
+        expect(build('MAX(1\n,2\n,3\n)')).to.deep.equal(expected);
+      });
+
+      it('parses AST correctly with zero space whitespaces', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'add',
+          arguments: [
+            {
+              type: 'literal',
+              value: 1,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('1+\u200b2')).to.deep.equal(expected);
       });
     });
 
