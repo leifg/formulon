@@ -3,6 +3,9 @@
   "version": "0.0.0-development",
   "description": "Salesforce Formula Parser",
   "main": "lib/formulon.js",
+  "engines": {
+    "node" : ">=11.0.0"
+  },
   "scripts": {
     "build": "yarn compile:parser && babel src --out-dir lib",
     "compile:parser": "pegjs -o ./lib/timeParser.js ./grammars/salesforceTimeDataType.pegjs && pegjs -o ./lib/salesforceParser.js ./grammars/salesforceFormula.pegjs",
