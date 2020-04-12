@@ -57,10 +57,10 @@ const geolocationFormat = (latitude, longitude) => {
 export const buildLiteralFromJs = (input) => {
   const base = { type: 'literal', value: input };
 
-  if (input === null) {
+  if (input === null || input === undefined) {
     return Object.assign(
       base,
-      { dataType: 'null', options: {} },
+      { value: null, dataType: 'null', options: {} },
     );
   }
 

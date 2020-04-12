@@ -161,6 +161,18 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
+  context('Undefined', () => {
+    it('returns expected Literal', () => {
+      const expected = {
+        type: 'literal',
+        value: null,
+        dataType: 'null',
+        options: {},
+      };
+      expect(buildLiteralFromJs(undefined)).to.deep.eq(expected);
+    });
+  });
+
   context('unsupported type', () => {
     it('throws TypeError', () => {
       const fn = () => { buildLiteralFromJs({}); };

@@ -278,16 +278,48 @@ describe('if', () => {
 });
 
 describe('isblank', () => {
-  it('returns true if value is an empty string', () => {
-    expect(dispatch('isblank', [buildLiteralFromJs('')])).to.deep.eq(buildLiteralFromJs(true));
+  context('null/undefined', () => {
+    it('returns true if value is null', () => {
+      expect(dispatch('isblank', [buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('returns false if value is undefined', () => {
+      expect(dispatch('isblank', [buildLiteralFromJs(undefined)])).to.deep.eq(buildLiteralFromJs(true));
+    });
   });
 
-  it('returns false if value is 0', () => {
-    expect(dispatch('isblank', [buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
+  context('Text', () => {
+    it('returns true if value is an empty string', () => {
+      expect(dispatch('isblank', [buildLiteralFromJs('')])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('returns false if value is space', () => {
+      expect(dispatch('isblank', [buildLiteralFromJs(' ')])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 
-  it('returns false if value is space', () => {
-    expect(dispatch('isblank', [buildLiteralFromJs(' ')])).to.deep.eq(buildLiteralFromJs(false));
+  context('Number', () => {
+    it('returns false if value is 0', () => {
+      expect(dispatch('isblank', [buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Date', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isblank', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Datetime', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isblank', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Geolocation', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isblank', [buildGeolocationLiteral(51.5105474, -0.1358797)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 });
 
@@ -470,6 +502,14 @@ describe('add', () => {
   context('Date, Date', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'ADD()'. Expected Number, received Date", { function: 'add', expected: 'number', received: 'date' }));
+    });
+  });
+});
+
+describe('concat operator', () => {
+  context('Text, Text', () => {
+    it('concats correctly', () => {
+      expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'));
     });
   });
 });
