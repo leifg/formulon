@@ -331,7 +331,7 @@ NullLiteral
   }
 
 Character
-  = !(Quote / "\\" / LineTerminator) SourceCharacter { return text(); }
+  = !(Quote / "\\") SourceCharacter { return text(); }
 
 Quote
  = SingleQuote
@@ -358,7 +358,7 @@ __
 
 WhiteSpace
   = "\t"
-  / "\n"
+  / LineTerminator
   / "\v"
   / "\f"
   / " "
