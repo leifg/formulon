@@ -66,8 +66,10 @@ describe('ast', () => {
         };
         expect(build('CEILING (1.9 )')).to.deep.equal(expected);
       });
+    });
 
-      it('parses AST correctly with newlines', () => {
+    context('newlines', () => {
+      it('parses AST correctly with newlines between operators', () => {
         const expected = {
           type: 'callExpression',
           id: 'add',
@@ -93,6 +95,43 @@ describe('ast', () => {
           ],
         };
         expect(build('1 + \n2')).to.deep.equal(expected);
+      });
+
+      it('parses AST correctly with newlines in function call', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'max',
+          arguments: [
+            {
+              type: 'literal',
+              value: 1,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 3,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('MAX(1,\n2,\n3)')).to.deep.equal(expected);
       });
     });
 
