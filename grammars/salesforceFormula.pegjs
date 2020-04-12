@@ -251,10 +251,12 @@ IdentifierName
 
 IdentifierStart
   = "_"
+  / "$"
   / [A-Za-z]
 
 IdentifierPart
   = IdentifierStart
+  / '.'
   / DecimalDigit
 
 Literal

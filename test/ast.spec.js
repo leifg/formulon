@@ -858,12 +858,32 @@ describe('ast', () => {
     });
 
     context('Identifiers', () => {
-      it('identifier', () => {
+      it('returns correct result', () => {
         const expected = {
           type: 'identifier',
           name: 'Name',
         };
         expect(build('Name')).to.deep.equal(expected);
+      });
+
+      context('Cross Object Identifier', () => {
+        it('returns correct result', () => {
+          const expected = {
+            type: 'identifier',
+            name: 'Account.Name',
+          };
+          expect(build('Account.Name')).to.deep.equal(expected);
+        });
+      });
+
+      context('User Identifier', () => {
+        it('returns correct result', () => {
+          const expected = {
+            type: 'identifier',
+            name: '$User.Commission_Percent__c',
+          };
+          expect(build('$User.Commission_Percent__c')).to.deep.equal(expected);
+        });
       });
     });
 
