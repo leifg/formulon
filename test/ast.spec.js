@@ -66,8 +66,10 @@ describe('ast', () => {
         };
         expect(build('CEILING (1.9 )')).to.deep.equal(expected);
       });
+    });
 
-      it('parses AST correctly with newlines', () => {
+    context('Whitespace Characters', () => {
+      it('parses AST correctly with newlines between operators', () => {
         const expected = {
           type: 'callExpression',
           id: 'add',
@@ -93,6 +95,71 @@ describe('ast', () => {
           ],
         };
         expect(build('1 + \n2')).to.deep.equal(expected);
+      });
+
+      it('parses AST correctly with newlines in function call', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'max',
+          arguments: [
+            {
+              type: 'literal',
+              value: 1,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 3,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('MAX(1\n,2\n,3\n)')).to.deep.equal(expected);
+      });
+
+      it('parses AST correctly with zero space whitespaces', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'add',
+          arguments: [
+            {
+              type: 'literal',
+              value: 1,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+            {
+              type: 'literal',
+              value: 2,
+              dataType: 'number',
+              options: {
+                length: 1,
+                scale: 0,
+              },
+            },
+          ],
+        };
+        expect(build('1+\u200b2')).to.deep.equal(expected);
       });
     });
 
@@ -791,12 +858,32 @@ describe('ast', () => {
     });
 
     context('Identifiers', () => {
-      it('identifier', () => {
+      it('returns correct result', () => {
         const expected = {
           type: 'identifier',
           name: 'Name',
         };
         expect(build('Name')).to.deep.equal(expected);
+      });
+
+      context('Cross Object Identifier', () => {
+        it('returns correct result', () => {
+          const expected = {
+            type: 'identifier',
+            name: 'Account.Name',
+          };
+          expect(build('Account.Name')).to.deep.equal(expected);
+        });
+      });
+
+      context('User Identifier', () => {
+        it('returns correct result', () => {
+          const expected = {
+            type: 'identifier',
+            name: '$User.Commission_Percent__c',
+          };
+          expect(build('$User.Commission_Percent__c')).to.deep.equal(expected);
+        });
       });
     });
 
@@ -1105,6 +1192,68 @@ describe('ast', () => {
 
           expect(build('CONTAINS("funeral", "fun")')).to.deep.equal(expected);
           expect(build('contains("funeral", "fun")')).to.deep.equal(expected);
+        });
+      });
+    });
+
+    context('Quotes', () => {
+      context('Single Quotes', () => {
+        it('returns expected result', () => {
+          const expected = {
+            type: 'literal',
+            value: 'string',
+            dataType: 'text',
+            options: {
+              length: 6,
+            },
+          };
+
+          expect(build('\'string\'')).to.deep.equal(expected);
+        });
+
+        context('Double Quotes in Single Quotes', () => {
+          it('returns expected result', () => {
+            const expected = {
+              type: 'literal',
+              value: '"string"',
+              dataType: 'text',
+              options: {
+                length: 8,
+              },
+            };
+
+            expect(build('\'"string"\'')).to.deep.equal(expected);
+          });
+        });
+      });
+
+      context('Double Quotes', () => {
+        it('returns expected result', () => {
+          const expected = {
+            type: 'literal',
+            value: 'string',
+            dataType: 'text',
+            options: {
+              length: 6,
+            },
+          };
+
+          expect(build('"string"')).to.deep.equal(expected);
+        });
+
+        context('Single Quotes in Double Quotes', () => {
+          it('returns expected result', () => {
+            const expected = {
+              type: 'literal',
+              value: '\'string\'',
+              dataType: 'text',
+              options: {
+                length: 8,
+              },
+            };
+
+            expect(build('"\'string\'"')).to.deep.equal(expected);
+          });
         });
       });
     });

@@ -27,6 +27,17 @@
     }
   }
 
+  function stringLiteral(chars) {
+      return {
+        type: "literal",
+        value: chars.join(""),
+        dataType: "text",
+        options: {
+          length: chars.length
+        }
+      };
+  }
+
   function optionalList(value) {
     return value !== null ? value[0] : [];
   }
@@ -240,10 +251,12 @@ IdentifierName
 
 IdentifierStart
   = "_"
+  / "$"
   / [A-Za-z]
 
 IdentifierPart
   = IdentifierStart
+  / '.'
   / DecimalDigit
 
 Literal
@@ -253,16 +266,8 @@ Literal
   / NullLiteral
 
 StringLiteral
-  = Quote chars:Character* Quote {
-      return {
-        type: "literal",
-        value: chars.join(""),
-        dataType: "text",
-        options: {
-          length: chars.length
-        }
-      };
-    }
+  = SingleQuote chars:(Character / DoubleQuote)* SingleQuote { return stringLiteral(chars); }
+  / DoubleQuote chars:(Character / SingleQuote)* DoubleQuote { return stringLiteral(chars); }
 
 NumericLiteral
   = DecimalLiteral
@@ -331,7 +336,7 @@ NullLiteral
   }
 
 Character
-  = !(Quote / "\\" / LineTerminator) SourceCharacter { return text(); }
+  = !(Quote / "\\") SourceCharacter { return text(); }
 
 Quote
  = SingleQuote
@@ -358,9 +363,10 @@ __
 
 WhiteSpace
   = "\t"
-  / "\n"
+  / LineTerminator
   / "\v"
   / "\f"
   / " "
   / "\u00A0"
+  / "\u200b"
   / "\uFEFF"
