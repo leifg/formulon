@@ -12,7 +12,9 @@
             "StageName": {
               "dataType": "picklist",
               "value": "Closed Won",
-              "values": ["Closed Won", "Closed Lost"]
+              "options": {
+                "values": ["Closed Won", "Closed Lost"]
+              }
             },
             "Amount": {
               "dataType": "number",
@@ -30,7 +32,9 @@
             "StageName": {
               "dataType": "picklist",
               "value": "Closed Lost",
-              "values": ["Closed Won", "Closed Lost"]
+              "options": {
+                "values": ["Closed Won", "Closed Lost"]
+              }
             },
             "Amount": {
               "dataType": "number",
