@@ -6,6 +6,7 @@ import accountMediaService from './02_account_media_service.json';
 import caseManagement from './03_case_management.json';
 import commissionCalculations from './04_commission_calculations.json';
 import contactManagement from './05_contact_management.json';
+import dataCategorization from './06_data_categorization.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -38,6 +39,7 @@ const coerceIdentifiers = (identifiers) => {
   caseManagement,
   commissionCalculations,
   contactManagement,
+  dataCategorization,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
