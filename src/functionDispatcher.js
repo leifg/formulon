@@ -1,5 +1,10 @@
 import * as functions from './functions';
-import { maxNumOfParams, minNumOfParams, paramTypes } from './validations';
+import {
+  maxNumOfParams,
+  minNumOfParams,
+  paramTypes,
+  sameParamType,
+} from './validations';
 import { handleFormulonError } from './utils';
 import NoFunctionError from './errors/NoFunctionError';
 
@@ -77,7 +82,7 @@ const existingFunctions = {
     returnType: 'number',
   },
   equal: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime'])],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime', 'checkbox']), sameParamType()],
     returnType: 'checkbox',
   },
   exp: {
@@ -105,11 +110,11 @@ const existingFunctions = {
     returnType: 'text',
   },
   greaterThan: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
     returnType: 'checkbox',
   },
   greaterThanOrEqual: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime'])],
     returnType: 'checkbox',
   },
   hour: {
@@ -157,11 +162,11 @@ const existingFunctions = {
     returnType: 'number',
   },
   lessThan: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
     returnType: 'checkbox',
   },
   lessThanOrEqual: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('number', 'number')],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
     returnType: 'checkbox',
   },
   ln: {
@@ -289,7 +294,7 @@ const existingFunctions = {
     returnType: 'text',
   },
   unequal: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime', 'checkbox']), sameParamType()],
     returnType: 'checkbox',
   },
   upper: {

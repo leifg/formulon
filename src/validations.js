@@ -33,3 +33,14 @@ export const paramTypes = (...paramTypeList) => (fnName) => (params) => {
     }
   });
 };
+
+export const sameParamType = () => (fnName) => (params) => {
+  if (params.length > 0) {
+    params.reduce((acc, current) => {
+      if (acc.dataType !== current.dataType) {
+        ArgumentError.throwWrongType(fnName, acc.dataType, current.dataType);
+      }
+      return current;
+    });
+  }
+};

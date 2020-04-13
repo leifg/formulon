@@ -3,7 +3,12 @@
 
 import { expect } from 'chai';
 import { buildLiteralFromJs } from '../lib/utils';
-import { maxNumOfParams, minNumOfParams, paramTypes } from '../lib/validations';
+import {
+  maxNumOfParams,
+  minNumOfParams,
+  paramTypes,
+  sameParamType,
+} from '../lib/validations';
 import ArgumentError from '../lib/errors/ArgumentError';
 
 
@@ -157,6 +162,36 @@ describe('paramTypes', () => {
           expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'MAX()'. Expected Number, received Text");
         });
       });
+    });
+  });
+});
+
+describe('sameParamType', () => {
+  context('same param type', () => {
+    it('does not throw an error', () => {
+      const params = [buildLiteralFromJs(1), buildLiteralFromJs(2), buildLiteralFromJs(3)];
+      const fn = () => sameParamType()('equal')(params);
+      expect(fn()).to.eq(undefined);
+    });
+
+    context('only one param', () => {
+      const params = [buildLiteralFromJs(1)];
+      const fn = () => sameParamType()('equal')(params);
+      expect(fn()).to.eq(undefined);
+    });
+
+    context('no param', () => {
+      const params = [];
+      const fn = () => sameParamType()('br')(params);
+      expect(fn()).to.eq(undefined);
+    });
+  });
+
+  context('different param type', () => {
+    it('throws an ArgumentError', () => {
+      const params = [buildLiteralFromJs(1), buildLiteralFromJs(2), buildLiteralFromJs('3')];
+      const fn = () => sameParamType()('equal')(params);
+      expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'EQUAL()'. Expected Number, received Text");
     });
   });
 });
