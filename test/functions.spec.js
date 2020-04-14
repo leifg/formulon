@@ -190,20 +190,46 @@ describe('year', () => {
 // Logical Functions
 
 describe('and', () => {
-  it('both true', () => {
-    expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+  context('1 argument', () => {
+    it('true', () => {
+      expect(dispatch('and', [buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('false', () => {
+      expect(dispatch('and', [buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 
-  it('false and true', () => {
-    expect(dispatch('and', [buildLiteralFromJs(false), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(false));
+  context('2 arguments', () => {
+    it('both true', () => {
+      expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('false and true', () => {
+      expect(dispatch('and', [buildLiteralFromJs(false), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('true and false', () => {
+      expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('both false', () => {
+      expect(dispatch('and', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 
-  it('true and false', () => {
-    expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
-  });
+  context('3 arguments', () => {
+    it('all true', () => {
+      expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
 
-  it('both false', () => {
-    expect(dispatch('and', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    it('last one false', () => {
+      expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('all false', () => {
+      expect(dispatch('and', [buildLiteralFromJs(false), buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 });
 
@@ -348,20 +374,46 @@ describe('not', () => {
 });
 
 describe('or', () => {
-  it('both true', () => {
-    expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+  context('1 argument', () => {
+    it('true', () => {
+      expect(dispatch('or', [buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('false', () => {
+      expect(dispatch('or', [buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 
-  it('false and true', () => {
-    expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+  context('2 arguments', () => {
+    it('both true', () => {
+      expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('false and true', () => {
+      expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('true and false', () => {
+      expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('both false', () => {
+      expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 
-  it('true and false', () => {
-    expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(true));
-  });
+  context('3 arguments', () => {
+    it('all true', () => {
+      expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
 
-  it('both false', () => {
-    expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    it('last one true', () => {
+      expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(false), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('all false', () => {
+      expect(dispatch('or', [buildLiteralFromJs(false), buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
+    });
   });
 });
 
