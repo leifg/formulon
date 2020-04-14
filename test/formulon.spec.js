@@ -242,6 +242,20 @@ describe('Formulon', () => {
           expect(parse('IF(FALSE)', {})).to.deep.eq(expected);
         });
       });
+
+      context('runtime error in inner call', () => {
+        it('exposes the inner error', () => {
+          const expected = {
+            type: 'error',
+            errorType: 'ArgumentError',
+            message: "Incorrect number of parameters for function 'CASE()'. Expected 4, received 1",
+            function: 'case',
+            expected: 4,
+            received: 1,
+          };
+          expect(parse('AND(CASE(1), TRUE)', {})).to.deep.eq(expected);
+        });
+      });
     });
   });
 
