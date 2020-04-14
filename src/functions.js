@@ -18,9 +18,13 @@ import ArgumentError from './errors/ArgumentError';
 
 // Essential Functions
 
-export const sf$or = (logical1, logical2) => (
-  buildLiteralFromJs(logical1.value || logical2.value)
-);
+export const sf$or = (...booleans) => {
+  const result = booleans
+    .map((boolean) => boolean.value)
+    .reduce((previous, current) => previous || current);
+
+  return buildLiteralFromJs(result);
+};
 
 export const sf$equal = (value1, value2) => {
   switch (value1.dataType) {
@@ -112,7 +116,13 @@ export const sf$year = (date) => buildLiteralFromJs(date.value.getUTCFullYear())
 
 // Logical Functions
 
-export const sf$and = (logical1, logical2) => buildLiteralFromJs(logical1.value && logical2.value);
+export const sf$and = (...booleans) => {
+  const result = booleans
+    .map((boolean) => boolean.value)
+    .reduce((previous, current) => previous && current);
+
+  return buildLiteralFromJs(result);
+};
 
 /* eslint-disable no-unused-vars */
 export const sf$blankvalue = (_expression, _substituteExpression) => {

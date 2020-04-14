@@ -22,7 +22,7 @@ const existingFunctions = {
     returnType: ['date', 'datetime'],
   },
   and: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('checkbox', 'checkbox')],
+    validations: [minNumOfParams(1), paramTypes('checkbox')],
     returnType: 'checkbox',
   },
   begins: {
@@ -238,7 +238,7 @@ const existingFunctions = {
     returnType: ['text', 'number'],
   },
   or: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes('checkbox')],
+    validations: [minNumOfParams(1), paramTypes('checkbox')],
     returnType: 'checkbox',
   },
   regex: {
@@ -317,6 +317,12 @@ const existingFunctions = {
 
 
 const dispatch = (name, args) => handleFormulonError(() => {
+  const runTimeError = args.find((arg) => arg.type === 'error');
+
+  if (runTimeError) {
+    return runTimeError;
+  }
+
   const existingFunction = existingFunctions[name];
 
   if (existingFunction) {
