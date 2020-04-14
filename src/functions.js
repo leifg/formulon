@@ -22,13 +22,17 @@ export const sf$or = (logical1, logical2) => (
   buildLiteralFromJs(logical1.value || logical2.value)
 );
 
-export const sf$equal = (value1, value2) => (
-  buildLiteralFromJs(value1.value === value2.value)
-);
+export const sf$equal = (value1, value2) => {
+  switch (value1.dataType) {
+    case 'date':
+    case 'datetime':
+      return buildLiteralFromJs(value1.value.getTime() === value2.value.getTime());
+    default:
+      return buildLiteralFromJs(value1.value === value2.value);
+  }
+};
 
-export const sf$unequal = (value1, value2) => (
-  buildLiteralFromJs(value1.value !== value2.value)
-);
+export const sf$unequal = (value1, value2) => buildLiteralFromJs(!sf$equal(value1, value2).value);
 
 export const sf$greaterThan = (value1, value2) => (
   buildLiteralFromJs(value1.value > value2.value)
