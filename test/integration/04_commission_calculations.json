@@ -1,5 +1,5 @@
 {
-  "name": "Commission Calculations",
+  "name": "Commission Calculations Formulas",
   "link": "https://help.salesforce.com/articleView?id=useful_advanced_formulas_commission.htm",
   "examples": [
     {
@@ -12,7 +12,9 @@
             "StageName": {
               "dataType": "picklist",
               "value": "Closed Won",
-              "values": ["Closed Won", "Closed Lost"]
+              "options": {
+                "values": ["Closed Won", "Closed Lost"]
+              }
             },
             "Amount": {
               "dataType": "number",
@@ -30,7 +32,9 @@
             "StageName": {
               "dataType": "picklist",
               "value": "Closed Lost",
-              "values": ["Closed Won", "Closed Lost"]
+              "options": {
+                "values": ["Closed Won", "Closed Lost"]
+              }
             },
             "Amount": {
               "dataType": "number",

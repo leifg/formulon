@@ -5,6 +5,9 @@ import accountManagement from './01_account_management.json';
 import accountMediaService from './02_account_media_service.json';
 import caseManagement from './03_case_management.json';
 import commissionCalculations from './04_commission_calculations.json';
+import contactManagement from './05_contact_management.json';
+import dataCategorization from './06_data_categorization.json';
+import date from './07_date.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -12,7 +15,7 @@ import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../.
 const coerceLiteral = (literal) => {
   switch (literal.dataType) {
     case 'date':
-      return buildDateLiteral(literal.value);
+      return buildDateLiteral(new Date(Date.parse(`${literal.value}T00:00:00Z`)));
     case 'datetime':
       return buildDatetimeLiteral(Date.parse(literal.value));
     case 'picklist':
@@ -36,6 +39,9 @@ const coerceIdentifiers = (identifiers) => {
   accountMediaService,
   caseManagement,
   commissionCalculations,
+  contactManagement,
+  dataCategorization,
+  date,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
