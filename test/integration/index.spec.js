@@ -9,6 +9,7 @@ import contactManagement from './05_contact_management.json';
 import dataCategorization from './06_data_categorization.json';
 import date from './07_date.json';
 import discounting from './08_discounting.json';
+import employeeServices from './09_employee_services.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -44,6 +45,7 @@ const coerceIdentifiers = (identifiers) => {
   dataCategorization,
   date,
   discounting,
+  employeeServices,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
