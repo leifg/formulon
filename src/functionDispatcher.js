@@ -38,7 +38,7 @@ const existingFunctions = {
     returnType: 'text',
   },
   case: {
-    validations: [minNumOfParams(4), paramTypes(['text', 'number', 'date', 'datetime'])],
+    validations: [minNumOfParams(4), paramTypes(['text', 'number', 'picklist', 'date', 'datetime'])],
     returnType: ['text', 'number', 'date', 'datetime'],
   },
   casesafeid: {

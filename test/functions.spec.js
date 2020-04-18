@@ -241,56 +241,110 @@ describe.skip('blankvalue', () => {
 });
 
 describe('case', () => {
-  const validFn = (input) => dispatch('case', [
-    buildLiteralFromJs(input),
-    buildLiteralFromJs(1), buildLiteralFromJs('January'),
-    buildLiteralFromJs(2), buildLiteralFromJs('February'),
-    buildLiteralFromJs(3), buildLiteralFromJs('March'),
-    buildLiteralFromJs(4), buildLiteralFromJs('April'),
-    buildLiteralFromJs(5), buildLiteralFromJs('May'),
-    buildLiteralFromJs(6), buildLiteralFromJs('June'),
-    buildLiteralFromJs(7), buildLiteralFromJs('July'),
-    buildLiteralFromJs(8), buildLiteralFromJs('August'),
-    buildLiteralFromJs(9), buildLiteralFromJs('September'),
-    buildLiteralFromJs(10), buildLiteralFromJs('October'),
-    buildLiteralFromJs(11), buildLiteralFromJs('November'),
-    buildLiteralFromJs(12), buildLiteralFromJs('December'),
-    buildLiteralFromJs('None'),
-  ]);
+  context('Number', () => {
+    const validFn = (input) => dispatch('case', [
+      buildLiteralFromJs(input),
+      buildLiteralFromJs(1), buildLiteralFromJs('January'),
+      buildLiteralFromJs(2), buildLiteralFromJs('February'),
+      buildLiteralFromJs(3), buildLiteralFromJs('March'),
+      buildLiteralFromJs(4), buildLiteralFromJs('April'),
+      buildLiteralFromJs(5), buildLiteralFromJs('May'),
+      buildLiteralFromJs(6), buildLiteralFromJs('June'),
+      buildLiteralFromJs(7), buildLiteralFromJs('July'),
+      buildLiteralFromJs(8), buildLiteralFromJs('August'),
+      buildLiteralFromJs(9), buildLiteralFromJs('September'),
+      buildLiteralFromJs(10), buildLiteralFromJs('October'),
+      buildLiteralFromJs(11), buildLiteralFromJs('November'),
+      buildLiteralFromJs(12), buildLiteralFromJs('December'),
+      buildLiteralFromJs('None'),
+    ]);
 
-  // No else value
-  const invalidFn1 = (input) => dispatch('case', [
-    buildLiteralFromJs(input),
-    buildLiteralFromJs(1), buildLiteralFromJs('January'),
-    buildLiteralFromJs(2), buildLiteralFromJs('February'),
-    buildLiteralFromJs(3), buildLiteralFromJs('March'),
-    buildLiteralFromJs(4), buildLiteralFromJs('April'),
-    buildLiteralFromJs(5), buildLiteralFromJs('May'),
-    buildLiteralFromJs(6), buildLiteralFromJs('June'),
-    buildLiteralFromJs(7), buildLiteralFromJs('July'),
-    buildLiteralFromJs(8), buildLiteralFromJs('August'),
-    buildLiteralFromJs(9), buildLiteralFromJs('September'),
-    buildLiteralFromJs(10), buildLiteralFromJs('October'),
-    buildLiteralFromJs(11), buildLiteralFromJs('November'),
-    buildLiteralFromJs(12), buildLiteralFromJs('December'),
-  ]);
+    it('value found', () => {
+      expect(validFn(5)).to.deep.eq(buildLiteralFromJs('May'));
+    });
 
-  const invalidFn2 = (input) => dispatch('case', [buildLiteralFromJs(input), buildLiteralFromJs(1)]);
-
-  it('value found', () => {
-    expect(validFn(5)).to.deep.eq(buildLiteralFromJs('May'));
+    it('value not found', () => {
+      expect(validFn(13)).to.deep.eq(buildLiteralFromJs('None'));
+    });
   });
 
-  it('value not found', () => {
-    expect(validFn(13)).to.deep.eq(buildLiteralFromJs('None'));
+  context('Text', () => {
+    const validFn = (input) => dispatch('case', [
+      buildLiteralFromJs(input),
+      buildLiteralFromJs('Jan'), buildLiteralFromJs('January'),
+      buildLiteralFromJs('Feb'), buildLiteralFromJs('February'),
+      buildLiteralFromJs('Mar'), buildLiteralFromJs('March'),
+      buildLiteralFromJs('Apr'), buildLiteralFromJs('April'),
+      buildLiteralFromJs('May'), buildLiteralFromJs('May'),
+      buildLiteralFromJs('Jun'), buildLiteralFromJs('June'),
+      buildLiteralFromJs('Jul'), buildLiteralFromJs('July'),
+      buildLiteralFromJs('Aug'), buildLiteralFromJs('August'),
+      buildLiteralFromJs('Sep'), buildLiteralFromJs('September'),
+      buildLiteralFromJs('Oct'), buildLiteralFromJs('October'),
+      buildLiteralFromJs('Nov'), buildLiteralFromJs('November'),
+      buildLiteralFromJs('Dec'), buildLiteralFromJs('December'),
+      buildLiteralFromJs('None'),
+    ]);
+
+    it('value found', () => {
+      expect(validFn('Jan')).to.deep.eq(buildLiteralFromJs('January'));
+    });
+
+    it('value not found', () => {
+      expect(validFn('Mon')).to.deep.eq(buildLiteralFromJs('None'));
+    });
   });
 
-  it('incorrect number of arguments', () => {
-    expect(invalidFn1(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25", { function: 'case', expected: 24, received: 25 }));
+  context('Picklist', () => {
+    const picklistActive = buildPicklistLiteral('Active', ['Active', 'Inactive']);
+    const picklistInBox = buildPicklistLiteral('In a Box', ['Active', 'Inactive', 'In a Box']);
+
+    const fn = (input) => dispatch('case', [
+      input,
+      buildLiteralFromJs('Active'), buildLiteralFromJs('Alive'),
+      buildLiteralFromJs('Inactive'), buildLiteralFromJs('Dead'),
+      buildLiteralFromJs('Schrödinger'),
+    ]);
+
+    it('value found', () => {
+      expect(fn(picklistActive)).to.deep.eq(buildLiteralFromJs('Alive'));
+    });
+
+    it('value not found', () => {
+      expect(fn(picklistInBox)).to.deep.eq(buildLiteralFromJs('Schrödinger'));
+    });
   });
 
-  it('only 2 arguments', () => {
-    expect(invalidFn2(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 4, received 2", { function: 'case', expected: 4, received: 2 }));
+  context('invalid inputs', () => {
+    context('incorrect numbe of arguments', () => {
+      // too little arguments
+      const invalidFn1 = (input) => dispatch('case', [buildLiteralFromJs(input), buildLiteralFromJs(1)]);
+
+      // No else value
+      const invalidFn2 = (input) => dispatch('case', [
+        buildLiteralFromJs(input),
+        buildLiteralFromJs(1), buildLiteralFromJs('January'),
+        buildLiteralFromJs(2), buildLiteralFromJs('February'),
+        buildLiteralFromJs(3), buildLiteralFromJs('March'),
+        buildLiteralFromJs(4), buildLiteralFromJs('April'),
+        buildLiteralFromJs(5), buildLiteralFromJs('May'),
+        buildLiteralFromJs(6), buildLiteralFromJs('June'),
+        buildLiteralFromJs(7), buildLiteralFromJs('July'),
+        buildLiteralFromJs(8), buildLiteralFromJs('August'),
+        buildLiteralFromJs(9), buildLiteralFromJs('September'),
+        buildLiteralFromJs(10), buildLiteralFromJs('October'),
+        buildLiteralFromJs(11), buildLiteralFromJs('November'),
+        buildLiteralFromJs(12), buildLiteralFromJs('December'),
+      ]);
+
+      it('returns erroor for too few arguments', () => {
+        expect(invalidFn1(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 4, received 2", { function: 'case', expected: 4, received: 2 }));
+      });
+
+      it('returns error for no else case', () => {
+        expect(invalidFn2(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25", { function: 'case', expected: 24, received: 25 }));
+      });
+    });
   });
 });
 
