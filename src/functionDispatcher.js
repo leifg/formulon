@@ -1,5 +1,6 @@
 import * as functions from './functions';
 import {
+  caseParams,
   maxNumOfParams,
   minNumOfParams,
   paramTypes,
@@ -38,7 +39,7 @@ const existingFunctions = {
     returnType: 'text',
   },
   case: {
-    validations: [minNumOfParams(4), paramTypes(['text', 'number', 'picklist', 'date', 'datetime'])],
+    validations: [minNumOfParams(4), paramTypes(['text', 'number', 'picklist', 'date', 'datetime']), caseParams()],
     returnType: ['text', 'number', 'date', 'datetime'],
   },
   casesafeid: {

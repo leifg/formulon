@@ -345,6 +345,19 @@ describe('case', () => {
         expect(invalidFn2(5)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect number of parameters for function 'CASE()'. Expected 24, received 25", { function: 'case', expected: 24, received: 25 }));
       });
     });
+
+    context('mixed types', () => {
+      const invalidFn = (input) => dispatch('case', [
+        buildLiteralFromJs(input),
+        buildLiteralFromJs(1), buildLiteralFromJs('January'),
+        buildLiteralFromJs('2'), buildLiteralFromJs('February'),
+        buildLiteralFromJs('None'),
+      ]);
+
+      it('returns error for mixed returns', () => {
+        expect(invalidFn(1)).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'CASE()'. Expected Number, received Text", { function: 'case', expected: 'number', received: 'text' }));
+      });
+    });
   });
 });
 
