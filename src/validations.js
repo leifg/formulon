@@ -44,3 +44,18 @@ export const sameParamType = () => (fnName) => (params) => {
     });
   }
 };
+
+// special validation, to assure that all cases in a CASE statement match the input data type
+export const caseParams = () => (fnName) => (params) => {
+  const expectedType = params[0].dataType === 'picklist' ? 'text' : params[0].dataType;
+
+  const cases = params.filter((_elem, index) => (
+    index % 2 === 1 && index !== (params.length - 1)
+  ));
+
+  const differentCase = cases.find((elem) => elem.dataType !== expectedType);
+
+  if (differentCase) {
+    ArgumentError.throwWrongType(fnName, expectedType, differentCase.dataType);
+  }
+};

@@ -2,8 +2,9 @@
 
 
 import { expect } from 'chai';
-import { buildLiteralFromJs } from '../lib/utils';
+import { buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils';
 import {
+  caseParams,
   maxNumOfParams,
   minNumOfParams,
   paramTypes,
@@ -192,6 +193,40 @@ describe('sameParamType', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2), buildLiteralFromJs('3')];
       const fn = () => sameParamType()('equal')(params);
       expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'EQUAL()'. Expected Number, received Text");
+    });
+  });
+});
+
+describe('caseParams', () => {
+  context('types match up', () => {
+    it('throws no error', () => {
+      const params = [buildLiteralFromJs(1), buildLiteralFromJs(1), buildLiteralFromJs('1'), buildLiteralFromJs(2), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
+      const fn = () => caseParams()('case')(params);
+      expect(fn()).to.eq(undefined);
+    });
+
+    context('picklist', () => {
+      it('throws no error', () => {
+        const params = [buildPicklistLiteral('Active', ['Active', 'Inactive']), buildLiteralFromJs('Active'), buildLiteralFromJs('1'), buildLiteralFromJs('Inactive'), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
+        const fn = () => caseParams()('case')(params);
+        expect(fn()).to.eq(undefined);
+      });
+    });
+  });
+
+  context('types do not match', () => {
+    it('throws ArgumentError', () => {
+      const params = [buildLiteralFromJs(1), buildLiteralFromJs(1), buildLiteralFromJs('1'), buildLiteralFromJs('2'), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
+      const fn = () => caseParams()('case')(params);
+      expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'CASE()'. Expected Number, received Text");
+    });
+
+    context('picklist', () => {
+      it('throws ArgumentError', () => {
+        const params = [buildPicklistLiteral('Active', ['Active', 'Inactive']), buildLiteralFromJs('Active'), buildLiteralFromJs('1'), buildLiteralFromJs(2), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
+        const fn = () => caseParams()('case')(params);
+        expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'CASE()'. Expected Text, received Number");
+      });
     });
   });
 });
