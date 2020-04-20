@@ -11,6 +11,7 @@ import date from './07_date.json';
 import discounting from './08_discounting.json';
 import employeeServices from './09_employee_services.json';
 import expenseTracking from './10_expense_tracking.json';
+import financialCalculations from './11_financial_calculations.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -48,6 +49,7 @@ const coerceIdentifiers = (identifiers) => {
   discounting,
   employeeServices,
   expenseTracking,
+  financialCalculations,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
