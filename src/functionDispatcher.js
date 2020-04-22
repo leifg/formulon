@@ -31,7 +31,7 @@ const existingFunctions = {
     returnType: 'checkbox',
   },
   blankvalue: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime', 'geolocation']), sameParamType()],
     returnType: ['text', 'number'],
   },
   br: {
