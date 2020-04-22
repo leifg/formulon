@@ -195,6 +195,14 @@ describe('sameParamType', () => {
       expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'EQUAL()'. Expected Number, received Text");
     });
   });
+
+  context('includes null', () => {
+    it('throws an ArgumentError', () => {
+      const params = [buildLiteralFromJs(null), buildLiteralFromJs(2), buildLiteralFromJs(3)];
+      const fn = () => sameParamType()('equal')(params);
+      expect(fn()).to.eq(undefined);
+    });
+  });
 });
 
 describe('caseParams', () => {

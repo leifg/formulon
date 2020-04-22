@@ -124,11 +124,9 @@ export const sf$and = (...booleans) => {
   return buildLiteralFromJs(result);
 };
 
-/* eslint-disable no-unused-vars */
-export const sf$blankvalue = (_expression, _substituteExpression) => {
-  NotImplementedError.throwError('blankvalue');
-};
-/* eslint-enable no-unused-vars */
+export const sf$blankvalue = (expression, substituteExpression) => (
+  expression.dataType === 'null' || expression.value === '' ? substituteExpression : expression
+);
 
 export const sf$case = (expression, ...values) => {
   const lastValueIndex = values.length - 1;
