@@ -16,6 +16,7 @@ import imageLink from './12_image_link.json';
 import integrationLink from './13_integration_link.json';
 import leadManagement from './14_lead_management.json';
 import metrics from './15_metrics.json';
+import opportunityManagement from './16_opportunity_management.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -58,6 +59,7 @@ const coerceIdentifiers = (identifiers) => {
   integrationLink,
   leadManagement,
   metrics,
+  opportunityManagement,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
