@@ -13,6 +13,7 @@ import employeeServices from './09_employee_services.json';
 import expenseTracking from './10_expense_tracking.json';
 import financialCalculations from './11_financial_calculations.json';
 import imageLink from './12_image_link.json';
+import integrationLink from './13_integration_link.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -52,6 +53,7 @@ const coerceIdentifiers = (identifiers) => {
   expenseTracking,
   financialCalculations,
   imageLink,
+  integrationLink,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
