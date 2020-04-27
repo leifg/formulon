@@ -17,6 +17,7 @@ import integrationLink from './13_integration_link.json';
 import leadManagement from './14_lead_management.json';
 import metrics from './15_metrics.json';
 import opportunityManagement from './16_opportunity_management.json';
+import pricing from './17_pricing.json';
 
 import { parse } from '../../lib/formulon';
 import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
@@ -60,6 +61,7 @@ const coerceIdentifiers = (identifiers) => {
   leadManagement,
   metrics,
   opportunityManagement,
+  pricing,
 ].forEach((category) => {
   describe(category.name, () => {
     category.examples.forEach((example) => {
