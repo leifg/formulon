@@ -16,14 +16,15 @@ Check functions.js to see if the function you want to implement already has a st
 
 #### If there is not implementation stub
 
-- Add function (name is lower case of salesforce function) to `functionDispatcher.js` (alphabetically sorted). If function has a fixed length of arguments add according validation to validations array (e.g. if a function is supposed to receive exactly 2 arguments, the validations line should look like this: `validations: [validateNumOfParams(2)]` ). Otherwise add emtpy validations array.
+- Add function (name is lower case of salesforce function) to `functionDispatcher.js` (alphabetically sorted).
+- Add appropriate validations (e.g. `[minNumOfParams(2), maxNumOfParams(2), paramTypes('text', 'text')]`
 - Add test stub for function to `functions.spec.js` (sorted by category then alphabetically)
 
   ```javascript
   describe.skip('<function_name>', () => {
     it('returns correct value', () => {
       // TODO implement test for sf$<function_name>
-      expect(functions.sf$<function_name>(null)).to.deep.eq(null)
+      expect(dispatch(<function_name>, [null])).to.deep.eq(null);
     })
   })
   ```
