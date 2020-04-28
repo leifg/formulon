@@ -4,7 +4,6 @@
   "examples": [
     {
       "name": "Application API Link",
-      "disabled": true,
       "formula": "HYPERLINK (\"https://www.myintegration.com?sId=\" & GETSESSIONID() & \"?&rowID=\" & Name & \"action=CreateTask\",\"Create a Meeting Request\")",
       "suites": [
         {

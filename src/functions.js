@@ -16,6 +16,8 @@ import {
 import NotImplementedError from './errors/NotImplementedError';
 import ArgumentError from './errors/ArgumentError';
 
+const STATIC_SESSION_ID = '00D3z000001eRlg!AQMAQC3Y4aM9sFux6SRWhyFcOUKin4taGaBxNMU8TN_R_1R0Y7ArI95eSyzQZVIlrnV_unTbmwHZlXex8xhlXz2kXZNP49Fa';
+
 // Essential Functions
 
 export const sf$or = (...booleans) => {
@@ -374,9 +376,7 @@ export const sf$find = (searchText, text, startNum = buildLiteralFromJs(1)) => {
   return buildLiteralFromJs(textToSearchIn.indexOf(searchText.value) + 1);
 };
 
-export const sf$getsessionid = () => {
-  NotImplementedError.throwError('getsessionid');
-};
+export const sf$getsessionid = () => buildLiteralFromJs(STATIC_SESSION_ID);
 
 export const sf$hyperlink = (url, friendlyName, target = null) => {
   const targetString = target ? ` target="${target.value}"` : '';

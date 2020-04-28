@@ -1317,10 +1317,9 @@ describe('find', () => {
   });
 });
 
-describe.skip('getsessionid', () => {
+describe('getsessionid', () => {
   it('returns correct getsessionid', () => {
-    // TODO implement test for sf$getsessionid
-    expect(dispatch('getsessionid', [])).to.deep.eq(null);
+    expect(dispatch('getsessionid', [])).to.deep.eq(buildLiteralFromJs('00D3z000001eRlg!AQMAQC3Y4aM9sFux6SRWhyFcOUKin4taGaBxNMU8TN_R_1R0Y7ArI95eSyzQZVIlrnV_unTbmwHZlXex8xhlXz2kXZNP49Fa'));
   });
 });
 
