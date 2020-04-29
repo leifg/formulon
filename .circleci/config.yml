@@ -21,10 +21,10 @@ jobs:
                 command: yarn lint
             - run:
                 name: Execute Unit Tests
-                command: yarn test
+                command: yarn test --forbid-only
             - run:
                 name: Execute Integration Tests
-                command: yarn test:integration
+                command: yarn test:integration --forbid-only
             - run:
                 name: Release
                 command: yarn semantic-release || true
