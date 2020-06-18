@@ -298,7 +298,6 @@ describe('buildGeolocationLiteral', () => {
   });
 });
 
-
 describe('arrayUnique', () => {
   // TODO add deepFreeze
   context('non redundant elements', () => {

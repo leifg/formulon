@@ -316,7 +316,6 @@ const existingFunctions = {
   },
 };
 
-
 const dispatch = (name, args) => handleFormulonError(() => {
   const runTimeError = args.find((arg) => arg.type === 'error');
 

@@ -1,6 +1,5 @@
 /* global describe it context */
 
-
 import { expect } from 'chai';
 import { extract, parse } from '../lib/formulon';
 import { buildLiteralFromJs } from '../lib/utils';

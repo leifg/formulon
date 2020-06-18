@@ -1,4 +1,3 @@
-
 import { timeParser } from './parsers';
 import FormulonRuntimeError from './errors/FormulonRuntimeError';
 
