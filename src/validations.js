@@ -1,4 +1,3 @@
-
 import ArgumentError from './errors/ArgumentError';
 
 export const minNumOfParams = (expectedMinNumOfParams) => (fnName) => (params) => {

@@ -1,6 +1,5 @@
 /* global describe it context */
 
-
 import { expect } from 'chai';
 import { buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils';
 import {
@@ -11,7 +10,6 @@ import {
   sameParamType,
 } from '../lib/validations';
 import ArgumentError from '../lib/errors/ArgumentError';
-
 
 describe('maxNumOfParams', () => {
   context('exact length', () => {

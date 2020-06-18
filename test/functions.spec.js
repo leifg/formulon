@@ -1,6 +1,5 @@
 /* global describe it context */
 
-
 import { expect } from 'chai';
 
 import {

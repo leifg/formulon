@@ -1,4 +1,3 @@
-
 import {
   build, extract as astExtract, replace, traverse,
 } from './ast';
