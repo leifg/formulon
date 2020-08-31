@@ -17,12 +17,12 @@ import {
   parseTime,
   sfRound,
   coerceLiteral,
-} from '../lib/utils';
+} from '../src/utils';
 
-import ArgumentError from '../lib/errors/ArgumentError';
-import NoFunctionError from '../lib/errors/NoFunctionError';
-import NotImplementedError from '../lib/errors/NotImplementedError';
-import ReferenceError from '../lib/errors/ReferenceError';
+import ArgumentError from '../src/errors/ArgumentError';
+import NoFunctionError from '../src/errors/NoFunctionError';
+import NotImplementedError from '../src/errors/NotImplementedError';
+import ReferenceError from '../src/errors/ReferenceError';
 
 describe('parseTime', () => {
   context('valid time', () => {

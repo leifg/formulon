@@ -2,8 +2,8 @@
 
 import { expect } from 'chai';
 
-import dispatch from '../lib/functionDispatcher';
-import { buildLiteralFromJs } from '../lib/utils';
+import dispatch from '../src/functionDispatcher';
+import { buildLiteralFromJs } from '../src/utils';
 
 describe('dispatch', () => {
   context('valid input', () => {

@@ -1,8 +1,8 @@
 /* global describe it context */
 
 import { expect } from 'chai';
-import { extract, parse } from '../lib/formulon';
-import { buildLiteralFromJs } from '../lib/utils';
+import { extract, parse } from '../src/formulon';
+import { buildLiteralFromJs } from '../src/utils';
 
 describe('Formulon', () => {
   describe('parse', () => {

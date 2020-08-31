@@ -1,15 +1,15 @@
 /* global describe it context */
 
 import { expect } from 'chai';
-import { buildLiteralFromJs, buildPicklistLiteral } from '../lib/utils';
+import { buildLiteralFromJs, buildPicklistLiteral } from '../src/utils';
 import {
   caseParams,
   maxNumOfParams,
   minNumOfParams,
   paramTypes,
   sameParamType,
-} from '../lib/validations';
-import ArgumentError from '../lib/errors/ArgumentError';
+} from '../src/validations';
+import ArgumentError from '../src/errors/ArgumentError';
 
 describe('maxNumOfParams', () => {
   context('exact length', () => {

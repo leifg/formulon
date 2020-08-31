@@ -20,8 +20,8 @@ import opportunityManagement from './16_opportunity_management.json';
 import pricing from './17_pricing.json';
 import scoringCalculations from './18_scoring_calculations.json';
 
-import { parse } from '../../lib/formulon';
-import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../lib/utils';
+import { parse } from '../../src/formulon';
+import { buildDateLiteral, buildDatetimeLiteral, buildLiteralFromJs } from '../../src/utils';
 
 const coerceLiteral = (literal) => {
   switch (literal.dataType) {
