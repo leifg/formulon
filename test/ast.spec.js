@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import {
   build, extract, replace, traverse,
-} from '../lib/ast';
+} from '../src/ast';
 
 describe('ast', () => {
   describe('build', () => {

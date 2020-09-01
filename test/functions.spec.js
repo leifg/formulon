@@ -11,9 +11,9 @@ import {
   buildPicklistLiteral,
   buildMultipicklistLiteral,
   buildTimeLiteral,
-} from '../lib/utils';
+} from '../src/utils';
 
-import dispatch from '../lib/functionDispatcher';
+import dispatch from '../src/functionDispatcher';
 
 // Date & Time Functions
 

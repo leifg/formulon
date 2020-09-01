@@ -4,3 +4,4 @@
 !/lib/.keep
 /tmp
 yarn-error.log
+src/*.grammar.js
