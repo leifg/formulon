@@ -112,3 +112,10 @@ Utility function that returns a list of used variables
 extract('IF(Variable__c, Variable__c, AnotherVariable__c)')
 // [ 'Variable__c', 'AnotherVariable__c' ]
 ```
+
+## Contributors
+
+Formulon exists thanks to the following people who have contributed.
+
+- [Jordan Henderson](https://github.com/jordanhenderson)
+- [Leif Gensert](https://github.com/leifg)
