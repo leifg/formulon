@@ -5347,9 +5347,9 @@ pathval@^1.1.1:
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
 peggy@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/peggy/-/peggy-1.1.0.tgz#aca11837e60d83bc9490c3483d0462f934fa501a"
-  integrity sha512-bErGGMGiCxH8HHJh2M9+bUuUJi9zzqVLhrisQBlfBEi1aRqP/r4yfQX0k5od3a9SNfpzJsbaTfruNW7Y1lbJrQ==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/peggy/-/peggy-1.2.0.tgz#657ba45900cbef1dc9f52356704bdbb193c2021c"
+  integrity sha512-PQ+NKpAobImfMprYQtc4Egmyi29bidRGEX0kKjCU5uuW09s0Cthwqhfy7mLkwcB4VcgacE5L/ZjruD/kOPCUUw==
 
 performance-now@^2.1.0:
   version "2.1.0"
