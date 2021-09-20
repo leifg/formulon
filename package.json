@@ -44,6 +44,6 @@
     "peggy": "^1.0.0",
     "rollup": "^2.26.5",
     "rollup-plugin-terser": "^7.0.0",
-    "semantic-release": "^17.4.2"
+    "semantic-release": "^18.0.0"
   }
 }
