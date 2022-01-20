@@ -161,9 +161,21 @@ export const arrayUnique = (array) => array.reduce((p, c) => {
   return p;
 }, []);
 
-export const coerceLiteral = (input) => (
-  { ...input, value: coerceValue(input.dataType, input.value, input.options) }
-);
+export const coerceLiteral = (input) => {
+  if (input.value === undefined || input.value === null || Number.isNaN(input.value)) {
+    return {
+      type: 'literal',
+      value: null,
+      dataType: 'null',
+      options: {},
+    };
+  }
+
+  return {
+    ...input,
+    value: coerceValue(input.dataType, input.value, input.options),
+  };
+};
 
 export const handleFormulonError = (fn) => {
   try {
