@@ -161,6 +161,23 @@ describe('Formulon', () => {
             expect(parse('1 + Custom_field__c', substitutions)).to.deep.eq(buildLiteralFromJs(3));
           });
         });
+
+        context('number coercion', () => {
+          const substitutions = {
+            Number_field__c: {
+              value: null,
+              dataType: 'number',
+              options: {
+                length: 8,
+                scale: 0,
+              },
+            },
+          };
+
+          it('returns correct result', () => {
+            expect(parse('ISBLANK(Number_field__c)', substitutions)).to.deep.eq(buildLiteralFromJs(true));
+          });
+        });
       });
     });
 

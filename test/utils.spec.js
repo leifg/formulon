@@ -395,6 +395,69 @@ describe('coerceLiteral', () => {
       };
       expect(coerceLiteral(input)).to.deep.eq(expectedOutput);
     });
+
+    it('does not coerce null value', () => {
+      const input = {
+        type: 'literal',
+        dataType: 'number',
+        value: null,
+        options: {
+          length: 8,
+          scale: 0,
+        },
+      };
+
+      const expectedOutput = {
+        type: 'literal',
+        value: null,
+        dataType: 'null',
+        options: {},
+      };
+
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput);
+    });
+
+    it('does not coerce undefined value', () => {
+      const input = {
+        type: 'literal',
+        dataType: 'number',
+        value: undefined,
+        options: {
+          length: 8,
+          scale: 0,
+        },
+      };
+
+      const expectedOutput = {
+        type: 'literal',
+        value: null,
+        dataType: 'null',
+        options: {},
+      };
+
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput);
+    });
+
+    it('does not coerce NaN value', () => {
+      const input = {
+        type: 'literal',
+        dataType: 'number',
+        value: NaN,
+        options: {
+          length: 8,
+          scale: 0,
+        },
+      };
+
+      const expectedOutput = {
+        type: 'literal',
+        value: null,
+        dataType: 'null',
+        options: {},
+      };
+
+      expect(coerceLiteral(input)).to.deep.eq(expectedOutput);
+    });
   });
 
   context('Text', () => {
