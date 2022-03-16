@@ -796,8 +796,126 @@ describe('ast', () => {
         };
         expect(build('2 ^ (8 * 7 + 5)')).to.deep.equal(expected);
       });
+    });
 
-      it('logical comparison and concatination', () => {
+    context('Boolean Algebra', () => {
+      it('simple or', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'or',
+          arguments: [
+            {
+              type: 'literal',
+              value: true,
+              dataType: 'checkbox',
+              options: {},
+            },
+            {
+              type: 'literal',
+              value: false,
+              dataType: 'checkbox',
+              options: {},
+            },
+          ],
+        };
+
+        expect(build('TRUE || FALSE')).to.deep.equal(expected);
+      });
+
+      it('simple and', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'and',
+          arguments: [
+            {
+              type: 'literal',
+              value: true,
+              dataType: 'checkbox',
+              options: {},
+            },
+            {
+              type: 'literal',
+              value: false,
+              dataType: 'checkbox',
+              options: {},
+            },
+          ],
+        };
+
+        expect(build('TRUE && FALSE')).to.deep.equal(expected);
+      });
+
+      it('default precedence', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'or',
+          arguments: [
+            {
+              type: 'literal',
+              value: true,
+              dataType: 'checkbox',
+              options: {},
+            },
+            {
+              type: 'callExpression',
+              id: 'and',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: false,
+                  dataType: 'checkbox',
+                  options: {},
+                },
+                {
+                  type: 'literal',
+                  value: false,
+                  dataType: 'checkbox',
+                  options: {},
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(build('TRUE || FALSE && FALSE')).to.deep.equal(expected);
+      });
+
+      it('overwriting precedence with parentheses', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'and',
+          arguments: [
+            {
+              type: 'callExpression',
+              id: 'or',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: true,
+                  dataType: 'checkbox',
+                  options: {},
+                },
+                {
+                  type: 'literal',
+                  value: false,
+                  dataType: 'checkbox',
+                  options: {},
+                },
+              ],
+            },
+            {
+              type: 'literal',
+              value: false,
+              dataType: 'checkbox',
+              options: {},
+            },
+          ],
+        };
+
+        expect(build('(TRUE || FALSE) && FALSE')).to.deep.equal(expected);
+      });
+
+      it('logical comparison and concatenation', () => {
         const expected = {
           type: 'callExpression',
           id: 'and',

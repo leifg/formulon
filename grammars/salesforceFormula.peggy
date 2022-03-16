@@ -103,6 +103,7 @@ Term
   / Identifier
   / Literal
   / "(" __ expression:ArithmeticExpression __ ")" { return expression; }
+  / "(" __ expression:LogicalConcatinationExpression __ ")" { return expression; }
 
 CallExpression
   = id:FunctionIdentifier __ args:Arguments {
