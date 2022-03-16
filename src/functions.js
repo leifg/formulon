@@ -436,12 +436,12 @@ export const sf$rpad = (text, paddedLength, padString) => {
 export const sf$substitute = (text, oldText, newText) => buildLiteralFromJs(text.value.replace(new RegExp(escapeRegExp(oldText.value), 'g'), newText.value));
 
 export const sf$text = (value) => {
-  if (value.dataType === 'text') {
-    return value;
-  }
-
   if (value.dataType === 'datetime') {
     return buildLiteralFromJs(formatLiteral(value).replace('T', ' ').replace(/\.\d{3}/, ''));
+  }
+
+  if (value.dataType === 'picklist') {
+    return buildLiteralFromJs(value.value);
   }
 
   return buildLiteralFromJs(formatLiteral(value));

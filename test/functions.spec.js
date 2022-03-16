@@ -1490,6 +1490,12 @@ describe('text', () => {
       expect(dispatch('text', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs('2020-02-11 17:39:00Z'));
     });
   });
+
+  context('Picklist', () => {
+    it('returns correct text', () => {
+      expect(dispatch('text', [buildPicklistLiteral('Active', ['Active', 'Inactive'])])).to.deep.eq(buildLiteralFromJs('Active'));
+    });
+  });
 });
 
 describe('trim', () => {

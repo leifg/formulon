@@ -125,3 +125,4 @@ Formulon exists thanks to the following people who have contributed.
 
 - [Jordan Henderson](https://github.com/jordanhenderson)
 - [Leif Gensert](https://github.com/leifg)
+- [James Melville](https://github.com/jamesmelville)
