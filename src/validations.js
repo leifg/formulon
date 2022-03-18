@@ -34,8 +34,10 @@ export const paramTypes = (...paramTypeList) => (fnName) => (params) => {
 };
 
 export const sameParamType = () => (fnName) => (params) => {
-  if (params.length > 0) {
-    params.filter((param) => param.dataType !== 'null').reduce((acc, current) => {
+  const nonNullParams = params.filter((param) => param.dataType !== 'null');
+
+  if (nonNullParams.length > 0) {
+    nonNullParams.reduce((acc, current) => {
       if (acc.dataType !== current.dataType) {
         ArgumentError.throwWrongType(fnName, acc.dataType, current.dataType);
       }

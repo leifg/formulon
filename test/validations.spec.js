@@ -201,6 +201,14 @@ describe('sameParamType', () => {
       expect(fn()).to.eq(undefined);
     });
   });
+
+  context('only null parameters', () => {
+    it('does not throw an error', () => {
+      const params = [buildLiteralFromJs(null), buildLiteralFromJs(null)];
+      const fn = () => sameParamType()('equal')(params);
+      expect(fn()).to.eq(undefined);
+    });
+  });
 });
 
 describe('caseParams', () => {
