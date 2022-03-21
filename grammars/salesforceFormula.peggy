@@ -1,4 +1,6 @@
 {
+  const Decimal = require('decimal.js');
+
   const operators = {
     '^': {
       functionName: 'exponentiate',
@@ -276,9 +278,10 @@ NumericLiteral
 DecimalLiteral
   = sign:(__ "+" / "-" __)? DecimalIntegerLiteral "." DecimalDigit* {
       var splitted = text().replace(/[\+\-]/g, "").split(".")
+
       return {
         type: "literal",
-        value: parseFloat(text()),
+        value: new Decimal(text()),
         dataType: "number",
         options: {
           length: splitted[0].length,
@@ -289,7 +292,7 @@ DecimalLiteral
   / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
       return {
         type: "literal",
-        value: parseInt(text()),
+        value: new Decimal(text()),
         dataType: "number",
         options: {
           length: text().replace(/[\+\-]/g, "").length,

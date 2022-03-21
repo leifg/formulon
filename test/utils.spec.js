@@ -1,5 +1,6 @@
 /* global describe it context */
 
+import { Decimal } from 'decimal.js';
 import { expect } from 'chai';
 import {
   addMonths,
@@ -67,30 +68,112 @@ describe('parseTime', () => {
 describe('buildLiteralFromJs', () => {
   context('Number', () => {
     context('Integer', () => {
-      it('returns expected Literal for positive number', () => {
-        const expected = {
-          type: 'literal',
-          value: 1,
-          dataType: 'number',
-          options: {
-            length: 1,
-            scale: 0,
-          },
-        };
-        expect(buildLiteralFromJs(1)).to.deep.eq(expected);
+      context('Number input', () => {
+        it('returns expected Literal for positive number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('1'),
+            dataType: 'number',
+            options: {
+              length: 1,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(1)).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for zero padding number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('100'),
+            dataType: 'number',
+            options: {
+              length: 3,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(100)).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for smaller than one number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('0.1'),
+            dataType: 'number',
+            options: {
+              length: 1,
+              scale: 1,
+            },
+          };
+          expect(buildLiteralFromJs(0.1)).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for negative number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('-12'),
+            dataType: 'number',
+            options: {
+              length: 2,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(-12)).to.deep.eq(expected);
+        });
       });
 
-      it('returns expected Literal for negative number', () => {
-        const expected = {
-          type: 'literal',
-          value: -12,
-          dataType: 'number',
-          options: {
-            length: 2,
-            scale: 0,
-          },
-        };
-        expect(buildLiteralFromJs(-12)).to.deep.eq(expected);
+      context('Decimal input', () => {
+        it('returns expected Literal for positive number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('1'),
+            dataType: 'number',
+            options: {
+              length: 1,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(1)).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for zero padding number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('100'),
+            dataType: 'number',
+            options: {
+              length: 3,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(new Decimal('100'))).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for smaller than one number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('0.1'),
+            dataType: 'number',
+            options: {
+              length: 1,
+              scale: 1,
+            },
+          };
+          expect(buildLiteralFromJs(new Decimal('0.1'))).to.deep.eq(expected);
+        });
+
+        it('returns expected Literal for negative number', () => {
+          const expected = {
+            type: 'literal',
+            value: new Decimal('-12'),
+            dataType: 'number',
+            options: {
+              length: 2,
+              scale: 0,
+            },
+          };
+          expect(buildLiteralFromJs(new Decimal('-12'))).to.deep.eq(expected);
+        });
       });
     });
 
@@ -98,7 +181,7 @@ describe('buildLiteralFromJs', () => {
       it('returns expected Literal for positive number', () => {
         const expected = {
           type: 'literal',
-          value: 1.5,
+          value: new Decimal('1.5'),
           dataType: 'number',
           options: {
             length: 1,
@@ -111,7 +194,7 @@ describe('buildLiteralFromJs', () => {
       it('returns expected Literal for positive number', () => {
         const expected = {
           type: 'literal',
-          value: -125.75,
+          value: new Decimal('-125.75'),
           dataType: 'number',
           options: {
             length: 3,
@@ -119,6 +202,21 @@ describe('buildLiteralFromJs', () => {
           },
         };
         expect(buildLiteralFromJs(-125.75)).to.deep.eq(expected);
+      });
+    });
+
+    context('Decimal', () => {
+      it('returns expected Literal for positive number', () => {
+        const expected = {
+          type: 'literal',
+          value: new Decimal(1.5),
+          dataType: 'number',
+          options: {
+            length: 1,
+            scale: 1,
+          },
+        };
+        expect(buildLiteralFromJs(new Decimal(1.5))).to.deep.eq(expected);
       });
     });
   });
@@ -325,23 +423,23 @@ describe('arrayUnique', () => {
 
 describe('sfRound', () => {
   it('positive number round up to full number', () => {
-    expect(sfRound(1.5, 0)).to.deep.eq(2);
+    expect(sfRound(new Decimal('1.5'), new Decimal('0'))).to.deep.eq(new Decimal('2'));
   });
 
   it('positive number round down to full number', () => {
-    expect(sfRound(1.2345, 0)).to.deep.eq(1);
+    expect(sfRound(new Decimal('1.2345'), new Decimal('0'))).to.deep.eq(new Decimal('1'));
   });
 
   it('negative number round up to full number', () => {
-    expect(sfRound(-1.5, 0)).to.deep.eq(-2);
+    expect(sfRound(new Decimal('-1.5'), new Decimal('0'))).to.deep.eq(new Decimal('-2'));
   });
 
   it('positive number round up to 2 digits', () => {
-    expect(sfRound(225.49823, 2)).to.deep.eq(225.50);
+    expect(sfRound(new Decimal('225.49823'), new Decimal('2'))).to.deep.eq(new Decimal('225.50'));
   });
 
   it('positive number down to 2 digits', () => {
-    expect(sfRound(-225.495, 2)).to.deep.eq(-225.50);
+    expect(sfRound(new Decimal('-225.495'), new Decimal('2'))).to.deep.eq(new Decimal('-225.50'));
   });
 });
 
@@ -350,7 +448,7 @@ describe('addMonths', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(2020, 6, 15));
       const expected = new Date(Date.UTC(2020, 8, 15));
-      expect(addMonths(input, 2)).to.deep.eq(expected);
+      expect(addMonths(input, new Decimal('2'))).to.deep.eq(expected);
     });
   });
 
@@ -358,7 +456,7 @@ describe('addMonths', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(1999, 11, 15));
       const expected = new Date(Date.UTC(2000, 0, 15));
-      expect(addMonths(input, 1)).to.deep.eq(expected);
+      expect(addMonths(input, new Decimal('1'))).to.deep.eq(expected);
     });
   });
 
@@ -366,7 +464,7 @@ describe('addMonths', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(2005, 0, 31));
       const expected = new Date(Date.UTC(2005, 1, 28));
-      expect(addMonths(input, 1)).to.deep.eq(expected);
+      expect(addMonths(input, new Decimal('1'))).to.deep.eq(expected);
     });
   });
 });
@@ -377,7 +475,7 @@ describe('coerceLiteral', () => {
       const input = {
         type: 'literal',
         dataType: 'number',
-        value: 1.5,
+        value: new Decimal('1.5'),
         options: {
           length: 1,
           scale: 0,
@@ -387,7 +485,7 @@ describe('coerceLiteral', () => {
       const expectedOutput = {
         type: 'literal',
         dataType: 'number',
-        value: 2,
+        value: new Decimal('2'),
         options: {
           length: 1,
           scale: 0,
@@ -590,17 +688,17 @@ describe('formatLiteral', () => {
 
   context('Time', () => {
     it('returns correct string for null value', () => {
-      const input = Object.assign(buildTimeLiteral(32833019), { value: null });
+      const input = Object.assign(buildTimeLiteral(new Decimal('32833019')), { value: null });
       expect(formatLiteral(input)).to.eq('');
     });
 
     it('returns correct string for undefined value', () => {
-      const input = Object.assign(buildTimeLiteral(32833019), { value: undefined });
+      const input = Object.assign(buildTimeLiteral(new Decimal('32833019')), { value: undefined });
       expect(formatLiteral(input)).to.eq('');
     });
 
     it('returns correct string for time', () => {
-      const milliSecondsFromMidnight = 32833019;
+      const milliSecondsFromMidnight = new Decimal('32833019');
       expect(formatLiteral(buildTimeLiteral(milliSecondsFromMidnight))).to.eq('09:07:13.019');
     });
   });
