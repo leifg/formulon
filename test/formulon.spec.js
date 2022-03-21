@@ -1,5 +1,6 @@
 /* global describe it context */
 
+import { Decimal } from 'decimal.js';
 import { expect } from 'chai';
 import { extract, parse } from '../src/formulon';
 import { buildLiteralFromJs } from '../src/utils';
@@ -83,6 +84,10 @@ describe('Formulon', () => {
         it('returns correct result for string concatenation', () => {
           expect(parse("'a' & 'b'")).to.deep.eq(buildLiteralFromJs('ab'));
         });
+
+        it('returns correct result for decimal precision', () => {
+          expect(parse('12 * 99.99')).to.deep.eq(buildLiteralFromJs(new Decimal('1199.88')));
+        });
       });
 
       context('coerce inputs', () => {
@@ -91,7 +96,7 @@ describe('Formulon', () => {
             const var1 = {
               type: 'literal',
               dataType: 'number',
-              value: 1.35,
+              value: new Decimal('1.35'),
               options: {
                 length: 1,
                 scale: 1,
@@ -101,7 +106,7 @@ describe('Formulon', () => {
             const var2 = {
               type: 'literal',
               dataType: 'number',
-              value: 2.35,
+              value: new Decimal('2.35'),
               options: {
                 length: 1,
                 scale: 1,
@@ -148,7 +153,7 @@ describe('Formulon', () => {
         context('arithmetics', () => {
           const substitutions = {
             Custom_field__c: {
-              value: 2,
+              value: new Decimal('2'),
               dataType: 'number',
               options: {
                 length: 8,

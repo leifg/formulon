@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js';
 import { timeParser } from './parsers';
 import FormulonRuntimeError from './errors/FormulonRuntimeError';
 
@@ -9,14 +10,19 @@ const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 // SF:
 // ROUND(-1.5) => -2
 export const sfRound = (number, numDigits) => {
-  if (number < 0) {
-    return -1 * sfRound(number * -1, numDigits);
+  if (number.isNegative()) {
+    return sfRound(number.times(-1), numDigits).times(-1);
   }
-  const multiplier = (10 ** numDigits);
-  return Math.round(number * multiplier) / multiplier;
+  const multiplier = new Decimal(10).toPower(numDigits);
+  return number.times(multiplier).round().dividedBy(multiplier);
 };
 
 // private
+
+const calculateDecimalOptions = (decimal) => ({
+  length: Math.max(decimal.precision(true) - decimal.decimalPlaces(), 1),
+  scale: decimal.decimalPlaces(),
+});
 
 const calculateNumberOptions = (number) => {
   const numberString = (number).toString().replace('-', '');
@@ -63,12 +69,20 @@ export const buildLiteralFromJs = (input) => {
     );
   }
 
-  const type = typeof (input);
-  switch (typeof (input)) {
+  const type = typeof input;
+
+  if (type === 'object' && input.constructor.name === 'Decimal') {
+    return Object.assign(
+      base,
+      { value: input, dataType: 'number', options: calculateDecimalOptions(input) },
+    );
+  }
+
+  switch (type) {
     case 'number':
       return Object.assign(
         base,
-        { dataType: 'number', options: calculateNumberOptions(input) },
+        { value: new Decimal(input), dataType: 'number', options: calculateNumberOptions(input) },
       );
     case 'string':
       return Object.assign(
@@ -149,12 +163,16 @@ export const buildMultipicklistLiteral = (value, values) => ({
   options: { values },
 });
 
-export const buildTimeLiteral = (millisecondsFromMidnight) => ({
-  type: 'literal',
-  dataType: 'time',
-  value: new Date(millisecondsFromMidnight),
-  options: {},
-});
+export const buildTimeLiteral = (millisecondsFromMidnight) => {
+  const timestamp = millisecondsFromMidnight.constructor.name === 'Decimal' ? millisecondsFromMidnight.toNumber() : millisecondsFromMidnight;
+
+  return {
+    type: 'literal',
+    dataType: 'time',
+    value: new Date(timestamp),
+    options: {},
+  };
+};
 
 export const arrayUnique = (array) => array.reduce((p, c) => {
   if (p.indexOf(c) < 0) p.push(c);
@@ -191,8 +209,8 @@ export const handleFormulonError = (fn) => {
 
 // shamelessly stolen from https://stackoverflow.com/a/12793246/1087469
 export const addMonths = (date, numOfMonths) => {
-  const newMonth = date.getUTCMonth() + numOfMonths;
-  const newDate = new Date(Date.UTC(date.getUTCFullYear(), newMonth, date.getUTCDate()));
+  const newMonth = numOfMonths.plus(date.getUTCMonth());
+  const newDate = new Date(Date.UTC(date.getUTCFullYear(), newMonth.toNumber(), date.getUTCDate()));
 
   if (date.getUTCDate() !== newDate.getUTCDate()) {
     newDate.setUTCDate(0);
@@ -202,11 +220,11 @@ export const addMonths = (date, numOfMonths) => {
 };
 
 export const addDays = (date, numOfDays) => (
-  new Date(date.getTime() + numOfDays * MILLISECONDS_IN_DAY)
+  new Date(numOfDays.times(MILLISECONDS_IN_DAY).plus(date.getTime()).toNumber())
 );
 
 export const daysDifference = (date1, date2) => (
-  (date1.getTime() - date2.getTime()) / MILLISECONDS_IN_DAY
+  new Decimal(date1.getTime()).minus(date2.getTime()).dividedBy(MILLISECONDS_IN_DAY)
 );
 
 export const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
