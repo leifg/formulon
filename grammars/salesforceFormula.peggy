@@ -1,5 +1,4 @@
 {
-  const Decimal = require('decimal.js');
 
   const operators = {
     '^': {
@@ -281,7 +280,7 @@ DecimalLiteral
 
       return {
         type: "literal",
-        value: new Decimal(text()),
+        value: text(),
         dataType: "number",
         options: {
           length: splitted[0].length,
@@ -292,7 +291,7 @@ DecimalLiteral
   / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
       return {
         type: "literal",
-        value: new Decimal(text()),
+        value: text(),
         dataType: "number",
         options: {
           length: text().replace(/[\+\-]/g, "").length,
