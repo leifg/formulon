@@ -53,7 +53,7 @@ describe('Formulon', () => {
           expect(parse('8 - 4 + 2')).to.deep.eq(buildLiteralFromJs(6));
         });
 
-        it('returns correct result longer multiplication and divison', () => {
+        it('returns correct result longer multiplication and division', () => {
           expect(parse('12 / 2 * 3')).to.deep.eq(buildLiteralFromJs(18));
         });
 

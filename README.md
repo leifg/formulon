@@ -40,8 +40,8 @@ parse('IF(TRUE, "True String", "False String")')
 ```
 
 `type`: Metadata from the parser (always `literal`)
-`value`: The actual value of the result
-`dataType`: The type of the return (currently `number`, `text`, or `checkbox`)
+`value`: The value of the result always as a string
+`dataType`: The type of the return (currently `number`, `text`, `checkbox`, `date`, `time`, `datetime`, `geolocation` or `null`)
 `options`: different options per data type
 
 #### Data Types
@@ -51,6 +51,11 @@ Currently the following data types are supported (naming is taken from the Sales
 - Number (Integer or Float depending on the options)
 - Text
 - Checkbox (TRUE or FALSE)
+- Date (as UTC Date with time components set to 0)
+- Time (as UTC Date with date set to 1970-01-01)
+- Datetime (as UTC Date)
+- Geolocation (as lat, long array)
+- Null (js null value)
 
 #### Options
 
