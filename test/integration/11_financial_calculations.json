@@ -28,7 +28,7 @@
           },
           "expectedResult": {
             "dataType": "number",
-            "value": "148024.42849183439258"
+            "value": 148024.42849183439258
           }
         },
         {
@@ -53,7 +53,7 @@
           },
           "expectedResult": {
             "dataType": "number",
-            "value":"5002.5005729962458885"
+            "value": 5002.500572996248
           }
         }
       ]
@@ -80,7 +80,7 @@
           },
           "expectedResult": {
             "dataType": "number",
-            "value": "149182.46976412703"
+            "value": 149182.46976412703
           }
         },
         {
@@ -101,7 +101,7 @@
           },
           "expectedResult": {
             "dataType": "number",
-            "value": "5002.5006251041795"
+            "value": 5002.5006251041795
           }
         }
       ]

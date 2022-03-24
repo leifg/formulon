@@ -1,5 +1,4 @@
 {
-
   const operators = {
     '^': {
       functionName: 'exponentiate',
@@ -277,10 +276,9 @@ NumericLiteral
 DecimalLiteral
   = sign:(__ "+" / "-" __)? DecimalIntegerLiteral "." DecimalDigit* {
       var splitted = text().replace(/[\+\-]/g, "").split(".")
-
       return {
         type: "literal",
-        value: text(),
+        value: parseFloat(text()),
         dataType: "number",
         options: {
           length: splitted[0].length,
@@ -291,7 +289,7 @@ DecimalLiteral
   / sign:(__ "+" / "-" __)? DecimalIntegerLiteral {
       return {
         type: "literal",
-        value: text(),
+        value: parseInt(text()),
         dataType: "number",
         options: {
           length: text().replace(/[\+\-]/g, "").length,

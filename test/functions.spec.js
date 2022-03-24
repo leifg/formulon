@@ -1,6 +1,5 @@
 /* global describe it context */
 
-import { Decimal } from 'decimal.js';
 import { expect } from 'chai';
 
 import {
@@ -140,7 +139,7 @@ describe('timenow', () => {
 
 describe('timevalue', () => {
   it('returns correct timevalue', () => {
-    const expected = buildTimeLiteral(new Decimal('63061003'));
+    const expected = buildTimeLiteral(63061003);
     expect(dispatch('timevalue', [buildLiteralFromJs('17:31:01.003')])).to.deep.eq(expected);
   });
 });
@@ -1047,7 +1046,7 @@ describe('floor', () => {
 
 describe('geolocation', () => {
   it('returns correct geolocation', () => {
-    expect(dispatch('geolocation', [buildLiteralFromJs(32.855160), buildLiteralFromJs(-117.258836)])).to.deep.eq(buildGeolocationLiteral(new Decimal('32.855160'), new Decimal('-117.258836')));
+    expect(dispatch('geolocation', [buildLiteralFromJs(32.855160), buildLiteralFromJs(-117.258836)])).to.deep.eq(buildGeolocationLiteral(32.855160, -117.258836));
   });
 });
 

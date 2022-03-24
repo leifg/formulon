@@ -48,7 +48,7 @@
           },
           "expectedResult": {
             "dataType": "number",
-            "value": "42.195068483316490797"
+            "value": 42.195068483316490797
           }
         }
       ]

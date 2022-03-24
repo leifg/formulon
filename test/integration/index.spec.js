@@ -1,8 +1,6 @@
 /* global describe it context */
 
-import Decimal from 'decimal.js';
 import { expect } from 'chai';
-
 import accountManagement from './01_account_management.json';
 import accountMediaService from './02_account_media_service.json';
 import caseManagement from './03_case_management.json';
@@ -33,8 +31,6 @@ const coerceLiteral = (literal) => {
       return buildDatetimeLiteral(Date.parse(literal.value));
     case 'picklist':
       return literal;
-    case 'number':
-      return buildLiteralFromJs(new Decimal(literal.value));
     default:
       return buildLiteralFromJs(literal.value);
   }

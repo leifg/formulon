@@ -1,7 +1,5 @@
 /* global describe it context */
 
-import { Decimal } from 'decimal.js';
-
 import { expect } from 'chai';
 import {
   build, extract, replace, traverse,
@@ -13,7 +11,7 @@ describe('ast', () => {
       it('parses AST correctly with trailing whitespace', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('1'),
+          value: 1,
           dataType: 'number',
           options: {
             length: 1,
@@ -26,7 +24,7 @@ describe('ast', () => {
       it('parses AST correctly with leading whitespace', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('2'),
+          value: 2,
           dataType: 'number',
           options: {
             length: 1,
@@ -39,7 +37,7 @@ describe('ast', () => {
       it('parses AST correctly with leading and trailing whitespace', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('3'),
+          value: 3,
           dataType: 'number',
           options: {
             length: 1,
@@ -56,7 +54,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.9'),
+              value: 1.9,
               dataType: 'number',
               options: {
                 length: 1,
@@ -77,7 +75,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1'),
+              value: 1,
               dataType: 'number',
               options: {
                 length: 1,
@@ -86,7 +84,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -105,7 +103,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1'),
+              value: 1,
               dataType: 'number',
               options: {
                 length: 1,
@@ -114,7 +112,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -123,7 +121,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('3'),
+              value: 3,
               dataType: 'number',
               options: {
                 length: 1,
@@ -142,7 +140,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1'),
+              value: 1,
               dataType: 'number',
               options: {
                 length: 1,
@@ -151,7 +149,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -181,7 +179,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.5'),
+              value: 1.5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -200,7 +198,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('11'),
+              value: 11,
               dataType: 'number',
               options: {
                 length: 2,
@@ -209,7 +207,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -244,7 +242,7 @@ describe('ast', () => {
             { type: 'identifier', name: 'Amount' },
             {
               type: 'literal',
-              value: new Decimal('0'),
+              value: 0,
               dataType: 'number',
               options: {
                 length: 1,
@@ -292,7 +290,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.5'),
+              value: 1.5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -301,7 +299,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -320,7 +318,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1'),
+              value: 1,
               dataType: 'number',
               options: {
                 length: 1,
@@ -329,7 +327,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('10'),
+              value: 10,
               dataType: 'number',
               options: {
                 length: 2,
@@ -352,7 +350,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -361,7 +359,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('2'),
+                  value: 2,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -372,7 +370,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('3'),
+              value: 3,
               dataType: 'number',
               options: {
                 length: 1,
@@ -395,7 +393,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -404,7 +402,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('3'),
+                  value: 3,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -415,7 +413,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('7'),
+              value: 7,
               dataType: 'number',
               options: {
                 length: 1,
@@ -435,7 +433,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('7'),
+              value: 7,
               dataType: 'number',
               options: {
                 length: 1,
@@ -444,7 +442,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('8'),
+              value: 8,
               dataType: 'number',
               options: {
                 length: 1,
@@ -463,7 +461,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('100'),
+              value: 100,
               dataType: 'number',
               options: {
                 length: 3,
@@ -472,7 +470,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('25'),
+              value: 25,
               dataType: 'number',
               options: {
                 length: 2,
@@ -495,7 +493,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('7'),
+                  value: 7,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -504,7 +502,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('8'),
+                  value: 8,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -515,7 +513,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('5'),
+              value: 5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -534,7 +532,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('5'),
+              value: 5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -547,7 +545,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('7'),
+                  value: 7,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -556,7 +554,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('8'),
+                  value: 8,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -577,8 +575,8 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
+              value: 7,
               dataType: 'number',
-              value: new Decimal('7'),
               options: {
                 length: 1,
                 scale: 0,
@@ -590,8 +588,8 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
+                  value: 8,
                   dataType: 'number',
-                  value: new Decimal('8'),
                   options: {
                     length: 1,
                     scale: 0,
@@ -599,8 +597,8 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
+                  value: 5,
                   dataType: 'number',
-                  value: new Decimal('5'),
                   options: {
                     length: 1,
                     scale: 0,
@@ -619,7 +617,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -628,7 +626,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('8'),
+              value: 8,
               dataType: 'number',
               options: {
                 length: 1,
@@ -651,7 +649,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('2'),
+                  value: 2,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -660,7 +658,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('8'),
+                  value: 8,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -671,7 +669,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('7'),
+              value: 7,
               dataType: 'number',
               options: {
                 length: 1,
@@ -698,7 +696,7 @@ describe('ast', () => {
                   arguments: [
                     {
                       type: 'literal',
-                      value: new Decimal('2'),
+                      value: 2,
                       dataType: 'number',
                       options: {
                         length: 1,
@@ -707,7 +705,7 @@ describe('ast', () => {
                     },
                     {
                       type: 'literal',
-                      value: new Decimal('8'),
+                      value: 8,
                       dataType: 'number',
                       options: {
                         length: 1,
@@ -718,7 +716,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('7'),
+                  value: 7,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -729,7 +727,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('5'),
+              value: 5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -748,7 +746,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('2'),
+              value: 2,
               dataType: 'number',
               options: {
                 length: 1,
@@ -765,7 +763,7 @@ describe('ast', () => {
                   arguments: [
                     {
                       type: 'literal',
-                      value: new Decimal('8'),
+                      value: 8,
                       dataType: 'number',
                       options: {
                         length: 1,
@@ -774,7 +772,7 @@ describe('ast', () => {
                     },
                     {
                       type: 'literal',
-                      value: new Decimal('7'),
+                      value: 7,
                       dataType: 'number',
                       options: {
                         length: 1,
@@ -785,7 +783,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('5'),
+                  value: 5,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -928,7 +926,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -937,7 +935,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -952,7 +950,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -961,7 +959,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('1'),
+                  value: 1,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -1022,7 +1020,7 @@ describe('ast', () => {
       it('integer literal', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('12'),
+          value: 12,
           dataType: 'number',
           options: {
             length: 2,
@@ -1035,7 +1033,7 @@ describe('ast', () => {
       it('negative integer literal', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('-123'),
+          value: -123,
           dataType: 'number',
           options: {
             length: 3,
@@ -1045,10 +1043,10 @@ describe('ast', () => {
         expect(build('-123')).to.deep.equal(expected);
       });
 
-      it('explicitly positive integer literal', () => {
+      it('explicitely positive integer literal', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('1234'),
+          value: 1234,
           dataType: 'number',
           options: {
             length: 4,
@@ -1061,7 +1059,7 @@ describe('ast', () => {
       it('float literal', () => {
         const expected = {
           type: 'literal',
-          value: new Decimal('11.2'),
+          value: 11.2,
           dataType: 'number',
           options: {
             length: 2,
@@ -1383,7 +1381,7 @@ describe('ast', () => {
       it('integer literal', () => {
         const input = {
           type: 'literal',
-          value: new Decimal('11'),
+          value: 11,
           dataType: 'number',
           options: {
             length: 2,
@@ -1392,7 +1390,7 @@ describe('ast', () => {
         };
         const expected = {
           type: 'literal',
-          value: new Decimal('11'),
+          value: 11,
           dataType: 'number',
           options: {
             length: 2,
@@ -1406,7 +1404,7 @@ describe('ast', () => {
       it('float literal', () => {
         const input = {
           type: 'literal',
-          value: new Decimal('11.2'),
+          value: 11.2,
           dataType: 'number',
           options: {
             length: 2,
@@ -1416,7 +1414,7 @@ describe('ast', () => {
 
         const expected = {
           type: 'literal',
-          value: new Decimal('11.2'),
+          value: 11.2,
           dataType: 'number',
           options: {
             length: 2,
@@ -1477,7 +1475,7 @@ describe('ast', () => {
               },
               {
                 type: 'literal',
-                value: new Decimal('1.5'),
+                value: 1.5,
                 dataType: 'number',
                 options: {
                   length: 1,
@@ -1504,7 +1502,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.5'),
+              value: 1.5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -1513,7 +1511,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('9'),
+              value: 9,
               dataType: 'number',
               options: {
                 length: 1,
@@ -1525,7 +1523,7 @@ describe('ast', () => {
 
         const expected = {
           type: 'literal',
-          value: new Decimal('10.5'),
+          value: 10.5,
           dataType: 'number',
           options: {
             length: 2,
@@ -1547,7 +1545,7 @@ describe('ast', () => {
               arguments: [
                 {
                   type: 'literal',
-                  value: new Decimal('7'),
+                  value: 7,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -1556,7 +1554,7 @@ describe('ast', () => {
                 },
                 {
                   type: 'literal',
-                  value: new Decimal('8'),
+                  value: 8,
                   dataType: 'number',
                   options: {
                     length: 1,
@@ -1567,7 +1565,7 @@ describe('ast', () => {
             },
             {
               type: 'literal',
-              value: new Decimal('5'),
+              value: 5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -1578,7 +1576,7 @@ describe('ast', () => {
         };
         const expected = {
           type: 'literal',
-          value: new Decimal('61'),
+          value: 61,
           dataType: 'number',
           options: {
             length: 2,
@@ -1599,7 +1597,7 @@ describe('ast', () => {
         arguments: [
           {
             type: 'literal',
-            value: new Decimal('1.5'),
+            value: 1.5,
             dataType: 'number',
             options: {
               length: 1,
@@ -1608,7 +1606,7 @@ describe('ast', () => {
           },
           {
             type: 'literal',
-            value: new Decimal('2'),
+            value: 2,
             dataType: 'number',
             options: {
               length: 1,
@@ -1628,7 +1626,7 @@ describe('ast', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
-        arguments: [{ type: 'literal', value: new Decimal('1.5') }, { type: 'identifier', name: 'Name' }],
+        arguments: [{ type: 'literal', value: 1.5 }, { type: 'identifier', name: 'Name' }],
       };
 
       it('returns array with identifiers', () => {
@@ -1692,7 +1690,7 @@ describe('ast', () => {
         arguments: [
           {
             type: 'literal',
-            value: new Decimal('1.5'),
+            value: 1.5,
             dataType: 'number',
             options: {
               length: 1,
@@ -1701,7 +1699,7 @@ describe('ast', () => {
           },
           {
             type: 'literal',
-            value: new Decimal('2'),
+            value: 2,
             dataType: 'number',
             options: {
               length: 1,
@@ -1725,7 +1723,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.5'),
+              value: 1.5,
               dataType: 'number',
               options: {
                 length: 1,
@@ -1746,7 +1744,7 @@ describe('ast', () => {
             arguments: [
               {
                 type: 'literal',
-                value: new Decimal('1.5'),
+                value: 1.5,
                 dataType: 'number',
                 options: {
                   length: 1,
@@ -1783,7 +1781,7 @@ describe('ast', () => {
           arguments: [
             {
               type: 'literal',
-              value: new Decimal('1.5'),
+              value: 1.5,
               dataType: 'number',
               options: {
                 length: 1,
