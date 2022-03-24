@@ -71,7 +71,7 @@ export const buildLiteralFromJs = (input) => {
 
   const type = typeof input;
 
-  if (type === 'object' && input.constructor.name === 'Decimal') {
+  if (type === 'object' && input instanceof Decimal) {
     return Object.assign(
       base,
       { value: input, dataType: 'number', options: calculateDecimalOptions(input) },
@@ -163,8 +163,8 @@ export const buildMultipicklistLiteral = (value, values) => ({
   options: { values },
 });
 
-export const buildTimeLiteral = (millisecondsFromMidnight) => {
-  const timestamp = millisecondsFromMidnight.constructor.name === 'Decimal' ? millisecondsFromMidnight.toNumber() : millisecondsFromMidnight;
+export const buildTimeLiteral = (msFromMidnight) => {
+  const timestamp = msFromMidnight instanceof Decimal ? msFromMidnight.toNumber() : msFromMidnight;
 
   return {
     type: 'literal',
