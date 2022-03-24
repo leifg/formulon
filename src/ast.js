@@ -1,5 +1,3 @@
-import Decimal from 'decimal.js';
-
 import dispatch from './functionDispatcher';
 import ReferenceError from './errors/ReferenceError';
 
@@ -17,27 +15,11 @@ const traverseAndThrow = (ast) => {
   }
 };
 
-const postProcess = (ast) => {
-  if (ast.dataType === 'number') {
-    return {
-      ...ast,
-      value: new Decimal(ast.value),
-    };
-  }
-
-  switch (ast.type) {
-    case 'callExpression':
-      return { ...ast, arguments: ast.arguments.map((arg) => postProcess(arg)) };
-    default:
-      return ast;
-  }
-};
-
 // public
 
 export const build = (formula) => {
   try {
-    return postProcess(salesforceParser.parse(formula == null ? '' : formula.trim()));
+    return salesforceParser.parse(formula == null ? '' : formula.trim());
   } catch (err) {
     if (err instanceof salesforceParser.SyntaxError) {
       return buildErrorLiteral('SyntaxError', 'Syntax error.', {});

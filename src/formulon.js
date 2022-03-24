@@ -12,14 +12,14 @@ export const parse = (formula, substitutions = {}) => {
 
   const ast = build(formula);
 
-  const coercedSubstitutions = Object.keys(substitutions).reduce((previous, current) => (
+  const coercedSubstitions = Object.keys(substitutions).reduce((previous, current) => (
     {
       ...previous,
       [current]: coerceLiteral(substitutions[current]),
     }
   ), {});
 
-  return traverse(replace(ast, coercedSubstitutions));
+  return traverse(replace(ast, coercedSubstitions));
 };
 
 export const extract = (formula) => {

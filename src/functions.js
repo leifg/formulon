@@ -1,3 +1,5 @@
+import Decimal from 'decimal.js';
+
 import {
   addDays,
   addMonths,
@@ -32,8 +34,6 @@ export const sf$equal = (value1, value2) => {
     case 'date':
     case 'datetime':
       return buildLiteralFromJs(value1.value.getTime() === value2.value.getTime());
-    case 'number':
-      return buildLiteralFromJs(value1.value.equals(value2.value));
     default:
       return buildLiteralFromJs(value1.value === value2.value);
   }
@@ -41,41 +41,21 @@ export const sf$equal = (value1, value2) => {
 
 export const sf$unequal = (value1, value2) => buildLiteralFromJs(!sf$equal(value1, value2).value);
 
-export const sf$greaterThan = (value1, value2) => {
-  switch (value1.dataType) {
-    case 'number':
-      return buildLiteralFromJs(value1.value.greaterThan(value2.value));
-    default:
-      return buildLiteralFromJs(value1.value > value2.value);
-  }
-};
+export const sf$greaterThan = (value1, value2) => (
+  buildLiteralFromJs(value1.value > value2.value)
+);
 
-export const sf$greaterThanOrEqual = (value1, value2) => {
-  switch (value1.dataType) {
-    case 'number':
-      return buildLiteralFromJs(value1.value.greaterThanOrEqualTo(value2.value));
-    default:
-      return buildLiteralFromJs(value1.value >= value2.value);
-  }
-};
+export const sf$greaterThanOrEqual = (value1, value2) => (
+  buildLiteralFromJs(value1.value >= value2.value)
+);
 
-export const sf$lessThan = (value1, value2) => {
-  switch (value1.dataType) {
-    case 'number':
-      return buildLiteralFromJs(value1.value.lessThan(value2.value));
-    default:
-      return buildLiteralFromJs(value1.value < value2.value);
-  }
-};
+export const sf$lessThan = (value1, value2) => (
+  buildLiteralFromJs(value1.value < value2.value)
+);
 
-export const sf$lessThanOrEqual = (value1, value2) => {
-  switch (value1.dataType) {
-    case 'number':
-      return buildLiteralFromJs(value1.value.lessThanOrEqualTo(value2.value));
-    default:
-      return buildLiteralFromJs(value1.value <= value2.value);
-  }
-};
+export const sf$lessThanOrEqual = (value1, value2) => (
+  buildLiteralFromJs(value1.value <= value2.value)
+);
 
 // Date & Time Functions
 
@@ -214,15 +194,19 @@ export const sf$add = (value1, value2) => {
     case 'number date':
       return buildDateLiteral(addDays(value2.value, value1.value));
     case 'time number':
-      return buildTimeLiteral(value2.value.plus(value1.value.getTime()));
+      return buildTimeLiteral(value1.value.getTime() + value2.value);
     case 'number time':
-      return buildTimeLiteral(value1.value.plus(value2.value.getTime()));
+      return buildTimeLiteral(value1.value + value2.value.getTime());
     case 'datetime number':
       return buildDatetimeLiteral(addDays(value1.value, value2.value));
     case 'number datetime':
       return buildDatetimeLiteral(addDays(value2.value, value1.value));
     case 'number number':
-      return buildLiteralFromJs(value1.value.plus(value2.value));
+      return buildLiteralFromJs(
+        new Decimal(value1.value)
+          .plus(new Decimal(value2.value))
+          .toNumber(),
+      );
     case 'text text':
       return buildLiteralFromJs(value1.value + value2.value);
     default:
@@ -233,18 +217,22 @@ export const sf$add = (value1, value2) => {
 export const sf$subtract = (value1, value2) => {
   switch ([value1.dataType, value2.dataType].join(' ')) {
     case 'date number':
-      return buildDateLiteral(addDays(value1.value, value2.value.times(-1)));
+      return buildDateLiteral(addDays(value1.value, -1 * value2.value));
     case 'time number':
-      return buildTimeLiteral(value2.value.times(-1).plus(value1.value.getTime()));
+      return buildTimeLiteral(value1.value.getTime() + -1 * value2.value);
     case 'datetime number':
-      return buildDatetimeLiteral(addDays(value1.value, value2.value.times(-1)));
+      return buildDatetimeLiteral(addDays(value1.value, -1 * value2.value));
     case 'date date':
     case 'datetime datetime':
       return buildLiteralFromJs(daysDifference(value1.value, value2.value));
     case 'time time':
       return buildLiteralFromJs(value1.value.getTime() - value2.value.getTime());
     case 'number number':
-      return buildLiteralFromJs(value1.value.minus(value2.value));
+      return buildLiteralFromJs(
+        new Decimal(value1.value)
+          .minus(new Decimal(value2.value))
+          .toNumber(),
+      );
     case 'text text':
       return buildLiteralFromJs(value1.value - value2.value);
     default:
@@ -253,14 +241,22 @@ export const sf$subtract = (value1, value2) => {
 };
 /* eslint-enable consistent-return */
 
-export const sf$multiply = (value1, value2) => buildLiteralFromJs(value1.value.times(value2.value));
-
-export const sf$divide = (value1, value2) => (
-  buildLiteralFromJs(value1.value.dividedBy(value2.value))
+export const sf$multiply = (value1, value2) => buildLiteralFromJs(
+  new Decimal(value1.value)
+    .times(new Decimal(value2.value))
+    .toNumber(),
 );
 
-export const sf$exponentiate = (value1, value2) => (
-  buildLiteralFromJs(value1.value.toPower(value2.value))
+export const sf$divide = (value1, value2) => buildLiteralFromJs(
+  new Decimal(value1.value)
+    .dividedBy(new Decimal(value2.value))
+    .toNumber(),
+);
+
+export const sf$exponentiate = (value1, value2) => buildLiteralFromJs(
+  new Decimal(value1.value)
+    .toPower(new Decimal(value2.value))
+    .toNumber(),
 );
 
 // Math Functions
