@@ -127,8 +127,8 @@ const existingFunctions = {
     returnType: 'text',
   },
   if: {
-    validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('checkbox', ['text', 'number', 'date', 'datetime'], ['text', 'number', 'date', 'datetime'])],
-    returnType: ['text', 'number', 'date', 'datetime'],
+    validations: [minNumOfParams(3), maxNumOfParams(3), paramTypes('checkbox', ['text', 'number', 'date', 'datetime', 'checkbox', 'geolocation'], ['text', 'number', 'date', 'datetime', 'checkbox', 'geolocation'])],
+    returnType: ['text', 'number', 'date', 'datetime', 'checkbox', 'geolocation'],
   },
   image: {
     validations: [minNumOfParams(2), maxNumOfParams(4), paramTypes('text', 'text', 'number', 'number')],
