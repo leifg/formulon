@@ -1,0 +1,42 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.17.1
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Parser
+        run: yarn build
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Run Unit Tests
+        run: yarn test --forbid-only
+
+      - name: Run Integration Tests
+        run: yarn test:integration --forbid-only
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
