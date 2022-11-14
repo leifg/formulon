@@ -1,3 +1,5 @@
+name: "auto-merge"
+
 on:
   pull_request:
 
