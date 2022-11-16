@@ -124,6 +124,40 @@ extract('IF(Variable__c, Variable__c, AnotherVariable__c)')
 // [ 'Variable__c', 'AnotherVariable__c' ]
 ```
 
+### ast
+
+Return the abstract syntax tree built from the formula.
+
+```javascript
+ast('IF(Variable__c, "True String", "False String")')
+// {
+//   "type": "callExpression",
+//   "id": "if",
+//   "arguments": [
+//     {
+//       "type": "identifier",
+//       "name": "Variable__c"
+//     },
+//     {
+//       "type": "literal",
+//       "value": "True String",
+//       "dataType": "text",
+//       "options": {
+//         "length": 11
+//       }
+//     },
+//     {
+//       "type": "literal",
+//       "value": "False String",
+//       "dataType": "text",
+//       "options": {
+//         "length": 12
+//       }
+//     }
+//   ]
+// }
+```
+
 ## Contributors
 
 Formulon exists thanks to the following people who have contributed.
@@ -132,3 +166,4 @@ Formulon exists thanks to the following people who have contributed.
 - [Leif Gensert](https://github.com/leifg)
 - [James Melville](https://github.com/jamesmelville)
 - [Michael Mason](https://github.com/mjmasn)
+- [Kyle Crouse](https://github.com/kacrouse)
