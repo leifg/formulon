@@ -31,4 +31,12 @@ export const extract = (formula) => {
   return arrayUnique(astExtract(ast));
 };
 
+export const ast = (formula) => {
+  if (formula == null || formula.trim() === '') {
+    return {};
+  }
+
+  return build(formula);
+};
+
 export const toString = (literal) => formatLiteral(literal);

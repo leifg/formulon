@@ -1,8 +1,9 @@
 /* global describe it context */
 
 import { expect } from 'chai';
-import { extract, parse } from '../src/formulon';
+import { extract, parse, ast } from '../src/formulon';
 import { buildLiteralFromJs } from '../src/utils';
+import { testBuildAst } from './shared';
 
 describe('Formulon', () => {
   describe('parse', () => {
@@ -349,6 +350,38 @@ describe('Formulon', () => {
       context('whitespace only input', () => {
         it('returns empty string', () => {
           expect(extract('   ')).to.deep.eq(expected);
+        });
+      });
+    });
+  });
+
+  describe('ast', () => {
+    testBuildAst(ast);
+
+    context('empty input', () => {
+      const expected = {};
+
+      context('null input', () => {
+        it('returns empty string', () => {
+          expect(ast(null)).to.deep.eq(expected);
+        });
+      });
+
+      context('undefined input', () => {
+        it('returns empty string', () => {
+          expect(ast(undefined)).to.deep.eq(expected);
+        });
+      });
+
+      context('empty string input', () => {
+        it('returns empty string', () => {
+          expect(ast('')).to.deep.eq(expected);
+        });
+      });
+
+      context('whitespace only input', () => {
+        it('returns empty string', () => {
+          expect(ast('   ')).to.deep.eq(expected);
         });
       });
     });
