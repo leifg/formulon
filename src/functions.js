@@ -241,24 +241,41 @@ export const sf$subtract = (value1, value2) => {
 };
 /* eslint-enable consistent-return */
 
-export const sf$multiply = (value1, value2) => buildLiteralFromJs(
-  new Decimal(value1.value)
-    .times(new Decimal(value2.value))
-    .toNumber(),
-);
+export const sf$multiply = (value1, value2) => {
+  if ([value1.dataType, value2.dataType].join(' ') !== 'number number') {
+    ArgumentError.throwWrongType('multiply', 'number', value2.dataType);
+  }
 
-export const sf$divide = (value1, value2) => buildLiteralFromJs(
-  new Decimal(value1.value)
-    .dividedBy(new Decimal(value2.value))
-    .toNumber(),
-);
+  return buildLiteralFromJs(
+    new Decimal(value1.value)
+      .times(new Decimal(value2.value))
+      .toNumber(),
+  );
+};
 
-export const sf$exponentiate = (value1, value2) => buildLiteralFromJs(
-  new Decimal(value1.value)
-    .toPower(new Decimal(value2.value))
-    .toNumber(),
-);
+export const sf$divide = (value1, value2) => {
+  if ([value1.dataType, value2.dataType].join(' ') !== 'number number') {
+    ArgumentError.throwWrongType('divide', 'number', value2.dataType);
+  }
 
+  return buildLiteralFromJs(
+    new Decimal(value1.value)
+      .dividedBy(new Decimal(value2.value))
+      .toNumber(),
+  );
+};
+
+export const sf$exponentiate = (value1, value2) => {
+  if ([value1.dataType, value2.dataType].join(' ') !== 'number number') {
+    ArgumentError.throwWrongType('exponentiate', 'number', value2.dataType);
+  }
+
+  return buildLiteralFromJs(
+    new Decimal(value1.value)
+      .toPower(new Decimal(value2.value))
+      .toNumber(),
+  );
+};
 // Math Functions
 
 export const sf$abs = (number) => buildLiteralFromJs(Math.abs(number.value));
