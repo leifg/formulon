@@ -984,12 +984,20 @@ export const testBuildAst = (handler) => {
     });
 
     context('Cross Object Identifier', () => {
-      it('returns correct result', () => {
+      it('returns correct result for simple cross object identifier', () => {
         const expected = {
           type: 'identifier',
           name: 'Account.Name',
         };
         expect(handler('Account.Name')).to.deep.equal(expected);
+      });
+
+      it('returns correct result for cross object identifier with brackets', () => {
+        const expected = {
+          type: 'identifier',
+          name: '[Contact].Account.Owner.IsActive',
+        };
+        expect(handler('[Contact].Account.Owner.IsActive')).to.deep.equal(expected);
       });
     });
 
