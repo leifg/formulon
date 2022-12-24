@@ -86,7 +86,7 @@ describe('ast', () => {
     });
 
     context('identifier', () => {
-      context('just an identifer', () => {
+      context('just an identifier', () => {
         it('returns ReferenceError', () => {
           const input = { type: 'identifier', name: 'Name' };
           expect(traverse(input)).to.deep.eq({
