@@ -94,7 +94,7 @@ describe('now', () => {
 
     let result = dispatch('now', []);
 
-    const timeDiference = result.value.getTime() - expected.value.getTime();
+    const timeDifference = result.value.getTime() - expected.value.getTime();
 
     // ignore exact time for comparison
     expected = Object.assign(expected, { value: null });
@@ -103,7 +103,7 @@ describe('now', () => {
     expect(result).to.deep.eq(expected);
 
     // check if time difference is below 100 milliseconds
-    expect(timeDiference).to.be.within(0, 100);
+    expect(timeDifference).to.be.within(0, 100);
   });
 });
 
@@ -124,7 +124,7 @@ describe('timenow', () => {
 
     let result = dispatch('timenow', []);
 
-    const timeDiference = result.value.getTime() - expected.value.getTime();
+    const timeDifference = result.value.getTime() - expected.value.getTime();
 
     // ignore exact time for comparison
     expected = Object.assign(expected, { value: null });
@@ -133,7 +133,7 @@ describe('timenow', () => {
     expect(result).to.deep.eq(expected);
 
     // check if time difference is below 100 milliseconds
-    expect(timeDiference).to.be.within(0, 100);
+    expect(timeDifference).to.be.within(0, 100);
   });
 });
 
@@ -884,6 +884,12 @@ describe('add', () => {
     });
   });
 
+  context('Number, Null', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('add', [buildLiteralFromJs(1), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'ADD()'. Expected Number, received Null", { function: 'add', expected: 'number', received: 'null' }));
+    });
+  });
+
   context('Text, Text', () => {
     it('concats correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'));
@@ -942,14 +948,44 @@ describe('concat operator', () => {
 });
 
 describe('multiply', () => {
-  it('multiplies correctly', () => {
-    expect(dispatch('multiply', [buildLiteralFromJs(7), buildLiteralFromJs(8)])).to.deep.eq(buildLiteralFromJs(56));
+  context('Number, Number', () => {
+    it('multiplies correctly', () => {
+      expect(dispatch('multiply', [buildLiteralFromJs(7), buildLiteralFromJs(8)])).to.deep.eq(buildLiteralFromJs(56));
+    });
+  });
+
+  context('Number, Null', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('multiply', [buildLiteralFromJs(3), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'MULTIPLY()'. Expected Number, received Null", { function: 'multiply', expected: 'number', received: 'null' }));
+    });
+  });
+});
+
+describe('divide', () => {
+  context('Number, Number', () => {
+    it('multiplies correctly', () => {
+      expect(dispatch('divide', [buildLiteralFromJs(10), buildLiteralFromJs(2)])).to.deep.eq(buildLiteralFromJs(5));
+    });
+  });
+
+  context('Number, Null', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('divide', [buildLiteralFromJs(13), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'DIVIDE()'. Expected Number, received Null", { function: 'divide', expected: 'number', received: 'null' }));
+    });
   });
 });
 
 describe('exponentiate', () => {
-  it('exponentiates correctly', () => {
-    expect(dispatch('exponentiate', [buildLiteralFromJs(2), buildLiteralFromJs(5)])).to.deep.eq(buildLiteralFromJs(32));
+  context('Number, Number', () => {
+    it('exponentiates correctly', () => {
+      expect(dispatch('exponentiate', [buildLiteralFromJs(2), buildLiteralFromJs(5)])).to.deep.eq(buildLiteralFromJs(32));
+    });
+  });
+
+  context('Number, Null', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('exponentiate', [buildLiteralFromJs(3), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EXPONENTIATE()'. Expected Number, received Null", { function: 'exponentiate', expected: 'number', received: 'null' }));
+    });
   });
 });
 
