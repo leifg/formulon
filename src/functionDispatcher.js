@@ -143,7 +143,7 @@ const existingFunctions = {
     returnType: 'checkbox',
   },
   isnull: {
-    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'number'])],
+    validations: [minNumOfParams(1), maxNumOfParams(1), paramTypes(['text', 'number', 'date', 'datetime', 'geolocation'])],
     returnType: 'checkbox',
   },
   ispickval: {
@@ -235,7 +235,7 @@ const existingFunctions = {
     returnType: 'datetime',
   },
   nullvalue: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number'], ['text', 'number'])],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['text', 'number', 'date', 'datetime', 'geolocation']), sameParamType()],
     returnType: ['text', 'number'],
   },
   or: {
