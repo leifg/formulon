@@ -209,6 +209,8 @@ export const sf$add = (value1, value2) => {
       );
     case 'text text':
       return buildLiteralFromJs(value1.value + value2.value);
+    case 'text null':
+      return value1;
     default:
       ArgumentError.throwWrongType('add', 'number', value2.dataType);
   }

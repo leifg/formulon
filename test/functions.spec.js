@@ -896,6 +896,12 @@ describe('add', () => {
     });
   });
 
+  context('Text, Null', () => {
+    it('concats correctly', () => {
+      expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs('Black'));
+    });
+  });
+
   context('Date, Number', () => {
     it('adds number of days', () => {
       expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildLiteralFromJs(5)])).to.deep.eq(buildDateLiteral(2020, 2, 16));
