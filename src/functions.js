@@ -164,11 +164,7 @@ export const sf$if = (logicalTest, valueIfTrue, valueIfFalse) => (
 
 export const sf$isblank = (expression) => buildLiteralFromJs(expression.dataType === 'null' || expression.value === '');
 
-/* eslint-disable no-unused-vars */
-export const sf$isnull = (_expression) => {
-  NotImplementedError.throwError('isnull');
-};
-/* eslint-enable no-unused-vars */
+export const sf$isnull = (expression) => buildLiteralFromJs(expression.dataType === 'null');
 
 /* eslint-disable no-unused-vars */
 export const sf$isnumber = (_text) => {
@@ -178,11 +174,9 @@ export const sf$isnumber = (_text) => {
 
 export const sf$not = (logical) => buildLiteralFromJs(!logical.value);
 
-/* eslint-disable no-unused-vars */
-export const sf$nullvalue = (_expression, _substituteExpression) => {
-  NotImplementedError.throwError('nullvalue');
-};
-/* eslint-enable no-unused-vars */
+export const sf$nullvalue = (expression, substituteExpression) => (
+  expression.dataType === 'null' ? substituteExpression : expression
+);
 
 // Math Operators
 

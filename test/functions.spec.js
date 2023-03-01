@@ -239,7 +239,7 @@ describe('blankvalue', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(null), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
       });
 
-      it('returns fallback value if value is null', () => {
+      it('returns fallback value if value is undefined', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(undefined), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
       });
     });
@@ -271,6 +271,82 @@ describe('blankvalue', () => {
 
       it('returns fallback value if value is null', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(null), buildDateLiteral(1970, 1, 1)])).to.deep.eq(buildDateLiteral(1970, 1, 1));
+      });
+    });
+
+    context('Datetime', () => {
+      const value = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973));
+      const fallback = buildDatetimeLiteral(Date.UTC(1970, 1, 1, 1, 0, 0, 0));
+
+      it('returns value if value is filled', () => {
+        expect(dispatch('blankvalue', [value, fallback])).to.deep.eq(value);
+      });
+
+      it('returns fallback value if value is null', () => {
+        expect(dispatch('blankvalue', [buildLiteralFromJs(null), fallback])).to.deep.eq(fallback);
+      });
+    });
+
+    context('Geolocation', () => {
+      const value = buildGeolocationLiteral(51.5105474, -0.1358797);
+      const fallback = buildGeolocationLiteral(0, 0);
+
+      it('returns value if value is filled', () => {
+        expect(dispatch('blankvalue', [value, fallback])).to.deep.eq(value);
+      });
+
+      it('returns fallback value if value is null', () => {
+        expect(dispatch('blankvalue', [buildLiteralFromJs(null), fallback])).to.deep.eq(fallback);
+      });
+    });
+
+    context('Mixed Data Types', () => {
+      it('raises error for mixed types', () => {
+        expect(dispatch('blankvalue', [buildLiteralFromJs('1'), buildLiteralFromJs(0)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'BLANKVALUE()'. Expected Text, received Number", { function: 'blankvalue', expected: 'text', received: 'number' }));
+      });
+    });
+  });
+});
+
+describe('nullvalue', () => {
+  describe('isnull', () => {
+    context('null/undefined', () => {
+      it('returns fallback value if value is null', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(null), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
+      });
+
+      it('returns fallback value if value is undefined', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(undefined), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
+      });
+    });
+
+    context('Text', () => {
+      it('returns value if value is an empty string', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(''), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs(''));
+      });
+
+      it('returns value if value is space', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(' '), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs(' '));
+      });
+    });
+
+    context('Number', () => {
+      it('returns value if value is 0', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(0), buildLiteralFromJs(-1)])).to.deep.eq(buildLiteralFromJs(0));
+      });
+
+      it('returns fallback value if value is null', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(null), buildLiteralFromJs(-1)])).to.deep.eq(buildLiteralFromJs(-1));
+      });
+    });
+
+    context('Date', () => {
+      it('returns value if value is filled', () => {
+        expect(dispatch('nullvalue', [buildDateLiteral(2020, 2, 11), buildDateLiteral(1970, 1, 1)])).to.deep.eq(buildDateLiteral(2020, 2, 11));
+      });
+
+      it('returns fallback value if value is null', () => {
+        expect(dispatch('nullvalue', [buildLiteralFromJs(null), buildDateLiteral(1970, 1, 1)])).to.deep.eq(buildDateLiteral(1970, 1, 1));
       });
     });
 
@@ -480,6 +556,52 @@ describe('isblank', () => {
   context('Geolocation', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isblank', [buildGeolocationLiteral(51.5105474, -0.1358797)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+});
+
+describe('isnull', () => {
+  context('null/undefined', () => {
+    it('returns true if value is null', () => {
+      expect(dispatch('isnull', [buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('returns false if value is undefined', () => {
+      expect(dispatch('isnull', [buildLiteralFromJs(undefined)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+  });
+
+  context('Text', () => {
+    it('returns false if value is an empty string', () => {
+      expect(dispatch('isnull', [buildLiteralFromJs('')])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('returns false if value is space', () => {
+      expect(dispatch('isnull', [buildLiteralFromJs(' ')])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Number', () => {
+    it('returns false if value is 0', () => {
+      expect(dispatch('isnull', [buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Date', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isnull', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Datetime', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isnull', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
+  context('Geolocation', () => {
+    it('returns false if value is filled', () => {
+      expect(dispatch('isnull', [buildGeolocationLiteral(51.5105474, -0.1358797)])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 });
