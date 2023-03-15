@@ -1,13 +1,12 @@
 const { generate } = require('peggy');
-const glob = require('glob');
+const { globSync } = require('glob');
 const { basename } = require('path');
 const { readFileSync, writeFileSync } = require('fs');
 
-glob('grammars/**/*.peggy', {},(err, files) => {
-  if(err) {
-    console.error(err);
-    process.exit(1);
-  }
+try {
+  
+  files = globSync('grammars/**/*.peggy');
+
   files.forEach(f => {
     const grammar = readFileSync(f, 'utf8');
     const outputName = basename(f, '.peggy');
@@ -16,4 +15,7 @@ glob('grammars/**/*.peggy', {},(err, files) => {
       `export default ${generate(grammar, Object.assign({ output: 'source' }, {}))};`
     );
   });
-});
+} catch(err) {
+  console.error(err);
+  process.exit(1);
+}
