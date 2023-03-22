@@ -5481,9 +5481,9 @@ pathval@^1.1.1:
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
 peggy@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/peggy/-/peggy-3.0.1.tgz#5c5aac3f7b92752c81f6fcaa54ffb058157b2bea"
-  integrity sha512-opG0pnfH5ZQvlqz8Ozmk1SvIer9Rz6op0nDSkVQ4kQnVL0+KOKtIocoidxOgpLoS82r+ZW8J16FjhL3rhH/MpA==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/peggy/-/peggy-3.0.2.tgz#07d0578f1ab0ebbac25a202f544a454f37aa3af3"
+  integrity sha512-n7chtCbEoGYRwZZ0i/O3t1cPr6o+d9Xx4Zwy2LYfzv0vjchMBU0tO+qYYyvZloBPcgRgzYvALzGWHe609JjEpg==
   dependencies:
     commander "^10.0.0"
     source-map-generator "0.8.0"
