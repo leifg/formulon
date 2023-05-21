@@ -92,7 +92,7 @@ start
   = PrimaryExpression
 
 PrimaryExpression
-  = LogicalConcatinationExpression
+  = LogicalConcatenationExpression
   / UnaryExpression
   / CallExpression
   / Identifier
@@ -102,8 +102,11 @@ Term
   = CallExpression
   / Identifier
   / Literal
-  / "(" __ expression:ArithmeticExpression __ ")" { return expression; }
-  / "(" __ expression:LogicalConcatinationExpression __ ")" { return expression; }
+  / ParenthesizedExpression
+
+ParenthesizedExpression
+  = "(" __ expression:ArithmeticExpression __ ")" { return expression; }
+  / "(" __ expression:LogicalConcatenationExpression __ ")" { return expression; }
 
 CallExpression
   = id:FunctionIdentifier __ args:Arguments {
@@ -132,8 +135,8 @@ ArithmeticOperator
   / "+"
   / "-"
 
-LogicalConcatinationExpression
-  = head:(LogicalCompareExpression) __ op:(LogicalConcatinationOperator) __ tail:LogicalConcatinationExpression
+LogicalConcatenationExpression
+  = head:(LogicalCompareExpression) __ op:(LogicalConcatenationOperator) __ tail:LogicalConcatenationExpression
   {
     var name;
     switch(op) {
@@ -155,7 +158,7 @@ LogicalConcatinationExpression
   / LogicalCompareExpression
 
 LogicalCompareExpression
-  = head:(ArithmeticExpression) __ op:(LogicalCompareOperator / ConcatinationOperator) __ tail:LogicalCompareExpression
+  = head:(ArithmeticExpression) __ op:(LogicalCompareOperator / ConcatenationOperator) __ tail:LogicalCompareExpression
   {
     var name;
     switch(op) {
@@ -203,11 +206,11 @@ LogicalCompareOperator
   / "="
   / "!="
 
-LogicalConcatinationOperator
+LogicalConcatenationOperator
   = "&&"
   / "||"
 
-ConcatinationOperator
+ConcatenationOperator
   = "&"
 
 UnaryExpression
