@@ -102,7 +102,10 @@ Term
   = CallExpression
   / Identifier
   / Literal
-  / "(" __ expression:ArithmeticExpression __ ")" { return expression; }
+  / ParenthesizedExpression
+
+ParenthesizedExpression
+  = "(" __ expression:ArithmeticExpression __ ")" { return expression; }
   / "(" __ expression:LogicalConcatinationExpression __ ")" { return expression; }
 
 CallExpression
