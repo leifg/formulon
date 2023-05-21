@@ -232,7 +232,7 @@ Arguments
 
 ArgumentList
   = args:(
-    arg:PrimaryExpression __ ","? __ {
+    arg:(CallExpression / PrimaryExpression) __ ","? __ {
       return arg;
     }
   )+ {
