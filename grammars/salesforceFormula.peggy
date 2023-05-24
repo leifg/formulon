@@ -1,5 +1,15 @@
 {
   const operators = {
+    '&&': {
+      functionName: 'and',
+      rightAssociative: false,
+      precedence: 6,
+    },
+    '||': {
+      functionName: 'or',
+      rightAssociative: false,
+      precedence: 5,
+    },
     '^': {
       functionName: 'exponentiate',
       rightAssociative: true,
@@ -135,27 +145,24 @@ ArithmeticOperator
   / "+"
   / "-"
 
-LogicalConcatenationExpression
-  = head:(LogicalCompareExpression) __ op:(LogicalConcatenationOperator) __ tail:LogicalConcatenationExpression
-  {
-    var name;
-    switch(op) {
-      case "||":
-        name = "or"
-        break;
-      case "&&":
-        name = "and"
-        break;
-      default:
-    }
+LogicalTerm
+ = __ op:LogicalConcatenationOperator __ expr:LogicalCompareExpression {
+  return [op, expr]; 
+ }
 
-    return {
-      type: "callExpression",
-      id: name,
-      arguments: [head, tail]
-    }
+LogicalConcatenationExpression
+  = head:LogicalCompareExpression tail:(LogicalTerm)* {
+    var asOperators = tail.map(function(element) {
+      var op = element[0];
+
+      return [
+        Object.assign({ type: 'operator' }, operators[op]),
+        element[1],
+      ]
+    });
+
+    return infixToPostfixAst([head, asOperators].flat(2))
   }
-  / LogicalCompareExpression
 
 LogicalCompareExpression
   = head:(ArithmeticExpression) __ op:(LogicalCompareOperator / ConcatenationOperator) __ tail:LogicalCompareExpression
@@ -232,12 +239,19 @@ Arguments
 
 ArgumentList
   = args:(
-    arg:PrimaryExpression __ ","? __ {
+    arg:(FunctionArgument) __ ","? __ {
       return arg;
     }
   )+ {
     return args;
   }
+
+FunctionArgument
+  = LogicalConcatenationExpression
+  / UnaryExpression
+  / CallExpression
+  / Identifier
+  / Literal
 
 FunctionIdentifier
   = id:[A-Za-z]+ { return id.join("").toLowerCase(); }
