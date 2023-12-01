@@ -845,6 +845,23 @@ export const testBuildAst = (handler) => {
       expect(handler('TRUE && FALSE')).to.deep.equal(expected);
     });
 
+    it('simple not', () => {
+      const expected = {
+        type: 'callExpression',
+        id: 'not',
+        arguments: [
+          {
+            type: 'literal',
+            value: true,
+            dataType: 'checkbox',
+            options: {},
+          },
+        ],
+      };
+
+      expect(handler('!TRUE')).to.deep.equal(expected);
+    });
+
     it('default precedence', () => {
       const expected = {
         type: 'callExpression',
@@ -1163,6 +1180,34 @@ export const testBuildAst = (handler) => {
           ],
         };
         expect(handler('!FALSE')).to.deep.equal(expected);
+      });
+
+      it('NOT in concatenation literal', () => {
+        const expected = {
+          type: 'callExpression',
+          id: 'or',
+          arguments: [
+            {
+              type: 'literal',
+              value: true,
+              dataType: 'checkbox',
+              options: {},
+            },
+            {
+              type: 'callExpression',
+              id: 'not',
+              arguments: [
+                {
+                  type: 'literal',
+                  value: false,
+                  dataType: 'checkbox',
+                  options: {},
+                },
+              ],
+            },
+          ],
+        };
+        expect(handler('TRUE || !FALSE')).to.deep.equal(expected);
       });
     });
 

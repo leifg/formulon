@@ -146,7 +146,7 @@ ArithmeticOperator
   / "-"
 
 LogicalTerm
- = __ op:LogicalConcatenationOperator __ expr:LogicalCompareExpression {
+ = __ op:LogicalConcatenationOperator __ expr:(LogicalCompareExpression / UnaryExpression) {
   return [op, expr]; 
  }
 
