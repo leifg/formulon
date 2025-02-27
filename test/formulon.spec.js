@@ -88,6 +88,10 @@ describe('Formulon', () => {
         it('returns correct result for string concatenation', () => {
           expect(parse("'a' & 'b'")).to.deep.eq(buildLiteralFromJs('ab'));
         });
+
+        it('returns correct result for string concatenation with escape characters', () => {
+          expect(parse('"\t" & "\n" & "\r" & "\t" & "\\"')).to.deep.eq(buildLiteralFromJs('\\t\\n\\r\\t\\'));
+        });
       });
 
       context('coerce inputs', () => {

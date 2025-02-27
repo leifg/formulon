@@ -286,8 +286,14 @@ Literal
   / NullLiteral
 
 StringLiteral
-  = SingleQuote chars:(Character / DoubleQuote)* SingleQuote { return stringLiteral(chars); }
-  / DoubleQuote chars:(Character / SingleQuote)* DoubleQuote { return stringLiteral(chars); }
+  = SingleQuote chars:(EscapedCharacter / Character / DoubleQuote)* SingleQuote { return stringLiteral(chars); }
+  / DoubleQuote chars:(EscapedCharacter / Character / SingleQuote)* DoubleQuote { return stringLiteral(chars); }
+
+EscapedCharacter
+  = "\\" "n" { return "\n"; }
+  / "\\" "r" { return "\r"; }
+  / "\\" "t" { return "\t"; }
+  / "\\" "\\" { return "\\"; }
 
 NumericLiteral
   = DecimalLiteral

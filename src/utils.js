@@ -238,3 +238,15 @@ export const formatLiteral = (literal) => {
       return undefined;
   }
 };
+
+export const preprocessFormulaString = (formula) => {
+  if (typeof formula !== 'string') {
+    return formula;
+  }
+
+  return formula
+    .replace(/\t/g, '\\t')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\\/g, '\\\\');
+};

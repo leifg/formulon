@@ -3,6 +3,7 @@ import {
 } from './ast';
 import {
   arrayUnique, buildLiteralFromJs, coerceLiteral, formatLiteral,
+  preprocessFormulaString,
 } from './utils';
 
 export const parse = (formula, substitutions = {}) => {
@@ -10,7 +11,7 @@ export const parse = (formula, substitutions = {}) => {
     return buildLiteralFromJs('');
   }
 
-  const ast = build(formula);
+  const ast = build(preprocessFormulaString(formula));
 
   const coercedSubstitutions = Object.keys(substitutions).reduce((previous, current) => (
     {

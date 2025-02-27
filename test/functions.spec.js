@@ -1016,6 +1016,10 @@ describe('add', () => {
     it('concats correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'));
     });
+
+    it('concats correctly with escape character', () => {
+      expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('\n')])).to.deep.eq(buildLiteralFromJs('Black\n'));
+    });
   });
 
   context('Text, Null', () => {
