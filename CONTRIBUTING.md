@@ -29,7 +29,7 @@ Check functions.js to see if the function you want to implement already has a st
   })
   ```
 
-- Add implemention stub to `functions.js` (sorted by category then alphabetically) that throws `NotImplementedError`
+- Add implementation stub to `functions.js` (sorted by category then alphabetically) that throws `NotImplementedError`
 
   ```javascript
   /* eslint-disable no-unused-vars */

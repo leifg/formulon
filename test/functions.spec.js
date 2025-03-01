@@ -1110,6 +1110,18 @@ describe('exponentiate', () => {
     });
   });
 
+  context('Decimal, Number', () => {
+    it('exponentiates correctly', () => {
+      expect(dispatch('exponentiate', [buildLiteralFromJs(2.71828), buildLiteralFromJs(5)])).to.deep.eq(buildLiteralFromJs(148.41265995084171));
+    });
+  });
+
+  context('Number, Decimal', () => {
+    it('returns ArgumentError', () => {
+      expect(dispatch('exponentiate', [buildLiteralFromJs(2.71828), buildLiteralFromJs(1.4285714286)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EXPONENTIATE()'. Expected Integer, received Number", { function: 'exponentiate', expected: 'integer', received: 'number' }));
+    });
+  });
+
   context('Number, Null', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('exponentiate', [buildLiteralFromJs(3), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EXPONENTIATE()'. Expected Number, received Null", { function: 'exponentiate', expected: 'number', received: 'null' }));

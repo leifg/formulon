@@ -266,6 +266,10 @@ export const sf$exponentiate = (value1, value2) => {
     ArgumentError.throwWrongType('exponentiate', 'number', value2.dataType);
   }
 
+  if (value2.options.scale !== 0) {
+    ArgumentError.throwWrongType('exponentiate', 'integer', value2.dataType);
+  }
+
   return buildLiteralFromJs(
     new Decimal(value1.value)
       .toPower(new Decimal(value2.value))
