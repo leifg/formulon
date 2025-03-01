@@ -167,3 +167,4 @@ Formulon exists thanks to the following people who have contributed.
 - [James Melville](https://github.com/jamesmelville)
 - [Michael Mason](https://github.com/mjmasn)
 - [Kyle Crouse](https://github.com/kacrouse)
+- [Austin Turner](https://github.com/paustint)
