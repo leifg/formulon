@@ -1,6 +1,6 @@
-/* global describe it context */
+/* global describe it */
 
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import accountManagement from './01_account_management.json';
 import accountMediaService from './02_account_media_service.json';
 import caseManagement from './03_case_management.json';
@@ -71,7 +71,7 @@ const coerceIdentifiers = (identifiers) => {
         describe(example.name, () => {
           example.suites.forEach((suite) => {
             if (!suite.disabled) {
-              context(suite.context, () => {
+              describe(suite.context, () => {
                 it('returns correct result @integration', () => {
                   expect(
                     parse(
@@ -79,7 +79,7 @@ const coerceIdentifiers = (identifiers) => {
                       coerceIdentifiers(suite.identifiers),
                     ),
                   ).to.deep.eq(coerceLiteral(suite.expectedResult));
-                }).timeout(5000);
+                }, 5000);
               });
             }
           });
