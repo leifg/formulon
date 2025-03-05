@@ -1,6 +1,6 @@
-/* global describe it context */
+/* global describe it */
 
-import { expect } from 'chai';
+import { expect } from 'vitest';
 
 import {
   buildDateLiteral,
@@ -11,9 +11,9 @@ import {
   buildPicklistLiteral,
   buildMultipicklistLiteral,
   buildTimeLiteral,
-} from '../src/utils';
+} from '../../src/utils';
 
-import dispatch from '../src/functionDispatcher';
+import dispatch from '../../src/functionDispatcher';
 
 // Date & Time Functions
 
@@ -158,7 +158,7 @@ describe('today', () => {
 });
 
 describe('weekday', () => {
-  context('sunday', () => {
+  describe('sunday', () => {
     it('returns correct weekday', () => {
       const expected = buildLiteralFromJs(1);
       const input = buildDateLiteral(2020, 3, 15);
@@ -167,7 +167,7 @@ describe('weekday', () => {
     });
   });
 
-  context('saturday', () => {
+  describe('saturday', () => {
     it('returns correct weekday', () => {
       const expected = buildLiteralFromJs(7);
       const input = buildDateLiteral(2020, 2, 15);
@@ -189,7 +189,7 @@ describe('year', () => {
 // Logical Functions
 
 describe('and', () => {
-  context('1 argument', () => {
+  describe('1 argument', () => {
     it('true', () => {
       expect(dispatch('and', [buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -199,7 +199,7 @@ describe('and', () => {
     });
   });
 
-  context('2 arguments', () => {
+  describe('2 arguments', () => {
     it('both true', () => {
       expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -217,7 +217,7 @@ describe('and', () => {
     });
   });
 
-  context('3 arguments', () => {
+  describe('3 arguments', () => {
     it('all true', () => {
       expect(dispatch('and', [buildLiteralFromJs(true), buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -234,7 +234,7 @@ describe('and', () => {
 
 describe('blankvalue', () => {
   describe('isblank', () => {
-    context('null/undefined', () => {
+    describe('null/undefined', () => {
       it('returns fallback value if value is null', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(null), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
       });
@@ -244,7 +244,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Text', () => {
+    describe('Text', () => {
       it('returns fallback value if value is an empty string', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(''), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
       });
@@ -254,7 +254,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Number', () => {
+    describe('Number', () => {
       it('returns value if value is 0', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs(0), buildLiteralFromJs(-1)])).to.deep.eq(buildLiteralFromJs(0));
       });
@@ -264,7 +264,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Date', () => {
+    describe('Date', () => {
       it('returns value if value is filled', () => {
         expect(dispatch('blankvalue', [buildDateLiteral(2020, 2, 11), buildDateLiteral(1970, 1, 1)])).to.deep.eq(buildDateLiteral(2020, 2, 11));
       });
@@ -274,7 +274,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Datetime', () => {
+    describe('Datetime', () => {
       const value = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973));
       const fallback = buildDatetimeLiteral(Date.UTC(1970, 1, 1, 1, 0, 0, 0));
 
@@ -287,7 +287,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Geolocation', () => {
+    describe('Geolocation', () => {
       const value = buildGeolocationLiteral(51.5105474, -0.1358797);
       const fallback = buildGeolocationLiteral(0, 0);
 
@@ -300,7 +300,7 @@ describe('blankvalue', () => {
       });
     });
 
-    context('Mixed Data Types', () => {
+    describe('Mixed Data Types', () => {
       it('raises error for mixed types', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs('1'), buildLiteralFromJs(0)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'BLANKVALUE()'. Expected Text, received Number", { function: 'blankvalue', expected: 'text', received: 'number' }));
       });
@@ -310,7 +310,7 @@ describe('blankvalue', () => {
 
 describe('nullvalue', () => {
   describe('isnull', () => {
-    context('null/undefined', () => {
+    describe('null/undefined', () => {
       it('returns fallback value if value is null', () => {
         expect(dispatch('nullvalue', [buildLiteralFromJs(null), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs('Backup'));
       });
@@ -320,7 +320,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Text', () => {
+    describe('Text', () => {
       it('returns value if value is an empty string', () => {
         expect(dispatch('nullvalue', [buildLiteralFromJs(''), buildLiteralFromJs('Backup')])).to.deep.eq(buildLiteralFromJs(''));
       });
@@ -330,7 +330,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Number', () => {
+    describe('Number', () => {
       it('returns value if value is 0', () => {
         expect(dispatch('nullvalue', [buildLiteralFromJs(0), buildLiteralFromJs(-1)])).to.deep.eq(buildLiteralFromJs(0));
       });
@@ -340,7 +340,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Date', () => {
+    describe('Date', () => {
       it('returns value if value is filled', () => {
         expect(dispatch('nullvalue', [buildDateLiteral(2020, 2, 11), buildDateLiteral(1970, 1, 1)])).to.deep.eq(buildDateLiteral(2020, 2, 11));
       });
@@ -350,7 +350,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Datetime', () => {
+    describe('Datetime', () => {
       const value = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973));
       const fallback = buildDatetimeLiteral(Date.UTC(1970, 1, 1, 1, 0, 0, 0));
 
@@ -363,7 +363,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Geolocation', () => {
+    describe('Geolocation', () => {
       const value = buildGeolocationLiteral(51.5105474, -0.1358797);
       const fallback = buildGeolocationLiteral(0, 0);
 
@@ -376,7 +376,7 @@ describe('nullvalue', () => {
       });
     });
 
-    context('Mixed Data Types', () => {
+    describe('Mixed Data Types', () => {
       it('raises error for mixed types', () => {
         expect(dispatch('blankvalue', [buildLiteralFromJs('1'), buildLiteralFromJs(0)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'BLANKVALUE()'. Expected Text, received Number", { function: 'blankvalue', expected: 'text', received: 'number' }));
       });
@@ -385,7 +385,7 @@ describe('nullvalue', () => {
 });
 
 describe('case', () => {
-  context('Number', () => {
+  describe('Number', () => {
     const validFn = (input) => dispatch('case', [
       buildLiteralFromJs(input),
       buildLiteralFromJs(1), buildLiteralFromJs('January'),
@@ -412,7 +412,7 @@ describe('case', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     const validFn = (input) => dispatch('case', [
       buildLiteralFromJs(input),
       buildLiteralFromJs('Jan'), buildLiteralFromJs('January'),
@@ -439,7 +439,7 @@ describe('case', () => {
     });
   });
 
-  context('Picklist', () => {
+  describe('Picklist', () => {
     const picklistActive = buildPicklistLiteral('Active', ['Active', 'Inactive']);
     const picklistInBox = buildPicklistLiteral('In a Box', ['Active', 'Inactive', 'In a Box']);
 
@@ -459,8 +459,8 @@ describe('case', () => {
     });
   });
 
-  context('invalid inputs', () => {
-    context('incorrect numbe of arguments', () => {
+  describe('invalid inputs', () => {
+    describe('incorrect numbe of arguments', () => {
       // too little arguments
       const invalidFn1 = (input) => dispatch('case', [buildLiteralFromJs(input), buildLiteralFromJs(1)]);
 
@@ -490,7 +490,7 @@ describe('case', () => {
       });
     });
 
-    context('Mixed Types', () => {
+    describe('Mixed Types', () => {
       const invalidFn = (input) => dispatch('case', [
         buildLiteralFromJs(input),
         buildLiteralFromJs(1), buildLiteralFromJs('January'),
@@ -515,7 +515,7 @@ describe('if', () => {
 });
 
 describe('isblank', () => {
-  context('null/undefined', () => {
+  describe('null/undefined', () => {
     it('returns true if value is null', () => {
       expect(dispatch('isblank', [buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -525,7 +525,7 @@ describe('isblank', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('returns true if value is an empty string', () => {
       expect(dispatch('isblank', [buildLiteralFromJs('')])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -535,25 +535,25 @@ describe('isblank', () => {
     });
   });
 
-  context('Number', () => {
+  describe('Number', () => {
     it('returns false if value is 0', () => {
       expect(dispatch('isblank', [buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isblank', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isblank', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Geolocation', () => {
+  describe('Geolocation', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isblank', [buildGeolocationLiteral(51.5105474, -0.1358797)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -561,7 +561,7 @@ describe('isblank', () => {
 });
 
 describe('isnull', () => {
-  context('null/undefined', () => {
+  describe('null/undefined', () => {
     it('returns true if value is null', () => {
       expect(dispatch('isnull', [buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -571,7 +571,7 @@ describe('isnull', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('returns false if value is an empty string', () => {
       expect(dispatch('isnull', [buildLiteralFromJs('')])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -581,25 +581,25 @@ describe('isnull', () => {
     });
   });
 
-  context('Number', () => {
+  describe('Number', () => {
     it('returns false if value is 0', () => {
       expect(dispatch('isnull', [buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isnull', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isnull', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(false));
     });
   });
 
-  context('Geolocation', () => {
+  describe('Geolocation', () => {
     it('returns false if value is filled', () => {
       expect(dispatch('isnull', [buildGeolocationLiteral(51.5105474, -0.1358797)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -631,7 +631,7 @@ describe('not', () => {
 });
 
 describe('or', () => {
-  context('1 argument', () => {
+  describe('1 argument', () => {
     it('true', () => {
       expect(dispatch('or', [buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -641,7 +641,7 @@ describe('or', () => {
     });
   });
 
-  context('2 arguments', () => {
+  describe('2 arguments', () => {
     it('both true', () => {
       expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -659,7 +659,7 @@ describe('or', () => {
     });
   });
 
-  context('3 arguments', () => {
+  describe('3 arguments', () => {
     it('all true', () => {
       expect(dispatch('or', [buildLiteralFromJs(true), buildLiteralFromJs(true), buildLiteralFromJs(true)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -682,7 +682,7 @@ describe.skip('nullvalue', () => {
 });
 
 describe('equal', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('equal', () => {
       expect(dispatch('equal', [buildLiteralFromJs(1), buildLiteralFromJs(1)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -692,7 +692,7 @@ describe('equal', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('equal', () => {
       expect(dispatch('equal', [buildLiteralFromJs('Eins'), buildLiteralFromJs('Eins')])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -702,7 +702,7 @@ describe('equal', () => {
     });
   });
 
-  context('Checkbox', () => {
+  describe('Checkbox', () => {
     it('equal', () => {
       expect(dispatch('equal', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -712,7 +712,7 @@ describe('equal', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('equal', () => {
       expect(dispatch('equal', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -722,7 +722,7 @@ describe('equal', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('equal', () => {
       expect(dispatch('equal', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -732,7 +732,7 @@ describe('equal', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('equal', [buildLiteralFromJs(1), buildLiteralFromJs('1')])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EQUAL()'. Expected Number, received Text", { function: 'equal', expected: 'number', received: 'text' }));
     });
@@ -740,7 +740,7 @@ describe('equal', () => {
 });
 
 describe('unequal', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('equal', () => {
       expect(dispatch('unequal', [buildLiteralFromJs(1), buildLiteralFromJs(1)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -750,7 +750,7 @@ describe('unequal', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('equal', () => {
       expect(dispatch('unequal', [buildLiteralFromJs('Eins'), buildLiteralFromJs('Eins')])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -760,7 +760,7 @@ describe('unequal', () => {
     });
   });
 
-  context('Checkbox', () => {
+  describe('Checkbox', () => {
     it('equal', () => {
       expect(dispatch('unequal', [buildLiteralFromJs(false), buildLiteralFromJs(false)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -770,7 +770,7 @@ describe('unequal', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('equal', () => {
       expect(dispatch('unequal', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -780,7 +780,7 @@ describe('unequal', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('equal', () => {
       expect(dispatch('unequal', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -790,7 +790,7 @@ describe('unequal', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('unequal', [buildLiteralFromJs(1), buildLiteralFromJs('1')])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'UNEQUAL()'. Expected Number, received Text", { function: 'unequal', expected: 'number', received: 'text' }));
     });
@@ -798,7 +798,7 @@ describe('unequal', () => {
 });
 
 describe('greaterThan', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('greater than', () => {
       expect(dispatch('greaterThan', [buildLiteralFromJs(1), buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -812,7 +812,7 @@ describe('greaterThan', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('greater than', () => {
       expect(dispatch('greaterThan', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 10)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -826,7 +826,7 @@ describe('greaterThan', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('greater than', () => {
       expect(dispatch('greaterThan', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 972))])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -840,7 +840,7 @@ describe('greaterThan', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('greaterThan', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'GREATERTHAN()'. Expected Date, received Number", { function: 'greaterThan', expected: 'date', received: 'number' }));
     });
@@ -848,7 +848,7 @@ describe('greaterThan', () => {
 });
 
 describe('greaterThanOrEqual', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('greater than', () => {
       expect(dispatch('greaterThanOrEqual', [buildLiteralFromJs(1), buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -862,7 +862,7 @@ describe('greaterThanOrEqual', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('greater than', () => {
       expect(dispatch('greaterThanOrEqual', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 10)])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -876,7 +876,7 @@ describe('greaterThanOrEqual', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('greater than', () => {
       expect(dispatch('greaterThanOrEqual', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 972))])).to.deep.eq(buildLiteralFromJs(true));
     });
@@ -890,7 +890,7 @@ describe('greaterThanOrEqual', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('greaterThan', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'GREATERTHAN()'. Expected Date, received Number", { function: 'greaterThan', expected: 'date', received: 'number' }));
     });
@@ -898,7 +898,7 @@ describe('greaterThanOrEqual', () => {
 });
 
 describe('lessThan', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('greater than', () => {
       expect(dispatch('lessThan', [buildLiteralFromJs(1), buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -912,7 +912,7 @@ describe('lessThan', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('greater than', () => {
       expect(dispatch('lessThan', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 10)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -926,7 +926,7 @@ describe('lessThan', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('greater than', () => {
       expect(dispatch('lessThan', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 972))])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -940,7 +940,7 @@ describe('lessThan', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('lessThan', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'LESSTHAN()'. Expected Date, received Number", { function: 'lessThan', expected: 'date', received: 'number' }));
     });
@@ -948,7 +948,7 @@ describe('lessThan', () => {
 });
 
 describe('lessThanOrEqual', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('greater than', () => {
       expect(dispatch('lessThanOrEqual', [buildLiteralFromJs(1), buildLiteralFromJs(0)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -962,7 +962,7 @@ describe('lessThanOrEqual', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('greater than', () => {
       expect(dispatch('lessThanOrEqual', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 10)])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -976,7 +976,7 @@ describe('lessThanOrEqual', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('greater than', () => {
       expect(dispatch('lessThanOrEqual', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 972))])).to.deep.eq(buildLiteralFromJs(false));
     });
@@ -990,7 +990,7 @@ describe('lessThanOrEqual', () => {
     });
   });
 
-  context('different types', () => {
+  describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('lessThanOrEqual', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'LESSTHANOREQUAL()'. Expected Date, received Number", { function: 'lessThanOrEqual', expected: 'date', received: 'number' }));
     });
@@ -1000,67 +1000,67 @@ describe('lessThanOrEqual', () => {
 // Math Operators
 
 describe('add', () => {
-  context('Number, Number', () => {
+  describe('Number, Number', () => {
     it('adds correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs(1), buildLiteralFromJs(2)])).to.deep.eq(buildLiteralFromJs(3));
     });
   });
 
-  context('Number, Null', () => {
+  describe('Number, Null', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('add', [buildLiteralFromJs(1), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'ADD()'. Expected Number, received Null", { function: 'add', expected: 'number', received: 'null' }));
     });
   });
 
-  context('Text, Text', () => {
+  describe('Text, Text', () => {
     it('concats correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'));
     });
   });
 
-  context('Text, Null', () => {
+  describe('Text, Null', () => {
     it('concats correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs(null)])).to.deep.eq(buildLiteralFromJs('Black'));
     });
   });
 
-  context('Date, Number', () => {
+  describe('Date, Number', () => {
     it('adds number of days', () => {
       expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildLiteralFromJs(5)])).to.deep.eq(buildDateLiteral(2020, 2, 16));
     });
   });
 
-  context('Number, Date', () => {
+  describe('Number, Date', () => {
     it('adds number of days', () => {
       expect(dispatch('add', [buildLiteralFromJs(5), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildDateLiteral(2020, 2, 16));
     });
   });
 
-  context('Time, Number', () => {
+  describe('Time, Number', () => {
     it('adds number of milliseconds', () => {
       expect(dispatch('add', [buildTimeLiteral(45000000), buildLiteralFromJs(5000)])).to.deep.eq(buildTimeLiteral(45005000));
     });
   });
 
-  context('Number, Time', () => {
+  describe('Number, Time', () => {
     it('adds number of milliseconds', () => {
       expect(dispatch('add', [buildLiteralFromJs(5000), buildTimeLiteral(45000000)])).to.deep.eq(buildTimeLiteral(45005000));
     });
   });
 
-  context('Datetime, Number', () => {
+  describe('Datetime, Number', () => {
     it('adds number of days', () => {
       expect(dispatch('add', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildLiteralFromJs(5)])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)));
     });
   });
 
-  context('Number, Datetime', () => {
+  describe('Number, Datetime', () => {
     it('adds number of days', () => {
       expect(dispatch('add', [buildLiteralFromJs(5), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)));
     });
   });
 
-  context('Date, Date', () => {
+  describe('Date, Date', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('add', [buildDateLiteral(2020, 2, 11), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'ADD()'. Expected Number, received Date", { function: 'add', expected: 'number', received: 'date' }));
     });
@@ -1068,7 +1068,7 @@ describe('add', () => {
 });
 
 describe('concat operator', () => {
-  context('Text, Text', () => {
+  describe('Text, Text', () => {
     it('concats correctly', () => {
       expect(dispatch('add', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(buildLiteralFromJs('BlackJack'));
     });
@@ -1076,13 +1076,13 @@ describe('concat operator', () => {
 });
 
 describe('multiply', () => {
-  context('Number, Number', () => {
+  describe('Number, Number', () => {
     it('multiplies correctly', () => {
       expect(dispatch('multiply', [buildLiteralFromJs(7), buildLiteralFromJs(8)])).to.deep.eq(buildLiteralFromJs(56));
     });
   });
 
-  context('Number, Null', () => {
+  describe('Number, Null', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('multiply', [buildLiteralFromJs(3), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'MULTIPLY()'. Expected Number, received Null", { function: 'multiply', expected: 'number', received: 'null' }));
     });
@@ -1090,13 +1090,13 @@ describe('multiply', () => {
 });
 
 describe('divide', () => {
-  context('Number, Number', () => {
+  describe('Number, Number', () => {
     it('multiplies correctly', () => {
       expect(dispatch('divide', [buildLiteralFromJs(10), buildLiteralFromJs(2)])).to.deep.eq(buildLiteralFromJs(5));
     });
   });
 
-  context('Number, Null', () => {
+  describe('Number, Null', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('divide', [buildLiteralFromJs(13), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'DIVIDE()'. Expected Number, received Null", { function: 'divide', expected: 'number', received: 'null' }));
     });
@@ -1104,25 +1104,25 @@ describe('divide', () => {
 });
 
 describe('exponentiate', () => {
-  context('Number, Number', () => {
+  describe('Number, Number', () => {
     it('exponentiates correctly', () => {
       expect(dispatch('exponentiate', [buildLiteralFromJs(2), buildLiteralFromJs(5)])).to.deep.eq(buildLiteralFromJs(32));
     });
   });
 
-  context('Decimal, Number', () => {
+  describe('Decimal, Number', () => {
     it('exponentiates correctly', () => {
       expect(dispatch('exponentiate', [buildLiteralFromJs(2.71828), buildLiteralFromJs(5)])).to.deep.eq(buildLiteralFromJs(148.41265995084171));
     });
   });
 
-  context('Number, Decimal', () => {
+  describe('Number, Decimal', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('exponentiate', [buildLiteralFromJs(2.71828), buildLiteralFromJs(1.4285714286)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EXPONENTIATE()'. Expected Integer, received Number", { function: 'exponentiate', expected: 'integer', received: 'number' }));
     });
   });
 
-  context('Number, Null', () => {
+  describe('Number, Null', () => {
     it('returns ArgumentError', () => {
       expect(dispatch('exponentiate', [buildLiteralFromJs(3), buildLiteralFromJs(null)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'EXPONENTIATE()'. Expected Number, received Null", { function: 'exponentiate', expected: 'number', received: 'null' }));
     });
@@ -1353,71 +1353,71 @@ describe('sqrt', () => {
 });
 
 describe('subtract', () => {
-  context('Number, Number', () => {
+  describe('Number, Number', () => {
     it('adds correctly', () => {
       expect(dispatch('subtract', [buildLiteralFromJs(5), buildLiteralFromJs(3)])).to.deep.eq(buildLiteralFromJs(2));
     });
   });
 
-  context('Text, Text', () => {
+  describe('Text, Text', () => {
     it('returns ArgumentError', () => {
       const expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, Date, Datetime, Time, received Text", { function: 'subtract', expected: ['number', 'date', 'datetime', 'time'], received: 'text' });
       expect(dispatch('subtract', [buildLiteralFromJs('Black'), buildLiteralFromJs('Jack')])).to.deep.eq(expected);
     });
   });
 
-  context('Date, Number', () => {
+  describe('Date, Number', () => {
     it('subtracts number of days', () => {
       expect(dispatch('subtract', [buildDateLiteral(2020, 2, 11), buildLiteralFromJs(5)])).to.deep.eq(buildDateLiteral(2020, 2, 6));
     });
   });
 
-  context('Number, Date', () => {
+  describe('Number, Date', () => {
     it('returns ArgumentError', () => {
       const expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Date", { function: 'subtract', expected: 'number', received: 'date' });
       expect(dispatch('subtract', [buildLiteralFromJs(5), buildDateLiteral(2020, 2, 11)])).to.deep.eq(expected);
     });
   });
 
-  context('Time, Number', () => {
+  describe('Time, Number', () => {
     it('subtracts number of milliseconds', () => {
       expect(dispatch('subtract', [buildTimeLiteral(45005000), buildLiteralFromJs(5000)])).to.deep.eq(buildTimeLiteral(45000000));
     });
   });
 
-  context('Number, Time', () => {
+  describe('Number, Time', () => {
     it('returns ArgumentError', () => {
       const expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Time", { function: 'subtract', expected: 'number', received: 'time' });
       expect(dispatch('subtract', [buildLiteralFromJs(5000), buildTimeLiteral(45000000)])).to.deep.eq(expected);
     });
   });
 
-  context('Datetime, Number', () => {
+  describe('Datetime, Number', () => {
     it('subtracts number of days', () => {
       expect(dispatch('subtract', [buildDatetimeLiteral(Date.UTC(2020, 2, 4, 17, 39, 0, 973)), buildLiteralFromJs(5)])).to.deep.eq(buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)));
     });
   });
 
-  context('Number, Datetime', () => {
+  describe('Number, Datetime', () => {
     it('returns ArgumentError', () => {
       const expected = buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'SUBTRACT()'. Expected Number, received Datetime", { function: 'subtract', expected: 'number', received: 'datetime' });
       expect(dispatch('subtract', [buildLiteralFromJs(5), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(expected);
     });
   });
 
-  context('Date, Date', () => {
+  describe('Date, Date', () => {
     it('returns difference in days', () => {
       expect(dispatch('subtract', [buildDateLiteral(2020, 2, 16), buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs(5));
     });
   });
 
-  context('Time, Time', () => {
+  describe('Time, Time', () => {
     it('returns difference in milliseconds', () => {
       expect(dispatch('subtract', [buildTimeLiteral(45005000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(5000));
     });
   });
 
-  context('Datetime, DateTime', () => {
+  describe('Datetime, DateTime', () => {
     it('returns difference in days', () => {
       const datetime1 = buildDatetimeLiteral(Date.UTC(2020, 2, 1, 17, 39, 0, 973));
       const datetime2 = buildDatetimeLiteral(Date.UTC(2020, 1, 28, 5, 39, 0, 973));
@@ -1499,14 +1499,14 @@ describe('getsessionid', () => {
 });
 
 describe('hyperlink', () => {
-  context('no target', () => {
+  describe('no target', () => {
     it('returns correct hyperlink', () => {
       const expected = '<a href="http://www.bbc.co.uk">BBC News</a>';
       expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News')])).to.deep.eq(buildLiteralFromJs(expected));
     });
   });
 
-  context('target _blank', () => {
+  describe('target _blank', () => {
     it('returns correct hyperlink', () => {
       const expected = '<a href="http://www.bbc.co.uk" target="_blank">BBC News</a>';
       expect(dispatch('hyperlink', [buildLiteralFromJs('http://www.bbc.co.uk'), buildLiteralFromJs('BBC News'), buildLiteralFromJs('_blank')])).to.deep.eq(buildLiteralFromJs(expected));
@@ -1515,14 +1515,14 @@ describe('hyperlink', () => {
 });
 
 describe('image', () => {
-  context('no dimensions', () => {
+  describe('no dimensions', () => {
     it('returns correct image', () => {
       const expected = '<img src="https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2" alt="Leif Gravatar"/>';
       expect(dispatch('image', [buildLiteralFromJs('https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2'), buildLiteralFromJs('Leif Gravatar')])).to.deep.eq(buildLiteralFromJs(expected));
     });
   });
 
-  context('height and width defined', () => {
+  describe('height and width defined', () => {
     it('returns correct image', () => {
       const expected = '<img src="https://www.gravatar.com/avatar/1d33920589a79039ca137ee6ac7ce6c2" alt="Leif Gravatar" height="100" width="200"/>';
       expect(dispatch('image', [
@@ -1649,25 +1649,25 @@ describe('substitute', () => {
 });
 
 describe('text', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('returns correct text', () => {
       expect(dispatch('text', [buildLiteralFromJs(1)])).to.deep.eq(buildLiteralFromJs('1'));
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('returns correct text', () => {
       expect(dispatch('text', [buildDateLiteral(2020, 2, 11)])).to.deep.eq(buildLiteralFromJs('2020-02-11'));
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('returns correct text', () => {
       expect(dispatch('text', [buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs('2020-02-11 17:39:00Z'));
     });
   });
 
-  context('Picklist', () => {
+  describe('Picklist', () => {
     it('returns correct text', () => {
       expect(dispatch('text', [buildPicklistLiteral('Active', ['Active', 'Inactive'])])).to.deep.eq(buildLiteralFromJs('Active'));
     });
@@ -1699,7 +1699,7 @@ describe('upper', () => {
 });
 
 describe('value', () => {
-  context('Parsable', () => {
+  describe('Parsable', () => {
     it('returns correct value for integer', () => {
       expect(dispatch('value', [buildLiteralFromJs('1')])).to.deep.eq(buildLiteralFromJs(1));
     });
@@ -1709,7 +1709,7 @@ describe('value', () => {
     });
   });
 
-  context('Not Parsable', () => {
+  describe('Not Parsable', () => {
     it('returns null', () => {
       expect(dispatch('value', [buildLiteralFromJs('Number Kaputt')])).to.deep.eq(buildLiteralFromJs(null));
     });

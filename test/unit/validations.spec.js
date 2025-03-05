@@ -1,18 +1,18 @@
-/* global describe it context */
+/* global describe it */
 
-import { expect } from 'chai';
-import { buildLiteralFromJs, buildPicklistLiteral } from '../src/utils';
+import { expect } from 'vitest';
+import { buildLiteralFromJs, buildPicklistLiteral } from '../../src/utils';
 import {
   caseParams,
   maxNumOfParams,
   minNumOfParams,
   paramTypes,
   sameParamType,
-} from '../src/validations';
-import ArgumentError from '../src/errors/ArgumentError';
+} from '../../src/validations';
+import ArgumentError from '../../src/errors/ArgumentError';
 
 describe('maxNumOfParams', () => {
-  context('exact length', () => {
+  describe('exact length', () => {
     it('throws no error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => maxNumOfParams(2)('mod')(params);
@@ -20,7 +20,7 @@ describe('maxNumOfParams', () => {
     });
   });
 
-  context('less parameters than expected', () => {
+  describe('less parameters than expected', () => {
     it('throws no error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => maxNumOfParams(3)('if')(params);
@@ -28,7 +28,7 @@ describe('maxNumOfParams', () => {
     });
   });
 
-  context('more parameters than expected', () => {
+  describe('more parameters than expected', () => {
     it('throws ArgumentError', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => maxNumOfParams(1)('abs')(params);
@@ -38,7 +38,7 @@ describe('maxNumOfParams', () => {
 });
 
 describe('minNumOfParams', () => {
-  context('exact length', () => {
+  describe('exact length', () => {
     it('throws no error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => minNumOfParams(2)('mod')(params);
@@ -46,7 +46,7 @@ describe('minNumOfParams', () => {
     });
   });
 
-  context('less parameters than expected', () => {
+  describe('less parameters than expected', () => {
     it('throws ArgumentError', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => minNumOfParams(3)('if')(params);
@@ -54,7 +54,7 @@ describe('minNumOfParams', () => {
     });
   });
 
-  context('more parameters than expected', () => {
+  describe('more parameters than expected', () => {
     it('throws no error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
       const fn = () => minNumOfParams(1)('abs')(params);
@@ -64,9 +64,9 @@ describe('minNumOfParams', () => {
 });
 
 describe('paramTypes', () => {
-  context('length matches', () => {
-    context('types match', () => {
-      context('single type expectatiosn', () => {
+  describe('length matches', () => {
+    describe('types match', () => {
+      describe('single type expectatiosn', () => {
         it('throws no error', () => {
           const params = [buildLiteralFromJs('long')];
           const fn = () => paramTypes('text')('len')(params);
@@ -80,7 +80,7 @@ describe('paramTypes', () => {
         });
       });
 
-      context('multi type expectatiosn', () => {
+      describe('multi type expectatiosn', () => {
         it('throws no error', () => {
           const params = [buildLiteralFromJs(1), buildLiteralFromJs(2)];
           const fn = () => paramTypes(['date', 'number'], ['date', 'number'])('add')(params);
@@ -89,8 +89,8 @@ describe('paramTypes', () => {
       });
     });
 
-    context('types do not match', () => {
-      context('single type expectatiosn', () => {
+    describe('types do not match', () => {
+      describe('single type expectatiosn', () => {
         it('throws an error for text != number', () => {
           const params = [buildLiteralFromJs(1234)];
           const fn = () => paramTypes('text')('len')(params);
@@ -104,7 +104,7 @@ describe('paramTypes', () => {
         });
       });
 
-      context('multi type expectatiosn', () => {
+      describe('multi type expectatiosn', () => {
         it('throws an error for checkbox != number, date', () => {
           const params = [buildLiteralFromJs(true), buildLiteralFromJs(false)];
           const fn = () => paramTypes(['date', 'number'], ['date', 'number'])('add')(params);
@@ -114,9 +114,9 @@ describe('paramTypes', () => {
     });
   });
 
-  context('expected length > received length', () => {
-    context('types match', () => {
-      context('single type expectatiosn', () => {
+  describe('expected length > received length', () => {
+    describe('types match', () => {
+      describe('single type expectatiosn', () => {
         it('throws no error', () => {
           const params = [buildLiteralFromJs('LGENSERT'), buildLiteralFromJs(3)];
           const fn = () => paramTypes('text', 'number', 'text')('lpad')(params);
@@ -125,8 +125,8 @@ describe('paramTypes', () => {
       });
     });
 
-    context('types do not match', () => {
-      context('single type expectatiosn', () => {
+    describe('types do not match', () => {
+      describe('single type expectatiosn', () => {
         it('throws an error for text != number', () => {
           const params = [buildLiteralFromJs('LGENSERT'), buildLiteralFromJs('3')];
           const fn = () => paramTypes('text', 'number', 'text')('lpad')(params);
@@ -142,9 +142,9 @@ describe('paramTypes', () => {
     });
   });
 
-  context('expected length < received length', () => {
-    context('types match', () => {
-      context('single type expectatiosn', () => {
+  describe('expected length < received length', () => {
+    describe('types match', () => {
+      describe('single type expectatiosn', () => {
         it('throws no error', () => {
           const params = [buildLiteralFromJs(1), buildLiteralFromJs(3)];
           const fn = () => paramTypes('number')('max')(params);
@@ -153,8 +153,8 @@ describe('paramTypes', () => {
       });
     });
 
-    context('types do not match', () => {
-      context('single type expectatiosn', () => {
+    describe('types do not match', () => {
+      describe('single type expectatiosn', () => {
         it('throws an error for text != number', () => {
           const params = [buildLiteralFromJs(1), buildLiteralFromJs('3')];
           const fn = () => paramTypes('number')('max')(params);
@@ -166,27 +166,31 @@ describe('paramTypes', () => {
 });
 
 describe('sameParamType', () => {
-  context('same param type', () => {
+  describe('same param type', () => {
     it('does not throw an error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2), buildLiteralFromJs(3)];
       const fn = () => sameParamType()('equal')(params);
       expect(fn()).to.eq(undefined);
     });
 
-    context('only one param', () => {
-      const params = [buildLiteralFromJs(1)];
-      const fn = () => sameParamType()('equal')(params);
-      expect(fn()).to.eq(undefined);
+    describe('only one param', () => {
+      it('does not throw an error', () => {
+        const params = [buildLiteralFromJs(1)];
+        const fn = () => sameParamType()('equal')(params);
+        expect(fn()).to.eq(undefined);
+      });
     });
 
-    context('no param', () => {
-      const params = [];
-      const fn = () => sameParamType()('br')(params);
-      expect(fn()).to.eq(undefined);
+    describe('no param', () => {
+      it('does not throw an error', () => {
+        const params = [];
+        const fn = () => sameParamType()('br')(params);
+        expect(fn()).to.eq(undefined);
+      });
     });
   });
 
-  context('different param type', () => {
+  describe('different param type', () => {
     it('throws an ArgumentError', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(2), buildLiteralFromJs('3')];
       const fn = () => sameParamType()('equal')(params);
@@ -194,7 +198,7 @@ describe('sameParamType', () => {
     });
   });
 
-  context('includes null', () => {
+  describe('includes null', () => {
     it('throws an ArgumentError', () => {
       const params = [buildLiteralFromJs(null), buildLiteralFromJs(2), buildLiteralFromJs(3)];
       const fn = () => sameParamType()('equal')(params);
@@ -202,7 +206,7 @@ describe('sameParamType', () => {
     });
   });
 
-  context('only null parameters', () => {
+  describe('only null parameters', () => {
     it('does not throw an error', () => {
       const params = [buildLiteralFromJs(null), buildLiteralFromJs(null)];
       const fn = () => sameParamType()('equal')(params);
@@ -212,14 +216,14 @@ describe('sameParamType', () => {
 });
 
 describe('caseParams', () => {
-  context('types match up', () => {
+  describe('types match up', () => {
     it('throws no error', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(1), buildLiteralFromJs('1'), buildLiteralFromJs(2), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
       const fn = () => caseParams()('case')(params);
       expect(fn()).to.eq(undefined);
     });
 
-    context('picklist', () => {
+    describe('picklist', () => {
       it('throws no error', () => {
         const params = [buildPicklistLiteral('Active', ['Active', 'Inactive']), buildLiteralFromJs('Active'), buildLiteralFromJs('1'), buildLiteralFromJs('Inactive'), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
         const fn = () => caseParams()('case')(params);
@@ -228,14 +232,14 @@ describe('caseParams', () => {
     });
   });
 
-  context('types do not match', () => {
+  describe('types do not match', () => {
     it('throws ArgumentError', () => {
       const params = [buildLiteralFromJs(1), buildLiteralFromJs(1), buildLiteralFromJs('1'), buildLiteralFromJs('2'), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
       const fn = () => caseParams()('case')(params);
       expect(fn).to.throw(ArgumentError, "Incorrect parameter type for function 'CASE()'. Expected Number, received Text");
     });
 
-    context('picklist', () => {
+    describe('picklist', () => {
       it('throws ArgumentError', () => {
         const params = [buildPicklistLiteral('Active', ['Active', 'Inactive']), buildLiteralFromJs('Active'), buildLiteralFromJs('1'), buildLiteralFromJs(2), buildLiteralFromJs('2'), buildLiteralFromJs('somethign else')];
         const fn = () => caseParams()('case')(params);

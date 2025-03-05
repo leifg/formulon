@@ -1,10 +1,10 @@
 /* eslint import/prefer-default-export: 0 */
-/* global it context */
+/* global describe it */
 
-import { expect } from 'chai';
+import { expect } from 'vitest';
 
 export const testBuildAst = (handler) => {
-  context('Trimming', () => {
+  describe('Trimming', () => {
     it('parses AST correctly with trailing whitespace', () => {
       const expected = {
         type: 'literal',
@@ -64,7 +64,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Whitespace Characters', () => {
+  describe('Whitespace Characters', () => {
     it('parses AST correctly with newlines between operators', () => {
       const expected = {
         type: 'callExpression',
@@ -159,7 +159,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Function Calls', () => {
+  describe('Function Calls', () => {
     it('function call without arguments', () => {
       const expected = {
         type: 'callExpression',
@@ -254,7 +254,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Arithmetics', () => {
+  describe('Arithmetics', () => {
     it('string concatenation', () => {
       const expected = {
         type: 'callExpression',
@@ -798,7 +798,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Boolean Algebra', () => {
+  describe('Boolean Algebra', () => {
     it('simple or', () => {
       const expected = {
         type: 'callExpression',
@@ -991,7 +991,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Identifiers', () => {
+  describe('Identifiers', () => {
     it('returns correct result', () => {
       const expected = {
         type: 'identifier',
@@ -1000,7 +1000,7 @@ export const testBuildAst = (handler) => {
       expect(handler('Name')).to.deep.equal(expected);
     });
 
-    context('Cross Object Identifier', () => {
+    describe('Cross Object Identifier', () => {
       it('returns correct result for simple cross object identifier', () => {
         const expected = {
           type: 'identifier',
@@ -1018,7 +1018,7 @@ export const testBuildAst = (handler) => {
       });
     });
 
-    context('User Identifier', () => {
+    describe('User Identifier', () => {
       it('returns correct result', () => {
         const expected = {
           type: 'identifier',
@@ -1029,7 +1029,7 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Literals', () => {
+  describe('Literals', () => {
     it('string literal', () => {
       const expected = {
         type: 'literal',
@@ -1155,8 +1155,8 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Logic', () => {
-    context('unary', () => {
+  describe('Logic', () => {
+    describe('unary', () => {
       it('NOT with Identifier', () => {
         const expected = {
           type: 'callExpression',
@@ -1211,7 +1211,7 @@ export const testBuildAst = (handler) => {
       });
     });
 
-    context('binary', () => {
+    describe('binary', () => {
       it('&&', () => {
         const expected = {
           type: 'callExpression',
@@ -1334,8 +1334,8 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Function', () => {
-    context('case sensitivity', () => {
+  describe('Function', () => {
+    describe('case sensitivity', () => {
       it('returns expected AST', () => {
         const expected = {
           type: 'callExpression',
@@ -1366,8 +1366,8 @@ export const testBuildAst = (handler) => {
     });
   });
 
-  context('Quotes', () => {
-    context('Single Quotes', () => {
+  describe('Quotes', () => {
+    describe('Single Quotes', () => {
       it('returns expected result', () => {
         const expected = {
           type: 'literal',
@@ -1381,7 +1381,7 @@ export const testBuildAst = (handler) => {
         expect(handler("'string'")).to.deep.equal(expected);
       });
 
-      context('Double Quotes in Single Quotes', () => {
+      describe('Double Quotes in Single Quotes', () => {
         it('returns expected result', () => {
           const expected = {
             type: 'literal',
@@ -1397,7 +1397,7 @@ export const testBuildAst = (handler) => {
       });
     });
 
-    context('Double Quotes', () => {
+    describe('Double Quotes', () => {
       it('returns expected result', () => {
         const expected = {
           type: 'literal',
@@ -1411,7 +1411,7 @@ export const testBuildAst = (handler) => {
         expect(handler('"string"')).to.deep.equal(expected);
       });
 
-      context('Single Quotes in Double Quotes', () => {
+      describe('Single Quotes in Double Quotes', () => {
         it('returns expected result', () => {
           const expected = {
             type: 'literal',

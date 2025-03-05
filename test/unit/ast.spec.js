@@ -1,9 +1,7 @@
-/* global describe it context */
-
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import {
   build, extract, replace, traverse,
-} from '../src/ast';
+} from '../../src/ast';
 import { testBuildAst } from './shared';
 
 describe('ast', () => {
@@ -12,7 +10,7 @@ describe('ast', () => {
   });
 
   describe('traverse', () => {
-    context('literal', () => {
+    describe('literal', () => {
       it('integer literal', () => {
         const input = {
           type: 'literal',
@@ -85,8 +83,8 @@ describe('ast', () => {
       });
     });
 
-    context('identifier', () => {
-      context('just an identifier', () => {
+    describe('identifier', () => {
+      describe('just an identifier', () => {
         it('returns ReferenceError', () => {
           const input = { type: 'identifier', name: 'Name' };
           expect(traverse(input)).to.deep.eq({
@@ -98,7 +96,7 @@ describe('ast', () => {
         });
       });
 
-      context('identifer in call', () => {
+      describe('identifer in call', () => {
         it('returns ReferenceError', () => {
           const input = {
             type: 'callExpression',
@@ -129,7 +127,7 @@ describe('ast', () => {
       });
     });
 
-    context('callExpression', () => {
+    describe('callExpression', () => {
       it('1 level', () => {
         const input = {
           type: 'callExpression',
@@ -225,7 +223,7 @@ describe('ast', () => {
   });
 
   describe('extract', () => {
-    context('no identifiers', () => {
+    describe('no identifiers', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
@@ -257,7 +255,7 @@ describe('ast', () => {
       });
     });
 
-    context('one identifier', () => {
+    describe('one identifier', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
@@ -270,7 +268,7 @@ describe('ast', () => {
       });
     });
 
-    context('multiple identifiers', () => {
+    describe('multiple identifiers', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
@@ -290,7 +288,7 @@ describe('ast', () => {
       });
     });
 
-    context('redundant identifiers', () => {
+    describe('redundant identifiers', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
@@ -303,7 +301,7 @@ describe('ast', () => {
       });
     });
 
-    context('function call without parameters', () => {
+    describe('function call without parameters', () => {
       const ast = {
         type: 'callExpression',
         id: 'date',
@@ -318,7 +316,7 @@ describe('ast', () => {
   });
 
   describe('replace', () => {
-    context('no identifiers', () => {
+    describe('no identifiers', () => {
       const ast = {
         type: 'callExpression',
         id: 'add',
@@ -350,8 +348,8 @@ describe('ast', () => {
       });
     });
 
-    context('one identifier', () => {
-      context('replacement given', () => {
+    describe('one identifier', () => {
+      describe('replacement given', () => {
         const ast = {
           type: 'callExpression',
           id: 'add',
@@ -409,7 +407,7 @@ describe('ast', () => {
         });
       });
 
-      context('no replacement given', () => {
+      describe('no replacement given', () => {
         const ast = {
           type: 'callExpression',
           id: 'add',

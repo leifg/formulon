@@ -1,6 +1,6 @@
-/* global describe it context */
+/* global describe it */
 
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import {
   addMonths,
   arrayUnique,
@@ -17,46 +17,46 @@ import {
   parseTime,
   sfRound,
   coerceLiteral,
-} from '../src/utils';
+} from '../../src/utils';
 
-import ArgumentError from '../src/errors/ArgumentError';
-import NoFunctionError from '../src/errors/NoFunctionError';
-import NotImplementedError from '../src/errors/NotImplementedError';
-import ReferenceError from '../src/errors/ReferenceError';
+import ArgumentError from '../../src/errors/ArgumentError';
+import NoFunctionError from '../../src/errors/NoFunctionError';
+import NotImplementedError from '../../src/errors/NotImplementedError';
+import ReferenceError from '../../src/errors/ReferenceError';
 
 describe('parseTime', () => {
-  context('valid time', () => {
+  describe('valid time', () => {
     it('returns expected result', () => {
       expect(parseTime('16:23:56.826')).to.deep.eq(buildTimeLiteral(59036826));
     });
   });
 
-  context('invalid time', () => {
-    context('invalid format', () => {
+  describe('invalid time', () => {
+    describe('invalid format', () => {
       it('returns expected result', () => {
         expect(parseTime('abc')).to.deep.eq(buildLiteralFromJs(null));
       });
     });
 
-    context('hour invalid', () => {
+    describe('hour invalid', () => {
       it('returns expected result', () => {
         expect(parseTime('24:23:56.826')).to.deep.eq(buildLiteralFromJs(null));
       });
     });
 
-    context('minute invalid', () => {
+    describe('minute invalid', () => {
       it('returns expected result', () => {
         expect(parseTime('16:60:56.826')).to.deep.eq(buildLiteralFromJs(null));
       });
     });
 
-    context('second invalid', () => {
+    describe('second invalid', () => {
       it('returns expected result', () => {
         expect(parseTime('16:23:60.826')).to.deep.eq(buildLiteralFromJs(null));
       });
     });
 
-    context('millisecond invalid', () => {
+    describe('millisecond invalid', () => {
       it('returns expected result', () => {
         expect(parseTime('16:23:56.1000')).to.deep.eq(buildLiteralFromJs(null));
       });
@@ -65,8 +65,8 @@ describe('parseTime', () => {
 });
 
 describe('buildLiteralFromJs', () => {
-  context('Number', () => {
-    context('Integer', () => {
+  describe('Number', () => {
+    describe('Integer', () => {
       it('returns expected Literal for positive number', () => {
         const expected = {
           type: 'literal',
@@ -94,7 +94,7 @@ describe('buildLiteralFromJs', () => {
       });
     });
 
-    context('Float', () => {
+    describe('Float', () => {
       it('returns expected Literal for positive number', () => {
         const expected = {
           type: 'literal',
@@ -123,7 +123,7 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('returns expected Literal for text number', () => {
       const expected = {
         type: 'literal',
@@ -137,7 +137,7 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
-  context('Checkbox', () => {
+  describe('Checkbox', () => {
     it('returns expected Literal for true', () => {
       const expected = {
         type: 'literal',
@@ -149,7 +149,7 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
-  context('Null', () => {
+  describe('Null', () => {
     it('returns expected Literal', () => {
       const expected = {
         type: 'literal',
@@ -161,7 +161,7 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
-  context('Undefined', () => {
+  describe('Undefined', () => {
     it('returns expected Literal', () => {
       const expected = {
         type: 'literal',
@@ -173,7 +173,7 @@ describe('buildLiteralFromJs', () => {
     });
   });
 
-  context('unsupported type', () => {
+  describe('unsupported type', () => {
     it('throws TypeError', () => {
       const fn = () => { buildLiteralFromJs({}); };
 
@@ -183,7 +183,7 @@ describe('buildLiteralFromJs', () => {
 });
 
 describe('buildDateLiteral', () => {
-  context('integer input', () => {
+  describe('integer input', () => {
     it('returns expected literal for year/month/day', () => {
       const expected = {
         type: 'literal',
@@ -195,7 +195,7 @@ describe('buildDateLiteral', () => {
     });
   });
 
-  context('date input', () => {
+  describe('date input', () => {
     it('returns expected literal for date', () => {
       const expected = {
         type: 'literal',
@@ -209,7 +209,7 @@ describe('buildDateLiteral', () => {
 });
 
 describe('buildDatetimeLiteral', () => {
-  context('unix timestamp input', () => {
+  describe('unix timestamp input', () => {
     it('returns expected literal for unix timesampt', () => {
       const expected = {
         type: 'literal',
@@ -221,7 +221,7 @@ describe('buildDatetimeLiteral', () => {
     });
   });
 
-  context('date input', () => {
+  describe('date input', () => {
     it('returns expected literal for date', () => {
       const input = new Date(Date.UTC(2020, 1, 11, 14, 39, 42, 974));
       const expected = {
@@ -236,7 +236,7 @@ describe('buildDatetimeLiteral', () => {
 });
 
 describe('buildTimeLiteral', () => {
-  context('milliseconds from midnight input', () => {
+  describe('milliseconds from midnight input', () => {
     it('returns expected literal for milliseconds from midnight', () => {
       const expected = {
         type: 'literal',
@@ -300,7 +300,7 @@ describe('buildGeolocationLiteral', () => {
 
 describe('arrayUnique', () => {
   // TODO add deepFreeze
-  context('non redundant elements', () => {
+  describe('non redundant elements', () => {
     it('returns same input as output for empty array', () => {
       const input = [];
       const expected = [];
@@ -314,7 +314,7 @@ describe('arrayUnique', () => {
     });
   });
 
-  context('redundant elements', () => {
+  describe('redundant elements', () => {
     it('leaves out redundant elements', () => {
       const input = ['a', 'b', 'c', 'a'];
       const expected = ['a', 'b', 'c'];
@@ -346,7 +346,7 @@ describe('sfRound', () => {
 });
 
 describe('addMonths', () => {
-  context('mid month', () => {
+  describe('mid month', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(2020, 6, 15));
       const expected = new Date(Date.UTC(2020, 8, 15));
@@ -354,7 +354,7 @@ describe('addMonths', () => {
     });
   });
 
-  context('end of the year', () => {
+  describe('end of the year', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(1999, 11, 15));
       const expected = new Date(Date.UTC(2000, 0, 15));
@@ -362,7 +362,7 @@ describe('addMonths', () => {
     });
   });
 
-  context('end of the month', () => {
+  describe('end of the month', () => {
     it('returns one month later', () => {
       const input = new Date(Date.UTC(2005, 0, 31));
       const expected = new Date(Date.UTC(2005, 1, 28));
@@ -372,7 +372,7 @@ describe('addMonths', () => {
 });
 
 describe('coerceLiteral', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('rounds accordingly', () => {
       const input = {
         type: 'literal',
@@ -460,7 +460,7 @@ describe('coerceLiteral', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('cuts text off', () => {
       const input = {
         type: 'literal',
@@ -485,7 +485,7 @@ describe('coerceLiteral', () => {
 });
 
 describe('formatLiteral', () => {
-  context('Number', () => {
+  describe('Number', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(buildLiteralFromJs(1), { value: null });
       expect(formatLiteral(input)).to.eq('');
@@ -509,7 +509,7 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Text', () => {
+  describe('Text', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(buildLiteralFromJs('string'), { value: null });
       expect(formatLiteral(input)).to.eq('');
@@ -529,7 +529,7 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Checkbox', () => {
+  describe('Checkbox', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(buildLiteralFromJs(false), { value: null });
       expect(formatLiteral(input)).to.eq('');
@@ -549,7 +549,7 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Date', () => {
+  describe('Date', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(buildDateLiteral(2020, 2, 11), { value: null });
       expect(formatLiteral(input)).to.eq('');
@@ -565,7 +565,7 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Datetime', () => {
+  describe('Datetime', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(
         buildDatetimeLiteral(Date.UTC(2020, 1, 11, 14, 39, 42, 974)),
@@ -588,7 +588,7 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Time', () => {
+  describe('Time', () => {
     it('returns correct string for null value', () => {
       const input = Object.assign(buildTimeLiteral(32833019), { value: null });
       expect(formatLiteral(input)).to.eq('');
@@ -605,8 +605,8 @@ describe('formatLiteral', () => {
     });
   });
 
-  context('Geolocation', () => {
-    context('null input', () => {
+  describe('Geolocation', () => {
+    describe('null input', () => {
       it('returns correct string for both arguments being null', () => {
         expect(formatLiteral(buildGeolocationLiteral(null, null))).to.eq('');
       });
@@ -620,38 +620,38 @@ describe('formatLiteral', () => {
       });
     });
 
-    context('default input', () => {
+    describe('default input', () => {
       it('returns correct string for 0,0', () => {
         expect(formatLiteral(buildGeolocationLiteral(0, 0))).to.eq('0.000000, 0.000000');
       });
     });
 
-    context('float input', () => {
+    describe('float input', () => {
       it('returns correct string for gelocation', () => {
         expect(formatLiteral(buildGeolocationLiteral(32.855160, -117.258836))).to.eq('32.855160, -117.258836');
       });
     });
 
-    context('integer input', () => {
+    describe('integer input', () => {
       it('returns correct string for gelocation', () => {
         expect(formatLiteral(buildGeolocationLiteral(51.4764081, 0))).to.eq('51.476408, 0.000000');
       });
     });
   });
 
-  context('Picklist', () => {
+  describe('Picklist', () => {
     it('returns correct string for picklist', () => {
       expect(formatLiteral(buildPicklistLiteral('Public', ['Public', 'Private']))).to.eq('"Public"');
     });
   });
 
-  context('Multipicklist', () => {
+  describe('Multipicklist', () => {
     it('returns correct string for picklist', () => {
       expect(formatLiteral(buildMultipicklistLiteral(['Pumpkin', 'Vanilla'], ['Gingerbread', 'Strawberry', 'Chocolate', 'Raspberry', 'Pumpkin', 'Mint', 'Vanilla']))).to.eq('["Pumpkin", "Vanilla"]');
     });
   });
 
-  context('Null', () => {
+  describe('Null', () => {
     it('returns correct string for date', () => {
       expect(formatLiteral(buildLiteralFromJs(null))).to.eq('NULL');
     });
@@ -659,14 +659,14 @@ describe('formatLiteral', () => {
 });
 
 describe('handleFormulonError', () => {
-  context('no error raised', () => {
+  describe('no error raised', () => {
     it('returns value of function', () => {
       const fn = () => 'success';
       expect(handleFormulonError(fn)).to.eq('success');
     });
   });
 
-  context('ArgumentError', () => {
+  describe('ArgumentError', () => {
     it('returns error object', () => {
       const fn = () => { throw new ArgumentError('Test Argument Error', { optionKey: 'optionValue' }); };
       const expected = {
@@ -679,7 +679,7 @@ describe('handleFormulonError', () => {
     });
   });
 
-  context('ReferenceError', () => {
+  describe('ReferenceError', () => {
     it('returns error object', () => {
       const fn = () => { throw new ReferenceError('Test ReferenceError', { optionKey: 'optionValue' }); };
       const expected = {
@@ -692,7 +692,7 @@ describe('handleFormulonError', () => {
     });
   });
 
-  context('NoFunctionError', () => {
+  describe('NoFunctionError', () => {
     it('returns error object', () => {
       const fn = () => { throw new NoFunctionError('Test NoFunctionError', { optionKey: 'optionValue' }); };
       const expected = {
@@ -705,7 +705,7 @@ describe('handleFormulonError', () => {
     });
   });
 
-  context('NotImplementedError', () => {
+  describe('NotImplementedError', () => {
     it('returns error object', () => {
       const fn = () => { throw new NotImplementedError('Test NotImplementedError', { optionKey: 'optionValue' }); };
       const expected = {
@@ -718,7 +718,7 @@ describe('handleFormulonError', () => {
     });
   });
 
-  context('non formulon error', () => {
+  describe('non formulon error', () => {
     it('throws error', () => {
       const fn = () => { throw new TypeError('Something different'); };
       expect(fn).to.throw(TypeError, 'Something different');

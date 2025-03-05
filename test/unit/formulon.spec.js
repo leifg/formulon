@@ -1,14 +1,14 @@
-/* global describe it context */
+/* global describe it */
 
-import { expect } from 'chai';
-import { extract, parse, ast } from '../src/formulon';
-import { buildLiteralFromJs } from '../src/utils';
+import { expect } from 'vitest';
+import { extract, parse, ast } from '../../src/formulon';
+import { buildLiteralFromJs } from '../../src/utils';
 import { testBuildAst } from './shared';
 
 describe('Formulon', () => {
   describe('parse', () => {
-    context('success', () => {
-      context('no identifiers', () => {
+    describe('success', () => {
+      describe('no identifiers', () => {
         it('returns correct result for addition', () => {
           expect(parse('1 + 2')).to.deep.eq(buildLiteralFromJs(3));
         });
@@ -90,8 +90,8 @@ describe('Formulon', () => {
         });
       });
 
-      context('coerce inputs', () => {
-        context('number', () => {
+      describe('coerce inputs', () => {
+        describe('number', () => {
           it('rounds variables accordingly', () => {
             const var1 = {
               type: 'literal',
@@ -117,7 +117,7 @@ describe('Formulon', () => {
           });
         });
 
-        context('text', () => {
+        describe('text', () => {
           it('cuts off text', () => {
             const input = {
               type: 'literal',
@@ -133,8 +133,8 @@ describe('Formulon', () => {
         });
       });
 
-      context('with identifiers', () => {
-        context('string', () => {
+      describe('with identifiers', () => {
+        describe('string', () => {
           const substitutions = {
             Custom_field__c: {
               value: '',
@@ -150,7 +150,7 @@ describe('Formulon', () => {
           });
         });
 
-        context('arithmetics', () => {
+        describe('arithmetics', () => {
           const substitutions = {
             Custom_field__c: {
               value: 2,
@@ -167,7 +167,7 @@ describe('Formulon', () => {
           });
         });
 
-        context('number coercion', () => {
+        describe('number coercion', () => {
           const substitutions = {
             Number_field__c: {
               value: null,
@@ -186,36 +186,36 @@ describe('Formulon', () => {
       });
     });
 
-    context('error', () => {
-      context('empty input', () => {
+    describe('error', () => {
+      describe('empty input', () => {
         const expected = buildLiteralFromJs('');
 
-        context('null input', () => {
+        describe('null input', () => {
           it('returns empty string', () => {
             expect(parse(null)).to.deep.eq(expected);
           });
         });
 
-        context('undefined input', () => {
+        describe('undefined input', () => {
           it('returns empty string', () => {
             expect(parse(undefined)).to.deep.eq(expected);
           });
         });
 
-        context('empty string input', () => {
+        describe('empty string input', () => {
           it('returns empty string', () => {
             expect(parse('')).to.deep.eq(expected);
           });
         });
 
-        context('whitespace only input', () => {
+        describe('whitespace only input', () => {
           it('returns empty string', () => {
             expect(parse('   ')).to.deep.eq(expected);
           });
         });
       });
 
-      context('no substitutions for existing identifier', () => {
+      describe('no substitutions for existing identifier', () => {
         it('returns error object with ReferenceError', () => {
           const expected = {
             type: 'error',
@@ -227,7 +227,7 @@ describe('Formulon', () => {
         });
       });
 
-      context('unknown function call', () => {
+      describe('unknown function call', () => {
         it('returns error object with ReferenceError', () => {
           const expected = {
             type: 'error',
@@ -239,7 +239,7 @@ describe('Formulon', () => {
         });
       });
 
-      context('parse error', () => {
+      describe('parse error', () => {
         it('returns error object with SyntaxError', () => {
           const expected = {
             type: 'error',
@@ -250,7 +250,7 @@ describe('Formulon', () => {
         });
       });
 
-      context('wrong number of parameters', () => {
+      describe('wrong number of parameters', () => {
         it('returns error object with ReferenceError', () => {
           const expected = {
             type: 'error',
@@ -264,7 +264,7 @@ describe('Formulon', () => {
         });
       });
 
-      context('runtime error in inner call', () => {
+      describe('runtime error in inner call', () => {
         it('exposes the inner error', () => {
           const expected = {
             type: 'error',
@@ -281,7 +281,7 @@ describe('Formulon', () => {
   });
 
   describe('extract', () => {
-    context('no identifiers', () => {
+    describe('no identifiers', () => {
       const formula = '1.5 + 2';
 
       it('returns empty array', () => {
@@ -290,7 +290,7 @@ describe('Formulon', () => {
       });
     });
 
-    context('one identifier', () => {
+    describe('one identifier', () => {
       const formula = '1.5 + Name';
 
       it('returns array with identifiers', () => {
@@ -299,7 +299,7 @@ describe('Formulon', () => {
       });
     });
 
-    context('multiple identifiers', () => {
+    describe('multiple identifiers', () => {
       const formula = 'Argument1 - Argument2 + Name';
 
       it('returns array with identifiers', () => {
@@ -308,7 +308,7 @@ describe('Formulon', () => {
       });
     });
 
-    context('redundant identifiers', () => {
+    describe('redundant identifiers', () => {
       const formula = 'Name * Name';
 
       it('returns array unique identifiers', () => {
@@ -317,7 +317,7 @@ describe('Formulon', () => {
       });
     });
 
-    context('parameterless function name', () => {
+    describe('parameterless function name', () => {
       const formula = 'DATE()';
 
       it('returns empty array', () => {
@@ -326,28 +326,28 @@ describe('Formulon', () => {
       });
     });
 
-    context('empty input', () => {
+    describe('empty input', () => {
       const expected = [];
 
-      context('null input', () => {
+      describe('null input', () => {
         it('returns empty string', () => {
           expect(extract(null)).to.deep.eq(expected);
         });
       });
 
-      context('undefined input', () => {
+      describe('undefined input', () => {
         it('returns empty string', () => {
           expect(extract(undefined)).to.deep.eq(expected);
         });
       });
 
-      context('empty string input', () => {
+      describe('empty string input', () => {
         it('returns empty string', () => {
           expect(extract('')).to.deep.eq(expected);
         });
       });
 
-      context('whitespace only input', () => {
+      describe('whitespace only input', () => {
         it('returns empty string', () => {
           expect(extract('   ')).to.deep.eq(expected);
         });
@@ -358,28 +358,28 @@ describe('Formulon', () => {
   describe('ast', () => {
     testBuildAst(ast);
 
-    context('empty input', () => {
+    describe('empty input', () => {
       const expected = {};
 
-      context('null input', () => {
+      describe('null input', () => {
         it('returns empty string', () => {
           expect(ast(null)).to.deep.eq(expected);
         });
       });
 
-      context('undefined input', () => {
+      describe('undefined input', () => {
         it('returns empty string', () => {
           expect(ast(undefined)).to.deep.eq(expected);
         });
       });
 
-      context('empty string input', () => {
+      describe('empty string input', () => {
         it('returns empty string', () => {
           expect(ast('')).to.deep.eq(expected);
         });
       });
 
-      context('whitespace only input', () => {
+      describe('whitespace only input', () => {
         it('returns empty string', () => {
           expect(ast('   ')).to.deep.eq(expected);
         });
