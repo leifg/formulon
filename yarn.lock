@@ -1834,9 +1834,9 @@
   integrity sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==
 
 "@vitest/eslint-plugin@^1.1.36":
-  version "1.1.42"
-  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.1.42.tgz#a90bd3c8f6577a8e40cb7a18f9d2825b143cf91d"
-  integrity sha512-dTGNbh/angh+hoqp5L5A8YO/29mOXDXmDQ/1fzt/jiYzLvU6FvrMqJpGqMqh5g+Fz6MDoZi0AlxefnFUg93Q5A==
+  version "1.1.43"
+  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.1.43.tgz#00b43b5d173f3f9dc24a8f7c704c9beb5d791830"
+  integrity sha512-OLoUMO67Yg+kr7E6SjF5+Qvl2f6uNJ7ImQYnXT8WgnPiZE41ZQBsnzn70jehXrhFVadphHs2smk+yl0TFKLV5Q==
 
 "@vitest/expect@3.1.1":
   version "3.1.1"
