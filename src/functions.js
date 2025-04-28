@@ -166,11 +166,9 @@ export const sf$isblank = (expression) => buildLiteralFromJs(expression.dataType
 
 export const sf$isnull = (expression) => buildLiteralFromJs(expression.dataType === 'null');
 
-/* eslint-disable no-unused-vars */
 export const sf$isnumber = (_text) => {
   NotImplementedError.throwError('isnumber');
 };
-/* eslint-enable no-unused-vars */
 
 export const sf$not = (logical) => buildLiteralFromJs(!logical.value);
 
@@ -180,7 +178,6 @@ export const sf$nullvalue = (expression, substituteExpression) => (
 
 // Math Operators
 
-/* eslint-disable consistent-return */
 export const sf$add = (value1, value2) => {
   switch ([value1.dataType, value2.dataType].join(' ')) {
     case 'date number':
@@ -235,7 +232,6 @@ export const sf$subtract = (value1, value2) => {
       ArgumentError.throwWrongType('subtract', 'number', value2.dataType);
   }
 };
-/* eslint-enable consistent-return */
 
 export const sf$multiply = (value1, value2) => {
   if ([value1.dataType, value2.dataType].join(' ') !== 'number number') {
@@ -388,9 +384,7 @@ export const sf$casesafeid = (id) => {
     [0, 1, 2, 3, 4].forEach((j) => {
       const c = id.value[i * 5 + j];
       if (c.toUpperCase() === c && c >= 'A' && c <= 'Z') {
-        /* eslint no-bitwise: ["error", { "allow": ["<<"] }] */
         flags += 1 << j;
-        /* eslint no-bitwise: ["error", { "allow": ["<<"] }] */
       }
     });
     suffix += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ012345'[flags];
@@ -444,9 +438,7 @@ export const sf$left = (text, numChars) => sf$mid(text, buildLiteralFromJs(1), n
 
 export const sf$len = (text) => buildLiteralFromJs(text.value.length);
 
-/* eslint-disable no-unused-vars */
 export const sf$lower = (text, _locale) => buildLiteralFromJs(text.value.toLowerCase());
-/* eslint-enable no-unused-vars */
 
 export const sf$lpad = (text, paddedLength, padString) => {
   if (padString == null) {
@@ -488,11 +480,8 @@ export const sf$text = (value) => {
 
 export const sf$trim = (text) => buildLiteralFromJs(text.value.trim());
 
-/* eslint-disable no-unused-vars */
 export const sf$upper = (text, _locale) => buildLiteralFromJs(text.value.toUpperCase());
-/* eslint-enable no-unused-vars */
 
-/* eslint-disable no-unused-vars */
 export const sf$value = (text) => {
   const parsedValue = parseFloat(text.value);
 
@@ -502,15 +491,12 @@ export const sf$value = (text) => {
 
   return buildLiteralFromJs(null);
 };
-/* eslint-enable no-unused-vars */
 
 // Advanced Functions
 
-/* eslint-disable no-unused-vars */
 export const sf$currencyrate = (_isoCode) => {
   NotImplementedError.throwError('currencyrate');
 };
-/* eslint-enable no-unused-vars */
 
 export const sf$regex = (text, regexText) => {
   const r = new RegExp(`^${regexText.value}$`);

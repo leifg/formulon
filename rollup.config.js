@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { terser } from 'rollup-plugin-terser';
 
 export default [{

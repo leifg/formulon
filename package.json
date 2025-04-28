@@ -10,7 +10,7 @@
     "build": "yarn compile:parser && yarn rollup -c",
     "compile:parser": "node .scripts/make-peggy",
     "test": "vitest",
-    "lint": "eslint --ignore-path .gitignore .",
+    "lint": "eslint .",
     "commitlint": "commitlint",
     "semantic-release": "semantic-release"
   },
@@ -38,7 +38,7 @@
     "@types/node": "^22.13.8",
     "@vitest/eslint-plugin": "^1.1.36",
     "commitlint": "^19.7.1",
-    "eslint": "^8.2.0",
+    "eslint": "^9.25.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.20.2",
     "glob": "^11.0.1",
