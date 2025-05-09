@@ -38,12 +38,24 @@ describe('datetimevalue', () => {
     const expected = buildDatetimeLiteral(Date.UTC(2020, 1, 11, 17, 39, 0, 973));
     expect(dispatch('datetimevalue', [input])).to.deep.eq(expected);
   });
+
+  it('returns argument error for invalid date time', () => {
+    const input = buildLiteralFromJs('Some time in February');
+    const expected = buildErrorLiteral('ArgumentError', "Invalid Value 'Some time in February' for 'DATETIMEVALUE()'.", { function: 'datetimevalue', input: 'Some time in February' });
+    expect(dispatch('datetimevalue', [input])).to.deep.eq(expected);
+  });
 });
 
 describe('datevalue', () => {
   it('returns correct date', () => {
     const expected = buildDateLiteral(2020, 2, 11);
     expect(dispatch('datevalue', [buildLiteralFromJs('2020-02-11')])).to.deep.eq(expected);
+  });
+
+  it('returns argument error for invalid date', () => {
+    const input = buildLiteralFromJs('Some day in February');
+    const expected = buildErrorLiteral('ArgumentError', "Invalid Value 'Some day in February' for 'DATEVALUE()'.", { function: 'datevalue', input: 'Some day in February' });
+    expect(dispatch('datevalue', [input])).to.deep.eq(expected);
   });
 });
 
