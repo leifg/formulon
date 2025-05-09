@@ -67,13 +67,25 @@ export const sf$date = (year, month, day) => (
   buildDateLiteral(year.value, month.value, day.value)
 );
 
-export const sf$datevalue = (expression) => (
-  buildDateLiteral(new Date(Date.parse(expression.value)))
-);
+export const sf$datevalue = (expression) => {
+  const parsedDate = Date.parse(expression.value);
 
-export const sf$datetimevalue = (expression) => (
-  buildDatetimeLiteral(Date.parse(`${expression.value}Z`))
-);
+  if(isNaN(parsedDate)) {
+    throw new ArgumentError(`Invalid Value '${expression.value}' for 'DATEVALUE()'.`, { function: 'datevalue', input: expression.value });
+  }
+
+  return buildDateLiteral(new Date(parsedDate));
+};
+
+export const sf$datetimevalue = (expression) => {
+  const parsedDate = Date.parse(`${expression.value}Z`)
+
+  if(isNaN(parsedDate)) {
+    throw new ArgumentError(`Invalid Value '${expression.value}' for 'DATETIMEVALUE()'.`, { function: 'datetimevalue', input: expression.value });
+  }
+
+  return buildDatetimeLiteral(parsedDate);
+};
 
 export const sf$day = (date) => (
   buildLiteralFromJs(date.value.getUTCDate())
