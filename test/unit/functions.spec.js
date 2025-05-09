@@ -840,6 +840,20 @@ describe('greaterThan', () => {
     });
   });
 
+  describe('Time', () => {
+    it('greater than', () => {
+      expect(dispatch('greaterThan', [buildTimeLiteral(45000001), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('smaller than', () => {
+      expect(dispatch('greaterThan', [buildTimeLiteral(45000000), buildTimeLiteral(45000001)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('equal', () => {
+      expect(dispatch('greaterThan', [buildTimeLiteral(45000000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
   describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('greaterThan', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'GREATERTHAN()'. Expected Date, received Number", { function: 'greaterThan', expected: 'date', received: 'number' }));
@@ -887,6 +901,20 @@ describe('greaterThanOrEqual', () => {
 
     it('equal', () => {
       expect(dispatch('greaterThanOrEqual', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(true));
+    });
+  });
+
+  describe('Time', () => {
+    it('greater than', () => {
+      expect(dispatch('greaterThanOrEqual', [buildTimeLiteral(45000001), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('smaller than', () => {
+      expect(dispatch('greaterThanOrEqual', [buildTimeLiteral(45000000), buildTimeLiteral(45000001)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('equal', () => {
+      expect(dispatch('greaterThanOrEqual', [buildTimeLiteral(45000000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(true));
     });
   });
 
@@ -940,6 +968,20 @@ describe('lessThan', () => {
     });
   });
 
+  describe('Time', () => {
+    it('greater than', () => {
+      expect(dispatch('lessThan', [buildTimeLiteral(45000001), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('smaller than', () => {
+      expect(dispatch('lessThan', [buildTimeLiteral(45000000), buildTimeLiteral(45000001)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('equal', () => {
+      expect(dispatch('lessThan', [buildTimeLiteral(45000000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+  });
+
   describe('different types', () => {
     it('returns an ArgumentError', () => {
       expect(dispatch('lessThan', [buildDateLiteral(2020, 2, 10), buildLiteralFromJs(1)])).to.deep.eq(buildErrorLiteral('ArgumentError', "Incorrect parameter type for function 'LESSTHAN()'. Expected Date, received Number", { function: 'lessThan', expected: 'date', received: 'number' }));
@@ -987,6 +1029,20 @@ describe('lessThanOrEqual', () => {
 
     it('equal', () => {
       expect(dispatch('lessThanOrEqual', [buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973)), buildDatetimeLiteral(Date.UTC(2020, 1, 28, 17, 39, 0, 973))])).to.deep.eq(buildLiteralFromJs(true));
+    });
+  });
+
+  describe('Time', () => {
+    it('greater than', () => {
+      expect(dispatch('lessThanOrEqual', [buildTimeLiteral(45000001), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(false));
+    });
+
+    it('smaller than', () => {
+      expect(dispatch('lessThanOrEqual', [buildTimeLiteral(45000000), buildTimeLiteral(45000001)])).to.deep.eq(buildLiteralFromJs(true));
+    });
+
+    it('equal', () => {
+      expect(dispatch('lessThanOrEqual', [buildTimeLiteral(45000000), buildTimeLiteral(45000000)])).to.deep.eq(buildLiteralFromJs(true));
     });
   });
 

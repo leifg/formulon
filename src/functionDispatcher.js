@@ -111,11 +111,11 @@ const existingFunctions = {
     returnType: 'text',
   },
   greaterThan: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time']), sameParamType()],
     returnType: 'checkbox',
   },
   greaterThanOrEqual: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime'])],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time'])],
     returnType: 'checkbox',
   },
   hour: {
@@ -163,11 +163,11 @@ const existingFunctions = {
     returnType: 'number',
   },
   lessThan: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time']), sameParamType()],
     returnType: 'checkbox',
   },
   lessThanOrEqual: {
-    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime']), sameParamType()],
+    validations: [minNumOfParams(2), maxNumOfParams(2), paramTypes(['number', 'date', 'datetime', 'time']), sameParamType()],
     returnType: 'checkbox',
   },
   ln: {
