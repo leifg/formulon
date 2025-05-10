@@ -96,7 +96,7 @@ describe('ast', () => {
         });
       });
 
-      describe('identifer in call', () => {
+      describe('identifier in call', () => {
         it('returns ReferenceError', () => {
           const input = {
             type: 'callExpression',
