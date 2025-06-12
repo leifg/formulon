@@ -36,7 +36,7 @@
     "@babel/register": "^7.8.3",
     "@commitlint/config-conventional": "^19.7.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "@types/node": "^22.13.8",
+    "@types/node": "^24.0.1",
     "@vitest/eslint-plugin": "^1.1.36",
     "commitlint": "^19.7.1",
     "eslint": "^9.25.1",
