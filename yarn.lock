@@ -1941,9 +1941,9 @@
     eslint-visitor-keys "^4.2.0"
 
 "@vitest/eslint-plugin@^1.1.36":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.2.1.tgz#99136de056721e37d1b02832dbe88a78b2620b70"
-  integrity sha512-JQr1jdVcrsoS7Sdzn83h9sq4DvREf9Q/onTZbJCqTVlv/76qb+TZrLv/9VhjnjSMHweQH5FdpMDeCR6aDe2fgw==
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.2.4.tgz#55054160510b23e6ace6ea722d12c40998f7e8f2"
+  integrity sha512-4gcw3Kvh1cvwEA1dhPbcwoNmJJXQAaeSiP4UZ8Y9SFdxKuMKrt3moxQ1DLklugjw8S1zhziDp/vPrB3x0UEHKQ==
   dependencies:
     "@typescript-eslint/utils" "^8.24.0"
 
