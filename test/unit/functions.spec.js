@@ -1775,6 +1775,18 @@ describe('value', () => {
     it('returns correct value for float', () => {
       expect(dispatch('value', [buildLiteralFromJs('3.14')])).to.deep.eq(buildLiteralFromJs(3.14));
     });
+
+    it('returns correct value for 0 (integer)', () => {
+      expect(dispatch('value', [buildLiteralFromJs('0')])).to.deep.eq(buildLiteralFromJs(0));
+    });
+
+    it('returns correct value for 0.0 (float)', () => {
+      expect(dispatch('value', [buildLiteralFromJs('0.0')])).to.deep.eq(buildLiteralFromJs(0.0));
+    });
+
+    it('returns correct value for negative number', () => {
+      expect(dispatch('value', [buildLiteralFromJs('-1')])).to.deep.eq(buildLiteralFromJs(-1));
+    });
   });
 
   describe('Not Parsable', () => {

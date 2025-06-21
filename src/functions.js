@@ -497,7 +497,7 @@ export const sf$upper = (text, _locale) => buildLiteralFromJs(text.value.toUpper
 export const sf$value = (text) => {
   const parsedValue = parseFloat(text.value);
 
-  if (parsedValue) {
+  if (parsedValue || parsedValue === 0) {
     return buildLiteralFromJs(parsedValue);
   }
 
