@@ -45,7 +45,7 @@
     "glob": "^11.0.1",
     "peggy": "^5.0.2",
     "rollup": "^4.40.1",
-    "semantic-release": "^24.2.3",
+    "semantic-release": "^25.0.0",
     "vitest": "^3.0.7"
   },
   "release": {
