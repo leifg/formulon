@@ -1574,10 +1574,10 @@
   dependencies:
     "@octokit/openapi-types" "^25.0.0"
 
-"@peggyjs/from-mem@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@peggyjs/from-mem/-/from-mem-2.0.1.tgz#b5eb397b55ed0f202caf0b92a340871a185c9803"
-  integrity sha512-5dAPJsLrb3KQahPb8kUqg9nGS2dKlMC4vCB3dMWoZIRqmPrNbBt6P6jidczFBoz+2EbFXBxXi0o9BUpEPHoD+g==
+"@peggyjs/from-mem@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@peggyjs/from-mem/-/from-mem-3.1.1.tgz#29d1f8f328242a0265d5e8d3c4081e0bb242bef4"
+  integrity sha512-m5OEjgJaePWpyNtQCvRZkpLoV+z44eh6QIO9yEwQuOThdUdkECO3wcKLT3tFA3H8WM5bxU/K/dpmo7r/X16UEw==
   dependencies:
     semver "7.7.2"
 
@@ -5764,13 +5764,13 @@ pathval@^2.0.0:
   integrity sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==
 
 peggy@^5.0.2:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/peggy/-/peggy-5.0.4.tgz#3e80c8e84147cc06b0b6bf9e11ed904f156214cf"
-  integrity sha512-NMRm2w2irCFbiOaejvcDEyn+DMUaGd8s4RT1ztj9Kr/kR367pziIvmjqJ0OFqcAg+LqT5tPGsW96MNT5gUNdUw==
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/peggy/-/peggy-5.0.6.tgz#ac3a8e200baf1fd8b236a38b2b4306d89914bb0b"
+  integrity sha512-Sud8Zus0JAgE+U4zwkJv29OOaXhviFI7J90/6cGfy3OoqR8dpnieeF9a46dj0bTtqiFnrFatldA6ltQyOJvNmg==
   dependencies:
-    "@peggyjs/from-mem" "2.0.1"
+    "@peggyjs/from-mem" "3.1.1"
     commander "^14.0.0"
-    source-map-generator "2.0.1"
+    source-map-generator "2.0.2"
 
 picocolors@^1.1.1:
   version "1.1.1"
@@ -6445,10 +6445,10 @@ socks@^2.8.3:
     ip-address "^9.0.5"
     smart-buffer "^4.2.0"
 
-source-map-generator@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/source-map-generator/-/source-map-generator-2.0.1.tgz#19d9b5b53ede067294d5d5f4328172ac06d05a2c"
-  integrity sha512-AtEu86XavXC2HD/bQVQoDbovnTRZE/0QMAAHn6RxALAoLOM3a47IG06TpsJK23BnCmjbTYNLwx2vUhgzRYgGMA==
+source-map-generator@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/source-map-generator/-/source-map-generator-2.0.2.tgz#54a5dc54bc7a61bcce754030a9d686bed82a8c55"
+  integrity sha512-unCl5BQhF/us51DiT7SvlSY3QUPhyfAdHJxd8l7FXdwzqxli0UDMV2dEuei2SeGp3Z4rB/AJ9zKi1mGOp2K2ww==
 
 source-map-js@^1.2.1:
   version "1.2.1"
