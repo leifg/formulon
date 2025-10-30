@@ -2225,9 +2225,9 @@
     eslint-visitor-keys "^4.2.1"
 
 "@vitest/eslint-plugin@^1.1.36":
-  version "1.3.23"
-  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.3.23.tgz#830f7b8d842a83ad7964dd2fc707c63e442bed0d"
-  integrity sha512-kp1vjoJTdVf8jWdzr/JpHIPfh3HMR6JBr2p7XuH4YNx0UXmV4XWdgzvCpAmH8yb39Gry31LULiuBcuhyc/OqkQ==
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@vitest/eslint-plugin/-/eslint-plugin-1.4.0.tgz#37daafcc83c971213403e4c65077a8fd662610c0"
+  integrity sha512-TMzJ0Vqdsc71stblzI0ZdqSnt6Bp4mJ+amD3Hv3qhKK82hBUnznYfnLwA80gdGfe5V24ysndMOoSGrol6fyvbA==
   dependencies:
     "@typescript-eslint/scope-manager" "^8.46.1"
     "@typescript-eslint/utils" "^8.46.1"
